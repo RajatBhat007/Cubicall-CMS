@@ -1,0 +1,215 @@
+<div class="web-container-game-theme">
+    <div class="row">
+        <div class="col-7">
+            <div class="search-bar-container d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+
+                <div class="input-group">
+
+                    <input type="text" class="form-control font" placeholder="Search anything" aria-label=""
+                        aria-describedby="basic-addon1">
+                </div>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-5 pe-4 dropdown-col d-flex justify-content-end">
+
+            <div ngbDropdown class="dropdown" style="position:relative;">
+                <button ngbDropdownToggle class="btn btn-secondary font" type="button" id="dropdownMenuButton1"
+                    aria-expanded="false">
+                    {{ selectedDropdownValue }}
+                    <img class="circle" alt="org_image" src="assets/images/Ellipse.svg" />
+
+                </button>
+                <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 1')" class="font">Organization
+                            1</a></li>
+                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 2')" class="font">Organization
+                            2</a></li>
+                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 3')" class="font">Organization
+                            3</a></li>
+                </ul>
+            </div>
+
+            <div ngbDropdown class="dropdown" style="position: relative; display: inline-flex;">
+                <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton2"
+                    aria-expanded="false">
+                    <img class="circle" alt="Organisation Image" src="assets/images/Profile.svg" />
+                </button>
+                <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+                    <li><a ngbDropdownItem class="font">Profile 1</a></li>
+                    <li><a ngbDropdownItem class="font">Profile 2</a></li>
+                    <li><a ngbDropdownItem class="font">Profile 3</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12 d-flex align-items-center" style="flex-direction: row;">
+            <div class="circle-div">
+
+            </div>
+            <div class="font ms-2 title_name">Game Themes</div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-10">
+            <div class="row">
+                <div class="col-2" *ngFor="let res of matTab; let i=index" (click)="NavigateToTab(i)"
+                    style="cursor: pointer; padding-right: 0;">
+                    <div class="tab d-flex justify-content-center align-items-center flex-column"
+                        [ngClass]="{'tab-active': i === activeIndexTab}">
+                        <div class="circle-tab"></div>
+                        <div class="mat-title font">{{res.content}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-2"> </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="bottom-conatiner">
+                <div class="row">
+                    <div class="col-5 mt-4 ps-4 ">
+                        <div class="upload-button font d-flex justify-content-center" style="cursor: pointer;">
+                            Upload <span
+                                class="add_btn ms-1 mt-1 d-flex align-items-center justify-content-center">+</span>
+                            <input type="file" id="fileInput" class="file-input">
+
+                        </div>
+                        <div class="row mt-4 ps-2">
+                            <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j=index"
+                                (click)="NavigateToSubTab(j)">
+                                <div class="sub_tab font d-flex justify-content-center align-items-center"
+                                    [ngClass]="{'sub-tab-active': j === activeIndexSubTab}">
+                                    {{res_sub.label}}
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4  d-flex">
+                        <div class="draft-button font d-flex justify-content-center">Draft</div>
+                        <hr class="d-flex align-items-center horizontal_line mt-2" style="width: 2vh; height: 5vh;">
+                        <div class="submitted-button font d-flex justify-content-center">Submitted</div>
+
+                    </div>
+                    <div class="col-4 mt-2 d-flex justify-content-end">
+                        <div class="count-container pt-1">
+                            <div class="row w-100" *ngFor="let response of count">
+                                <div class="col-lg-5 col-sm-4  ps-4  font count_label">{{response.label}}</div>
+                                <div class="col-lg-5 col-sm-6 ">
+                                    <div
+                                        class="count-points font d-flex justify-content-center align-items-center mt-1">
+                                        {{response.value}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-2  col-sm-2">
+
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2" checked>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row w-100">
+                    <div class="col-12 ms-2 d-flex justify-content-center">
+                        <div class="table-container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div
+                                        class="drop_down_table font d-flex justify-content-center align-items-center ms-3">
+                                        5
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div class="table-header">
+                                        <div class="checkbox-header d-flex align-items-center">
+                                            <div class="edit_btn  d-flex justify-content-center align-items-center"></div>
+                                            <div class="checkbox">
+                                                <div class="form-check d-flex align-items-center">
+                                                    <input class="form-check-input checkbox-input-checkbox" type="checkbox" value=""
+                                                        id="flexCheckDefault">
+    
+                                                </div>
+    
+                                            </div>
+    
+                                            <div class="Status_label font d-flex align-items-center justify-content-center">
+                                               Status
+                                            </div>
+    
+                                            <div class="view-header font d-flex justify-content-center">
+                                                View
+                                            </div>
+                                            
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2" *ngFor="let res of tableData">
+                                <div class="col-12 d-flex justify-content-center" >
+                                    <div class="table-body d-flex align-items-center" >
+                                        <div class="edit_btn  d-flex justify-content-center align-items-center">
+                                            <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
+                                        </div>
+                                        <div class="checkbox">
+                                            <div class="form-check d-flex align-items-center">
+                                                <input class="form-check-input checkbox-input" type="checkbox" value=""
+                                                    id="flexCheckDefault">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-check form-switch d-flex align-items-center">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="flexSwitchCheckDefault">
+                                        </div>
+
+                                        <div class="view_div d-flex align-items-center justify-content-center" >
+                                            <img class="eye-image" src="assets/images/View.svg" alt="Eye Image"/>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

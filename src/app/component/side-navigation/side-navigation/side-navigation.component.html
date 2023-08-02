@@ -1,0 +1,32 @@
+<div class="web-container">
+    <div class="row">
+        <div class="col-2 side-nav">
+
+            <div class="prof-pic-container d-flex justify-content-center align-items-center">
+                <div class="prof-pic"></div>
+            </div>
+            <div class="sidemenu-container d-flex  flex-column">
+                <div class="side-menu d-flex justify-content-center" *ngFor="let res of sidebar; let i = index"
+                    (click)="NavigateTo(i)" style="cursor: pointer;">
+                    <div class="sidebar-content  d-flex justify-content-center align-items-center"
+                        [ngClass]="{'sidebar-content-active': i === activeIndex}">
+                        <div class="sidebar_logo_container ">
+
+                        </div>
+                        <div class="sidebar_title_container font">{{res.content}}</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-10">
+
+
+            <router-outlet></router-outlet>
+
+
+
+        </div>
+    </div>
+</div>
