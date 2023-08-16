@@ -1,0 +1,289 @@
+.search-bar-container {
+    height: 5vh;
+    width: 90%;
+    background: #B0DDF6;
+    margin-top: 2vh;
+    padding-left: 1vw;
+}
+
+.input-group {
+    width: 90%;
+    padding-left: 0.5vw;
+    height: 3vh;
+}
+
+.form-control {
+    height: 3vh;
+    font-size: 0.8em;
+}
+
+.close {
+    border: none;
+    background: transparent;
+}
+
+.dropdown-col {
+    margin-top: 2vh;
+
+}
+
+.dropdown-toggle {
+    background: #B0DDF6;
+    border: none;
+    color: #000000;
+    font-size: 0.9em;
+    border-radius: 0;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+}
+
+
+
+#dropdownMenuButton2 {
+    border-radius: 0;
+    height: 5vh;
+    background: #E7F3F9;
+}
+
+/* Add any styles for the circle class here */
+.circle {
+    width: 3.5vh;
+    height: 3.5vh;
+    margin-right: 0.2vw;
+}
+
+.circle-div {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 100%;
+    background: #FFF;
+    border: 1px solid #1B9DE7;
+}
+
+
+.circle-tab {
+    width: 3vh;
+    height: 3vh;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid #1B9DE7;
+}
+
+.title_name {
+    font-size: 1.1em;
+}
+
+.box-edit-question {
+    width: 99%;
+    height: 80vh;
+    border: 5px solid #B0DDF6;
+    background: #E7F3F9;
+    margin-top: 3vh;
+    border-radius: 10px;
+}
+
+
+.header_question {
+    width: 60%;
+    height: 4vh;
+    border-radius: 10px;
+    background: #1B9DE7;
+    color: #FFF;
+    font-size: 1.2em;
+}
+
+.content-requirement-edit-que {
+    width: auto;
+    height: auto;
+    max-height: 9vh;
+    border-radius: 10px;
+    background: #B0DDF6;
+    padding: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.info-image {
+    height: 3.2vh;
+    padding: 6px;
+}
+
+.content-req,
+.question-limit-edit {
+    font-size: 0.8em;
+}
+
+.id-label {
+    width: auto;
+    height: 3vh;
+    padding: 6px;
+    background: #B0DDF6;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 1em;
+}
+
+.id_div {
+    padding: 5px;
+}
+
+.id_number {
+    width: auto;
+    height: 3vh;
+    background: #FFF6F6;
+    min-width: 25%;
+    border: 1px solid #133870;
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 1em;
+}
+
+.question-container {
+    height: 20vh;
+    width: 98%;
+    border-radius: 10px;
+    border: 2px solid #133870;
+    background: #B0DDF6;
+    color: #133870;
+    padding: 8px;
+}
+
+.input-question {
+    background: transparent;
+    border: none;
+    height: 17vh;
+    font-size: 1em;
+}
+
+.hint-question {
+    background: transparent;
+    border: none;
+    height: 20vh;
+    font-size: 1em;
+}
+
+.hint-container {
+    width: 100%;
+    height: 21vh;
+    border: 2px solid #133870;
+    background: #B0DDF6;
+    color: #133870;
+    border-radius: 10px;
+}
+
+.radio-button{
+position: relative;
+}
+
+.radio-button {
+    width: 4vh;
+    height: 4vh;
+    border-radius: 100%;
+    border: 2px solid #133870;
+    background: #B0DDF6;
+}
+
+.ansewer_hint_section {
+    width: 100%;
+}
+
+.option_1 {
+    width: 90%;
+    height: 4.5vh;
+    border-radius: 8px;
+    border: 2px solid #133870;
+    background: #B0DDF6;
+}
+
+.radio-button-active {
+    width: 4vh;
+    height: 4vh;
+    border-radius: 100%;
+    border: 2px solid #133870;
+    background: #FFF;
+}
+
+.status_label,.Status_label_submitted {
+    color: #133870;
+
+}
+
+.form-check-input {
+    height: 3vh;
+    width: 8vh;
+}
+
+.last_row {
+    width: 100%;
+
+
+}
+
+.button_div {
+    width: 15%;
+    height: 4vh;
+    border-radius: 8px;
+    background: #1B9DE7;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.radio-button-active::before {
+    content: "";
+    display: block;
+    width: 2vh;
+    height: 2vh;
+    border-radius: 50%;
+    background-color: #1B9DE7;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .WarningModal{
+    border-radius: 10px;
+    border: 5px solid #FFF;
+    width: 80%;
+  }
+
+  .warning_image_upload{
+    position: absolute;
+      z-index: 1;
+      left: -10%;
+      top: -22%;
+  
+  }
+
+
+.modal-body{
+    background: #B0DDF6;
+   
+  }
+
+  .custom-close-btn{
+    color: #FFFFFF;
+    background: #1B9DE7;
+    border-radius: 100%;
+    width: 3vh;
+    height: 3vh;
+    border: 1px solid #133870;
+  }
+
+  .warning_message_upload{
+    font-size: 1.2em;
+    color: #133870;
+  }
+
+
+.edit_button{
+    width: auto;
+    font-size: 0.8em;
+    padding: 6px;
+    color: #FFFFFF;
+    border-radius: 8px;
+    background: #1B9DE7;
+    margin-top: 3vh;
+    cursor: pointer;
+  }

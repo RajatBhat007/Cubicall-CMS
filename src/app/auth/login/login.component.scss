@@ -1,0 +1,121 @@
+.web-login {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: url(../../../assets/images/background.png);
+    background-size: 100% 100%;
+}
+
+.box-container-login {
+    height: 60vh;
+    width: 45vw;
+    background: #E7F3F9;
+    border: 1px solid #133870;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.box-div {
+    height: 100vh;
+}
+
+.box-header {
+    height: 10%;
+    width: 100%;
+    border-bottom: 1px solid #000000;
+    background: #1B9DE7;
+}
+
+.circle-header {
+    height: 3vh;
+    width: 3vh;
+    border-radius: 100%;
+    border: 1px solid #000000;
+    background: #FFF;
+
+}
+
+.login-label {
+    margin-top: 10%;
+    margin-left: 36%;
+    font-size: 1.2em;
+}
+
+.username-label,
+.password-label {
+    margin-top: 5%;
+    margin-left: 36%;
+    font-size: 0.8em;
+    color: #133870;
+}
+
+.username-input {
+    border-radius: 20px;
+
+    font-size: 1.2em;
+}
+
+.password-input {
+    position: relative;
+    border-radius: 20px;
+
+    font-size: 1.2em;
+}
+
+.input_username {
+    width: 64%;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    background: #FFF;
+    position: relative;
+    font-size: 0.8em;
+    height: 4vh;
+
+}
+
+
+.input_password {
+    width: 64%;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    background: #EEE;
+    position: absolute;
+    font-size: 0.8em;
+    background: #FFF;
+    height: 4vh;
+// 12460401000011996
+}
+.login-btn {
+    color: #FFFFFF;
+    margin-top: 10%;
+    background: #1B9DE7;
+    border: 1px solid #000000;
+    width: 25%;
+    padding: 0.5em;
+    font-size: 0.8em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Customize the button style */
+.eye-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    
+  }
+  
+  /* Optionally, you can use Google Material Icons for the eye icons */
+  i.material-icons {
+    font-size: 1.2em;
+  }
+
+  /* Customize the input field and icon button style */
+  .input-group-append{
+  
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 4vh;
+  }
+  

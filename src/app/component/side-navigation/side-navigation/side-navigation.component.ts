@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-side-navigation',
@@ -23,22 +24,42 @@ export class SideNavigationComponent implements OnInit{
     "content":'RTU'
   } 
 ]
-activeIndex:any=1
+activeIndex:any=0
 activeTab:Boolean=false
-constructor(private _router: Router,private _route: ActivatedRoute) { }
+constructor(private _router: Router,private _route: ActivatedRoute,private location:Location) { }
 
   ngOnInit(): void {
-    if(this.activeIndex==1){
-      this._router.navigate(['./game-theme'], { relativeTo: this._route });
-
+  
+    if(this.activeIndex==0){
+      this._router.navigateByUrl('/home/setup');
+      
+     
     }
+  
+
+
 
   }
  
   NavigateTo(index:any){
+    console.log(index);
+    
     console.log(this.activeTab);
     this.activeIndex=index
     this.activeTab=true
+
+    if(this.activeIndex==0){
+      this._router.navigateByUrl('/home/setup');
+
+    }
+   else if(this.activeIndex==1){
+      this._router.navigateByUrl('/home/game-theme');
+
+    }
+    else if(this.activeIndex==4){
+      this._router.navigateByUrl('/home/rtu');
+
+    }
     
 
     

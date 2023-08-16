@@ -5,12 +5,18 @@ import { SideNavigationRoutingModule } from './side-navigation-routing.module';
 import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 import { GameThemeComponent } from './game-theme/game-theme.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditQuestionComponent } from './edit-question/edit-question.component';
+import { RtuScreenComponent } from './rtu-screen/rtu-screen.component';
+import { SetupComponent } from './setup/setup.component';
 
 @NgModule({
   declarations: [
     SideNavigationComponent,
   
-    GameThemeComponent
+    GameThemeComponent,
+       EditQuestionComponent,
+       RtuScreenComponent,
+       SetupComponent
   ],
   imports: [
     CommonModule,
