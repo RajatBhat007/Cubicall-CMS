@@ -10,8 +10,12 @@ export class ApiServiceService {
   URLstring = environment.apiURL
   open: any;
   Path='CubiCallGameNewAPi/api' 
+  private getisAuthenticated = false;
 
-  constructor(public Http:HttpClient) { }
+  constructor(public Http:HttpClient) {
+    this.getisAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+
+   }
 
   getQuestionList(param1: number, param2: number): Observable<any>{
     const params = {
@@ -25,14 +29,27 @@ export class ApiServiceService {
   }
 
   login(data:any){
+    this.getisAuthenticated = true;
+    localStorage.setItem('isAuthenticated', 'true');
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
       var tempurl = `${this.URLstring}`+`${this.Path}/CMSLogin`
-      return this.Http.post(tempurl,data,httpOptions)
+    console.log(tempurl);
+    
+    return this.Http.post(tempurl,data,httpOptions)
 
   }
- 
+  logout(): void {
+    this.getisAuthenticated = false;
+    localStorage.removeItem('isAuthenticated');
+
+  }
+
+  isAuthenticated(): boolean {
+    return this.getisAuthenticated;
+  }
 }

@@ -1,7 +1,7 @@
 .search-bar-container {
     height: 5vh;
     width: 90%;
-    background: #B0DDF6;
+    background: #000;
     margin-top: 2vh;
     padding-left: 1vw;
   }
@@ -28,9 +28,9 @@
   }
   
   .dropdown-toggle {
-    background: #B0DDF6;
+    background: #000;
     border: none;
-    color: #000000;
+    color: #FFF;
     font-size: 0.9em;
     border-radius: 0;
     height: 5vh;
@@ -42,7 +42,8 @@
   #dropdownMenuButton2 {
     border-radius: 0;
     height: 5vh;
-    background: #E7F3F9;
+    background: #D7D7E8;
+    color: #000;
     
   }
   
@@ -79,7 +80,7 @@
     height: 5vh;
     border-radius: 100%;
     background: #FFF;
-    border: 1px solid #1B9DE7;
+    border: 1px solid #000;
   }
   
   
@@ -99,7 +100,7 @@
   
     height: 7vh;
     background: #FFFFFF;
-    border: 5px solid #B0DDF6;
+    border: 2px solid #000;
     border-bottom: none;
     position: relative;
   
@@ -120,17 +121,18 @@
   }
   
   .bottom-conatiner {
-    background: #E7F3F9;
+    border: 2px solid #000;
+    background: #F5F5F7;
     height: 67vh;
     width: 99%;
-    border: 5px solid #B0DDF6;
+  
   
   }
   
   .tab-active {
     height: 7vh;
-    background: #E7F3F9;
-    border: 5px solid #B0DDF6;
+    background: #D7D7E8;
+    border: 2px solid #000;
     border-bottom: none;
     position: relative;
   }
@@ -164,13 +166,15 @@
   .sub_tab {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background: #B0DDF6;
+    background: #D7D7E8;
     font-size: 0.7em;
     height: 4vh;
     text-align: center;
     cursor: pointer;
     padding: 8px;
     line-height: 1;
+    border: 1px solid #000;
+    border-bottom: none;
   }
   
   .sub-tab-active {
@@ -181,7 +185,7 @@
     height: 4vh;
     text-align: center;
     cursor: pointer;
-    border: 2px solid #1B9DE7;
+    border: 1px solid #000;
     border-bottom: none;
     line-height: 1;
   }
@@ -190,7 +194,7 @@
     width: 100%;
     height: 57vh;
     background: #FFFFFF;
-    border: 2px solid #1B9DE7;
+    border: 1px solid #000;
     position: relative;
     padding: 1em;
     overflow-y: auto;
@@ -229,6 +233,8 @@
     font-size: 0.8em;
     cursor: pointer;
     width: 8%;
+    box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+
   }
   
   .label_setup-logo,.org_code{
@@ -262,4 +268,6 @@
     justify-content: center;
     font-size: 1em;
     cursor: pointer;
+    box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+  
   }

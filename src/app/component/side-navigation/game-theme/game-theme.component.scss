@@ -1,7 +1,7 @@
 .search-bar-container {
   height: 5vh;
   width: 90%;
-  background: #b0ddf6;
+  background: #000;
   padding-left: 1vw
 }
 
@@ -19,11 +19,13 @@
 
 .close {
   border: 0;
-  background: 0
+  background: 0;
+  color:#fff;
+  
 }
 
 .dropdown-toggle {
-  background: #B0DDF6;
+  background: #000000;
   border: none;
   color: #000000;
   font-size: 0.9em;
@@ -31,6 +33,7 @@
   height: 5vh;
   display: flex;
   align-items: center;
+  color: #FFF;
 }
 .circle-div,
 .circle-tab,
@@ -38,10 +41,13 @@
   background: #fff
 }
 
+
 #dropdownMenuButton2 {
   border-radius: 0;
   height: 5vh;
-  background: #e7f3f9
+  background: #D7D7E8;
+  color: #000;
+
 }
 
 .circle {
@@ -54,14 +60,14 @@
   width: 5vh;
   height: 5vh;
   border-radius: 100%;
-  border: 1px solid #1b9de7
+  border: 1px solid #000000
 }
 
 .circle-tab {
   width: 3vh;
   height: 3vh;
   border-radius: 100%;
-  border: 1px solid #1b9de7
+  border: 1px solid #000
 }
 
 .title_name {
@@ -70,7 +76,7 @@
 
 .tab {
   height: 7vh;
-  border: 5px solid #b0ddf6;
+  border: 3px solid #000000;
   border-bottom: 0;
   position: relative
 }
@@ -85,10 +91,15 @@
   background: #7b7fcf
 }
 
-.bottom-conatiner,
+
 .tab-active {
-  background: #e7f3f9;
-  border: 5px solid #b0ddf6
+  background: #D7D7E8;
+  border: 3px solid #000000
+}
+
+.bottom-conatiner {
+  background: #F5F5F7;
+  border: 3px solid #000000
 }
 
 .content_description,
@@ -111,17 +122,18 @@
 .upload-button {
   width: 20%;
   height: 3vh;
-  background: #b0ddf6;
+  background: #ffffff;
   font-size: .8em;
   border-radius: 10px;
-  position: relative
+  position: relative;
+  border: 1px solid #000000;
 }
 
 .add_btn {
   height: 2vh;
   width: 2vh;
   border-radius: 100%;
-  background: #fff
+  background: #D7D7E8
 }
 
 .input_upload {
@@ -150,19 +162,23 @@
 
 .draft-button {
   width: 25%;
-  background: #fff
+  background: #fff;
+  border: 1px solid #000;
 }
 
 .submitted-button {
   width: 35%;
-  background: #fff
+  background: #fff;
+  border: 1px solid #000;
 }
 
 .draft-submit-button-active {
   width: auto;
-  background: #b0ddf6;
+  background: #C4C4F6;
   padding: 8px
 }
+
+
 
 .horizontal_line {
   margin: 0
@@ -172,12 +188,13 @@
   min-width: 60%;
   height: 14vh;
   border-radius: 10px;
-  background: #b0ddf6;
+  background: #F5F5F7;
   margin-right: 1vw;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center
+  justify-content: center;
+  border: 1px solid #000;
 }
 
 .count_label {
@@ -187,29 +204,34 @@
 .count-points {
   height: 2vh;
   border-radius: 10px;
-  background: #fff;
-  font-size: .8em
+  background: #000;
+  font-size: .8em;
+  color: #fff;
+
 }
 
 .sub-tab-active,
 .sub_tab {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  height: 7vh;
   text-align: center;
-  cursor: pointer
+  cursor: pointer;
+  height: 4vh;
+  line-height: 1;
 }
 
 .sub_tab {
-  background: #b0ddf6;
+  background: #D7D7E8;
   font-size: .7em;
-  padding: 8px
+  padding: 8px;
+  border: 1px solid #000;
+  border-bottom: none;
 }
 
 .sub-tab-active {
   background: #fff;
   font-size: .7em;
-  border: 2px solid #1b9de7;
+  border: 1px solid #000;
   border-bottom: 0
 }
 
@@ -217,7 +239,7 @@
   width: 100%;
   height: 48vh;
   background: #fff;
-  border: 2px solid #1b9de7;
+  border: 1px solid #000;
   position: relative
 }
 
@@ -244,12 +266,16 @@
   border-radius: 20px
 }
 
+#flexSwitchCheckDefault{
+  border: 1px solid #000;
+}
+
 .table-header {
-  background: #1b9de7
+  background: #000
 }
 
 .table-body {
-  background: #e7f3f9
+  background: #F5F5F7;
 }
 
 .edit_btn {
@@ -348,7 +374,7 @@
 .table-footer {
   width: 100%;
   height: 4vh;
-  background: #1b9de7;
+  background: #D7D7E8;
   position: absolute;
   bottom: 0
 }
@@ -371,13 +397,14 @@
   width: 3vh;
   height: 3vh;
   border-radius: 100%;
-  background: #fff;
+  background: #000;
   font-size: .8em;
-  padding: .3em
+  padding: .3em;
+  color: #fff;
 }
 
 .dash {
-  color: #fff
+  color: #000
 }
 
 .pagination {
@@ -391,7 +418,7 @@
 
 .submit_button {
   border-radius: 10px;
-  background: #1b9de7;
+  background: #000000;
   color: #fff;
   padding: .6em;
   font-size: .8em;
@@ -402,12 +429,12 @@
 .lock_account:hover,
 .logout:hover,
 .modal-body {
-  background: #b0ddf6
+  background: #fff
 }
 
 .custom-close-btn {
-  color: #fff;
-  background: #1b9de7;
+  color: #000;
+  background: #D7D7E8;
   border-radius: 100%;
   width: 3vh;
   height: 3vh;
@@ -416,14 +443,14 @@
 
 .ExcelContentModal {
   border-radius: 10px;
-  border: 5px solid #fff
+  border: 5px solid #000
 }
 
-.WarningModal {
-  border-radius: 10px;
-  border: 5px solid #fff;
-  width: 80%
-}
+// .WarningModal {
+//   border-radius: 10px;
+//   border: 5px solid #000;
+//   width: 80%
+// }
 
 .warning_image_upload {
   position: absolute;
@@ -444,12 +471,33 @@
 .view_button_modal {
   width: auto;
   height: 3vh;
-  background: #1b9de7;
-  color: #fff;
   padding: .7em;
   font-size: 1em;
   cursor: pointer;
-  border: 1px solid #fff
+
+}
+.view_button_modal{
+background: #D7D7E8;
+color: #000;
+border: 1px solid #000;
+}
+.download_button_modal{
+  background: #000000;
+  color: #fff;
+  border: 1px solid #000;
+
+}
+
+.browse-btn{
+  background: #D7D7E8;
+color: #000;
+border: 1px solid #000;
+}
+
+.upload_btn_modal{
+  background: #000000;
+  color: #fff;
+  border: 1px solid #000;
 }
 
 .selected_file {
@@ -470,10 +518,11 @@ input[type=file] {
 .requirement_div {
   width: 90%;
   height: 15vh;
-  background: #fff;
+  background: #F5F5F7;
   border-radius: 5px;
   overflow-y: auto;
-  overflow-x: hidden
+  overflow-x: hidden;
+  border: 1px solid #000;
 }
 
 .custom-switch .form-check-input {
@@ -490,7 +539,7 @@ input[type=file] {
 
 .bg_content {
   width: 80%;
-  background: #e7f3f9
+  background: #D7D7E8
 }
 
 .right_side {
@@ -508,8 +557,8 @@ input[type=file] {
 .warning_message {
   width: 100%;
   font-size: .7em;
-  color: #fff;
-  background: #1b9de7;
+  color: #000;
+  background: #D7D7E8;
   padding: .4em;
   border: 1px solid #133870
 }
@@ -530,7 +579,7 @@ input[type=file] {
   padding: 6px;
   color: #fff;
   border-radius: 8px;
-  background: #1b9de7;
+  background: #000000;
   margin-top: 3vh;
   cursor: pointer
 }

@@ -1,69 +1,82 @@
 <div class="web-login">
-    <div class="box-div d-flex justify-content-center align-items-center">
-        <div class="box-container-login">
-            <div class="box-header">
-                <div class="row me-2" style="height: 100%;">
-                    <div class="col-12 d-flex justify-content-end align-items-center gap-2">
-                        <div class="circle-header"></div>
-                        <div class="circle-header"></div>
-                        <div class="circle-header"></div>
-                        <div class="circle-header"></div>
-                        <div class="circle-header"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-9">
-                    <div class="login-label fontInter d-flex ">
-                        Login to CMS
-                    </div>
-                </div>
-                <div class="col-3"></div>
-
-
-            </div>
-
-            <form (ngSubmit)="login()">
-
-            <div class="row">
-                <div class="col-9">
-                    <div class="username-label fontInter">
-                        Username
-                    </div>
-                    <div class="username-input d-flex justify-content-end">
-                        <input class="input_username mt-1 fontInter" type="text" id="uname" name="uname" [(ngModel)]="uname"  required>
-                    </div>
-                </div>
-                <div class="col-3"></div>
-            </div>
-
-            <div class="row">
-                <div class="col-9">
-                    <div class="password-label fontInter">
-                        Password
-                    </div>
-                    <div class="password-input d-flex justify-content-end">
-                        <input class="input_password mt-1 fontInter" type="text" [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password" required>
-                        <div class="input-group-append mt-1">
-                        <div class="eye-button d-flex justify-content-center align-items-center" (click)="togglePasswordVisibility()">
-                            <i class="material-icons me-2" style="color: #133870;">{{ showPassword ? 'visibility_off' : 'visibility' }}</i>
-
-                        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="box-div d-flex justify-content-end align-items-center me-5">
+                <div class="box-container-login">
+                    <div class="box-header">
+                        <div class="row me-2" style="height: 100%;">
+                            <div class="col-12 d-flex justify-content-end align-items-center gap-2">
+                                <div class="circle-header" style="background: #C4C4F6;"></div>
+                                <div class="circle-header"></div>
+                                <div class="circle-header"  style="background: #C4C4F6;"></div>
+                                <div class="circle-header"></div>
+                                <div class="circle-header"  style="background: #C4C4F6;"></div>
+                            </div>
                         </div>
                     </div>
+        
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="login-label font d-flex ">
+                                Login to CMS
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+        
+        
+                    </div>
+        
+                    <form (ngSubmit)="login()">
+        
+                    <div class="row mt-3">
+                        <div class="col-9">
+                            <div class="username-label fontInter">
+                                Username
+                            </div>
+                            <div class="username-input d-flex justify-content-end">
+                                <input class="input_username mt-1 fontInter" type="text" id="uname" name="uname" [(ngModel)]="uname"  required>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="password-label fontInter">
+                                Password
+                            </div>
+                            <div class="password-input d-flex justify-content-end">
+                                <input class="input_password mt-1 fontInter" type="text" [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password" required>
+                                <div class="input-group-append mt-1">
+                                <div class="eye-button d-flex justify-content-center align-items-center" (click)="togglePasswordVisibility()">
+                                    <i class="material-icons me-2" style="color: #133870;">{{ showPassword ? 'visibility_off' : 'visibility' }}</i>
+        
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+        
+                    <div class="row mt-4">
+                        <div class="col-9 d-flex justify-content-end">
+                            <div class="row w-100">
+                                <div class="col-3"></div>
+                                <div class="col-7 d-flex justify-content-end">
+                                    <button class="login-btn fontInter" type="submit" >Login</button>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                            
+                           
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                    </form>
                 </div>
-                <div class="col-3"></div>
             </div>
-
-            <div class="row">
-                <div class="col-9 d-flex justify-content-end">
-                    <button class="login-btn fontInter" type="submit" >Login</button>
-                   
-                </div>
-                <div class="col-3"></div>
-            </div>
-            </form>
         </div>
+        
     </div>
+    
 </div>

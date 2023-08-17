@@ -50,8 +50,9 @@ export class LoginComponent implements OnInit {
 
     this.http.login(body).subscribe((res) => {
       console.log(res);
+        
+        this._router.navigateByUrl('home')
 
-    
     },
     (error: HttpErrorResponse) => {
       if (error.status === 404) {
@@ -68,10 +69,7 @@ export class LoginComponent implements OnInit {
     if (this.authService.login(this.uname, this.password)) {
        this.lowercaseUsername = this.uname.toLowerCase(); // Convert to lowercase
 
-      if(this.lowercaseUsername=='tgc' && this.password=='Tgc@12345'){
-       this._router.navigateByUrl('home')
-        
-      }
+    
     } 
   }
 }

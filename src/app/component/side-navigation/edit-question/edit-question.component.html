@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-7">
             <div class="search-bar-container d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search"
                     viewBox="0 0 16 16">
                     <path
                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
@@ -24,8 +24,8 @@
                 <button ngbDropdownToggle class="btn btn-secondary font" type="button" id="dropdownMenuButton1"
                     aria-expanded="false">
                     {{ selectedDropdownValue }}
-                    <svg xmlns="http://www.w3.org/2000/svg" class="circle" viewBox="0 0 41 41" fill="none">
-                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#1B9DE7" stroke-width="2" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="circle ms-1" viewBox="0 0 41 41" fill="none">
+                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#000" stroke-width="2" />
                     </svg>
                 </button>
                 <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
@@ -37,12 +37,13 @@
                             3</a></li>
                 </ul>
             </div>
-
+  
             <div ngbDropdown class="dropdown" style="position: relative; display: inline-flex;">
                 <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton2"
                     aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="circle ms-2" viewBox="0 0 41 41" fill="none">
-                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#1B9DE7" stroke-width="2" />
+  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="circle" viewBox="0 0 41 41" fill="none">
+                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#000" stroke-width="2" />
                         <path
                             d="M28 30V28C28 26.9391 27.5786 25.9217 26.8284 25.1716C26.0783 24.4214 25.0609 24 24 24H16C14.9391 24 13.9217 24.4214 13.1716 25.1716C12.4214 25.9217 12 26.9391 12 28V30"
                             stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -57,7 +58,7 @@
                     <li><a ngbDropdownItem class="font">Profile 3</a></li>
                 </ul>
             </div>
-
+  
         </div>
 
     </div>
