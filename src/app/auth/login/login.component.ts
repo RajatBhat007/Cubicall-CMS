@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   username:any
   password_:any
   lowercaseUsername:any
+  logindata: any;
 
   constructor(private _router: Router,private _route: ActivatedRoute,private authService:AuthService,private http:ApiServiceService) { }
   ngOnInit(): void {
@@ -49,10 +50,12 @@ export class LoginComponent implements OnInit {
    
 
     this.http.login(body).subscribe((res) => {
-      console.log(res);
-        
-        this._router.navigateByUrl('home')
-
+ 
+      this.logindata=res
+      console.log(this.logindata.idOrgHierarchy);
+      localStorage.setItem('idOrgHierarchy',this.logindata.idOrgHierarchy)
+       this._router.navigateByUrl('home')
+       
     },
     (error: HttpErrorResponse) => {
       if (error.status === 404) {

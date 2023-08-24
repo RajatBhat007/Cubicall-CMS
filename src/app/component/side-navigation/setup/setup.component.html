@@ -19,7 +19,6 @@
           </div>
       </div>
       <div class="col-5 pe-4 dropdown-col d-flex justify-content-end">
-
           <div ngbDropdown class="dropdown" style="position:relative;">
               <button ngbDropdownToggle class="btn btn-secondary font" type="button" id="dropdownMenuButton1"
                   aria-expanded="false">
@@ -79,25 +78,20 @@
                   style="cursor: pointer; padding-right: 0;">
                   <div class="tab d-flex justify-content-center align-items-center flex-column"
                       [ngClass]="{'tab-active': i === activeIndexTab}">
-                     
-                      <div class="mat-title font">{{res.content}}</div>
-                     
+                      <div class="mat-title font">{{res.content}}</div> 
                   </div>
               </div>
           </div>
 
       </div>
       <div class="col-2"> </div>
-
-
   </div>
 
   <div class="row">
       <div class="col-12">
-          <div class="bottom-conatiner">
+          <div class="bottom-conatiner" *ngIf="this.activeIndexTab==0">
               <div class="row">
                   <div class="col-5 ps-4 ">
-
                       <div class="row mt-4 ps-2">
                           <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j=index"
                               (click)="NavigateToSubTab(j)">
@@ -105,29 +99,16 @@
                                   [ngClass]="{'sub-tab-active': j === activeIndexSubTab}">
                                   {{res_sub.label}}
                               </div>
-
                           </div>
-
                       </div>
                   </div>
-
-
-
-
-
-
               </div>
-
               <div class="row w-100">
                 <div class="col-12 ms-2 d-flex justify-content-center">
                     <div class="table-container">
-                       
-
-                       <div class="row">
-
+                       <div class="row py-3">
                         <!-- Left Input Side -->
                         <div class="col-4">
-                            
                             <div class="row">
                                 <div class="col-12">
                                     <div class="label_setup font">Industry Name:</div>
@@ -135,7 +116,6 @@
                             <div ngbDropdown class="dropdown mt-2 w-100" style="position: relative; display: inline-flex;">
                                 <button ngbDropdownToggle class="btn btn-secondary font large-dropdown" type="button" id="dropdownMenuButtonsetup"
                                     aria-expanded="false"   [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
-                  
                                     {{selectedDropdownIndustryValue}}
                                    
                                 </button>
@@ -157,18 +137,14 @@
                                     <div class="label_setup font">Organization Name:</div>
                                     <div class="mt-2">
                                         <input class="form-control organisation_input font" type="text" >
-
-                                    </div>
-                                    
+                                    </div>            
                                 </div>
                             </div>
-
                             <div class="row mt-4">
                                 <div class="col-12">
                                     <div class="label_setup font">Contact Name:</div>
                                     <div class="mt-2">
                                         <input class="form-control organisation_input font" type="text" >
-
                                     </div>
                                     
                                 </div>
@@ -185,9 +161,7 @@
                                 </div>
                             </div>
                         </div>
-         
                         <!-- Middle Input Side -->
-
                         <div class="col-4">
                             <div class="row">
                                 <div class="col-12">
@@ -241,15 +215,12 @@
                                     <div class="label_setup font">Domain Email:</div>
                                     <div class="mt-2">
                                         <input class="form-control organisation_input font" type="text" >
-
                                     </div>
                                     
                                 </div>
                             </div>
                         </div>
-
                         <!-- Right Input Side -->
-
                         <div class="col-4">
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center align-items-center logo-image">
@@ -268,24 +239,23 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-                       </div>
-
+                         
+                        <div class="col-12">        
                        <!-- Bootom Center label -->
-
                        <div class="row">
                         <div class="col-8 d-flex align-items-center mt-2" style="flex-direction: column;">
                             <div class="label_setup-logo font">Organization Code:</div>
                             <div class="mt-2 org_code">
                                 <input class="form-control organisation_input font" type="text" >
-
                             </div>
                         </div>
                         <div class="col-4"></div>
                        </div>
-
+                        </div>
+                       </div>
+                       <!-- <div class="row" *ngIf="this.activeIndexTab==1">
+                        <app-cms-role [activeSubTab]="activeIndexSubTab"></app-cms-role>
+                       </div> -->
                     </div>
                 </div>
 
@@ -295,8 +265,18 @@
              
 
           </div>
+           <div class="" *ngIf="this.activeIndexTab==1">
+            <app-cms-role></app-cms-role>
+           </div>
+           <div class="" *ngIf="this.activeIndexTab==2">
+            <app-cms-user></app-cms-user>
+           </div>
+           <div class="" *ngIf="this.activeIndexTab==3">
+            <app-batch></app-batch>
+           </div>
       </div>
   </div>
+   
 
   <div class="row">
     <div class="col-12 d-flex justify-content-end">
@@ -305,9 +285,6 @@
         </div>
     </div>
 </div>
-
-
-
 </div>
 
 

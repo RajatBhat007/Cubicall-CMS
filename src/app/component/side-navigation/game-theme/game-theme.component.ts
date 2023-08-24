@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ApiServiceService } from 'src/app/service/api-service.service';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-game-theme',
@@ -26,6 +27,8 @@ export class GameThemeComponent implements OnInit {
   @ViewChild('fileInput') fileInput: any;
   @ViewChild('fileInput') fileInputAnswer: any;
   questionFileSelected: boolean = false;
+  selectedFile: File | null = null;
+  selectedAnswerFile: File | null = null;
 
   constructor(public _router: Router, private _route: ActivatedRoute, public authService: AuthService, public http: ApiServiceService) { }
 
@@ -128,11 +131,11 @@ export class GameThemeComponent implements OnInit {
 
 
   }
-
   onFileChange(event: any) {
     console.log(event);
 
     const file = event.target.files[0];
+    this.selectedFile = event.target.files[0];
     if (file) {
       this.selectedFileName = file.name;
       this.questionFileSelected = true;
@@ -141,6 +144,8 @@ export class GameThemeComponent implements OnInit {
 
     reader.onload = (e: any) => {
       const data = e.target.result;
+      
+      
       const workbook = XLSX.read(data, { type: 'binary' });
       const firstSheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[firstSheetName];
@@ -154,13 +159,57 @@ export class GameThemeComponent implements OnInit {
 
     reader.readAsBinaryString(file);
     this.selectedFileName = file.name;
+    console.log(this.selectedFileName);
+    
+  }
+  
+  uploadQutionfile(){
+     const idOrgHierarchy=localStorage.getItem('idOrgHierarchy')
+    //  console.log(idOrgHierarchy); 
+    //  console.log(this.selectedFile);
+     
+    //  const payload = {
+    //   Data: {
+    //     postedFile:this.selectedFile,
+    //     IdOrgHierarchy:idOrgHierarchy
+    //   }
+    // };
+    
+    // const postfilename = payload.Data.postedFile
+    // const OrgHierarchyid = payload.Data.IdOrgHierarchy
 
+ 
+    // const escapedJsonString = `{\"postedFile\":${this.selectedFile},\"IdOrgHierarchy\":${idOrgHierarchy}`;
+    // const jsonString = JSON.stringify(escapedJsonString);
+    // const jsonStringremovelast=jsonString.slice(0,-1)
+    // const body = '{"Data":'+jsonString +'}"}';
+  
+    if (this.selectedFile && idOrgHierarchy !== null) {
+    this.http.importQutionFile(this.selectedFile,idOrgHierarchy).subscribe((res) => {
+      console.log(res);
+        // this._router.navigateByUrl('home')
+        window.alert('succes')
+
+    },
+    (error: HttpErrorResponse) => {
+      if (error.status === 404) {
+       window.alert('404 Not Found Error')
+        // Handle the 404 error, such as displaying a message to the user
+      } else {
+       
+        window.alert(error.error)
+        // Handle other errors
+      }
+    }
+    );
+  }
   }
 
   onFileChangeAnswer(event: any) {
     console.log(event);
 
     const file = event.target.files[0];
+    this.selectedAnswerFile=event.target.files[0];
     if (file) {
       this.selectedFileNameAnswer = file.name;
     }
@@ -184,6 +233,28 @@ export class GameThemeComponent implements OnInit {
 
   }
 
+  uploadAnswerfile(){
+    const idOrgHierarchy=localStorage.getItem('idOrgHierarchy')
+ 
+   if (this.selectedAnswerFile && idOrgHierarchy !== null) {
+   this.http.importAnswerFile(this.selectedAnswerFile,idOrgHierarchy).subscribe((res) => {
+     console.log(res);
+       // this._router.navigateByUrl('home')
+       window.alert('succes')
+
+   },
+   (error: HttpErrorResponse) => {
+     if (error.status === 404) {
+      window.alert('404 Not Found Error')
+       // Handle the 404 error, such as displaying a message to the user
+     } else {
+       window.alert(error.error)
+       // Handle other errors
+     }
+   }
+   );
+ }
+ }
   updateSelectedValue(value: any) {
     this.selectedDropdownValue = value
 

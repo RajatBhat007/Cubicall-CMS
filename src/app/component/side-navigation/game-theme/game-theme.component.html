@@ -215,7 +215,6 @@
                                                     <div class="form-check d-flex align-items-center">
                                                         <input class="form-check-input checkbox-input" type="checkbox" value=""
                                                             id="flexCheckDefault">
-        
                                                     </div>
         
                                                 </div>
@@ -226,7 +225,6 @@
                                                 </div>
         
                                                 <div class="view_div d-flex align-items-center justify-content-center" >
-                                                    <!-- <img class="eye-image" src="assets/images/View.svg" alt="Eye Image"/> -->
                                                     <svg xmlns="http://www.w3.org/2000/svg"  class="eye-image" viewBox="0 0 28 20" fill="none">
                                                         <path d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                         <path d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -587,17 +585,11 @@
                                                 <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls, .csv" id="fileInput" #fileInput />
                                                 <label for="fileInput" class="browse-btn d-flex justify-content-center align-items-center" (change)="onFileChange($event)">Browse</label>
                                             </div>
-                                            <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4" data-bs-toggle="modal"
-                                            data-bs-target="#WarningModal">
+                                            <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
+                                             (click)="uploadQutionfile()">
                                                 Upload
                                             </div>
-                                      
-                                        </div>
-
-                                       
-
-
-                                         
+                                        </div>    
                                     </div>
                                     <div *ngIf="!questionFileSelected ;then disableButtons else enableButtons"></div>
 
@@ -614,8 +606,8 @@
                                                 <label for="fileInputAnswer" class="browse-btn d-flex justify-content-center align-items-center" (change)="onFileChangeAnswer($event)" [class.disabled]="!questionFileSelected">Browse</label>
                                             </div>
                                             <div >
-                                                <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4" data-bs-toggle="modal"
-                                                data-bs-target="#WarningModal" >
+                                                <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4" 
+                                                (click)="uploadAnswerfile()">
                                                     Upload
                                                 </div>
                                             </div>

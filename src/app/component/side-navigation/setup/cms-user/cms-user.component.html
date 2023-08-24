@@ -1,0 +1,285 @@
+<div class="row">
+    <div class="col-12">
+        <div class="bottom-conatiner">
+            <div class="row">
+                <div class="col-5 ps-4 ">
+                    <div class="row mt-4 ps-2">
+                        <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j=index"
+                            (click)="NavigateToSubTab(j)">
+                            <div class="sub_tab font d-flex justify-content-center align-items-center"
+                                [ngClass]="{'sub-tab-active': j === activeIndexSubTab}">
+                                {{res_sub.label}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row w-100">
+                <div class="col-12 ms-2 d-flex justify-content-center">
+                    <div class="table-container">
+                        <div class="row py-0" *ngIf="activeIndexSubTab==0">
+                            <div class="row pt-3">
+                                <div class="col-4">
+                                    <div class="col-12">
+                                        <div class="label_setup-logo font">Organization:</div>
+                                        <div ngbDropdown class="dropdown mt-2 w-100"
+                                            style="position: relative; display: inline-flex;">
+                                            <button ngbDropdownToggle class="btn btn-secondary font large-dropdown"
+                                                type="button" id="dropdownMenuButtonsetup" aria-expanded="false"
+                                                [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
+                                                {{selectedDropdownIndustryValue}}
+
+                                            </button>
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 1')"
+                                                        class="font">Organization
+                                                        1</a></li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 2')"
+                                                        class="font">Organization
+                                                        2</a></li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 3')"
+                                                        class="font">Organization
+                                                        3</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="col-12">
+                                        <div class="label_setup-logo font">Role:</div>
+                                        <div ngbDropdown class="dropdown mt-2 w-100"
+                                            style="position: relative; display: inline-flex;">
+                                            <button ngbDropdownToggle class="btn btn-secondary font large-dropdown"
+                                                type="button" id="dropdownMenuButtonsetup" aria-expanded="false"
+                                                [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
+                                                {{selectedDropdownIndustryValue}}
+
+                                            </button>
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 1')"
+                                                        class="font">Organization
+                                                        1</a></li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 2')"
+                                                        class="font">Organization
+                                                        2</a></li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 3')"
+                                                        class="font">Organization
+                                                        3</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="col-12">
+                                        <div class="label_setup-logo font mt-2">Vendor:</div>
+                                        <div ngbDropdown class="dropdown mt-2 w-100"
+                                            style="position: relative; display: inline-flex;">
+                                            <button ngbDropdownToggle class="btn btn-secondary font large-dropdown"
+                                                type="button" id="dropdownMenuButtonsetup" aria-expanded="false"
+                                                [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
+                                                {{selectedDropdownIndustryValue}}
+
+                                            </button>
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 1')"
+                                                        class="font">Organization
+                                                        1</a></li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 2')"
+                                                        class="font">Organization
+                                                        2</a></li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 3')"
+                                                        class="font">Organization
+                                                        3</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="col-12 mt-3">
+                                        <div class="label_setup-logo font">User Name:</div>
+                                        <div class="mt-2">
+                                            <input class="form-control organisation_input font" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <div class="label_setup-logo font">Employee Name:</div>
+                                        <div class="mt-2">
+                                            <input class="form-control organisation_input font" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="col-12 mt-3">
+                                        <div class="label_setup-logo font">Password:</div>
+                                        <div class="mt-2">
+                                            <input class="form-control organisation_input font" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <div class="label_setup-logo font">Employee Id:</div>
+                                        <div class="mt-2">
+                                            <input class="form-control organisation_input font" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row py-0" *ngIf="activeIndexSubTab==1">
+                            <div class="col-12">
+                                <div class="row display-Cms-User-Header">
+                                    <div class="col-2 d-flex justify-content-start align-items-end">
+                                        <div class="Cms-Role-User-Count">
+                                            <div class="font text-light">7</div>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path id="Polygon 7" d="M12.1962 1L7 10L1.80385 1L12.1962 1Z"
+                                                        fill="white" stroke="white" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-10 d-flex justify-content-end align-items-center">
+                                        <div class="Cms-User-count-container pt-1">
+                                            <div class="row w-100" *ngFor="let response of count">
+                                                <div class="col-lg-5 col-sm-4  ps-4  font count_label">
+                                                    {{response.label}}</div>
+                                                <div class="col-lg-5 col-sm-6 ">
+                                                    <div
+                                                        class="count-points text-light font d-flex justify-content-center align-items-center mt-1">
+                                                        {{response.value}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2  col-sm-2">
+
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                        id="flexRadioDefault2" checked>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row display-Cms-User-body">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <div class="table-header">
+                                                            <div class="checkbox-header d-flex align-items-center">
+                                                                <div
+                                                                    class="edit_btn  d-flex justify-content-center align-items-center">
+                                                                </div>
+                                                                <div class="checkbox">
+                                                                    <div class="form-check d-flex align-items-center">
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="font d-flex align-items-center justify-content-center text-light">
+                                                                    Status
+                                                                </div>
+                                                                <div
+                                                                    class="User-Name-header font d-flex justify-content-start ps-4 text-light">
+                                                                    User-Name
+                                                                </div>
+
+                                                                <div
+                                                                    class="Organization-header font d-flex justify-content-start ps-4 text-light">
+                                                                    Organization
+                                                                </div>
+
+                                                                <div class="Role-header font text-light">
+                                                                    Role
+                                                                </div>
+
+
+                                                                <div class="Function-header font text-light">
+                                                                    Function
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="display-Cms-User-body-height">
+                                                        <div class="table-body-height table-body w-100"
+                                                            *ngFor="let item of CmsRoleList">
+                                                            <div class="row mt-2">
+                                                                <div class="col-12 d-flex justify-content-center">
+                                                                    <div class="table-body d-flex align-items-center">
+                                                                        <div class="view_div d-flex align-items-center justify-content-center"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#OrganizationDescriptionModal">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                class="eye-image" viewBox="0 0 28 20"
+                                                                                fill="none">
+                                                                                <path
+                                                                                    d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                                                                                    stroke="#133870" stroke-width="2"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round" />
+                                                                                <path
+                                                                                    d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                                                                                    stroke="#000" stroke-width="2"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div
+                                                                            class="edit_btn  d-flex justify-content-center align-items-center">
+                                                                            <img class="edit_image"
+                                                                                src="assets/images/Edit.svg"
+                                                                                alt="Edit Image" />
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="Status_label form-check form-switch d-flex align-items-center">
+                                                                            <input class="form-check-input"
+                                                                                style="width: 2.5vw;height: 2.5vh;"
+                                                                                type="checkbox" role="switch"
+                                                                                id="flexSwitchCheckDefault">
+                                                                        </div>
+                                                                        <div
+                                                                        class="User-Name-header font text-dark ps-4">
+                                                                        {{item.username}}</div>
+                                                                        <div
+                                                                            class="Organization-header font text-dark ps-4">
+                                                                            {{item.label}}</div>
+                                                                        <div class="Role-header font text-dark ps-2">
+                                                                            {{item.role}}</div>
+                                                                        <div class="Function-header font text-dark ps-2">
+                                                                            {{item.function}}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

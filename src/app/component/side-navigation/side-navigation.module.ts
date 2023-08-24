@@ -8,6 +8,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { RtuScreenComponent } from './rtu-screen/rtu-screen.component';
 import { SetupComponent } from './setup/setup.component';
+import { CmsRoleComponent } from './setup/cms-role/cms-role.component';
+import { CmsUserComponent } from './setup/cms-user/cms-user.component';
+import { BatchComponent } from './setup/batch/batch.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { SetupComponent } from './setup/setup.component';
     GameThemeComponent,
        EditQuestionComponent,
        RtuScreenComponent,
-       SetupComponent
+       SetupComponent,
+       CmsRoleComponent,
+       CmsUserComponent,
+       BatchComponent
   ],
   imports: [
     CommonModule,

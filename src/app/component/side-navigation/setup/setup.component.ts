@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { ApiServiceService } from 'src/app/service/api-service.service';
 @Component({
   selector: 'app-setup',
   templateUrl: './setup.component.html',
@@ -16,7 +18,7 @@ export class SetupComponent implements OnInit {
   selectedDropdownBusinessTypeValue:string='Select from the drop-down'
   status: any
 
-  constructor(public _router: Router, private _route: ActivatedRoute) { }
+  constructor(public _router: Router, private _route: ActivatedRoute,public apiservice:ApiServiceService) { }
 
   matTab = [{
     "content": 'Organization',
@@ -34,15 +36,13 @@ export class SetupComponent implements OnInit {
 
   ]
 
-  subtab = [{
-    "label": 'Create Organization'
-
-  },
-  {
-    "label": 'Display Organization'
-
-  }
-
+  subtab :any=[
+    {
+      "label": 'Create Organization'
+      },
+      {
+        "label": 'Display Organization'
+      },
   ]
 
   ngOnInit(): void {
@@ -55,7 +55,6 @@ export class SetupComponent implements OnInit {
 
   updateSelectedValue(value: any) {
     this.selectedDropdownValue = value
-
   }
 
   
@@ -72,9 +71,36 @@ export class SetupComponent implements OnInit {
   }
   NavigateToTab(index: any) {
     this.activeIndexTab = index
+  console.log(this.activeIndexTab);
+  if (this.activeIndexTab==0) {
+    this.subtab = [
+      {
+      "label": 'Create Organization'
+      },
+      {
+        "label": 'Display Organization'
+      },
+      ]
+  }
+  else if (this.activeIndexTab==1) {
+    this.subtab = [
+      {
+      "label": 'Create Organization'
+      },
+      {
+        "label": 'Display Organization'
+      },
+      {
+        "label":'Function to Role Mapping'
+      }
+      ]
+  }
+
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index
+    console.log(this.activeIndexSubTab);
+     this.apiservice.activeSubTabvalue(this.activeIndexSubTab)
   }
   navigateToEditQuestion() {
     this._router.navigateByUrl('home/sidenav/edit-question')
