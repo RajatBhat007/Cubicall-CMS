@@ -28,6 +28,30 @@ export class ApiServiceService {
 
   }
 
+
+  getIndustryType(): Observable<any>{
+    
+    var tempurl = `${this.URLstring}`+`${this.Path}/GetIndustryList`
+    return this.Http.get(tempurl)
+
+  }
+
+  getBusinessType(): Observable<any>{
+    
+    var tempurl = `${this.URLstring}`+`${this.Path}/GetBusinessTypeList`
+    return this.Http.get(tempurl)
+
+  }
+
+  getOrganisation(): Observable<any>{
+   
+    var tempurl = `${this.URLstring}`+`${this.Path}/GetOrganization`
+    return this.Http.get(tempurl)
+
+  }
+
+  
+
   login(data:any){
     this.getisAuthenticated = true;
     localStorage.setItem('isAuthenticated', 'true');
@@ -43,6 +67,20 @@ export class ApiServiceService {
     return this.Http.post(tempurl,data,httpOptions)
 
   }
+
+  createOrganisation(data:any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+      var tempurl = `${this.URLstring}`+`${this.Path}/CreateOrganization`
+    console.log(tempurl);
+    
+    return this.Http.post(tempurl,data,httpOptions)
+  }
+
+  
   logout(): void {
     this.getisAuthenticated = false;
     localStorage.removeItem('isAuthenticated');

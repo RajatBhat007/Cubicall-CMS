@@ -8,6 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { RtuScreenComponent } from './rtu-screen/rtu-screen.component';
 import { SetupComponent } from './setup/setup.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { SetupComponent } from './setup/setup.component';
   imports: [
     CommonModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
     SideNavigationRoutingModule
   ]
 })

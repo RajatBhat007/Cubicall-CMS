@@ -623,3 +623,21 @@ input[type=file] {
   display: flex;
   justify-content: space-between
 }
+
+/* Custom styles for the Flex Switch */
+.form-check-input[type="checkbox"][role="switch"] {
+  /* Default background color for OFF state */
+  background-color: white;
+}
+
+/* Custom styles for the switch knob (thumb) */
+.form-check-input[type="checkbox"][role="switch"] + .form-check-label::before {
+  /* Change the color of the knob */
+  background-color: black;
+}
+
+/* Custom styles for the Flex Switch when checked (ON state) */
+.form-check-input[type="checkbox"][role="switch"]:checked {
+  /* Background color for ON state */
+  background-color: #C4C4F6;
+}
