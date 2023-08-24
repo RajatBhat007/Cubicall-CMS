@@ -463,7 +463,7 @@
 
 
                                     <div class="table-body-height">
-                                        <div class="row mt-2" *ngFor="let res of tableData">
+                                        <div class="row mt-2" *ngFor="let res of getOrganization">
                                             <div class="col-12 d-flex justify-content-center">
                                                 <div class="table-body d-flex align-items-center">
                                                     <div
@@ -479,16 +479,17 @@
                                                     </div>
 
                                                     <div class="view-body font">
-                                                        About Life
+                                                     {{res.organizationName}}
                                                     </div>
 
                                                     <div class="id-body font">
+                                                        {{res.businesstypename}}
 
                                                     </div>
 
 
                                                     <div class="question-body font">
-
+                                                        {{res.domainEmailId}}
                                                     </div>
 
                                                 </div>

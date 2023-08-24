@@ -35,6 +35,7 @@ export class SetupComponent implements OnInit {
   base64String: string | null = null;
   selectedDropdownIndustryValueId:string=''
   selectedDropdownBusinessTypeValueId:string=''
+  getOrganization:any=[]
   count = [{
     "label": 'Total',
     "value": 7
@@ -122,6 +123,7 @@ export class SetupComponent implements OnInit {
 
     this.http.getOrganisation().subscribe((res) => {
       console.log(res);
+      this.getOrganization=res
 
     })
     this.http.getIndustryType().subscribe((res) => {
