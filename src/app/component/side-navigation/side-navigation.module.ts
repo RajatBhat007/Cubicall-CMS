@@ -11,6 +11,8 @@ import { SetupComponent } from './setup/setup.component';
 import { CmsRoleComponent } from './setup/cms-role/cms-role.component';
 import { CmsUserComponent } from './setup/cms-user/cms-user.component';
 import { BatchComponent } from './setup/batch/batch.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrganizationHierarchyComponent } from './setup/organization-hierarchy/organization-hierarchy.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +24,15 @@ import { BatchComponent } from './setup/batch/batch.component';
        SetupComponent,
        CmsRoleComponent,
        CmsUserComponent,
-       BatchComponent
+       BatchComponent,
+       OrganizationHierarchyComponent
   ],
   imports: [
     CommonModule,
     NgbModule,
-    SideNavigationRoutingModule
+    SideNavigationRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SideNavigationModule { }

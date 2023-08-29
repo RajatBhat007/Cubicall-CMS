@@ -9,26 +9,26 @@ import { Observable } from 'rxjs';
 export class ApiServiceService {
   URLstring = environment.apiURL
   open: any;
-  Path='CubiCallGameNewAPi/api' 
+  Path = 'CubiCallGameNewAPi/api'
   private getisAuthenticated = false;
-  activeSubTabindex:any=0
-  constructor(public Http:HttpClient) {
+  activeSubTabindex: any = 0
+  constructor(public Http: HttpClient) {
     this.getisAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-
-   }
-
-  getQuestionList(param1: number, param2: number): Observable<any>{
-    const params = {
-      OrgId: param1,
-      CubesFacesGameId: param2
-     
-    };
-    var tempurl = `${this.URLstring}`+`${this.Path}/GetAllQuestionList`
-    return this.Http.get(tempurl,{ params: params })
 
   }
 
-  login(data:any){
+  getQuestionList(param1: number, param2: number): Observable<any> {
+    const params = {
+      OrgId: param1,
+      CubesFacesGameId: param2
+
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetAllQuestionList`
+    return this.Http.get(tempurl, { params: params })
+
+  }
+
+  login(data: any) {
     this.getisAuthenticated = true;
     localStorage.setItem('isAuthenticated', 'true');
 
@@ -37,37 +37,37 @@ export class ApiServiceService {
         'Content-Type': 'application/json'
       })
     };
-      var tempurl = `${this.URLstring}`+`${this.Path}/CMSLogin`
+    var tempurl = `${this.URLstring}` + `${this.Path}/CMSLogin`
     console.log(tempurl);
-    
-    return this.Http.post(tempurl,data,httpOptions)
+
+    return this.Http.post(tempurl, data, httpOptions)
 
   }
- 
-  importQutionFile(file: File, idOrgHierarchy:any){
+
+  importQutionFile(file: File, idOrgHierarchy: any) {
     const formData = new FormData();
     formData.append('postedFile', file);
     formData.append('IdOrgHierarchy', idOrgHierarchy.toString());
 
-  
-    
-      var tempurl = `${this.URLstring}`+`${this.Path}/ImportQuestionFromExcel
+
+
+    var tempurl = `${this.URLstring}` + `${this.Path}/ImportQuestionFromExcel
       `
     console.log(tempurl);
-    return this.Http.post(tempurl,formData)
+    return this.Http.post(tempurl, formData)
 
   }
-  importAnswerFile(file: File, idOrgHierarchy:any){
+  importAnswerFile(file: File, idOrgHierarchy: any) {
     const formData = new FormData();
     formData.append('postedFile', file);
     formData.append('IdOrgHierarchy', idOrgHierarchy.toString());
 
-    var tempurl = `${this.URLstring}`+`${this.Path}/ImportAnswerFromExcel`
+    var tempurl = `${this.URLstring}` + `${this.Path}/ImportAnswerFromExcel`
     console.log(tempurl);
-    return this.Http.post(tempurl,formData)
+    return this.Http.post(tempurl, formData)
 
   }
-  
+
 
   logout(): void {
     this.getisAuthenticated = false;
@@ -77,9 +77,58 @@ export class ApiServiceService {
   isAuthenticated(): boolean {
     return this.getisAuthenticated;
   }
-  activeSubTabvalue(data:any): void{
-    this.activeSubTabindex=data
-   console.log(this.activeSubTabindex);
-   
+  getIndustryType(): Observable<any> {
+
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetIndustryList`
+    return this.Http.get(tempurl)
+
   }
+
+  getBusinessType(): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetBusinessTypeList`
+    return this.Http.get(tempurl)
+
+  }
+
+  getOrganisation(): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetOrganization`
+    return this.Http.get(tempurl)
+
+  }
+  createOrganisation(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/CreateOrganization`
+    console.log(tempurl);
+
+    return this.Http.post(tempurl, data, httpOptions)
+  }
+
+  createCmsRole(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/CreateCMSRole`
+    console.log(tempurl);
+
+    return this.Http.post(tempurl, data, httpOptions)
+  }
+
+  GetCmsRoleFunctionList(data:any): Observable<any> {
+      var tempurl = `${this.URLstring}` + `${this.Path}/GetCMSRoleFunctionList?OrgId=${data}`
+      return this.Http.get(tempurl)
+  
+    }
+
+   
+    getRolesList(data:any): Observable<any> {
+      var tempurl = `${this.URLstring}` + `${this.Path}/GetRoles?OrgId=${data}`
+      return this.Http.get(tempurl)
+
+    }
 }

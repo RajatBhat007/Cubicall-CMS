@@ -87,9 +87,10 @@
       <div class="col-2"> </div>
   </div>
 
+  <form (ngSubmit)="SubmitCreateOrganisation()" [formGroup]="multiFieldForm">
   <div class="row">
       <div class="col-12">
-          <div class="bottom-conatiner" *ngIf="this.activeIndexTab==0">
+          <!-- <div class="bottom-conatiner" *ngIf="this.activeIndexTab==0">
               <div class="row">
                   <div class="col-5 ps-4 ">
                       <div class="row mt-4 ps-2">
@@ -107,7 +108,7 @@
                 <div class="col-12 ms-2 d-flex justify-content-center">
                     <div class="table-container">
                        <div class="row py-3">
-                        <!-- Left Input Side -->
+                       
                         <div class="col-4">
                             <div class="row">
                                 <div class="col-12">
@@ -161,7 +162,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Middle Input Side -->
                         <div class="col-4">
                             <div class="row">
                                 <div class="col-12">
@@ -220,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Right Input Side -->
+                        
                         <div class="col-4">
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center align-items-center logo-image">
@@ -241,7 +241,7 @@
                         </div>
                          
                         <div class="col-12">        
-                       <!-- Bootom Center label -->
+                    
                        <div class="row">
                         <div class="col-8 d-flex align-items-center mt-2" style="flex-direction: column;">
                             <div class="label_setup-logo font">Organization Code:</div>
@@ -253,9 +253,7 @@
                        </div>
                         </div>
                        </div>
-                       <!-- <div class="row" *ngIf="this.activeIndexTab==1">
-                        <app-cms-role [activeSubTab]="activeIndexSubTab"></app-cms-role>
-                       </div> -->
+                   
                     </div>
                 </div>
 
@@ -264,28 +262,499 @@
 
              
 
+          </div> -->
+          <div class="bottom-conatiner" *ngIf="activeIndexTab==0">
+            <div class="row">
+            <div class="col-5 ps-4 ">
+           
+            <div class="row mt-4 ps-2">
+            <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j=index"
+            (click)="NavigateToSubTab(j)">
+            <div class="sub_tab font d-flex justify-content-center align-items-center"
+            [ngClass]="{'sub-tab-active': j === activeIndexSubTab}">
+            {{res_sub.label}}
+            </div>
+           
+            </div>
+           
+            </div>
+            </div>
+           
+           
+           
+           
+           
+           
+            </div>
+            <div *ngIf="activeIndexSubTab== '0' then createOrganization else displayOrganization"></div>
+            <ng-template #createOrganization>
+            <div class="row w-100">
+            <div class="col-12 ms-2 d-flex justify-content-center">
+            <div class="table-container">
+           
+           
+            <div class="row">
+           
+            <!-- Left Input Side -->
+            <div class="col-4 pt-3">
+           
+           
+           
+           
+            <div class="row">
+            <div class="col-12">
+            <div class="label_setup font">Industry Name:</div>
+           
+            <div ngbDropdown class="dropdown mt-2 w-100"
+            style="position: relative; display: inline-flex;">
+            <button ngbDropdownToggle
+            class="btn btn-secondary font large-dropdown" type="button"
+            id="dropdownMenuButtonsetup" aria-expanded="false"
+            [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
+           
+            {{selectedDropdownIndustryValue}}
+           
+            </button>
+            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1"
+            class="dropdown_values"
+            *ngFor="let res of industryType;let index =index">
+            <li><a ngbDropdownItem
+            (click)="updateSelectedIndustryValue(index)"
+            class="font">{{res.industryname}}</a></li>
+           
+            </ul>
+            </div>
+           
+           
+            </div>
+            </div>
+           
+           
+            <div class="row mt-2">
+            <div class="col-12">
+            <div class="label_setup font">Organization Name:</div>
+            <div class="mt-2">
+            <input class="form-control organisation_input font" type="text"
+            id="orgName" name="orgName" formControlName="orgName">
+            <div
+            *ngIf="orgNameControl?.invalid && (orgNameControl?.dirty || orgNameControl?.touched)">
+            <div *ngIf="orgNameControl?.errors?.['required']"
+            class="font error_message">Organization name is
+            required.</div>
+            </div>
+            </div>
+            </div>
+            </div>
+           
+            <div class="row mt-4">
+            <div class="col-12">
+            <div class="label_setup font">Contact Name:</div>
+            <div class="mt-2">
+            <input class="form-control organisation_input font" type="text"
+            id="contactName" name="contactName"
+            formControlName="contactName">
+            <div
+            *ngIf="contactNameControl?.invalid && (contactNameControl?.dirty || contactNameControl?.touched)">
+            <div *ngIf="contactNameControl?.errors?.['required']"
+            class="font error_message">Contact name is required.
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+           
+           
+            <div class="row mt-2">
+            <div class="col-12">
+            <div class="label_setup font">Contact Email:</div>
+            <div class="mt-2">
+            <input class="form-control organisation_input font" type="text"
+            id="contactEmail" name="contactEmail"
+            formControlName="contactEmail">
+            <div
+            *ngIf="contactEmailControl?.invalid && (contactEmailControl?.dirty || contactEmailControl?.touched)">
+            <div class="font error_message"
+            *ngIf="contactEmailControl?.errors?.['required']">
+            Contact
+            email is required.</div>
+            <div class="font error_message"
+            *ngIf="contactEmailControl?.errors?.['email']">Invalid
+            email
+            format.</div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+           
+            <!-- Middle Input Side -->
+           
+            <div class="col-4 pt-3">
+            <div class="row">
+            <div class="col-12">
+           
+            <div class="label_setup font">Business Type:</div>
+           
+            <div ngbDropdown class="dropdown mt-2 w-100"
+            style="position: relative; display: inline-flex;">
+            <button ngbDropdownToggle
+            class="btn btn-secondary font large-dropdown" type="button"
+            id="dropdownMenuButtonsetup" aria-expanded="false"
+            [ngStyle]="{'color': selectedDropdownBusinessTypeValue !== 'Select from the drop-down' ? 'black' : ''}">
+           
+            {{selectedDropdownBusinessTypeValue}}
+           
+            </button>
+            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1"
+            class="dropdown_values"
+            *ngFor="let res of businessType ; let index = index">
+            <li><a ngbDropdownItem
+            (click)="updateSelectedBusinessTypeValue(index)"
+            class="font">{{res.businessTypeName}}</a></li>
+           
+            </ul>
+            </div>
+            </div>
+            </div>
+           
+           
+            <div class="row mt-2" style="visibility: hidden;">
+            <div class="col-12">
+            <div class="label_setup font">Organization Name:</div>
+            <div class="mt-2">
+            <input class="form-control organisation_input font" type="text">
+           
+            </div>
+           
+            </div>
+            </div>
+           
+            <div class="row mt-4">
+            <div class="col-12">
+           
+           
+            <div class="label_setup font">Contact Number:</div>
+            <div class="mt-2">
+            <input type="number" id="phoneNumber"
+            class="form-control organisation_input font"
+            formControlName="phoneNumber">
+            </div>
+            <div
+            *ngIf="multiFieldForm.controls['phoneNumber']?.invalid && multiFieldForm.controls['phoneNumber']?.dirty">
+            <div *ngIf="multiFieldForm.controls['phoneNumber']?.errors?.['required']"
+            class="font error_message">
+            Phone number is required.</div>
+            <div *ngIf="multiFieldForm.controls['phoneNumber']?.errors?.['pattern']"
+            class="font error_message">
+            Invalid phone number format.</div>
+            </div>
+           
+            </div>
+            </div>
+           
+            <div class="row mt-2">
+            <div class="col-12">
+            <div class="label_setup font">Domain Email:</div>
+            <div class="mt-2">
+            <input class="form-control organisation_input font" type="text"
+            id="domainEmail" name="domainEmail"
+            formControlName="domainEmail">
+            <div
+            *ngIf="domainEmailControl?.invalid && (domainEmailControl?.dirty || domainEmailControl?.touched)">
+            <div class="font error_message"
+            *ngIf="domainEmailControl?.errors?.['required']">Domain
+            email is required.</div>
+            <div class="font error_message"
+            *ngIf="domainEmailControl?.errors?.['email']">Invalid
+            email
+            format.</div>
+            </div>
+            </div>
+            </div>
+            </div>
+           
+            </div>
+           
+            <!-- Right Input Side -->
+           
+            <div class="col-4 pt-3">
+            <div class="row">
+            <div
+            class="col-12 d-flex justify-content-center align-items-center logo-image">
+            <div class="label_setup font d-flex justify-content-center">Logo
+            Image:
+            </div>
+            <div *ngIf="!base64String"
+            class="logo-image-conatiner mt-1 d-flex justify-content-center align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 65"
+            fill="none" style="height: 4vh; width:4vh">
+            <path
+            d="M56.2222 2H8.77778C5.03451 2 2 5.03451 2 8.77778V56.2222C2 59.9655 5.03451 63 8.77778 63H56.2222C59.9655 63 63 59.9655 63 56.2222V8.77778C63 5.03451 59.9655 2 56.2222 2Z"
+            stroke="black" stroke-width="3" stroke-linecap="round"
+            stroke-linejoin="round" />
+            <path
+            d="M20.6389 25.7223C23.4463 25.7223 25.7222 23.4464 25.7222 20.639C25.7222 17.8316 23.4463 15.5557 20.6389 15.5557C17.8314 15.5557 15.5555 17.8316 15.5555 20.639C15.5555 23.4464 17.8314 25.7223 20.6389 25.7223Z"
+            stroke="black" stroke-width="3" stroke-linecap="round"
+            stroke-linejoin="round" />
+            <path d="M63 42.6666L46.0555 25.7222L8.77777 62.9999"
+            stroke="black" stroke-width="3" stroke-linecap="round"
+            stroke-linejoin="round" />
+            </svg>
+            </div>
+            <div *ngIf="base64String" class="logo-image-uploaded">
+           
+            <img [src]="base64String" alt="Uploaded Image"
+            class="uploaded-image">
+            </div>
+           
+            <label class="custom-browse-button mt-2">
+            Browse
+            <input type="file" id="logoInput" accept="image/*"
+            (change)="onFileSelected($event)">
+            </label>
+           
+            </div>
+            </div>
+            </div>
+           
+           
+           
+            </div>
+           
+            <!-- Bootom Center label -->
+           
+            <div class="row">
+            <div class="col-8 d-flex align-items-center mt-2"
+            style="flex-direction: column;">
+           
+           
+            <div class="label_setup-logo font">Organization Code:</div>
+            <div class="mt-2 org_code">
+            <input class="form-control organisation_input font" type="text"
+            id="orgCode" name="orgCode" formControlName="orgCode">
+            <div
+            *ngIf="orgCodeControl?.invalid && (orgCodeControl?.dirty || orgCodeControl?.touched)">
+            <div *ngIf="orgCodeControl?.errors?.['required']"
+            class="font error_message">Organization Code is required.</div>
+            </div>
+            </div>
+           
+            </div>
+            <div class="col-4"></div>
+            </div>
+           
+            </div>
+            </div>
+           
+           
+            </div>
+            </ng-template>
+           
+            <ng-template #displayOrganization>
+            <div class="row w-100">
+            <div class="col-12 ms-2 d-flex justify-content-center">
+            <div class="table-container">
+           
+           
+            <div class="row">
+            <div class="col-5 mt-5 ps-4 "></div>
+            <div class="col-3 mt-4 d-flex"> </div>
+           
+           
+           
+           
+            <div class="col-4 mt-2 d-flex justify-content-end">
+            <div class="count-container pt-1">
+            <div class="row w-100" *ngFor="let response of count">
+            <div class="col-lg-5 col-sm-4 ps-4 font count_label">
+            {{response.label}}</div>
+            <div class="col-lg-5 col-sm-6 ">
+            <div
+            class="count-points font d-flex justify-content-center align-items-center mt-1 text-light">
+            {{response.value}}
+            </div>
+            </div>
+            <div class="col-lg-2 col-sm-2">
+           
+            <input class="form-check-input" type="radio"
+            name="flexRadioDefault" id="flexRadioDefault2" checked>
+           
+           
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+           
+           
+           
+           
+           
+           
+            <!-- Draft Tab -->
+           
+            <div class="row mt-2">
+            <div class="col-12 d-flex justify-content-center">
+            <div class="table-header">
+            <div class="checkbox-header d-flex align-items-center" style="height: 4vh;">
+            <div
+            class="edit_btn d-flex justify-content-center align-items-center">
+            <img class="edit_image" src="assets/images/Edit.svg"
+            alt="Edit Image" />
+           
+            </div>
+           
+           
+            <div class="Status_label font d-flex align-items-center text-light">
+            Status
+            </div>
+           
+            <div class="view-header font d-flex text-light">
+            Organization
+            </div>
+           
+            <div class="id-header font text-light">
+            Business Type
+            </div>
+           
+           
+            <div class="question-header font text-light">
+            Contact
+            </div>
+           
+           
+           
+            </div>
+            </div>
+            </div>
+            </div>
+           
+           
+           
+            <div class="table-body-height">
+            <div class="row mt-2" *ngFor="let res of getOrganization">
+            <div class="col-12 d-flex justify-content-center">
+            <div class="table-body d-flex align-items-center">
+            <div
+            class="edit_btn d-flex justify-content-center align-items-center">
+            <img class="edit_image" src="assets/images/Edit.svg"
+            alt="Edit Image" />
+            </div>
+           
+           
+            <div class="form-check form-switch d-flex align-items-center">
+            <input class="form-check-input" style="width: 5vh;height: 2vh;"
+            type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            </div>
+           
+            <div class="view-body font">
+            {{res.organizationName}}
+            </div>
+           
+            <div class="id-body font">
+            {{res.businesstypename}}
+           
+            </div>
+           
+           
+            <div class="question-body font">
+            {{res.domainEmailId}}
+            </div>
+           
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+           
+           
+            </div>
+        </ng-template>
+           
+           
           </div>
-           <div class="" *ngIf="this.activeIndexTab==1">
-            <app-cms-role></app-cms-role>
+          <div class="" *ngIf="this.activeIndexTab==1">
+            <app-organization-hierarchy></app-organization-hierarchy>
            </div>
            <div class="" *ngIf="this.activeIndexTab==2">
-            <app-cms-user></app-cms-user>
+            <app-cms-role></app-cms-role>
            </div>
            <div class="" *ngIf="this.activeIndexTab==3">
+            <app-cms-user></app-cms-user>
+           </div>
+           <div class="" *ngIf="this.activeIndexTab==4">
             <app-batch></app-batch>
            </div>
+
+           
       </div>
   </div>
-   
+  
 
   <div class="row">
     <div class="col-12 d-flex justify-content-end">
-        <div class="submit_button mt-3 me-3 font d-flex justify-content-center">
-            Submit
+        <button class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter" 
+        [disabled]="multiFieldForm.invalid"
+        [ngClass]="{ 'disabled-button': multiFieldForm.invalid }"
+      >Submit</button>
+    </div>
+    <!--   -->
+</div>
+</form>
+</div>
+
+
+<!-- Warning Modal -->
+
+  <!-- <div class="organizationSuccessModal" *ngIf="successModal">
+    <div class="modal fade" id="organizationSuccessModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+   
+        <div class="modal-dialog modal-dialog-centered" style="position:relative;display: flex; justify-content: center;">  
+            <div class="modal-content organizationSuccessModal">
+                <div class="warning_image_upload">
+                    <svg width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Group 8612">
+                        <circle id="Ellipse 34" cx="53.5" cy="53.5" r="50" fill="black" stroke="white" stroke-width="7"/>
+                        <path id="Vector" d="M43.3991 48.6499L50.9185 32C52.4141 32 53.8486 32.5847 54.9062 33.6255C55.9638 34.6664 56.5579 36.078 56.5579 37.55V44.9499H67.1978C67.7427 44.9438 68.2825 45.0544 68.7798 45.2741C69.277 45.4937 69.7198 45.8171 70.0774 46.2218C70.435 46.6266 70.699 47.103 70.8509 47.6181C71.0029 48.1332 71.0392 48.6746 70.9574 49.2049L68.3633 65.8548C68.2273 66.7371 67.7719 67.5412 67.081 68.1192C66.3902 68.6971 65.5103 69.0099 64.6036 68.9998H43.3991M43.3991 48.6499V68.9998M43.3991 48.6499H37.7597C36.7625 48.6499 35.8063 49.0397 35.1012 49.7336C34.3961 50.4275 34 51.3686 34 52.3499V65.2998C34 66.2811 34.3961 67.2222 35.1012 67.9161C35.8063 68.6099 36.7625 68.9998 37.7597 68.9998H43.3991" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                        </svg>      
+                </div>
+                <div class="modal-body" >
+                    <div>
+                        <div style="position:relative;">
+                            <div class="row d-flex justify-content-center mt-3">
+                                <div class="col-12 d-flex warning_message_upload justify-content-center font" style="width: auto;position: relative;text-align: center;">
+                                    Done! The Organization has been created successfully. 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div  type="button" class="custom-close-btn d-flex justify-content-center align-items-center submit_button mt-3 me-3 font d-flex justify-content-center fontInter" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                        Submit
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>  -->
+
+
+<!-- Modal structure -->
+<!-- <div class="modal" id="organizationSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
         </div>
     </div>
-</div>
-</div>
-
-
-
+</div> -->

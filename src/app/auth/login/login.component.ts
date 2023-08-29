@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
       this.logindata=res
       console.log(this.logindata.idOrgHierarchy);
       localStorage.setItem('idOrgHierarchy',this.logindata.idOrgHierarchy)
+      localStorage.setItem('idOrganization',this.logindata.idOrganization)
+
        this._router.navigateByUrl('home')
        
     },

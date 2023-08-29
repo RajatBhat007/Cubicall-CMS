@@ -250,8 +250,9 @@ position: relative;
   }
 
   .WarningModal{
-    border-radius: 10px;
-    border: 5px solid #FFF;
+    border: 7px solid #000;
+    background: #D7D7E8;
+    box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
     width: 80%;
   }
 
@@ -265,7 +266,8 @@ position: relative;
 
 
 .modal-body{
- background: #D7D7E8;
+    border-radius: 23px;
+   
    
   }
 

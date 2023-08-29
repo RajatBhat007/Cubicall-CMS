@@ -9,9 +9,13 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 export class CmsRoleComponent {
   selectedDropdownIndustryValue:string='Select from the drop-down'
   selectedDropdownBusinessTypeValue:string='Select from the drop-down'
-  activeIndexSubTab: any = 0
-  activeIndexTab: any
-  activeUpdateButton: boolean=false
+  activeIndexSubTab: any = 0;
+  activeIndexTab: any;
+  activeUpdateButton: boolean=false;
+  RoleFunctionList:any=[];
+  idOrganization:any='';
+  CmsRoleList:any=[];
+  getOrganizationlist:any=[]
    functionName=[
     {
      'label':'Upload Question and Answers'
@@ -38,38 +42,7 @@ export class CmsRoleComponent {
       'label':'Configure Main Screen Images'
     },
 ]
- CmsRoleList=[
-  {
-    'label':'About Life',
-    'role':"Admin Access",
-    'function':'Admin Access'
-  },
-  {
-    'label':'Baroda Global Shared Services Ltd',
-    'role':"Admin Access",
-    'function':'Admin Access'
-  },
-  {
-    'label':'',
-    'role':"",
-    'function':''
-  },
-  {
-    'label':'',
-    'role':"",
-    'function':''
-  },
-  {
-    'label':'',
-    'role':"",
-    'function':''
-  },
-  {
-    'label':'',
-    'role':"",
-    'function':''
-  }
- ]
+
 subtab = [
   {
   "label": 'Create CMS Role'
@@ -97,12 +70,13 @@ subtab = [
   ]
  
 
-constructor(public apiservice:ApiServiceService){
+constructor(public http:ApiServiceService){
 console.log(this.activeUpdateButton);
 
 }
   ngOnInit(): void {
- 
+  this.getCmsRole_Function_List()
+  this.getOrganization()
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -115,17 +89,37 @@ console.log(this.activeUpdateButton);
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index
-    console.log(this.activeIndexSubTab);
-     this.apiservice.activeSubTabvalue(this.activeIndexSubTab)
+    if(this.activeIndexSubTab==1){
+      this.getCmsRoleList()
+    }
   }
   selectOption(index:any){
     this.activeIndexTab=index
   }
-  // updateOragnization(){
-  //   this.activeUpdateButton=true
-  // }
-  // viewOrganization(){
-  //   this.activeUpdateButton=false
-  // }
+ 
+
+  getCmsRole_Function_List(){
+    this.idOrganization=localStorage.getItem('idOrganization')
+    this.http.GetCmsRoleFunctionList(this.idOrganization).subscribe((res) => {
+      this.RoleFunctionList=res
+
+    })
+  }
+  getOrganization(){
+    this.http.getOrganisation().subscribe((res) => {
+      console.log(res);
+      this.getOrganizationlist=res
+      console.log(this.getOrganization);
+      
+    })
+  }
+  getCmsRoleList(){
+    this.idOrganization=localStorage.getItem('idOrganization')
+    this.http.getRolesList(this.idOrganization).subscribe((res) => {
+      this.CmsRoleList=res
+       console.log(this.CmsRoleList);
+    })
+  }
+
 }
 

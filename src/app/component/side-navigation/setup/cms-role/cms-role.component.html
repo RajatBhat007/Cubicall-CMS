@@ -31,19 +31,21 @@
                                                 {{selectedDropdownIndustryValue}}
 
                                             </button>
-                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100"
+                                            *ngFor="let res of getOrganizationlist;let index =index">
                                                 <li><a ngbDropdownItem
                                                         (click)="updateSelectedIndustryValue('Organization 1')"
                                                         class="font">Organization
-                                                        1</a></li>
-                                                <li><a ngbDropdownItem
+                                                        {{res.organizationName}}</a>
+                                                    </li>
+                                                <!-- <li><a ngbDropdownItem
                                                         (click)="updateSelectedIndustryValue('Organization 2')"
                                                         class="font">Organization
                                                         2</a></li>
                                                 <li><a ngbDropdownItem
                                                         (click)="updateSelectedIndustryValue('Organization 3')"
                                                         class="font">Organization
-                                                        3</a></li>
+                                                        3</a></li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -69,7 +71,7 @@
                                     <div class="col-12">
                                         <div class="label_setup-logo font">Select Functions for the Role created:</div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12" >
                                         <div class="">
                                             <div class="row mt-2">
                                                 <div class="col-12">
@@ -81,18 +83,19 @@
                                                                         style="border: 1px solid #fff; border-radius: 2px;">
                                                                     </div>
                                                                 </div>
-                                                                <div class="label_setup-logo fs-6 font text-light">
+                                                                <div class="label_setup-logo font text-light">
                                                                     Function</div>
                                                             </div>
-                                                            <div class="col-6">
-                                                                <div class="label_setup-logo fs-6 font text-light">
+                                                            <div class="col-6 ps-4">
+                                                                <div class="label_setup-logo font text-light">
                                                                     Description</div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="table-body-height table-body" *ngFor="let item of functionName">
+                                            <div class="container-height">
+                                            <div class="table-body-height table-body" *ngFor="let item of RoleFunctionList">
                                                 <div class="row mt-2">
                                                     <div class="col-12 d-flex justify-content-center">
                                                         <div class="table-body d-flex align-items-center">
@@ -120,11 +123,15 @@
                                                                 </div>
                                                             </div>
                                                             <div class="label_setup-logo font text-dark ms-3">
-                                                                {{item.label}}</div>
+                                                                {{item.functionName}}</div>
+
+                                                            <div class="label_setup-logo  font text-dark">
+                                                                {{item.description}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +144,7 @@
                                 <div class="row display-Cms-Role-Header">
                                     <div class="col-2 d-flex justify-content-start align-items-end">
                                         <div class="Cms-Role-list-Count">
-                                            <div class="font text-light">7</div>
+                                            <div class="font text-light">{{this.CmsRoleList.length}}</div>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -200,7 +207,7 @@
                                                                 </div>
 
 
-                                                                <div class="Function-header font text-light ps-4">
+                                                                <div class="Function-header font text-light ps-3">
                                                                     Function
                                                                 </div>
 
@@ -208,7 +215,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="display-Cms-Role-body-height">
-                                                        <div class="table-body-height table-body w-100"
+                                                        <div class="table-body-height table-body"
                                                             *ngFor="let item of CmsRoleList">
                                                             <div class="row mt-2">
                                                                 <div class="col-12 d-flex justify-content-center">
@@ -248,11 +255,11 @@
 
                                                                         <div
                                                                             class="Organization-header font text-dark ms-4">
-                                                                            {{item.label}}</div>
+                                                                           </div>
                                                                         <div class="Role-header font text-dark">
-                                                                            {{item.role}}</div>
+                                                                            {{item.roleName}}</div>
                                                                         <div class="Function-header font text-dark">
-                                                                            {{item.function}}</div>
+                                                                            {{item.idsFunction}}</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -296,10 +303,6 @@
     </div>
 
 
-
-
-
-
     <div class="FunctionDescriptionModal1">
         <div class="modal fade" id="FunctionDescriptionModal" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -324,7 +327,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12">
-                                <div class="label_setup-logo fs-6 font text-dark">Function</div>
+                                <div class="label_setup-logo  font text-dark">Function</div>
                                 <div class="mt-2">
                                     <input class="form-control organisation_input font" type="text">
                                 </div>
@@ -365,13 +368,13 @@
                     <div class="modal-body pt-0">
                         <div class="row">
                             <div class="col-12">
-                                <div class="label_setup-logo fs-6 font text-dark">Organization:</div>
+                                <div class="label_setup-logo font text-dark">Organization:</div>
                                 <div class="mt-2">
                                     <input class="form-control organisation_input font" type="text">
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="label_setup-logo fs-6 font text-dark">Role:</div>
+                                <div class="label_setup-logo font text-dark">Role:</div>
                                 <div class="mt-2">
                                     <input class="form-control organisation_input font" type="text">
                                 </div>
