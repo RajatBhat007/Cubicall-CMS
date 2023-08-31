@@ -56,3 +56,82 @@
     min-width: 100%;
 
   }
+
+  .large-dropdown::after {
+    position: absolute;
+    font-size: 3em;
+    right: 0.2em;
+    color: #000000;
+    
+}
+
+#dropdownMenuButtonsetup {
+  height: 4.5vh;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: #D7D7E8;
+  color: #818195;
+  min-width: 100%;
+
+}
+
+.right-side{
+  height: 57vh;
+  background: #D7D7E8;
+  overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.5em;
+  
+}
+
+.left-side{
+  height: 57vh;
+
+  overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.heading-right-side{
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.process-input{
+  height: 4.5vh;
+  border: 1px solid #000;
+}
+
+.process-input-left{
+  height: 4.5vh;
+  border: 1px solid #000;
+  background: #D7D7E8;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.add-button-process{
+  width: 30%;
+  padding: 0.4em;
+  border-radius: 10px;
+  background: #000;
+  color: #FFFFFF;
+  box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+  height: 4.5vh;
+}
+
+.remove-button-process{
+  width: 40%;
+  padding: 0.4em;
+  border-radius: 10px;
+  background: #000;
+  color: #FFFFFF;
+  box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+  height: 4.5vh;
+
+}
+
+.process-name{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

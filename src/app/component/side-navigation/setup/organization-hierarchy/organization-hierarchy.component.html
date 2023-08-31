@@ -1,62 +1,241 @@
 <div class="row">
-    <div class="col-12">
-        <div class="bottom-conatiner">
-            <div class="row">
-                <div class="col-5 ps-4 ">
+  <div class="col-12">
+    <div class="bottom-conatiner">
+      <div class="row">
+        <div class="col-5 ps-4">
+          <div class="row mt-4 ps-2">
+            <div
+              class="col-3 ps-0"
+              *ngFor="let res_sub of subtab; let j = index"
+              (click)="NavigateToSubTab(j)"
+            >
+              <div
+                class="sub_tab font d-flex justify-content-center align-items-center"
+                [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }"
+              >
+                {{ res_sub.label }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                    <div class="row mt-4 ps-2">
-                        <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j=index"
-                            (click)="NavigateToSubTab(j)">
-                            <div class="sub_tab font d-flex justify-content-center align-items-center"
-                                [ngClass]="{'sub-tab-active': j === activeIndexSubTab}">
-                                {{res_sub.label}}
-                            </div>
-
-                        </div>
-
+      <div
+        *ngIf="
+          activeIndexSubTab == '0';
+          then createAdminRoles;
+          else SetHierarchy
+        "
+      ></div>
+      <ng-template #createAdminRoles>
+        <div class="row w-100">
+          <div class="col-12 ms-2 d-flex justify-content-center">
+            <div class="table-container">
+              <div class="row pt-3">
+                <div class="col-4">
+                  <div class="client-vendor-name font">
+                    Client/ Vendor Name::
+                  </div>
+                  <div class="mt-2">
+                    <input
+                      class="form-control organisation_input font"
+                      type="text"
+                      id="orgName"
+                      name="orgName"
+                      formControlName="orgName"
+                    />
+                  </div>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #SetHierarchy>
+        <div class="row w-100">
+          <div class="col-12 ms-2 d-flex justify-content-center">
+            <div class="table-container">
+              <div class="row">
+                <div class="col-4 left-side">
+                  <div
+                    ngbDropdown
+                    class="dropdown mt-4 w-100"
+                    style="position: relative; display: inline-flex"
+                  >
+                    <button
+                      ngbDropdownToggle
+                      class="btn btn-secondary font large-dropdown d-flex align-items-center"
+                      type="button"
+                      id="dropdownMenuButtonsetup"
+                      aria-expanded="false"
+                      [ngStyle]="{
+                        color:
+                          selectedDropdownIndustryValue !==
+                          'Select from the drop-down'
+                            ? 'black'
+                            : ''
+                      }"
+                    >
+                      {{ selectedDropdownIndustryValue }}
+                    </button>
+                    <ul
+                      ngbDropdownMenu
+                      aria-labelledby="dropdownMenuButton1"
+                      class="dropdown_values"
+                      *ngFor="let res of organisationName; let index = index"
+                    >
+                      <li>
+                        <a
+                          ngbDropdownItem
+                          (click)="updateSelectedIndustryValue(index)"
+                          class="font"
+                          >{{ res.organization }}</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <ng-container
+                    *ngFor="let row of processRows.controls; let i = index"
+                  >
+                    <div
+                      class="process-input-left mt-2 ps-2 d-flex align-items-center font"
+                      *ngIf="row.get('processName')?.value !== null"
+                      (click)="navigateToSubprocess(i)"
+                    >
+                      <p class="m-0 process-name">
+                        {{ row.get("processName")?.value }}
+                      </p>
+                      <!-- {{ row | json }} -->
                     </div>
-
-                 
+                  </ng-container>
                 </div>
 
+                <div *ngIf="subprocess; then process; else subprocessdiv"></div>
+                <ng-template #process>
+                  <div class="col-8 right-side">
+                    <div class="row w-100">
+                      <div
+                        class="col-12 font d-flex justify-content-center mt-4 heading-right-side"
+                      >
+                        Enter all the Process for XXX Vendor
+                      </div>
+                    </div>
 
-
-
-
-
-            </div>
-
-            <div *ngIf="activeIndexSubTab== '0' then createAdminRoles else SetHierarchy"></div>
-            <ng-template #createAdminRoles>
-                <div class="row w-100">
-                    <div class="col-12 ms-2 d-flex justify-content-center">
-                    <div class="table-container">
-
-                        <div class="row pt-3">
-                            <div class="col-4">
-                                <div class="client-vendor-name font">Client/ Vendor Name::</div>
-                                <div class="mt-2">
-                                    <input class="form-control organisation_input font" type="text"
-                                    id="orgName" name="orgName" formControlName="orgName">
-
-                                </div>
-                               
+                    <div class="container">
+                      <form [formGroup]="processForm">
+                        <div id="processContainer" formArrayName="processRows">
+                          <div
+                            class="row process-row"
+                            *ngFor="
+                              let row of processRows.controls;
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div class="col-7">
+                              <label class="font fw-bold mt-1"
+                                >Process {{ i + 1 }}:</label
+                              >
+                              <div class="mt-1">
+                                <input
+                                  type="text"
+                                  class="form-control font process-input"
+                                  placeholder="Enter the process name"
+                                  aria-label=""
+                                  aria-describedby="basic-addon1"
+                                  formControlName="processName"
+                                />
+                              </div>
                             </div>
-                            <div class="col-4"></div>
-                            <div class="col-4"></div>
+                            <div class="col-1"></div>
+                            <div class="col-4 d-flex align-items-end">
+                              <label class="font fw-bold"></label>
+                              <div
+                                class="add-button-process mt-1 d-flex justify-content-center align-items-center"
+                                (click)="addProcessRow()"
+                              >
+                                Add
+                              </div>
+                              <label class="font fw-bold"></label>
+                              <div
+                                class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
+                                (click)="removeProcessRow(i)"
+                              >
+                                Remove
+                              </div>
+                            </div>
+                          </div>
                         </div>
+                      </form>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template #subprocessdiv>
+                  <div class="col-8 right-side">
+                    <div class="row w-100">
+                      <div
+                        class="col-12 font d-flex justify-content-center mt-4 heading-right-side"
+                      >
+                        Enter all the Sub-Process for Process 1 XXX
+                      </div>
+                    </div>
 
-                        
+                    <div class="container">
+                      <form [formGroup]="processForm">
+                        <div id="processContainer" formArrayName="processRows">
+                          <div
+                            class="row process-row"
+                            *ngFor="
+                              let row of processRows.controls;
+                              let i = index
+                            "
+                            [formGroupName]="i"
+                          >
+                            <div class="col-7">
+                              <label class="font fw-bold mt-1"
+                                >Sub - Process {{ i + 1 }}:</label
+                              >
+                              <div class="mt-1">
+                                <input
+                                  type="text"
+                                  class="form-control font process-input"
+                                  placeholder="Enter the process name"
+                                  aria-label=""
+                                  aria-describedby="basic-addon1"
+                                  formControlName="processName"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-4 d-flex align-items-end">
+                              <label class="font fw-bold"></label>
+                              <div
+                                class="add-button-process mt-1 d-flex justify-content-center align-items-center"
+                                (click)="addProcessRow()"
+                              >
+                                Add
+                              </div>
+                              <label class="font fw-bold"></label>
+                              <div
+                                class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
+                                (click)="removeProcessRow(i)"
+                              >
+                                Remove
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        </div>
-                        </div>
-            </ng-template>
-            <ng-template #SetHierarchy>
-                <div class="row w-100">
-                    <div class="col-12 ms-2 d-flex justify-content-center">
-                    <div class="table-container">
-                        </div>
-                        </div>
-                        </div>
-            </ng-template>
+                      </form>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
         </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
