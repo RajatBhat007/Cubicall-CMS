@@ -96,18 +96,50 @@
                       </li>
                     </ul>
                   </div>
+
+                  <!-- Process -->
+                  <div
+                    class="process-input-left mt-2 ps-4 font d-flex align-items-center"
+                    (click)="navigateToSubprocess('process')"
+                  >
+                    B] Process
+                  </div>
                   <ng-container
                     *ngFor="let row of processRows.controls; let i = index"
                   >
-                    <div
-                      class="process-input-left mt-2 ps-2 d-flex align-items-center font"
-                      *ngIf="row.get('processName')?.value !== null"
-                      (click)="navigateToSubprocess(i)"
-                    >
-                      <p class="m-0 process-name">
-                        {{ row.get("processName")?.value }}
-                      </p>
-                      <!-- {{ row | json }} -->
+                    <div class="row d-flex justify-content-end me-1">
+                      <div
+                        class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                        *ngIf="row.get('processName')?.value !== null"
+                      >
+                        <p class="m-0 process-name">
+                          {{ row.get("processName")?.value }}
+                        </p>
+                        <!-- {{ row | json }} -->
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <!-- Sub Process -->
+                  <div
+                    class="process-input-left mt-2 ps-4 font d-flex align-items-center"
+                    (click)="navigateToSubprocess('subprocess')"
+                  >
+                    C] Sub Process
+                  </div>
+                  <ng-container
+                    *ngFor="let row of subprocessRows.controls; let i = index"
+                  >
+                    <div class="row d-flex justify-content-end me-1">
+                      <div
+                        class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                        *ngIf="row.get('subprocessName')?.value !== null"
+                      >
+                        <p class="m-0 process-name">
+                          {{ row.get("subprocessName")?.value }}
+                        </p>
+                        <!-- {{ row | json }} -->
+                      </div>
                     </div>
                   </ng-container>
                 </div>
@@ -184,7 +216,10 @@
 
                     <div class="container">
                       <form [formGroup]="processForm">
-                        <div id="processContainer" formArrayName="processRows">
+                        <div
+                          id="processContainer"
+                          formArrayName="subprocessRows"
+                        >
                           <div
                             class="row process-row"
                             *ngFor="
@@ -204,7 +239,7 @@
                                   placeholder="Enter the process name"
                                   aria-label=""
                                   aria-describedby="basic-addon1"
-                                  formControlName="processName"
+                                  formControlName="subprocessName"
                                 />
                               </div>
                             </div>

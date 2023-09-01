@@ -31,6 +31,7 @@ export class OrganizationHierarchyComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.processForm = this.formBuilder.group({
       processRows: this.formBuilder.array([]),
+      subprocessRows: this.formBuilder.array([]),
     });
   }
   ngOnInit() {
@@ -55,11 +56,23 @@ export class OrganizationHierarchyComponent implements OnInit {
         processName: [null], // Set initial value to null
       })
     );
+
+    const subprocessRows = this.processForm.get('subprocessRows') as FormArray;
+    subprocessRows.push(
+      this.formBuilder.group({
+        subprocessName: [null], // Set initial value to null
+      })
+    );
   }
   removeProcessRow(index: number) {
     if (index > 0) {
       const processRows = this.processForm.get('processRows') as FormArray;
       processRows.removeAt(index);
+
+      const subprocessRows = this.processForm.get(
+        'subprocessRows'
+      ) as FormArray;
+      subprocessRows.removeAt(index);
     }
   }
 
@@ -67,9 +80,17 @@ export class OrganizationHierarchyComponent implements OnInit {
     return this.processForm.get('processRows') as FormArray;
   }
 
-  navigateToSubprocess(index: any) {
-    console.log(index);
-    this.subprocess = false;
+  get subprocessRows(): FormArray {
+    return this.processForm.get('subprocessRows') as FormArray;
+  }
+
+  navigateToSubprocess(process: any) {
+    if (process == 'subprocess') {
+      this.subprocess = false;
+    } else {
+      this.subprocess = true;
+    }
+
     console.log(this.subprocess);
   }
 }
