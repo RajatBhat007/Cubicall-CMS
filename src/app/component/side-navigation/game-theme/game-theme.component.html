@@ -103,9 +103,9 @@
                     <div class="col-5 mt-5 ps-4 " >
                         <div class="upload-button font d-flex justify-content-center align-items-center" style="cursor: pointer;" data-bs-toggle="modal"
                         data-bs-target="#Excelupload">
-                            Upload <span
-                                class="add_btn ms-1 d-flex align-items-center justify-content-center">+</span>
-                            <!-- <input type="file" id="fileInput" class="file-input"> -->
+                            Upload 
+                        <span class="add_btn ms-1 d-flex align-items-center justify-content-center">+</span>
+                           
 
                         </div>
                         <div class="row mt-4 ps-2">
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div class="col-3 mt-4  d-flex">
-                        <div class="draft-button font d-flex justify-content-center align-items-center"(click)="View('1')" [ngClass]="{'draft-submit-button-active': '1' === activeIndexDraftSubmit}" >Draft</div>
+                        <div class="draft-button font d-flex justify-content-center align-items-center" (click)="View('1')" [ngClass]="{'draft-submit-button-active': '1' === activeIndexDraftSubmit}" >Draft</div>
                         <hr class="d-flex align-items-center horizontal_line mt-2" style="width: 2vh; height: 5vh; color: #000;">
                         <div class="submitted-button font d-flex justify-content-center align-items-center" (click)="View('2')" [ngClass]="{'draft-submit-button-active ': '2' === activeIndexDraftSubmit}">Rejected</div>
                         <hr class="d-flex align-items-center horizontal_line mt-2" style="width: 2vh; height: 5vh; color: #000;">
@@ -335,7 +335,6 @@
                                                 </div>
         
                                                 <div class="view_div d-flex align-items-center justify-content-center" >
-                                                    <!-- <img class="eye-image" src="assets/images/View.svg" alt="Eye Image"/> -->
                                                     <svg xmlns="http://www.w3.org/2000/svg"  class="eye-image" viewBox="0 0 28 20" fill="none">
                                                         <path d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                         <path d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -549,25 +548,19 @@
             <div class="modal-content ExcelContentModal">
                 <div class="modal-body">
                     <div >
-                        <div  style="position:relative;">
-
-                            
+                        <div  style="position:relative;">      
                             <div class="d-flex justify-content-end">
                                 <div type="button" class="custom-close-btn d-flex justify-content-center align-items-center" data-bs-dismiss="modal"
                                 aria-label="Close">X</div>
-
-                              
                             </div>
                             <div class="row">
                                 <div class="col-12 d-flex" style="width: auto;position: relative;">
                                     <img class="warning_image" alt="Warning image" src="assets/images/Warning.png"/>
-                                    <div class="warning_message font d-flex align-items-center ms-3 ps-3">
-                                      
+                                    <div class="warning_message font d-flex align-items-center ms-3 ps-3">                                      
                                         The content does not match the template. Please refer it again!
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-7 mb-5">
                                     <div class="font mt-4 view_message">

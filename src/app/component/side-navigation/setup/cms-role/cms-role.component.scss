@@ -298,7 +298,11 @@ input[type=checkbox] {
   background: #B0DDF6;
   border-radius: 8px;
 }
-
+.dropdownmenu{
+  height: 40vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .submit_button {
   border-radius: 10px;
   background: #000000;

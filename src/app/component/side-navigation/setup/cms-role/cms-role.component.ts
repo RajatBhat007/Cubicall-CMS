@@ -7,9 +7,6 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
   styleUrls: ['./cms-role.component.scss'],
 })
 export class CmsRoleComponent {
-  formData: any = {};
-  apiResponse: any;
-
   selectedDropdownIndustryValue: string = 'Select from the drop-down';
   selectedDropdownBusinessTypeValue: string = 'Select from the drop-down';
   activeIndexSubTab: any = 0;
@@ -83,7 +80,6 @@ export class CmsRoleComponent {
   updateSelectedIndustryValue(value: any) {
     this.selectedDropdownIndustryValue =
       this.getOrganizationlist[value].organizationName;
-    console.log(this.selectedDropdownIndustryValue);
   }
   updateSelectedBusinessTypeValue(value: any) {
     this.selectedDropdownBusinessTypeValue = value;
@@ -108,7 +104,7 @@ export class CmsRoleComponent {
     this.http.getOrganisation().subscribe((res) => {
       console.log(res);
       this.getOrganizationlist = res;
-      console.log(this.getOrganizationlist);
+      console.log(this.getOrganization);
     });
   }
   getCmsRoleList() {
