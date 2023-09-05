@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ApiServiceService } from 'src/app/service/api-service.service';
-import { FormSharingService } from 'src/app/service/form-sharing/form-sharing.service';
 
 @Component({
   selector: 'app-cms-role',
@@ -73,19 +72,12 @@ export class CmsRoleComponent {
     },
   ];
 
-  constructor(
-    public http: ApiServiceService,
-    private formSharingService: FormSharingService
-  ) {
+  constructor(public http: ApiServiceService) {
     console.log(this.activeUpdateButton);
   }
   ngOnInit(): void {
     this.getCmsRole_Function_List();
     this.getOrganization();
-
-    this.http.apiResponse$.subscribe((response) => {
-      this.apiResponse = response;
-    });
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -125,12 +117,5 @@ export class CmsRoleComponent {
       this.CmsRoleList = res;
       console.log(this.CmsRoleList);
     });
-  }
-
-  onSubmit() {
-    console.log('submit');
-    console.log('Submitting API data:', this.apiResponse);
-    // Set the form data in the shared service
-    this.formSharingService.setFormData(this.formData);
   }
 }

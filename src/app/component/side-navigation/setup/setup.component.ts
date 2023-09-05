@@ -6,7 +6,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
-import { FormSharingService } from 'src/app/service/form-sharing/form-sharing.service';
 @Component({
   selector: 'app-setup',
   templateUrl: './setup.component.html',
@@ -80,8 +79,7 @@ export class SetupComponent implements OnInit {
     public http: ApiServiceService,
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private renderer: Renderer2,
-    private formSharingService: FormSharingService
+    private renderer: Renderer2
   ) {
     this.multiFieldForm = this.fb.group({
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
@@ -181,6 +179,7 @@ export class SetupComponent implements OnInit {
         {
           label: 'Function to Role Mapping',
         },
+        // this._router.navigateByUrl('/organization'),
       ];
     }
   }
@@ -312,7 +311,9 @@ export class SetupComponent implements OnInit {
     });
 
     // You can pass data to the modal if needed
-    modalRef.componentInstance.someData = 'Hello from parent component';
+    modalRef.componentInstance.someData =
+      'Done! The Organization has been created successfully.';
+    modalRef.componentInstance.screen = 'Organization';
   }
 
   submitForm() {

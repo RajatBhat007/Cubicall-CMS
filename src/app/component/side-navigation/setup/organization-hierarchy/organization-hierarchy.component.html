@@ -20,142 +20,260 @@
         </div>
       </div>
 
-      <div
-        *ngIf="
-          activeIndexSubTab == '0';
-          then createAdminRoles;
-          else SetHierarchy
-        "
-      ></div>
-      <ng-template #createAdminRoles>
-        <div class="row w-100">
-          <div class="col-12 ms-2 d-flex justify-content-center">
-            <div class="table-container">
-              <div class="row pt-3">
-                <div class="col-4">
-                  <div class="client-vendor-name font">
-                    Client/ Vendor Name::
+      <div [ngSwitch]="subTabName">
+        <div class="row" *ngSwitchCase="'create'">
+          <div class="row w-100">
+            <div class="col-12 ms-2 d-flex justify-content-center">
+              <div class="table-container">
+                <div class="row">
+                  <div class="col-4 pt-3">
+                    <div class="client-vendor-name font">
+                      Client/ Vendor Name:
+                    </div>
+                    <div class="mt-2">
+                      <input
+                        class="form-control organisation_input font"
+                        type="text"
+                      />
+                    </div>
                   </div>
-                  <div class="mt-2">
-                    <input
-                      class="form-control organisation_input font"
-                      type="text"
-                      id="orgName"
-                      name="orgName"
-                      formControlName="orgName"
-                    />
+                  <div class="col-8 right-side-create-hierarchy">
+                    <div
+                      *ngIf="
+                        !adminInfo;
+                        then defaultInfo;
+                        else adminInfodetails
+                      "
+                    ></div>
+                    <ng-template #defaultInfo>
+                      <div
+                        class="font d-flex justify-content-center create-hierarchy-description pt-3"
+                      >
+                        * By assigning an admin role to the Vendor, the vendor
+                        can set up their own hierarchy, as well as create CMS
+                        Role, CMS User and Batch.
+                      </div>
+                    </ng-template>
+                    <ng-template #adminInfodetails>
+                      <div class="row">
+                        <div
+                          class="col-12 d-flex justify-content-center font pt-2 admin_heading"
+                        >
+                          Admin User Info
+                        </div>
+
+                        <div class="row mt-2">
+                          <div class="col-3"></div>
+                          <div class="col-6">
+                            <div class="label_setup font">Employee Name:</div>
+                            <div class="mt-1">
+                              <input
+                                class="form-control employee_input font"
+                                type="text"
+                              />
+                            </div>
+
+                            <div class="label_setup font mt-1">
+                              Employee ID:
+                            </div>
+                            <div class="mt-1">
+                              <input
+                                class="form-control employee_input font"
+                                type="text"
+                              />
+                            </div>
+
+                            <div class="label_setup font mt-1">Password:</div>
+                            <div class="mt-1">
+                              <input
+                                class="form-control employee_input font"
+                                type="text"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-3"></div>
+                        </div>
+                      </div>
+                    </ng-template>
                   </div>
                 </div>
-                <div class="col-4"></div>
-                <div class="col-4"></div>
               </div>
             </div>
           </div>
         </div>
-      </ng-template>
-      <ng-template #SetHierarchy>
-        <div class="row w-100">
-          <div class="col-12 ms-2 d-flex justify-content-center">
-            <div class="table-container">
-              <div class="row">
-                <div class="col-4 left-side">
-                  <div
-                    ngbDropdown
-                    class="dropdown mt-4 w-100"
-                    style="position: relative; display: inline-flex"
-                  >
-                    <button
-                      ngbDropdownToggle
-                      class="btn btn-secondary font large-dropdown d-flex align-items-center"
-                      type="button"
-                      id="dropdownMenuButtonsetup"
-                      aria-expanded="false"
-                      [ngStyle]="{
-                        color:
-                          selectedDropdownIndustryValue !==
-                          'Select from the drop-down'
-                            ? 'black'
-                            : ''
-                      }"
+        <div class="row" *ngSwitchCase="'set'">
+          <div class="row w-100">
+            <div class="col-12 ms-2 d-flex justify-content-center">
+              <div class="table-container">
+                <div class="row">
+                  <div class="col-4 left-side">
+                    <div
+                      ngbDropdown
+                      class="dropdown mt-4 w-100"
+                      style="position: relative; display: inline-flex"
                     >
-                      {{ selectedDropdownIndustryValue }}
-                    </button>
-                    <ul
-                      ngbDropdownMenu
-                      aria-labelledby="dropdownMenuButton1"
-                      class="dropdown_values"
-                      *ngFor="let res of organisationName; let index = index"
+                      <button
+                        ngbDropdownToggle
+                        class="btn btn-secondary font large-dropdown d-flex align-items-center ps-4"
+                        type="button"
+                        id="dropdownMenuButtonsetup"
+                        aria-expanded="false"
+                        [ngStyle]="{
+                          color:
+                            selectedDropdownIndustryValue !==
+                            'Select from the drop-down'
+                              ? 'black'
+                              : ''
+                        }"
+                      >
+                        {{ selectedDropdownIndustryValue }}
+                      </button>
+                      <ul
+                        ngbDropdownMenu
+                        aria-labelledby="dropdownMenuButton1"
+                        class="dropdown_values"
+                        *ngFor="let res of organisationName; let index = index"
+                      >
+                        <li>
+                          <a
+                            ngbDropdownItem
+                            (click)="updateSelectedIndustryValue(index)"
+                            class="font"
+                            >{{ res.organization }}</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+
+                    <!-- Process -->
+                    <div
+                      class="process-input-left mt-2 ps-4 font d-flex align-items-center"
                     >
-                      <li>
-                        <a
-                          ngbDropdownItem
-                          (click)="updateSelectedIndustryValue(index)"
-                          class="font"
-                          >{{ res.organization }}</a
+                      B] Process
+                      <div
+                        class="edit_btn d-flex justify-content-end"
+                        (click)="navigateToSubprocess('process', 'demo')"
+                      >
+                        <img class="edit_image" src="assets/images/Edit.svg" />
+                      </div>
+                    </div>
+                    <ng-container
+                      *ngFor="let row of processRows.controls; let i = index"
+                    >
+                      <div
+                        class="row d-flex justify-content-end me-1"
+                        (click)="navigateToSubprocess('subprocess', i)"
+                      >
+                        <div
+                          class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                          *ngIf="row.get('processName')?.value !== null"
                         >
-                      </li>
-                    </ul>
-                  </div>
+                          <p class="m-0 process-name">
+                            {{ i + 1 + "]" }}
+                            {{ row.get("processName")?.value }}
+                          </p>
+                          <div class="edit_btn d-flex justify-content-end">
+                            <img
+                              class="edit_image"
+                              src="assets/images/Edit.svg"
+                            />
+                          </div>
 
-                  <!-- Process -->
-                  <div
-                    class="process-input-left mt-2 ps-4 font d-flex align-items-center"
-                    (click)="navigateToSubprocess('process')"
-                  >
-                    B] Process
-                  </div>
-                  <ng-container
-                    *ngFor="let row of processRows.controls; let i = index"
-                  >
-                    <div class="row d-flex justify-content-end me-1">
-                      <div
-                        class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
-                        *ngIf="row.get('processName')?.value !== null"
-                      >
-                        <p class="m-0 process-name">
-                          {{ row.get("processName")?.value }}
-                        </p>
-                        <!-- {{ row | json }} -->
+                          <!-- {{ row | json }} -->
+                        </div>
                       </div>
-                    </div>
-                  </ng-container>
+                    </ng-container>
 
-                  <!-- Sub Process -->
-                  <div
-                    class="process-input-left mt-2 ps-4 font d-flex align-items-center"
-                    (click)="navigateToSubprocess('subprocess')"
-                  >
-                    C] Sub Process
-                  </div>
-                  <ng-container
-                    *ngFor="let row of subprocessRows.controls; let i = index"
-                  >
-                    <div class="row d-flex justify-content-end me-1">
+                    <!-- Sub Process -->
+                    <div
+                      class="process-input-left mt-2 ps-4 font d-flex align-items-center"
+                    >
+                      C] Sub Process
+                    </div>
+                    <ng-container
+                      *ngFor="let row of subprocessRows.controls; let i = index"
+                    >
                       <div
-                        class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
-                        *ngIf="row.get('subprocessName')?.value !== null"
+                        class="row d-flex justify-content-end me-1"
+                        (click)="navigateToSubprocess('stage', i)"
                       >
-                        <p class="m-0 process-name">
-                          {{ row.get("subprocessName")?.value }}
-                        </p>
-                        <!-- {{ row | json }} -->
+                        <div
+                          class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                          *ngIf="row.get('subprocessName')?.value !== null"
+                        >
+                          <p class="m-0 process-name">
+                            {{ subprocessIndex + "." + (i + 1) + "]" }}
+                            {{ row.get("subprocessName")?.value }}
+                          </p>
+                          <div class="edit_btn d-flex justify-content-end">
+                            <img
+                              class="edit_image"
+                              src="assets/images/Edit.svg"
+                            />
+                          </div>
+                          <!-- {{ row | json }} -->
+                        </div>
                       </div>
-                    </div>
-                  </ng-container>
-                </div>
+                    </ng-container>
 
-                <div *ngIf="subprocess; then process; else subprocessdiv"></div>
-                <ng-template #process>
-                  <div class="col-8 right-side">
+                    <!-- Stage -->
+                    <div
+                      class="process-input-left mt-2 ps-4 font d-flex align-items-center"
+                    >
+                      D] Stage
+                    </div>
+                    <ng-container
+                      *ngFor="let row of stage.controls; let i = index"
+                    >
+                      <div class="row d-flex justify-content-end me-1">
+                        <div
+                          class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                          *ngIf="row.get('stageName')?.value !== null"
+                        >
+                          <p class="m-0 process-name">
+                            {{
+                              subprocessIndex +
+                                "." +
+                                subprocessIndex +
+                                "." +
+                                (i + 1) +
+                                "]"
+                            }}
+                            {{ row.get("stageName")?.value }}
+                          </p>
+                          <!-- {{ row | json }} -->
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <!-- <div *ngIf="subprocess; then process; else subprocessdiv"></div> -->
+
+                  <div class="col-8 right-side" *ngIf="processName == ''">
                     <div class="row w-100">
                       <div
-                        class="col-12 font d-flex justify-content-center mt-4 heading-right-side"
+                        class="col-12 font d-flex justify-content-center mt-1 heading-right-side"
                       >
-                        Enter all the Process for XXX Vendor
+                        Step 1: Enter all the Process for XXX Vendor<br />
+                        Step 2: Click on a Process to add its Sub Process in it
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="col-8 right-side"
+                    *ngIf="processName == 'process'"
+                  >
+                    <div class="row w-100">
+                      <div
+                        class="col-12 font d-flex justify-content-center mt-1 heading-right-side"
+                      >
+                        Step 1: Enter all the Process for XXX Vendor<br />
+                        Step 2: Click on a Process to add its Sub Process in it
                       </div>
                     </div>
 
-                    <div class="container">
+                    <div class="container mt-2">
                       <form [formGroup]="processForm">
                         <div id="processContainer" formArrayName="processRows">
                           <div
@@ -203,14 +321,17 @@
                       </form>
                     </div>
                   </div>
-                </ng-template>
-                <ng-template #subprocessdiv>
-                  <div class="col-8 right-side">
+
+                  <div
+                    class="col-8 right-side"
+                    *ngIf="processName == 'subprocess'"
+                  >
                     <div class="row w-100">
                       <div
                         class="col-12 font d-flex justify-content-center mt-4 heading-right-side"
                       >
-                        Enter all the Sub-Process for Process 1 XXX
+                        Step 1: Enter all the Sub-Process for Process 1 XXX<br />
+                        Step 2: Click on a Sub Process to add Stage in it
                       </div>
                     </div>
 
@@ -265,12 +386,260 @@
                       </form>
                     </div>
                   </div>
-                </ng-template>
+
+                  <div class="col-8 right-side" *ngIf="processName == 'stage'">
+                    <div class="row w-100">
+                      <div
+                        class="col-12 font d-flex justify-content-center mt-4 heading-right-side"
+                      >
+                        Step 1: Enter all the Sub-Process for Process 1 XXX<br />
+                        Step 2: Click on a Sub Process to add Stage in it
+                      </div>
+                    </div>
+
+                    <div class="container">
+                      <form [formGroup]="processForm">
+                        <div id="processContainer" formArrayName="stage">
+                          <div
+                            class="row process-row"
+                            *ngFor="let row of stage.controls; let i = index"
+                            [formGroupName]="i"
+                          >
+                            <div class="col-7">
+                              <label class="font fw-bold mt-1"
+                                >Stage {{ i + 1 }}:</label
+                              >
+                              <div class="mt-1">
+                                <input
+                                  type="text"
+                                  class="form-control font process-input"
+                                  placeholder="Enter the process name"
+                                  aria-label=""
+                                  aria-describedby="basic-addon1"
+                                  formControlName="stageName"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-4 d-flex align-items-end">
+                              <label class="font fw-bold"></label>
+                              <div
+                                class="add-button-process mt-1 d-flex justify-content-center align-items-center"
+                                (click)="addProcessRow()"
+                              >
+                                Add
+                              </div>
+                              <label class="font fw-bold"></label>
+                              <div
+                                class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
+                                (click)="removeProcessRow(i)"
+                              >
+                                Remove
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </ng-template>
+        <div class="row" *ngSwitchCase="'display'">
+          <div class="row w-100">
+            <div class="col-12 ms-2 d-flex justify-content-center">
+              <div class="table-container">
+                <div class="row">
+                  <div class="col-8"></div>
+                  <div class="col-4 mt-2 d-flex justify-content-end">
+                    <div class="count-container pt-1">
+                      <div class="row w-100" *ngFor="let response of count">
+                        <div class="col-lg-5 col-sm-4 ps-4 font count_label">
+                          {{ response.label }}
+                        </div>
+                        <div class="col-lg-5 col-sm-6">
+                          <div
+                            class="count-points font d-flex justify-content-center align-items-center mt-1"
+                          >
+                            {{ response.value }}
+                          </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-2">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="flexRadioDefault"
+                            id="flexRadioDefault2"
+                            checked
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row display-Cms-User-body">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row mt-2">
+                          <div class="col-12">
+                            <div class="table-header">
+                              <div
+                                class="checkbox-header d-flex align-items-center"
+                              >
+                                <div
+                                  class="edit_btn1 d-flex justify-content-center align-items-center"
+                                ></div>
+                                <div class="checkbox">
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  ></div>
+                                </div>
+                                <div
+                                  class="font d-flex align-items-center justify-content-center text-light"
+                                >
+                                  Status
+                                </div>
+                                <div
+                                  class="User-Name-header font d-flex justify-content-start ps-4 text-light"
+                                >
+                                  Vendors/ Clients
+                                </div>
+
+                                <div
+                                  class="Organization-header font d-flex justify-content-start ps-4 text-light"
+                                >
+                                  Admin ID
+                                </div>
+
+                                <div class="Role-header font text-light">
+                                  Hierarchy Status
+                                </div>
+
+                                <div class="Function-header font text-light">
+                                  Creation Date
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="display-Cms-User-body-height">
+                            <div
+                              class="table-body-height table-body w-100"
+                              *ngFor="let item of CmsRoleList"
+                            >
+                              <div class="row mt-2">
+                                <div
+                                  class="col-12 d-flex justify-content-center"
+                                >
+                                  <div
+                                    class="table-body d-flex align-items-center"
+                                  >
+                                    <div
+                                      class="view_div d-flex align-items-center justify-content-center"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#OrganizationDescriptionModal"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="eye-image"
+                                        viewBox="0 0 28 20"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                                          stroke="#133870"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                        <path
+                                          d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                                          stroke="#000"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div
+                                      class="edit_btn1 d-flex justify-content-center align-items-center"
+                                    >
+                                      <img
+                                        class="edit_image1"
+                                        src="assets/images/Edit.svg"
+                                        alt="Edit Image"
+                                      />
+                                    </div>
+
+                                    <div
+                                      class="Status_label form-check form-switch d-flex align-items-center"
+                                    >
+                                      <input
+                                        class="form-check-input"
+                                        style="width: 2.5vw; height: 2.5vh"
+                                        type="checkbox"
+                                        role="switch"
+                                        id="flexSwitchCheckDefault"
+                                      />
+                                    </div>
+                                    <div
+                                      class="User-Name-header font text-dark ps-4"
+                                    >
+                                      {{ item.username }}
+                                    </div>
+                                    <div
+                                      class="Organization-header font text-dark ps-4"
+                                    >
+                                      {{ item.label }}
+                                    </div>
+                                    <div
+                                      class="Role-header font text-dark ps-2"
+                                    >
+                                      {{ item.role }}
+                                    </div>
+                                    <div
+                                      class="Function-header font text-dark ps-2"
+                                    >
+                                      {{ item.function }}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="col-12 d-flex justify-content-end">
+    <div
+      *ngIf="!adminInfo; then defaultInfobtn; else adminInfodetailsbtb"
+    ></div>
+    <ng-template #defaultInfobtn>
+      <div
+        class="submit_button_organisation mt-3 me-3 font d-flex justify-content-center fontInter"
+        (click)="createAdminInfo()"
+      >
+        Next
+      </div>
+    </ng-template>
+    <ng-template #adminInfodetailsbtb>
+      <div
+        class="submit_button_organisation mt-3 me-3 font d-flex justify-content-center fontInter"
+        (click)="submitOrgHierarchy()"
+      >
+        Create
+      </div>
+    </ng-template>
   </div>
 </div>

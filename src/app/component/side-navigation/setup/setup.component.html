@@ -707,17 +707,21 @@
             </div>
           </ng-template>
         </div>
-        <div class="" *ngIf="this.activeIndexTab == 1">
-          <app-organization-hierarchy></app-organization-hierarchy>
-        </div>
-        <div class="" *ngIf="this.activeIndexTab == 2">
-          <app-cms-role></app-cms-role>
-        </div>
-        <div class="" *ngIf="this.activeIndexTab == 3">
-          <app-cms-user></app-cms-user>
-        </div>
-        <div class="" *ngIf="this.activeIndexTab == 4">
-          <app-batch></app-batch>
+
+        <div [ngSwitch]="activeIndexTab">
+          <div *ngSwitchCase="1">
+            <app-organization-hierarchy></app-organization-hierarchy>
+          </div>
+          <div *ngSwitchCase="2">
+            <app-cms-role></app-cms-role>
+          </div>
+          <div *ngSwitchCase="3">
+            <app-cms-user></app-cms-user>
+          </div>
+          <div *ngSwitchCase="4">
+            <app-batch></app-batch>
+          </div>
+          <!-- Add a default case if needed -->
         </div>
       </div>
     </div>
@@ -728,47 +732,6 @@
           class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
           [disabled]="multiFieldForm.invalid"
           [ngClass]="{ 'disabled-button': multiFieldForm.invalid }"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 1">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 2">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button_cms mt-3 me-3 font d-flex justify-content-center fontInter"
-          (click)="submitForm()"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 3">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 4">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
         >
           Submit
         </button>
