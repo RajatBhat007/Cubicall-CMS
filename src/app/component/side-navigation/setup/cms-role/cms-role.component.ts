@@ -80,7 +80,7 @@ console.log(this.activeUpdateButton);
   }
 
   updateSelectedIndustryValue(value: any) {
-    this.selectedDropdownIndustryValue = value
+    this.selectedDropdownIndustryValue =this.getOrganizationlist[value].organizationName
   }
   updateSelectedBusinessTypeValue(value: any) {
     

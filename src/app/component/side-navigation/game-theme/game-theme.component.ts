@@ -82,11 +82,13 @@ export class GameThemeComponent implements OnInit {
 
   },
   {
-    "label": 'Images'
+    "label": 'Configure Images'
 
   },
+  {
+    "label": 'Content Approval'
 
-
+  }
   ]
 
   tableData = [{

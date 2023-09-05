@@ -31,21 +31,14 @@
                                                 {{selectedDropdownIndustryValue}}
 
                                             </button>
-                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100"
-                                            *ngFor="let res of getOrganizationlist;let index =index">
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 1')"
-                                                        class="font">Organization
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100 dropdownmenu">
+                                                <li 
+                                                *ngFor="let res of getOrganizationlist;let index =index">
+                                                <a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue(index)"
+                                                        class="font">
                                                         {{res.organizationName}}</a>
                                                     </li>
-                                                <!-- <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 2')"
-                                                        class="font">Organization
-                                                        2</a></li>
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 3')"
-                                                        class="font">Organization
-                                                        3</a></li> -->
                                             </ul>
                                         </div>
                                     </div>
