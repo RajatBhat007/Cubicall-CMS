@@ -13,6 +13,7 @@ import { CmsUserComponent } from './setup/cms-user/cms-user.component';
 import { BatchComponent } from './setup/batch/batch.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganizationHierarchyComponent } from './setup/organization-hierarchy/organization-hierarchy.component';
+import { UsersReportComponent } from './users-report/users-report.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { OrganizationHierarchyComponent } from './setup/organization-hierarchy/o
        CmsRoleComponent,
        CmsUserComponent,
        BatchComponent,
-       OrganizationHierarchyComponent
+       OrganizationHierarchyComponent,
+       UsersReportComponent
   ],
   imports: [
     CommonModule,

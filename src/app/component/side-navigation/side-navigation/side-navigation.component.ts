@@ -56,9 +56,11 @@ constructor(private _router: Router,private _route: ActivatedRoute,private locat
       this._router.navigateByUrl('/home/game-theme');
 
     }
+    else if(this.activeIndex==3){
+      this._router.navigateByUrl('/home/users-report');
+    }
     else if(this.activeIndex==4){
       this._router.navigateByUrl('/home/rtu');
-
     }
     
 

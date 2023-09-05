@@ -6,6 +6,7 @@ import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { RtuScreenComponent } from './rtu-screen/rtu-screen.component';
 import { AuthGuard } from 'src/app/auth.guard';
 import { SetupComponent } from './setup/setup.component';
+import { UsersReportComponent } from './users-report/users-report.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'sidenav',pathMatch:'full' },
@@ -27,6 +28,10 @@ const routes: Routes = [
     {
       path: 'setup',
       component: SetupComponent
+    },
+    {
+      path:'users-report',
+      component:UsersReportComponent
     }
   ]
 },
