@@ -6,6 +6,8 @@ import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { RtuScreenComponent } from './rtu-screen/rtu-screen.component';
 import { AuthGuard } from 'src/app/auth.guard';
 import { SetupComponent } from './setup/setup.component';
+import { UsersReportComponent } from './users-report/users-report.component';
+
 import { OrganizationHierarchyComponent } from './setup/organization-hierarchy/organization-hierarchy.component';
 
 const routes: Routes = [
@@ -34,6 +36,10 @@ const routes: Routes = [
       {
         path: 'organization',
         component: OrganizationHierarchyComponent,
+      },
+      {
+        path: 'users-report',
+        component: UsersReportComponent,
       },
     ],
   },
