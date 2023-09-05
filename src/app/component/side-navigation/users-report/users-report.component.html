@@ -1,460 +1,663 @@
 <div class="web-container-game-theme">
-    <div class="row mt-2">
-        <div class="col-7">
-            <div class="search-bar-container mt-2 d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-                    viewBox="0 0 16 16" style="color: #FFF;">
-                    <path
-                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                </svg>
+  <div class="row">
+    <div class="col-7">
+      <div class="search-bar-container d-flex align-items-center font">
+        Organization LOGO DISPLAYED
+      </div>
+    </div>
+    <div class="col-5 pe-4 dropdown-col d-flex justify-content-end">
+      <div
+        ngbDropdown
+        class="dropdown_org d-flex justify-content-center align-items-center"
+        style="position: relative"
+      >
+        <div id="dropdownMenuButton1 font">{{ selectedDropdownValue }}</div>
+      </div>
 
-                <div class="input-group">
+      <div
+        ngbDropdown
+        class="dropdown"
+        style="position: relative; display: inline-flex"
+      >
+        <button
+          ngbDropdownToggle
+          class="btn btn-secondary"
+          type="button"
+          id="dropdownMenuButton2"
+          aria-expanded="false"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="circle"
+            viewBox="0 0 41 41"
+            fill="none"
+          >
+            <circle
+              cx="20.5"
+              cy="20.5"
+              r="19.5"
+              fill="white"
+              stroke="#000"
+              stroke-width="2"
+            />
+            <path
+              d="M28 30V28C28 26.9391 27.5786 25.9217 26.8284 25.1716C26.0783 24.4214 25.0609 24 24 24H16C14.9391 24 13.9217 24.4214 13.1716 25.1716C12.4214 25.9217 12 26.9391 12 28V30"
+              stroke="#133870"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M20 20C22.2091 20 24 18.2091 24 16C24 13.7909 22.2091 12 20 12C17.7909 12 16 13.7909 16 16C16 18.2091 17.7909 20 20 20Z"
+              stroke="#133870"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <ul
+          ngbDropdownMenu
+          aria-labelledby="dropdownMenuButton1"
+          class="logut_dropdown"
+        >
+          <li class="mt-2">
+            <a ngbDropdownItem class="font logout" (click)="logout()"
+              >Logout
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-box-arrow-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-                    <input type="text" class="form-control font" placeholder="Search anything" aria-label=""
-                        aria-describedby="basic-addon1">
-                </div>
+  <div class="row mt-3">
+    <div class="col-12 d-flex align-items-center" style="flex-direction: row">
+      <div class="circle-div d-flex justify-content-center align-items-center">
+        <img class="user-image" src="assets/images/sidenavigation/Users.png" />
+      </div>
+      <div class="font ms-2 title_name">Users Report</div>
+    </div>
+  </div>
 
-                <button type="button" class="close ms-2" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+  <div class="row mt-3">
+    <div class="col-10">
+      <div class="row">
+        <div
+          class="col-2"
+          *ngFor="let res of matTab; let i = index"
+          (click)="NavigateToTab(i)"
+          style="cursor: pointer; padding-right: 0"
+        >
+          <div
+            class="tab d-flex justify-content-center align-items-center flex-column"
+            [ngClass]="{ 'tab-active': i === activeIndexTab }"
+          >
+            <div style="height: 5vh">
+              <img [src]="res.Image" alt="" height="70%" width="70%" />
             </div>
+            <div class="mat-title font">{{ res.content }}</div>
+          </div>
         </div>
-        <div class="col-5 pe-4 mt-2 dropdown-col d-flex justify-content-end">
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
 
-            <div ngbDropdown class="dropdown" style="position:relative;">
-                <button ngbDropdownToggle class="btn btn-secondary font" type="button" id="dropdownMenuButton1"
-                    aria-expanded="false">
-                    {{ selectedDropdownValue }}
-                    <svg xmlns="http://www.w3.org/2000/svg" class="circle ms-1" viewBox="0 0 41 41" fill="none">
-                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#FFF" stroke-width="2"/>
-                      </svg>
-                </button>
-                <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 1')" class="font">Organization
-                            1</a></li>
-                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 2')" class="font">Organization
-                            2</a></li>
-                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 3')" class="font">Organization
-                            3</a></li>
-                </ul>
+  <div class="row">
+    <div class="col-12">
+      <div class="bottom-conatiner p-2">
+        <div class="col-6 d-flex align-items-center gap-3 mt-2">
+          <span> View:</span>
+          <div
+            ngbDropdown
+            class="dropdown"
+            style="position: relative; display: inline-flex"
+          >
+            <button
+              ngbDropdownToggle
+              class="btn btn-secondary"
+              type="button"
+              id="dropdownMenuButton2"
+              aria-expanded="false"
+              style="
+                border: 1px solid #000;
+                border-radius: 5px;
+                font-size: 1.1em;
+              "
+            >
+              {{ selectedValue }}
+            </button>
+            <ul
+              ngbDropdownMenu
+              aria-labelledby="dropdownMenuButton1"
+              class="logut_dropdown"
+            >
+              <li
+                ngbDropdownItem
+                class="mt-2"
+                (click)="selectedTableValue('All Vendorwise Report')"
+              >
+                All Vendorwise Report
+              </li>
+              <li
+                ngbDropdownItem
+                class="mt-2"
+                (click)="selectedTableValue('All Processwise Report')"
+              >
+                All Processwise Report
+              </li>
+              <li
+                ngbDropdownItem
+                class="mt-2"
+                (click)="selectedTableValue('All Sub Processwise Report')"
+              >
+                All Sub Processwise Report
+              </li>
+              <li
+                ngbDropdownItem
+                class="mt-2"
+                (click)="selectedTableValue('All Stagewise Report')"
+              >
+                All Stagewise Report
+              </li>
+              <li
+                ngbDropdownItem
+                class="mt-2"
+                (click)="selectedTableValue('All Batchwise Report')"
+              >
+                All Batchwise Report
+              </li>
+              <li
+                ngbDropdownItem
+                class="mt-2"
+                (click)="selectedTableValue('All Userwise Report')"
+              >
+                All UserWise Report
+              </li>
+            </ul>
+          </div>
+
+          <div *ngIf="tableTitleValue != 'Vendors'">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-right"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+              />
+            </svg>
+          </div>
+          <div class="sub_input" *ngIf="tableTitleValue != 'Vendors'">
+            &nbsp;
+            {{ selectedFromTable }}
+          </div>
+        </div>
+        <div *ngIf="isOpenPerformance">
+          <div class="row mt-3 ps-2">
+            <div
+              class="col-1 ps-1"
+              *ngFor="let res_sub of matSubTab; let j = index"
+              (click)="NavigateToSubTab(j)"
+            >
+              <div
+                class="sub_tab font d-flex justify-content-center align-items-center"
+                [ngClass]="{ 'sub-tab-active': j == activeSubIndexTab }"
+              >
+                {{ res_sub.content }}
+              </div>
             </div>
+          </div>
+          <div class="row w-100">
+            <div class="col-12 d-flex justify-content-center">
+              <div class="table-container">
+                <!-- Draft Tab -->
+                <div>
+                  <div class="row mt-2">
+                    <div class="col-12 d-flex justify-content-center">
+                      <div class="table-header">
+                        <div
+                          class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3"
+                        >
+                          <div
+                            class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5"
+                          >
+                            <div
+                              *ngIf="tableTitleValue != 'User'"
+                              class="Status_label font d-flex align-items-center justify-content-center"
+                            >
+                              Detailed View
+                            </div>
 
-            <div ngbDropdown class="dropdown" style="position: relative; display: inline-flex;">
-                <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton2"
-                    aria-expanded="false">
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" class="circle" viewBox="0 0 41 41" fill="none">
-                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#000" stroke-width="2"/>
-                        <path d="M28 30V28C28 26.9391 27.5786 25.9217 26.8284 25.1716C26.0783 24.4214 25.0609 24 24 24H16C14.9391 24 13.9217 24.4214 13.1716 25.1716C12.4214 25.9217 12 26.9391 12 28V30" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M20 20C22.2091 20 24 18.2091 24 16C24 13.7909 22.2091 12 20 12C17.7909 12 16 13.7909 16 16C16 18.2091 17.7909 20 20 20Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                </button>
-                <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="logut_dropdown">
-                    
-                    <li class="mt-2">
-                        <a ngbDropdownItem class="font logout" (click)="logout()">Logout
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            <div
+                              class="view-header font d-flex justify-content-center"
+                            >
+                              {{ tableTitleValue }}
+                            </div>
+                          </div>
+
+                          <div
+                            class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5"
+                          >
+                            <div class="id-header font">AHT</div>
+
+                            <div class="question-header font">FCR</div>
+
+                            <div
+                              class="created-date-header font d-flex justify-content-end"
+                            >
+                              Quality
+                            </div>
+                            <div
+                              class="created-date-header font d-flex justify-content-end"
+                            >
+                              Service Level
+                            </div>
+                            <div
+                              class="created-date-header font d-flex justify-content-end"
+                            >
+                              Performance
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="table-body-height">
+                    <div class="row mt-2">
+                      <div
+                        class="col-12 d-flex flex-column justify-content-center"
+                      >
+                        <div
+                          class="table-body ms-2 d-flex align-items-center mt-2"
+                          *ngFor="
+                            let performanceContent of tableContent;
+                            let i = index
+                          "
+                        >
+                          <div
+                            class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3"
+                            (click)="openInfoFormTable(i)"
+                          >
+                            <div
+                              class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5"
+                            >
+                              <div
+                                *ngIf="tableTitleValue != 'User'"
+                                class="Status_label font d-flex align-items-center justify-content-center"
+                              >
+                                <button class="detailed_view_btn">
+                                  <i
+                                    class="material-icons me-2"
+                                    style="color: #fff"
+                                    >{{
+                                      showPassword
+                                        ? "visibility"
+                                        : "visibility_off"
+                                    }}</i
+                                  >
+                                  <span>View</span>
+                                </button>
+                              </div>
+
+                              <div
+                                class="view-header font d-flex justify-content-center"
+                              >
+                                {{ tableTitleValue }}&nbsp;{{ i + 1 }}
+                              </div>
+                            </div>
+
+                            <div
+                              class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5"
+                            >
+                              <div class="id-header font">
+                                {{ performanceContent?.AHT }}
+                              </div>
+
+                              <div class="question-header font">
+                                {{ performanceContent?.FCR }}
+                              </div>
+
+                              <div
+                                class="created-date-header font d-flex justify-content-end"
+                              >
+                                {{ performanceContent?.Quality }}
+                              </div>
+                              <div
+                                class="created-date-header font d-flex justify-content-end"
+                              >
+                                {{ performanceContent?.Service_level }}
+                              </div>
+                              <div
+                                class="created-date-header font d-flex justify-content-end"
+                              >
+                                <button
+                                  class="performance_btn_high"
+                                  *ngIf="
+                                    performanceContent.Performance == 'High'
+                                  "
+                                >
+                                  High
+                                </button>
+
+                                <button
+                                  class="performance_btn_Moderate"
+                                  *ngIf="
+                                    performanceContent.Performance == 'Moderate'
+                                  "
+                                >
+                                  Moderate
+                                </button>
+                                <button
+                                  class="performance_btn_low"
+                                  *ngIf="
+                                    performanceContent.Performance == 'Low'
+                                  "
+                                >
+                                  Low
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="row d-flex justify-content-center align-items-center me-3 mt-2"
+                  >
+                    <div
+                      class="table-footer d-flex justify-content-end align-items-center"
+                    >
+                      <div
+                        class="count-no font d-flex justify-content-center align-items-center"
+                      >
+                        5
+                      </div>
+                      <div class="dash ms-1 d-flex align-items-center">/</div>
+                      <div
+                        class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                      >
+                        9
+                      </div>
+
+                      <div class="pagination d-flex justify-content-end">
+                        <div class="left_arrow d-flex align-items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 16 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                              fill="black"
+                            />
                           </svg>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-12 d-flex align-items-center" style="flex-direction: row;">
-            <div class="circle-div">
-
-            </div>
-            <div class="font ms-2 title_name">Users Report</div>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-10">
-            <div class="row">
-                <div class="col-2" *ngFor="let res of matTab; let i=index" (click)="NavigateToTab(i)"
-                    style="cursor: pointer; padding-right: 0;">
-                    <div class="tab d-flex justify-content-center align-items-center flex-column"
-                        [ngClass]="{'tab-active': i === activeIndexTab}">
-                        <div style="height: 5vh;">
-                            <img [src]="res.Image" alt="" height="70%" width="70%">
                         </div>
-                        <div class="mat-title font">{{res.content}}</div>
-                      
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-2"> </div>
-
-
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="bottom-conatiner p-2">
-                <div class="col-6 d-flex  align-items-center  gap-3 mt-2">
-                    <span> View:</span>
-                    <div ngbDropdown class="dropdown" style="position: relative; display: inline-flex;">
-                        <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton2"
-                          aria-expanded="false" style="border: 1px solid #000; border-radius: 5px; font-size: 1.1em">
-                          {{ selectedValue }}
-                        </button>
-                        <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="logut_dropdown">
-                          <li ngbDropdownItem class="mt-2" (click)="selectedTableValue('All Vendorwise Report')">
-                            All Vendorwise Report
-                          </li>
-                          <li ngbDropdownItem class="mt-2" (click)="selectedTableValue('All Processwise Report')">
-                            All Processwise Report
-                          </li>
-                          <li ngbDropdownItem class="mt-2" (click)="selectedTableValue('All Sub Processwise Report')">
-                            All Sub Processwise Report
-                          </li>
-                          <li ngbDropdownItem class="mt-2" (click)="selectedTableValue('All Stagewise Report')">
-                            All Stagewise Report
-                          </li>
-                          <li ngbDropdownItem class="mt-2" (click)="selectedTableValue('All Batchwise Report')">
-                            All Batchwise Report
-                          </li>
-                          <li ngbDropdownItem class="mt-2" (click)="selectedTableValue('All Userwise Report')">
-                            All UserWise Report
-                          </li>
-                        </ul>
-                    </div>
-
-                    <div *ngIf="tableTitleValue!='Vendors'">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        <div
+                          class="page-no d-flex justify-content-center align-items-center font ms-1"
+                        >
+                          1
+                        </div>
+                        <div class="right_arrow d-flex align-items-center ms-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 17 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                              fill="black"
+                            />
                           </svg>
+                        </div>
+                      </div>
                     </div>
-                    <div class="sub_input" *ngIf="tableTitleValue!='Vendors'">
-                        &nbsp;
-                       {{selectedFromTable}}
-                    </div>
-                      
+                  </div>
                 </div>
-                <div *ngIf="isOpenPerformance">
-                    <div class="row mt-3 ps-2">
-                        <div class="col-1 ps-1" *ngFor="let res_sub of matSubTab; let j=index"
-                            (click)="NavigateToSubTab(j)">
-                            <div class="sub_tab font d-flex justify-content-center align-items-center"
-                                [ngClass]="{'sub-tab-active': j == activeSubIndexTab}">
-                                {{res_sub.content}}
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="row w-100" >
-                        <div class="col-12  d-flex justify-content-center">
-                            <div class="table-container">
-                               
-                                <!-- Draft Tab -->
-                                <div >
-                                    <div class="row mt-2" >
-                                        <div class="col-12 d-flex justify-content-center">
-                                            <div class="table-header">
-                                                <div class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3">
-                                                    <div class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
-                                                        <div  *ngIf="tableTitleValue!='User'" class="Status_label font d-flex align-items-center justify-content-center">
-                                                            Detailed View
-                                                         </div>
-                 
-                                                         <div class="view-header font d-flex justify-content-center">
-                                                            {{tableTitleValue}}
-                                                         </div>
-                                                    </div>
-                                                   
-                                                    <div class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5">
-                                                        <div class="id-header font">
-                                                            AHT
-                                                        </div>
-                                                        
-            
-                                                        <div class="question-header font">
-                                                           FCR
-                                                        </div>
-                                                        
-                                                        <div class="created-date-header font d-flex justify-content-end">
-                                                           Quality
-                                                        </div>
-                                                        <div class="created-date-header font d-flex justify-content-end">
-                                                           Service Level
-                                                         </div>
-                                                         <div class="created-date-header font d-flex justify-content-end">
-                                                           Performance
-                                                         </div>
-                                                    </div>
-                                                    
-                                                     
-        
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                  
-    
-    
-                                    <div class="table-body-height">
-                                        <div class="row mt-2">
-                                            <div class="col-12 d-flex flex-column justify-content-center" >
-                                                <div class="table-body ms-2 d-flex align-items-center mt-2" *ngFor="let performanceContent of tableContent ;let i=index">
-                                                    <div class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3"  (click)="openInfoFormTable(i)">
-                                                        <div class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
-                                                            <div  *ngIf="tableTitleValue!='User'" class="Status_label font d-flex align-items-center justify-content-center">
-                                                                <button class="detailed_view_btn">
-                                                                    <i class="material-icons me-2" style="color: #fff;">{{ showPassword ? 'visibility' : 'visibility_off' }}</i>
-                                                                    <span>View</span>
-                                                                </button>
-                                                             </div>
-                     
-                                                             <div class="view-header font d-flex justify-content-center">
-                                                                {{tableTitleValue}}&nbsp;{{i+1}}
-                                                             </div>
-                                                        </div>
-                                                       
-                                                        <div class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5">
-                                                            <div class="id-header font">
-                                                               {{performanceContent?.AHT}} 
-                                                            </div>
-                                                            
-                
-                                                            <div class="question-header font">
-                                                                {{performanceContent?.FCR}} 
-                                                            </div>
-                                                            
-                                                            <div class="created-date-header font d-flex justify-content-end">
-                                                                {{performanceContent?.Quality}}
-                                                            </div>
-                                                            <div class="created-date-header font d-flex justify-content-end">
-                                                                {{performanceContent?.Service_level}}
-                                                             </div>
-                                                             <div class="created-date-header font d-flex justify-content-end">
-                                                              <button class="performance_btn_high" *ngIf="performanceContent.Performance=='High'">High</button>
-    
-                                                              <button class="performance_btn_Moderate" *ngIf="performanceContent.Performance=='Moderate'">Moderate</button>
-                                                              <button class="performance_btn_low" *ngIf="performanceContent.Performance=='Low'">Low</button>
-                                                             </div> 
-                                                        </div>
-                                                        
-                                                         
-            
-                                                    </div>
-            
-            
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                              
-                                    <div class="row d-flex justify-content-center align-items-center me-3 mt-2">
-                                        <div class="table-footer d-flex justify-content-end align-items-center">
-                                            <div class="count-no font d-flex justify-content-center align-items-center">
-                                                5
-                                            </div>
-                                            <div class="dash ms-1 d-flex align-items-center">
-                                                /
-                                            </div>
-                                            <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
-                                                9
-                                            </div>
-        
-                                            <div class="pagination d-flex justify-content-end">
-                                                <div class="left_arrow d-flex align-items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 16 24" fill="none">
-                                                        <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="black"/>
-                                                        </svg>
-                                                </div>
-                                                <div class="page-no d-flex justify-content-center align-items-center font ms-1">
-                                                    1
-                                                </div>
-                                                <div class="right_arrow d-flex align-items-center ms-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 17 24" fill="none">
-                                                        <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="black"/>
-                                                      </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-    
-                              
-    
-                               
-                            </div>
-                        </div>
-    
-    
-                    </div>
-    
-
-                </div>
-                <div  *ngIf="isOpenEngagement">
-                    <div class="row mt-3">
-                        <div class="col-2 " *ngFor="let res_sub of matSubTab; let j=index"
-                            (click)="NavigateToSubTab(j)">
-                            <div class="sub_tab_engagement font d-flex flex-column  justify-content-center align-items-center gap-3"
-                                [ngClass]="{'sub-tab-active': j === activeSubIndexTab}">
-                                <span class="engage_score">0000</span>
-                                <span>{{res_sub.content}}</span>
-                                
-                               
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="row w-100 mt-2" >
-                        <div class="col-12  d-flex justify-content-center">
-                            <div class="table-container">
-                               
-                                <!-- Draft Tab -->
-                                <div >
-                                    <div class="row mt-2" >
-                                        <div class="col-12 d-flex justify-content-center">
-                                            <div class="table-header">
-                                                <div class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3">
-                                                    <div class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
-                                                        <div  *ngIf="tableTitleValue!='User'" class="Status_label font d-flex align-items-center justify-content-center">
-                                                            Detailed View
-                                                         </div>
-                 
-                                                         <div class="view-header font d-flex justify-content-center">
-                                                            {{tableTitleValue}}
-                                                         </div>
-                                                    </div>
-                                                   
-                                                    <div class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5">
-                                                        <div class="id-header font">
-                                                            Screen Time
-                                                        </div>
-                                                        
-            
-                                                        <div class="question-header font">
-                                                           Total Attempts
-                                                        </div>
-                                                        
-                                                        <div class="created-date-header font d-flex justify-content-end">
-                                                           Engagement
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    
-                                                     
-        
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                  
-    
-    
-                                    <div class="table-body-height">
-                                        <div class="row mt-2">
-                                            <div class="col-12 d-flex flex-column justify-content-center" >
-                                                <div class="table-body ms-2 d-flex align-items-center mt-2" *ngFor="let EngagementContent of tableContentForEngagement ;let i=index">
-                                                    <div class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3" (click)="openInfoFormTable(i)">
-                                                        <div class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
-                                                            <div  *ngIf="tableTitleValue!='User'" class="Status_label font d-flex align-items-center justify-content-center">
-                                                                <button class="detailed_view_btn">
-                                                                    <i class="material-icons me-2" style="color: #fff;">{{ showPassword ? 'visibility' : 'visibility_off' }}</i>
-                                                                    <span>View</span>
-                                                                </button>
-                                                             </div>
-                     
-                                                             <div class="view-header font d-flex justify-content-center">
-                                                                {{tableTitleValue}}&nbsp;{{i+1}}
-                                                             </div>
-                                                        </div>
-                                                       
-                                                        <div class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5">
-                                                            <div class="id-header font">
-                                                               {{EngagementContent?.ScreenTime}} 
-                                                            </div>
-                                                            
-                
-                                                            <div class="question-header font">
-                                                                {{EngagementContent?.Total_Attempts}} 
-                                                            </div>
-                                                            
-                                                           
-                                                             <div class="created-date-header font d-flex justify-content-end">
-                                                              <button class="performance_btn_high" *ngIf="EngagementContent.Engagement=='High'">High</button>
-    
-                                                              <button class="performance_btn_Moderate" *ngIf="EngagementContent.Engagement=='Moderate'">Moderate</button>
-                                                              <button class="performance_btn_low" *ngIf="EngagementContent.Engagement=='Low'">Low</button>
-                                                             </div> 
-                                                        </div>
-                                                        
-                                                         
-            
-                                                    </div>
-            
-            
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                              
-                                    <div class="row d-flex justify-content-center align-items-center me-3 mt-2">
-                                        <div class="table-footer d-flex justify-content-end align-items-center">
-                                            <div class="count-no font d-flex justify-content-center align-items-center">
-                                                5
-                                            </div>
-                                            <div class="dash ms-1 d-flex align-items-center">
-                                                /
-                                            </div>
-                                            <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
-                                                9
-                                            </div>
-        
-                                            <div class="pagination d-flex justify-content-end">
-                                                <div class="left_arrow d-flex align-items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 16 24" fill="none">
-                                                        <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="black"/>
-                                                        </svg>
-                                                </div>
-                                                <div class="page-no d-flex justify-content-center align-items-center font ms-1">
-                                                    1
-                                                </div>
-                                                <div class="right_arrow d-flex align-items-center ms-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 17 24" fill="none">
-                                                        <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="black"/>
-                                                      </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-    
-                              
-    
-                               
-                            </div>
-                        </div>
-    
-    
-                    </div>
-                </div>
-                
-
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-end me-3 mt-2">
-        <button class="assign_btn">Assign</button>
-    </div>
+        <div *ngIf="isOpenEngagement">
+          <div class="row mt-3">
+            <div
+              class="col-2"
+              *ngFor="let res_sub of matSubTab; let j = index"
+              (click)="NavigateToSubTab(j)"
+            >
+              <div
+                class="sub_tab_engagement font d-flex flex-column justify-content-center align-items-center gap-3"
+                [ngClass]="{ 'sub-tab-active': j === activeSubIndexTab }"
+              >
+                <span class="engage_score">0000</span>
+                <span>{{ res_sub.content }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row w-100 mt-2">
+            <div class="col-12 d-flex justify-content-center">
+              <div class="table-container">
+                <!-- Draft Tab -->
+                <div>
+                  <div class="row mt-2">
+                    <div class="col-12 d-flex justify-content-center">
+                      <div class="table-header">
+                        <div
+                          class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3"
+                        >
+                          <div
+                            class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5"
+                          >
+                            <div
+                              *ngIf="tableTitleValue != 'User'"
+                              class="Status_label font d-flex align-items-center justify-content-center"
+                            >
+                              Detailed View
+                            </div>
 
-    
+                            <div
+                              class="view-header font d-flex justify-content-center"
+                            >
+                              {{ tableTitleValue }}
+                            </div>
+                          </div>
+
+                          <div
+                            class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5"
+                          >
+                            <div class="id-header font">Screen Time</div>
+
+                            <div class="question-header font">
+                              Total Attempts
+                            </div>
+
+                            <div
+                              class="created-date-header font d-flex justify-content-end"
+                            >
+                              Engagement
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="table-body-height">
+                    <div class="row mt-2">
+                      <div
+                        class="col-12 d-flex flex-column justify-content-center"
+                      >
+                        <div
+                          class="table-body ms-2 d-flex align-items-center mt-2"
+                          *ngFor="
+                            let EngagementContent of tableContentForEngagement;
+                            let i = index
+                          "
+                        >
+                          <div
+                            class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3"
+                            (click)="openInfoFormTable(i)"
+                          >
+                            <div
+                              class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5"
+                            >
+                              <div
+                                *ngIf="tableTitleValue != 'User'"
+                                class="Status_label font d-flex align-items-center justify-content-center"
+                              >
+                                <button class="detailed_view_btn">
+                                  <i
+                                    class="material-icons me-2"
+                                    style="color: #fff"
+                                    >{{
+                                      showPassword
+                                        ? "visibility"
+                                        : "visibility_off"
+                                    }}</i
+                                  >
+                                  <span>View</span>
+                                </button>
+                              </div>
+
+                              <div
+                                class="view-header font d-flex justify-content-center"
+                              >
+                                {{ tableTitleValue }}&nbsp;{{ i + 1 }}
+                              </div>
+                            </div>
+
+                            <div
+                              class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5"
+                            >
+                              <div class="id-header font">
+                                {{ EngagementContent?.ScreenTime }}
+                              </div>
+
+                              <div class="question-header font">
+                                {{ EngagementContent?.Total_Attempts }}
+                              </div>
+
+                              <div
+                                class="created-date-header font d-flex justify-content-end"
+                              >
+                                <button
+                                  class="performance_btn_high"
+                                  *ngIf="EngagementContent.Engagement == 'High'"
+                                >
+                                  High
+                                </button>
+
+                                <button
+                                  class="performance_btn_Moderate"
+                                  *ngIf="
+                                    EngagementContent.Engagement == 'Moderate'
+                                  "
+                                >
+                                  Moderate
+                                </button>
+                                <button
+                                  class="performance_btn_low"
+                                  *ngIf="EngagementContent.Engagement == 'Low'"
+                                >
+                                  Low
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="row d-flex justify-content-center align-items-center me-3 mt-2"
+                  >
+                    <div
+                      class="table-footer d-flex justify-content-end align-items-center"
+                    >
+                      <div
+                        class="count-no font d-flex justify-content-center align-items-center"
+                      >
+                        5
+                      </div>
+                      <div class="dash ms-1 d-flex align-items-center">/</div>
+                      <div
+                        class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                      >
+                        9
+                      </div>
+
+                      <div class="pagination d-flex justify-content-end">
+                        <div class="left_arrow d-flex align-items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 16 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </div>
+                        <div
+                          class="page-no d-flex justify-content-center align-items-center font ms-1"
+                        >
+                          1
+                        </div>
+                        <div class="right_arrow d-flex align-items-center ms-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 17 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end me-3 mt-2">
+    <button class="assign_btn">Assign</button>
+  </div>
 </div>

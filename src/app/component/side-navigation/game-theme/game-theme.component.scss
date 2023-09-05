@@ -2,7 +2,9 @@
   height: 5vh;
   width: 90%;
   background: #000;
-  padding-left: 1vw
+  margin-top: 2vh;
+  padding-left: 1vw;
+  color: #FFFFFF;
 }
 
 .input-group {
@@ -354,7 +356,10 @@
   width: 2.5vh;
   height: 2.5vh;
   border-radius: 100%;
-  background: #1b9de7
+  background: #000
+}
+.approved-header_submitted_circle{
+  background: #C4C4F6
 }
 
 .questionFileSelected {
@@ -599,6 +604,16 @@ input[type=file] {
   padding: 5%
 }
 
+.dropdown_org{
+  background: #000;
+  color: #FFFFFF;
+  padding: 0.3em;
+  font-size: 0.9em;
+}
+.dropdown-col{
+  margin-top: 2vh;
+}
+
 .lock_account,
 .logout {
   background: #e7f3f9;
@@ -622,4 +637,8 @@ input[type=file] {
   border: 1px solid #133870;
   display: flex;
   justify-content: space-between
+}
+
+.game-themes-image{
+  width: 80%;
 }

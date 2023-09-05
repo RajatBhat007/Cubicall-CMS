@@ -4,6 +4,7 @@
     background: #000;
     margin-top: 2vh;
     padding-left: 1vw;
+    color: #FFFFFF;
   }
   
   .input-group {
@@ -44,7 +45,7 @@
     height: 5vh;
     background: #D7D7E8;
     color: #000;
-    
+  
   }
   
   #dropdownMenuButtonsetup,.organisation_input {
@@ -305,6 +306,36 @@
     width: 48%;
   }
 
+  .dropdown_org{
+    background: #000;
+    color: #FFFFFF;
+    padding: 0.3em;
+    font-size: 0.9em;
+  }
+
+  .lock_account,
+.logout {
+  background: #e7f3f9;
+  height: 5vh;
+  width: 95%;
+  padding: 5px;
+  color: #000;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 500;
+  margin: auto
+}
+
+.logout {
+  border-radius: 5px;
+  border: 1px solid #133870;
+  display: flex;
+  justify-content: space-between
+}
+
+.logut_dropdown {
+  background: #e7f3f9
+}
   .dropdown_values{
     width: 100%;
   }
@@ -393,3 +424,7 @@
   
   }
  
+
+  .setup-image{
+    width: 80%;
+  }

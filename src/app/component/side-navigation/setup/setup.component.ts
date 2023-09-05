@@ -17,7 +17,7 @@ export class SetupComponent implements OnInit {
 
   activeTabGameThemes: Boolean = false;
 
-  selectedDropdownValue: string = 'Organization';
+  selectedDropdownValue: string = 'Organization Name';
   selectedDropdownIndustryValue: string = 'Select from the drop-down';
   selectedDropdownBusinessTypeValue: string = 'Select from the drop-down';
   status: any;
@@ -78,6 +78,7 @@ export class SetupComponent implements OnInit {
     private _route: ActivatedRoute,
     public http: ApiServiceService,
     private fb: FormBuilder,
+    public authService: AuthService,
     private modalService: NgbModal,
     private renderer: Renderer2
   ) {
@@ -139,10 +140,6 @@ export class SetupComponent implements OnInit {
       this.businessType = res;
       console.log(this.businessType);
     });
-  }
-
-  updateSelectedValue(value: any) {
-    this.selectedDropdownValue = value;
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -324,5 +321,10 @@ export class SetupComponent implements OnInit {
     this.http.createCmsRole(formData).subscribe((response) => {
       this.http.setApiResponse(response);
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this._router.navigateByUrl('');
   }
 }
