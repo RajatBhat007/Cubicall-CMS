@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-setup',
