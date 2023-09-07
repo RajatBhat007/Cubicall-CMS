@@ -61,7 +61,9 @@ export class LoginComponent implements OnInit {
         console.log(this.logindata.idOrgHierarchy);
         localStorage.setItem('idOrgHierarchy', this.logindata.idOrgHierarchy);
         localStorage.setItem('idOrganization', this.logindata.idOrganization);
+        localStorage.setItem('idCmsUser', this.logindata.idCmsUser);
 
+        
         this._router.navigateByUrl('home');
       },
       (error: HttpErrorResponse) => {

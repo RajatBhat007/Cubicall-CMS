@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 
 @Component({
@@ -16,33 +17,8 @@ export class CmsRoleComponent {
   idOrganization: any = '';
   CmsRoleList: any = [];
   getOrganizationlist: any = [];
-  functionName = [
-    {
-      label: 'Upload Question and Answers',
-    },
-    {
-      label: 'Approve Question and Answers',
-    },
-    {
-      label: 'Edit Question and Answers',
-    },
-    {
-      label: 'Configure Game Time',
-    },
-    {
-      label: 'Configure Game Attempts',
-    },
-    {
-      label: 'Configure Game Streaks',
-    },
-    {
-      label: 'Configure Game Images',
-    },
-    {
-      label: 'Configure Main Screen Images',
-    },
-  ];
-
+  functionName:string=''
+  functionDescription:string=''
   subtab = [
     {
       label: 'Create CMS Role',
@@ -68,8 +44,10 @@ export class CmsRoleComponent {
       value: 0,
     },
   ];
+  cmsRoleName: string='';
+  cmsFunctionName: string='';
 
-  constructor(public http: ApiServiceService) {
+  constructor(public http: ApiServiceService,public  _router: Router) {
     console.log(this.activeUpdateButton);
   }
   ngOnInit(): void {
@@ -86,6 +64,8 @@ export class CmsRoleComponent {
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
+    console.log(this.activeIndexSubTab);
+    
     if (this.activeIndexSubTab == 1) {
       this.getCmsRoleList();
     }
@@ -113,5 +93,23 @@ export class CmsRoleComponent {
       this.CmsRoleList = res;
       console.log(this.CmsRoleList);
     });
+  }
+
+  viewFunction(value:any){
+   this.functionName=this.RoleFunctionList[value].functionName
+   this.functionDescription=this.RoleFunctionList[value].description
+   console.log(this.functionName);
+   console.log(this.functionDescription);
+   
+  }
+  viewCmsRole(value:any){
+     console.log(value);
+    //  this.organizationName=this.CmsRoleList[value]
+     this.cmsRoleName=this.CmsRoleList[value].roleName
+     this.cmsFunctionName=this.CmsRoleList[value].idsFunction
+  }
+  navigateToCreateCmsRole(value:any){
+    // this._router.navigate(['home/setup'],{queryParams:{value}})
+    this.activeIndexSubTab = 0;
   }
 }

@@ -132,7 +132,7 @@
                       <div class="container-height">
                         <div
                           class="table-body-height table-body"
-                          *ngFor="let item of RoleFunctionList"
+                          *ngFor="let item of RoleFunctionList;let i=index"
                         >
                           <div class="row mt-2">
                             <div class="col-12 d-flex justify-content-center">
@@ -141,6 +141,7 @@
                                   class="view_div d-flex align-items-center justify-content-center"
                                   data-bs-toggle="modal"
                                   data-bs-target="#FunctionDescriptionModal"
+                                  (click)="viewFunction(i)"
                                 >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -175,12 +176,12 @@
                                   </div>
                                 </div>
                                 <div
-                                  class="label_setup-logo font text-dark ms-3"
+                                  class="label_setup-logo ellipsis font text-dark ms-3"
                                 >
                                   {{ item.functionName }}
                                 </div>
 
-                                <div class="label_setup-logo font text-dark">
+                                <div class="label_setup-logo ellipsis font text-dark">
                                   {{ item.description }}
                                 </div>
                               </div>
@@ -300,7 +301,7 @@
                           <div class="display-Cms-Role-body-height">
                             <div
                               class="table-body-height table-body"
-                              *ngFor="let item of CmsRoleList"
+                              *ngFor="let item of CmsRoleList;let i=index"
                             >
                               <div class="row mt-2">
                                 <div
@@ -313,6 +314,7 @@
                                       class="view_div d-flex align-items-center justify-content-center"
                                       data-bs-toggle="modal"
                                       data-bs-target="#OrganizationDescriptionModal"
+                                      (click)="viewCmsRole(i)"
                                     >
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -338,6 +340,7 @@
                                     </div>
                                     <div
                                       class="edit_btn d-flex justify-content-center align-items-center"
+                                      (click)="navigateToCreateCmsRole('cmsRoleEdit')"
                                     >
                                       <img
                                         class="edit_image"
@@ -361,10 +364,10 @@
                                     <div
                                       class="Organization-header font text-dark ms-4"
                                     ></div>
-                                    <div class="Role-header font text-dark">
+                                    <div class="Role-header ellipsis font text-dark">
                                       {{ item.roleName }}
                                     </div>
-                                    <div class="Function-header font text-dark">
+                                    <div class="Function-header ellipsis font text-dark">
                                       {{ item.idsFunction }}
                                     </div>
                                   </div>
@@ -474,7 +477,7 @@
                 <div class="mt-2">
                   <input
                     class="form-control organisation_input font"
-                    type="text"
+                    type="text" value="{{functionName}}"
                   />
                 </div>
               </div>
@@ -482,9 +485,10 @@
                 <div class="label_setup-logo font">Description:</div>
                 <div class="question-container mt-2 font">
                   <textarea
-                    class="form-control input-question"
+                    class="form-control input-question p-0"
                     placeholder="Question"
                     rows="7"
+                    value="{{functionDescription}}"
                   ></textarea>
                   <!-- Question -->
                 </div>
@@ -565,16 +569,19 @@
                   <input
                     class="form-control organisation_input font"
                     type="text"
+                    value="{{cmsRoleName}}"
                   />
                 </div>
+                
               </div>
               <div class="col-12 mt-2">
                 <div class="label_setup-logo font">Function:</div>
                 <div class="question-container mt-2 font">
                   <textarea
-                    class="form-control input-question"
+                    class="form-control input-question p-0"
                     placeholder="Question"
                     rows="7"
+                    value="{{cmsFunctionName}}"
                   ></textarea>
                   <!-- Question -->
                 </div>
