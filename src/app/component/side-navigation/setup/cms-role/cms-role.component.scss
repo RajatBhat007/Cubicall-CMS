@@ -6,7 +6,7 @@
   background: #D7D7E8;
   color: #818195;
   min-width: 100%;
-
+  font-size: 0.9em;
 }
 
 .large-dropdown::after {
@@ -158,10 +158,13 @@ input[type=checkbox] {
   background: #D7D7E8;
   color: #818195;
   min-width: 100%;
-
+  font-size: 0.9em;
+  
 }
 .organisation_input{
-  color: #000000;
+  color: #000000 !important;
+  font-size: 0.9em;
+
 } 
 
 

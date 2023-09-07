@@ -13,6 +13,7 @@ export class ApiServiceService {
   URLstring = environment.apiURL;
   open: any;
   Path = 'CubiCallGameNewAPi/api';
+  mayurPath='CubicallApi-Mayur/api'
   private getisAuthenticated = false;
   activeSubTabindex: any = 0;
   constructor(public Http: HttpClient) {
@@ -139,4 +140,9 @@ export class ApiServiceService {
 
     return this.Http.post(tempurl, data, httpOptions);
   }
+  getCMSUserDetails(data: any){
+    var tempurl = `${this.URLstring}` + `${this.mayurPath}/GetCMSUserDetails?CMSUID=${data}`;
+    return this.Http.get(tempurl);
+  }
+
 }
