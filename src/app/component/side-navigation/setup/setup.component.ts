@@ -360,7 +360,7 @@ export class SetupComponent implements OnInit {
     };
 
     this.http.createCmsRole(formData).subscribe((response) => {
-      this.http.setApiResponse(response);
+    //  this.http.setApiResponse(response);
     });
   }
 

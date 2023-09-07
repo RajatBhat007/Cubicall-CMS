@@ -30,19 +30,13 @@
                                                 {{selectedDropdownIndustryValue}}
 
                                             </button>
-                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 1')"
-                                                        class="font">Organization
-                                                        1</a></li>
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 2')"
-                                                        class="font">Organization
-                                                        2</a></li>
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 3')"
-                                                        class="font">Organization
-                                                        3</a></li>
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100 dropdownmenu">
+                                                <li *ngFor="let res of getOrganizationlist;  let index = index " >
+                                                <a ngbDropdownItem
+                                                  (click)="selectedIndustryValue(index)"
+                                                  class="font" >
+                                                  {{ res.organizationName }}</a>
+                                              </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -54,23 +48,18 @@
                                             style="position: relative; display: inline-flex;">
                                             <button ngbDropdownToggle class="btn btn-secondary font large-dropdown"
                                                 type="button" id="dropdownMenuButtonsetup" aria-expanded="false"
-                                                [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
-                                                {{selectedDropdownIndustryValue}}
+                                                [ngStyle]="{'color': selectedDropdownRoleValue !== 'Select from the drop-down' ? 'black' : ''}">
+                                                {{selectedDropdownRoleValue}}
 
                                             </button>
-                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 1')"
-                                                        class="font">Organization
-                                                        1</a></li>
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 2')"
-                                                        class="font">Organization
-                                                        2</a></li>
-                                                <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 3')"
-                                                        class="font">Organization
-                                                        3</a></li>
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100 dropdownmenu">
+                                                <li *ngFor="let res of CmsRole;  let index = index " >
+                                                    <a ngbDropdownItem
+                                                        (click)="selectedRoleValue(index)"
+                                                        class="font"> 
+                                                        {{ res.roleName }}
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -84,21 +73,21 @@
                                             style="position: relative; display: inline-flex;">
                                             <button ngbDropdownToggle class="btn btn-secondary font large-dropdown"
                                                 type="button" id="dropdownMenuButtonsetup" aria-expanded="false"
-                                                [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
-                                                {{selectedDropdownIndustryValue}}
+                                                [ngStyle]="{'color': selectedDropdownVendorValue !== 'Select from the drop-down' ? 'black' : ''}">
+                                                {{selectedDropdownVendorValue}}
 
                                             </button>
                                             <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
                                                 <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 1')"
+                                                        (click)="selectedVendorValue('Organization 1')"
                                                         class="font">Organization
                                                         1</a></li>
                                                 <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 2')"
+                                                        (click)="selectedVendorValue('Organization 2')"
                                                         class="font">Organization
                                                         2</a></li>
                                                 <li><a ngbDropdownItem
-                                                        (click)="updateSelectedIndustryValue('Organization 3')"
+                                                        (click)="selectedVendorValue('Organization 3')"
                                                         class="font">Organization
                                                         3</a></li>
                                             </ul>
