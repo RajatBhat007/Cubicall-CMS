@@ -148,6 +148,7 @@
             "
           ></div>
           <ng-template #createOrganization>
+            <!-- <div *ngIf="editableData then noteditable else editable"></div> -->
             <div class="row w-100">
               <div class="col-12 ms-2 d-flex justify-content-center">
                 <div class="table-container">
@@ -545,7 +546,11 @@
 
                     <div class="col-4 mt-2 d-flex justify-content-end">
                       <div class="count-container pt-1">
-                        <div class="row w-100" *ngFor="let response of count">
+                        <div
+                          class="row w-100"
+                          *ngFor="let response of count; let i = index"
+                          (click)="changeFilter(i)"
+                        >
                           <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                             {{ response.label }}
                           </div>
@@ -561,8 +566,8 @@
                               class="form-check-input"
                               type="radio"
                               name="flexRadioDefault"
-                              id="flexRadioDefault2"
-                              checked
+                              [id]="'flexRadioDefault' + i"
+                              [checked]="i === activeRadiobutton"
                             />
                           </div>
                         </div>
@@ -612,11 +617,15 @@
                   </div>
 
                   <div class="table-body-height">
-                    <div class="row mt-2" *ngFor="let res of getOrganization">
+                    <div
+                      class="row mt-2"
+                      *ngFor="let res of getOrganization; let i = index"
+                    >
                       <div class="col-12 d-flex justify-content-center">
                         <div class="table-body d-flex align-items-center">
                           <div
                             class="edit_btn d-flex justify-content-center align-items-center"
+                            (click)="editOrganization(i)"
                           >
                             <img
                               class="edit_image"
@@ -634,6 +643,7 @@
                               type="checkbox"
                               role="switch"
                               id="flexSwitchCheckDefault"
+                              [checked]="res.status === 'A'"
                             />
                           </div>
 
@@ -675,18 +685,37 @@
         </div>
       </div>
     </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 0">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
-          [disabled]="multiFieldForm.invalid"
-          [ngClass]="{ 'disabled-button': multiFieldForm.invalid }"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
+    <div
+      *ngIf="
+        activeIndexSubTab == '0';
+        then createOrganizationbutton;
+        else displayOrganization
+      "
+    ></div>
+    <ng-template #createOrganizationbutton>
+      <div *ngIf="!editableData; then noneditable; else editable"></div>
+      <ng-template #noneditable>
+        <div class="col-12 d-flex justify-content-end">
+          <button
+            class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
+            [disabled]="multiFieldForm.invalid"
+            [ngClass]="{ 'disabled-button': multiFieldForm.invalid }"
+          >
+            Submit
+          </button>
+        </div>
+      </ng-template>
+      <ng-template #editable>
+        <div class="col-12 d-flex justify-content-end">
+          <button
+            class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
+          >
+            Submit
+          </button>
+        </div>
+      </ng-template>
+    </ng-template>
+    <ng-template #displayOrganization> </ng-template>
   </form>
 </div>
 

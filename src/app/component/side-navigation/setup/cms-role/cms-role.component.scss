@@ -318,6 +318,9 @@ input[type=checkbox] {
 .label_setup-logo,.org_code{
   font-size: 0.9em;
   width: 48%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .container-height{

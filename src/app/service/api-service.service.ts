@@ -126,4 +126,17 @@ export class ApiServiceService {
     var tempurl = `${this.URLstring}` + `${this.Path}/GetRoles?OrgId=${data}`;
     return this.Http.get(tempurl);
   }
+
+  createOrganisationHierarchy(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl =
+      `${this.URLstring}` + `${this.Path}/CreateOrganizationHierarchy`;
+    console.log(tempurl);
+
+    return this.Http.post(tempurl, data, httpOptions);
+  }
 }

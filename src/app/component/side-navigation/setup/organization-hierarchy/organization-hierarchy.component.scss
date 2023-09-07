@@ -301,3 +301,9 @@ font-size: 1em;
   color: #fff;
 
 }
+
+.disabled {
+  pointer-events: none; /* Prevents click events */
+  opacity: 0.5; /* Reduces opacity to visually indicate disabled state */
+  cursor: not-allowed; /* Changes cursor style to indicate not-allowed */
+}

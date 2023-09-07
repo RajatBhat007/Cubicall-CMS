@@ -1,7 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
+import { ApiServiceService } from 'src/app/service/api-service.service';
 
 @Component({
   selector: 'app-organization-hierarchy',
@@ -9,6 +17,9 @@ import { ModalComponent } from 'src/app/pages/modal/modal.component';
   styleUrls: ['./organization-hierarchy.component.scss'],
 })
 export class OrganizationHierarchyComponent implements OnInit {
+  isDisabled: boolean = true; // Initially, the button is not disabled
+  vendorData: string = '';
+  vendorNameHierarchy: string = '';
   subtab: any = [
     {
       label: 'Create Admin Role',
@@ -35,6 +46,7 @@ export class OrganizationHierarchyComponent implements OnInit {
   subprocessIndex: string = '';
   processName: string = '';
   subTabName: string = 'create';
+  OrgHirerachtresponse: any = [];
   CmsRoleList = [
     {
       username: 'Admin_123',
@@ -84,10 +96,21 @@ export class OrganizationHierarchyComponent implements OnInit {
       value: 16,
     },
   ];
+  vendorForm: FormGroup;
+
   constructor(
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private fb: FormBuilder,
+    public http: ApiServiceService
   ) {
+    this.vendorForm = this.fb.group({
+      vendorName: new FormControl(''), // Initialize with an empty string
+    });
+    this.vendorForm = this.fb.group({
+      vendorName: ['', [Validators.required]],
+    });
+
     this.processForm = this.formBuilder.group({
       processRows: this.formBuilder.array([]),
       subprocessRows: this.formBuilder.array([]),
@@ -96,6 +119,18 @@ export class OrganizationHierarchyComponent implements OnInit {
   }
   ngOnInit() {
     this.addProcessRow(); // Add one row by default
+  }
+
+  updateInputState(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value.trim();
+    console.log(inputValue);
+
+    if (inputValue === null || inputValue === '') {
+      this.isDisabled = true; // Disable the input field when it's null or empty
+    } else {
+      this.isDisabled = false; // Enable the input field when it has a value
+    }
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
@@ -181,7 +216,48 @@ export class OrganizationHierarchyComponent implements OnInit {
   }
 
   createAdminInfo() {
-    console.log('org');
+    this.onSubmit();
+    // {    "Data":"{\n    \"HierarchyName\":\"Abc\",\n    \"ParentIdOrgHierarchy\":0,\n    \"IdOrganization\":4,\n    \"IdCmsUser\":1\n}"}
+    const payload = {
+      Data: {
+        IdOrganization: 4,
+        IdCmsUser: 1,
+        ParentIdOrgHierarchy: 0,
+        HierarchyName: this.vendorNameHierarchy,
+      },
+    };
+    const escapedIdOrg = JSON.stringify(payload.Data.IdOrganization);
+    const escapedIdCMSUser = JSON.stringify(payload.Data.IdCmsUser);
+    const escapedParentIdOrgHierarchy = JSON.stringify(
+      payload.Data.ParentIdOrgHierarchy
+    );
+    const escapedHierarchyName = JSON.stringify(payload.Data.HierarchyName);
+
+    console.log(payload);
+    const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"IdCmsUser\":${escapedIdCMSUser},\"ParentIdOrgHierarchy\":${escapedParentIdOrgHierarchy},\"HierarchyName\":${escapedHierarchyName}`;
+    const jsonString = JSON.stringify(escapedJsonString);
+    console.log(jsonString);
+    const jsonStringremovelast = jsonString.slice(0, -1);
+    const body = '{"Data":' + jsonStringremovelast + '}"}';
+    console.log(body);
+
+    this.http.createOrganisationHierarchy(body).subscribe(
+      (res) => {
+        console.log(res);
+        this.OrgHirerachtresponse = res;
+        this.openModal();
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          window.alert('404 Not Found Error');
+          // Handle the 404 error, such as displaying a message to the user
+        } else {
+          window.alert(error.error);
+          // Handle other errors
+        }
+      }
+    );
+
     this.adminInfo = true;
     console.log(this.adminInfo);
   }
@@ -197,5 +273,17 @@ export class OrganizationHierarchyComponent implements OnInit {
     modalRef.componentInstance.someData =
       'Done! Admin Role has been assigned for this Client/ Vendor. Do you want to add another vendor or Set up the hierarchy for this vendor.';
     modalRef.componentInstance.screen = 'Setup';
+  }
+
+  onSubmit() {
+    if (this.vendorForm.valid) {
+      // Form is valid, submit the data
+      this.vendorNameHierarchy = this.vendorForm.value.vendorName;
+      // Handle the submission, e.g., send the vendorName to an API or perform an action
+      console.log('Submitted vendor name: ', this.vendorNameHierarchy);
+    } else {
+      // Form is invalid, display error messages or take appropriate action
+      console.error('Form is invalid. Please check the fields.');
+    }
   }
 }
