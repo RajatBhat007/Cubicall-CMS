@@ -1,733 +1,1014 @@
 <div class="web-container-game-theme">
-    <div class="row mt-2">
-        <div class="col-7">
-            <div class="search-bar-container mt-2 d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-                    viewBox="0 0 16 16" style="color: #FFF;">
-                    <path
-                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                </svg>
+  <div class="row">
+    <div class="col-7">
+      <div class="search-bar-container d-flex align-items-center font">
+        Organization LOGO DISPLAYED
+      </div>
+    </div>
+    <div class="col-5 pe-4 dropdown-col d-flex justify-content-end">
+      <div
+        ngbDropdown
+        class="dropdown_org d-flex justify-content-center align-items-center"
+        style="position: relative"
+      >
+        <div id="dropdownMenuButton1 font">{{ selectedDropdownValue }}</div>
+      </div>
 
-                <div class="input-group">
+      <div
+        ngbDropdown
+        class="dropdown"
+        style="position: relative; display: inline-flex"
+      >
+        <button
+          ngbDropdownToggle
+          class="btn btn-secondary"
+          type="button"
+          id="dropdownMenuButton2"
+          aria-expanded="false"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="circle"
+            viewBox="0 0 41 41"
+            fill="none"
+          >
+            <circle
+              cx="20.5"
+              cy="20.5"
+              r="19.5"
+              fill="white"
+              stroke="#000"
+              stroke-width="2"
+            />
+            <path
+              d="M28 30V28C28 26.9391 27.5786 25.9217 26.8284 25.1716C26.0783 24.4214 25.0609 24 24 24H16C14.9391 24 13.9217 24.4214 13.1716 25.1716C12.4214 25.9217 12 26.9391 12 28V30"
+              stroke="#133870"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M20 20C22.2091 20 24 18.2091 24 16C24 13.7909 22.2091 12 20 12C17.7909 12 16 13.7909 16 16C16 18.2091 17.7909 20 20 20Z"
+              stroke="#133870"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <ul
+          ngbDropdownMenu
+          aria-labelledby="dropdownMenuButton1"
+          class="logut_dropdown"
+        >
+          <li class="mt-2">
+            <a ngbDropdownItem class="font logout" (click)="logout()"
+              >Logout
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-box-arrow-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-                    <input type="text" class="form-control font" placeholder="Search anything" aria-label=""
-                        aria-describedby="basic-addon1">
+  <div class="row mt-3">
+    <div class="col-12 d-flex align-items-center" style="flex-direction: row">
+      <div class="circle-div d-flex justify-content-center align-items-center">
+        <img
+          class="game-themes-image"
+          src="/assets/images/sidenavigation/Game-themes.png"
+        />
+      </div>
+      <div class="font ms-2 title_name">Game Themes</div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-10">
+      <div class="row">
+        <div
+          class="col-2"
+          *ngFor="let res of matTab; let i = index"
+          (click)="NavigateToTab(i)"
+          style="cursor: pointer; padding-right: 0"
+        >
+          <div
+            class="tab d-flex justify-content-center align-items-center flex-column"
+            [ngClass]="{ 'tab-active': i === activeIndexTab }"
+          >
+            <div class="circle-tab"></div>
+            <div class="mat-title font">{{ res.content }}</div>
+            <div class="tab_color" [style.background]="res.color"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="bottom-conatiner">
+        <div class="row">
+          <div class="col-5 mt-5 ps-4">
+            <div
+              class="upload-button font d-flex justify-content-center align-items-center"
+              style="cursor: pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#Excelupload"
+            >
+              Upload
+              <span
+                class="add_btn ms-1 d-flex align-items-center justify-content-center"
+                >+</span
+              >
+            </div>
+            <div class="row mt-4 ps-2">
+              <div
+                class="col-3 ps-0"
+                *ngFor="let res_sub of subtab; let j = index"
+                (click)="NavigateToSubTab(j)"
+              >
+                <div
+                  class="sub_tab font d-flex justify-content-center align-items-center"
+                  [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }"
+                >
+                  {{ res_sub.label }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 mt-4 d-flex">
+            <div
+              class="draft-button font d-flex justify-content-center align-items-center"
+              (click)="View('1')"
+              [ngClass]="{
+                'draft-submit-button-active': '1' === activeIndexDraftSubmit
+              }"
+            >
+              Draft
+            </div>
+            <hr
+              class="d-flex align-items-center horizontal_line mt-2"
+              style="width: 2vh; height: 5vh; color: #000"
+            />
+            <div
+              class="submitted-button font d-flex justify-content-center align-items-center"
+              (click)="View('2')"
+              [ngClass]="{
+                'draft-submit-button-active ': '2' === activeIndexDraftSubmit
+              }"
+            >
+              Rejected
+            </div>
+            <hr
+              class="d-flex align-items-center horizontal_line mt-2"
+              style="width: 2vh; height: 5vh; color: #000"
+            />
+
+            <div
+              class="submitted-button font d-flex justify-content-center align-items-center"
+              (click)="View('3')"
+              [ngClass]="{
+                'draft-submit-button-active ': '3' === activeIndexDraftSubmit
+              }"
+            >
+              Submitted
+            </div>
+          </div>
+
+          <div class="col-4 mt-2 d-flex justify-content-end">
+            <div class="count-container pt-1">
+              <div class="row w-100" *ngFor="let response of count">
+                <div class="col-lg-5 col-sm-4 ps-4 font count_label">
+                  {{ response.label }}
+                </div>
+                <div class="col-lg-5 col-sm-6">
+                  <div
+                    class="count-points font d-flex justify-content-center align-items-center mt-1"
+                  >
+                    {{ response.value }}
+                  </div>
+                </div>
+                <div class="col-lg-2 col-sm-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault2"
+                    checked
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row w-100">
+          <div class="col-12 ms-2 d-flex justify-content-center">
+            <div class="table-container">
+              <!-- Draft Tab -->
+              <div *ngIf="activeIndexDraftSubmit == '1'">
+                <div class="row mt-2">
+                  <div class="col-12 d-flex justify-content-center">
+                    <div class="table-header">
+                      <div class="checkbox-header d-flex align-items-center">
+                        <div
+                          class="edit_btn d-flex justify-content-center align-items-center"
+                        ></div>
+                        <div class="checkbox">
+                          <div class="form-check d-flex align-items-center">
+                            <div
+                              class="form-check-input checkbox-input-checkbox"
+                              style="border: 1px solid #fff; border-radius: 2px"
+                            ></div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="Status_label font d-flex align-items-center justify-content-center"
+                        >
+                          Status
+                        </div>
+
+                        <div
+                          class="view-header font d-flex justify-content-center"
+                        >
+                          View
+                        </div>
+
+                        <div class="id-header font">Id</div>
+
+                        <div class="question-header font">Questions</div>
+
+                        <div
+                          class="created-date-header font d-flex justify-content-end"
+                        >
+                          Created date
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <button type="button" class="close ms-2" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-        <div class="col-5 pe-4 mt-2 dropdown-col d-flex justify-content-end">
+                <div class="table-body-height">
+                  <div class="row mt-2" *ngFor="let res of tableData">
+                    <div class="col-12 d-flex justify-content-center">
+                      <div class="table-body d-flex align-items-center">
+                        <div
+                          class="edit_btn d-flex justify-content-center align-items-center"
+                          (click)="navigateToEditQuestion()"
+                        >
+                          <img
+                            class="edit_image"
+                            src="assets/images/Edit.svg"
+                            alt="Edit Image"
+                          />
+                        </div>
+                        <div class="checkbox">
+                          <div class="form-check d-flex align-items-center">
+                            <input
+                              class="form-check-input checkbox-input"
+                              type="checkbox"
+                              value=""
+                              id="flexCheckDefault"
+                            />
+                          </div>
+                        </div>
 
-            <div ngbDropdown class="dropdown" style="position:relative;">
-                <button ngbDropdownToggle class="btn btn-secondary font" type="button" id="dropdownMenuButton1"
-                    aria-expanded="false">
-                    {{ selectedDropdownValue }}
-                    <svg xmlns="http://www.w3.org/2000/svg" class="circle ms-1" viewBox="0 0 41 41" fill="none">
-                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#FFF" stroke-width="2"/>
-                      </svg>
-                </button>
-                <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 1')" class="font">Organization
-                            1</a></li>
-                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 2')" class="font">Organization
-                            2</a></li>
-                    <li><a ngbDropdownItem (click)="updateSelectedValue('Organization 3')" class="font">Organization
-                            3</a></li>
-                </ul>
-            </div>
+                        <div
+                          class="form-check form-switch d-flex align-items-center"
+                        >
+                          <input
+                            class="form-check-input"
+                            style="width: 5vh; height: 2vh"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                          />
+                        </div>
 
-            <div ngbDropdown class="dropdown" style="position: relative; display: inline-flex;">
-                <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton2"
-                    aria-expanded="false">
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" class="circle" viewBox="0 0 41 41" fill="none">
-                        <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#000" stroke-width="2"/>
-                        <path d="M28 30V28C28 26.9391 27.5786 25.9217 26.8284 25.1716C26.0783 24.4214 25.0609 24 24 24H16C14.9391 24 13.9217 24.4214 13.1716 25.1716C12.4214 25.9217 12 26.9391 12 28V30" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M20 20C22.2091 20 24 18.2091 24 16C24 13.7909 22.2091 12 20 12C17.7909 12 16 13.7909 16 16C16 18.2091 17.7909 20 20 20Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                </button>
-                <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="logut_dropdown">
-                    
-                    <li class="mt-2">
-                        <a ngbDropdownItem class="font logout" (click)="logout()">Logout
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        <div
+                          class="view_div d-flex align-items-center justify-content-center"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="eye-image"
+                            viewBox="0 0 28 20"
+                            fill="none"
+                          >
+                            <path
+                              d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                              stroke="#133870"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                              stroke="#000"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
                           </svg>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-12 d-flex align-items-center" style="flex-direction: row;">
-            <div class="circle-div">
-
-            </div>
-            <div class="font ms-2 title_name">Game Themes</div>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-10">
-            <div class="row">
-                <div class="col-2" *ngFor="let res of matTab; let i=index" (click)="NavigateToTab(i)"
-                    style="cursor: pointer; padding-right: 0;">
-                    <div class="tab d-flex justify-content-center align-items-center flex-column"
-                        [ngClass]="{'tab-active': i === activeIndexTab}">
-                        <div class="circle-tab"></div>
-                        <div class="mat-title font">{{res.content}}</div>
-                        <div class="tab_color"[style.background]="res.color"></div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+
+                <div
+                  class="row d-flex justify-content-center align-items-center"
+                >
+                  <div class="table-footer d-flex align-items-center">
+                    <div
+                      class="count-no font d-flex justify-content-center align-items-center"
+                    >
+                      5
+                    </div>
+                    <div class="dash ms-1 d-flex align-items-center">/</div>
+                    <div
+                      class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                    >
+                      9
+                    </div>
+
+                    <div class="pagination d-flex justify-content-end">
+                      <div class="left_arrow d-flex align-items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="triangle-left"
+                          viewBox="0 0 16 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                            fill="black"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="page-no d-flex justify-content-center align-items-center font ms-1"
+                      >
+                        1
+                      </div>
+                      <div class="right_arrow d-flex align-items-center ms-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="triangle-left"
+                          viewBox="0 0 17 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                            fill="black"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Rejected Tab -->
+
+              <div *ngIf="activeIndexDraftSubmit == '2'">
+                <div class="row mt-2">
+                  <div class="col-12 d-flex justify-content-center">
+                    <div class="table-header">
+                      <div class="checkbox-header d-flex align-items-center">
+                        <div
+                          class="edit_btn d-flex justify-content-center align-items-center"
+                        ></div>
+                        <div class="checkbox">
+                          <div class="form-check d-flex align-items-center">
+                            <input
+                              class="form-check-input checkbox-input-checkbox"
+                              type="checkbox"
+                              value=""
+                              id="flexCheckDefault"
+                              disabled
+                            />
+                          </div>
+                        </div>
+
+                        <div
+                          class="Status_label font d-flex align-items-center justify-content-center"
+                        >
+                          Status
+                        </div>
+
+                        <div
+                          class="view-header font d-flex justify-content-center"
+                        >
+                          View
+                        </div>
+
+                        <div class="id-header font">Id</div>
+
+                        <div class="question-header font">Questions</div>
+
+                        <div
+                          class="created-date-header font d-flex justify-content-end"
+                        >
+                          Created date
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-body-height">
+                  <div class="row mt-2" *ngFor="let res of tableData">
+                    <div class="col-12 d-flex justify-content-center">
+                      <div class="table-body d-flex align-items-center">
+                        <div
+                          class="edit_btn d-flex justify-content-center align-items-center"
+                          (click)="navigateToEditQuestion()"
+                        >
+                          <img
+                            class="edit_image"
+                            src="assets/images/Edit.svg"
+                            alt="Edit Image"
+                          />
+                        </div>
+                        <div class="checkbox">
+                          <div class="form-check d-flex align-items-center">
+                            <input
+                              class="form-check-input checkbox-input"
+                              type="checkbox"
+                              value=""
+                              id="flexCheckDefault"
+                            />
+                          </div>
+                        </div>
+
+                        <div
+                          class="form-check form-switch d-flex align-items-center"
+                        >
+                          <input
+                            class="form-check-input"
+                            style="width: 5vh; height: 2vh"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                          />
+                        </div>
+
+                        <div
+                          class="view_div d-flex align-items-center justify-content-center"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="eye-image"
+                            viewBox="0 0 28 20"
+                            fill="none"
+                          >
+                            <path
+                              d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                              stroke="#133870"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                              stroke="#133870"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="row d-flex justify-content-center align-items-center"
+                >
+                  <div class="table-footer d-flex align-items-center">
+                    <div
+                      class="count-no font d-flex justify-content-center align-items-center"
+                    >
+                      5
+                    </div>
+                    <div class="dash ms-1 d-flex align-items-center">/</div>
+                    <div
+                      class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                    >
+                      9
+                    </div>
+
+                    <div class="pagination d-flex justify-content-end">
+                      <div class="left_arrow d-flex align-items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="triangle-left"
+                          viewBox="0 0 16 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="page-no d-flex justify-content-center align-items-center font ms-1"
+                      >
+                        1
+                      </div>
+                      <div class="right_arrow d-flex align-items-center ms-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="triangle-left"
+                          viewBox="0 0 17 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submitted Tab -->
+
+              <div *ngIf="activeIndexDraftSubmit == '3'">
+                <div class="row mt-2">
+                  <div class="col-12 d-flex justify-content-center">
+                    <div class="table-header">
+                      <div class="checkbox-header d-flex align-items-center">
+                        <div
+                          class="edit_btn d-flex justify-content-center align-items-center"
+                        ></div>
+                        <div class="checkbox">
+                          <div class="form-check d-flex align-items-center">
+                            <input
+                              class="form-check-input checkbox-input-checkbox"
+                              type="checkbox"
+                              value=""
+                              id="flexCheckDefault"
+                              disabled
+                            />
+                          </div>
+                        </div>
+
+                        <div
+                          class="Status_label_submitted font d-flex align-items-center justify-content-center"
+                        >
+                          Status
+                        </div>
+
+                        <div
+                          class="id-header_submitted font d-flex justify-content-center"
+                        >
+                          Id
+                        </div>
+
+                        <div class="questions-header_submitted font">
+                          Questions
+                        </div>
+
+                        <div class="pending-header_submitted font">Pending</div>
+
+                        <div class="approved-header_submitted font">
+                          Approved
+                        </div>
+
+                        <div
+                          class="submitted-date-header font d-flex justify-content-end"
+                        >
+                          Submitted date
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-body-height">
+                  <div class="row mt-2" *ngFor="let res of tableData">
+                    <div class="col-12 d-flex justify-content-center">
+                      <div class="table-body d-flex align-items-center">
+                        <div
+                          class="edit_btn d-flex justify-content-center align-items-center"
+                          (click)="navigateToEditQuestion()"
+                        ></div>
+                        <div class="checkbox">
+                          <div class="form-check d-flex align-items-center">
+                            <input
+                              class="form-check-input checkbox-input"
+                              type="checkbox"
+                              value=""
+                              id="flexCheckDefault"
+                            />
+                          </div>
+                        </div>
+
+                        <div
+                          class="form-check form-switch d-flex align-items-center"
+                        >
+                          <input
+                            class="form-check-input"
+                            style="width: 5vh; height: 2vh"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                          />
+                        </div>
+
+                        <div
+                          class="view_div d-flex align-items-center justify-content-center"
+                        ></div>
+
+                        <div class="questions-body_submitted font"></div>
+
+                        <div class="pending-header_submitted font d-flex ms-3">
+                          <div
+                            class="pending-header_submitted_circle ms-2"
+                          ></div>
+                        </div>
+
+                        <div class="approved-header_submitted font">
+                          <div
+                            class="approved-header_submitted_circle ms-3"
+                          ></div>
+                        </div>
+
+                        <div
+                          class="submitted-date-body font d-flex justify-content-end"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="row d-flex justify-content-center align-items-center"
+                >
+                  <div class="table-footer d-flex align-items-center">
+                    <div
+                      class="count-no font d-flex justify-content-center align-items-center"
+                    >
+                      5
+                    </div>
+                    <div class="dash ms-1 d-flex align-items-center">/</div>
+                    <div
+                      class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                    >
+                      9
+                    </div>
+
+                    <div class="pagination d-flex justify-content-end">
+                      <div class="left_arrow d-flex align-items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="triangle-left"
+                          viewBox="0 0 16 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="page-no d-flex justify-content-center align-items-center font ms-1"
+                      >
+                        1
+                      </div>
+                      <div class="right_arrow d-flex align-items-center ms-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="triangle-left"
+                          viewBox="0 0 17 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
+          </div>
         </div>
-        <div class="col-2"> </div>
-
-
+      </div>
     </div>
+  </div>
 
+  <div
+    *ngIf="activeIndexDraftSubmit == '1'; then draft_btn; else submitted_btn"
+  ></div>
+
+  <ng-template #draft_btn>
     <div class="row">
-        <div class="col-12">
-            <div class="bottom-conatiner">
-                <div class="row">
-                    <div class="col-5 mt-5 ps-4 " >
-                        <div class="upload-button font d-flex justify-content-center align-items-center" style="cursor: pointer;" data-bs-toggle="modal"
-                        data-bs-target="#Excelupload">
-                            Upload <span
-                                class="add_btn ms-1 d-flex align-items-center justify-content-center">+</span>
-                            <!-- <input type="file" id="fileInput" class="file-input"> -->
-
-                        </div>
-                        <div class="row mt-4 ps-2">
-                            <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j=index"
-                                (click)="NavigateToSubTab(j)">
-                                <div class="sub_tab font d-flex justify-content-center align-items-center"
-                                    [ngClass]="{'sub-tab-active': j === activeIndexSubTab}">
-                                    {{res_sub.label}}
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-3 mt-4  d-flex">
-                        <div class="draft-button font d-flex justify-content-center align-items-center"(click)="View('1')" [ngClass]="{'draft-submit-button-active': '1' === activeIndexDraftSubmit}" >Draft</div>
-                        <hr class="d-flex align-items-center horizontal_line mt-2" style="width: 2vh; height: 5vh; color: #000;">
-                        <div class="submitted-button font d-flex justify-content-center align-items-center" (click)="View('2')" [ngClass]="{'draft-submit-button-active ': '2' === activeIndexDraftSubmit}">Rejected</div>
-                        <hr class="d-flex align-items-center horizontal_line mt-2" style="width: 2vh; height: 5vh; color: #000;">
-
-                        <div class="submitted-button font d-flex justify-content-center align-items-center" (click)="View('3')" [ngClass]="{'draft-submit-button-active ': '3' === activeIndexDraftSubmit}">Submitted</div>
-
-                    </div>
-
-
-               
-                
-                    <div class="col-4 mt-2 d-flex justify-content-end">
-                        <div class="count-container pt-1">
-                            <div class="row w-100" *ngFor="let response of count">
-                                <div class="col-lg-5 col-sm-4  ps-4  font count_label">{{response.label}}</div>
-                                <div class="col-lg-5 col-sm-6 ">
-                                    <div
-                                        class="count-points font d-flex justify-content-center align-items-center mt-1">
-                                        {{response.value}}
-                                    </div>
-                                </div>
-                                <div class="col-lg-2  col-sm-2">
-
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" checked>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-               
-                <div class="row w-100" >
-                    <div class="col-12 ms-2 d-flex justify-content-center">
-                        <div class="table-container">
-                           
-                            <!-- Draft Tab -->
-                            <div *ngIf="activeIndexDraftSubmit=='1'">
-                                <div class="row mt-2" >
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <div class="table-header">
-                                            <div class="checkbox-header d-flex align-items-center">
-                                                <div class="edit_btn  d-flex justify-content-center align-items-center"></div>
-                                                <div class="checkbox">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        
-                                                            <div class="form-check-input checkbox-input-checkbox" style="border: 1px solid #fff; border-radius: 2px;"></div>
-                                                    </div>
-        
-                                                </div>
-        
-                                                <div class="Status_label font d-flex align-items-center justify-content-center">
-                                                   Status
-                                                </div>
-        
-                                                <div class="view-header font d-flex justify-content-center">
-                                                    View
-                                                </div>
-                                                
-                                                <div class="id-header font">
-                                                    Id
-                                                </div>
-                                                
-    
-                                                <div class="question-header font">
-                                                    Questions
-                                                </div>
-                                                
-                                                <div class="created-date-header font d-flex justify-content-end">
-                                                    Created date
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              
-
-
-                                <div class="table-body-height">
-                                    <div class="row mt-2" *ngFor="let res of tableData">
-                                        <div class="col-12 d-flex justify-content-center" >
-                                            <div class="table-body d-flex align-items-center" >
-                                                <div class="edit_btn  d-flex justify-content-center align-items-center" (click)="navigateToEditQuestion()">
-                                                    <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
-                                                </div>
-                                                <div class="checkbox">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                                            id="flexCheckDefault">
-        
-                                                    </div>
-        
-                                                </div>
-        
-                                                <div class="form-check form-switch d-flex align-items-center">
-                                                    <input class="form-check-input" style="width: 5vh;height: 2vh;" type="checkbox" role="switch"
-                                                        id="flexSwitchCheckDefault">
-                                                </div>
-        
-                                                <div class="view_div d-flex align-items-center justify-content-center" >
-                                                    <!-- <img class="eye-image" src="assets/images/View.svg" alt="Eye Image"/> -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg"  class="eye-image" viewBox="0 0 28 20" fill="none">
-                                                        <path d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                </div>
-        
-        
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                          
-                                <div class="row d-flex justify-content-center align-items-center">
-                                    <div class="table-footer d-flex align-items-center">
-                                        <div class="count-no font d-flex justify-content-center align-items-center">
-                                            5
-                                        </div>
-                                        <div class="dash ms-1 d-flex align-items-center">
-                                            /
-                                        </div>
-                                        <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
-                                            9
-                                        </div>
-    
-                                        <div class="pagination d-flex justify-content-end">
-                                            <div class="left_arrow d-flex align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 16 24" fill="none">
-                                                    <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="black"/>
-                                                    </svg>
-                                            </div>
-                                            <div class="page-no d-flex justify-content-center align-items-center font ms-1">
-                                                1
-                                            </div>
-                                            <div class="right_arrow d-flex align-items-center ms-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 17 24" fill="none">
-                                                    <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="black"/>
-                                                  </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Rejected Tab -->
-
-                            <div *ngIf="activeIndexDraftSubmit=='2'">
-                                <div class="row mt-2" >
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <div class="table-header">
-                                            <div class="checkbox-header d-flex align-items-center">
-                                                <div class="edit_btn  d-flex justify-content-center align-items-center"></div>
-                                                <div class="checkbox">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input checkbox-input-checkbox" type="checkbox" value=""
-                                                            id="flexCheckDefault" disabled>
-        
-                                                    </div>
-        
-                                                </div>
-        
-                                                <div class="Status_label font d-flex align-items-center justify-content-center">
-                                                   Status
-                                                </div>
-        
-                                                <div class="view-header font d-flex justify-content-center">
-                                                    View
-                                                </div>
-                                                
-                                                <div class="id-header font">
-                                                    Id
-                                                </div>
-                                                
-    
-                                                <div class="question-header font">
-                                                    Questions
-                                                </div>
-                                                
-                                                <div class="created-date-header font d-flex justify-content-end">
-                                                    Created date
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              
-
-
-                                <div class="table-body-height">
-                                    <div class="row mt-2" *ngFor="let res of tableData">
-                                        <div class="col-12 d-flex justify-content-center" >
-                                            <div class="table-body d-flex align-items-center" >
-                                                <div class="edit_btn  d-flex justify-content-center align-items-center" (click)="navigateToEditQuestion()">
-                                                    <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
-                                                </div>
-                                                <div class="checkbox">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                                            id="flexCheckDefault">
-        
-                                                    </div>
-        
-                                                </div>
-        
-                                                <div class="form-check form-switch d-flex align-items-center">
-                                                    <input class="form-check-input" style="width: 5vh;height: 2vh;" type="checkbox" role="switch"
-                                                        id="flexSwitchCheckDefault">
-                                                </div>
-        
-                                                <div class="view_div d-flex align-items-center justify-content-center" >
-                                                    <!-- <img class="eye-image" src="assets/images/View.svg" alt="Eye Image"/> -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg"  class="eye-image" viewBox="0 0 28 20" fill="none">
-                                                        <path d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z" stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                </div>
-        
-        
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                          
-                                <div class="row d-flex justify-content-center align-items-center">
-                                    <div class="table-footer d-flex align-items-center">
-                                        <div class="count-no font d-flex justify-content-center align-items-center">
-                                            5
-                                        </div>
-                                        <div class="dash ms-1 d-flex align-items-center">
-                                            /
-                                        </div>
-                                        <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
-                                            9
-                                        </div>
-    
-                                        <div class="pagination d-flex justify-content-end">
-                                            <div class="left_arrow d-flex align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 16 24" fill="none">
-                                                    <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white"/>
-                                                    </svg>
-                                            </div>
-                                            <div class="page-no d-flex justify-content-center align-items-center font ms-1">
-                                                1
-                                            </div>
-                                            <div class="right_arrow d-flex align-items-center ms-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 17 24" fill="none">
-                                                    <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white"/>
-                                                  </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Submitted Tab -->
-
-                            <div *ngIf="activeIndexDraftSubmit=='3'">
-                                    <div class="row mt-2">
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <div class="table-header">
-                                            <div class="checkbox-header d-flex align-items-center">
-                                                <div class="edit_btn  d-flex justify-content-center align-items-center"></div>
-                                                <div class="checkbox">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input checkbox-input-checkbox" type="checkbox" value=""
-                                                            id="flexCheckDefault" disabled>
-        
-                                                    </div>
-        
-                                                </div>
-        
-                                                <div class="Status_label_submitted font d-flex align-items-center justify-content-center">
-                                                   Status
-                                                </div>
-        
-                                                <div class="id-header_submitted font d-flex justify-content-center">
-                                                    Id
-                                                </div>
-                                                
-                                                <div class="questions-header_submitted font">
-                                                    Questions
-                                                </div>
-                                                
-    
-                                                <div class="pending-header_submitted font">
-                                                    Pending
-                                                </div>
-
-                                                <div class="approved-header_submitted font">
-                                                    Approved
-                                                </div>
-                                                
-                                                <div class="submitted-date-header font d-flex justify-content-end">
-                                                    Submitted date
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="table-body-height">
-                                    <div class="row mt-2" *ngFor="let res of tableData">
-                                        <div class="col-12 d-flex justify-content-center" >
-                                            <div class="table-body d-flex align-items-center" >
-                                                <div class="edit_btn  d-flex justify-content-center align-items-center" (click)="navigateToEditQuestion()">
-                                                </div>
-                                                <div class="checkbox">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                                            id="flexCheckDefault">
-        
-                                                    </div>
-        
-                                                </div>
-        
-                                                <div class="form-check form-switch d-flex align-items-center">
-                                                    <input class="form-check-input" style="width: 5vh;height: 2vh;" type="checkbox" role="switch"
-                                                        id="flexSwitchCheckDefault">
-                                                </div>
-        
-                                                <div class="view_div d-flex align-items-center justify-content-center"> </div>
-        
-                                                <div class="questions-body_submitted font">
-                                                </div>
-                                                
-    
-                                                <div class="pending-header_submitted font d-flex ms-3">
-                                                    <div class="pending-header_submitted_circle ms-2">
-
-                                                    </div>
-                                                    
-                                                </div>
-
-                                                <div class="approved-header_submitted font">
-                                                    <div class="approved-header_submitted_circle ms-3">
-
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="submitted-date-body font d-flex justify-content-end">
-                                                    
-                                                </div>
-    
-        
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row d-flex justify-content-center align-items-center">
-                                    <div class="table-footer d-flex align-items-center">
-                                        <div class="count-no font d-flex justify-content-center align-items-center">
-                                            5
-                                        </div>
-                                        <div class="dash ms-1 d-flex align-items-center">
-                                            /
-                                        </div>
-                                        <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
-                                            9
-                                        </div>
-    
-                                        <div class="pagination d-flex justify-content-end">
-                                            <div class="left_arrow d-flex align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 16 24" fill="none">
-                                                    <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white"/>
-                                                    </svg>
-                                            </div>
-                                            <div class="page-no d-flex justify-content-center align-items-center font ms-1">
-                                                1
-                                            </div>
-                                            <div class="right_arrow d-flex align-items-center ms-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg"  class="triangle-left" viewBox="0 0 17 24" fill="none">
-                                                    <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white"/>
-                                                  </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                           
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
+      <div class="col-12 d-flex justify-content-end">
+        <div class="submit_button mt-3 me-3 font d-flex justify-content-center">
+          Submit
         </div>
+      </div>
     </div>
-
-    <div *ngIf="activeIndexDraftSubmit=='1'; then draft_btn else submitted_btn" ></div>
-
-    <ng-template #draft_btn>
-        <div class="row">
-            <div class="col-12 d-flex justify-content-end">
-                <div class="submit_button mt-3 me-3 font d-flex justify-content-center">
-                    Submit
-                </div>
-            </div>
+  </ng-template>
+  <ng-template #submitted_btn>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-end">
+        <div class="submit_button mt-3 me-3 font d-flex justify-content-center">
+          Assign
         </div>
-    </ng-template>
-    <ng-template #submitted_btn>
-        <div class="row">
-            <div class="col-12 d-flex justify-content-end">
-                <div class="submit_button mt-3 me-3 font d-flex justify-content-center">
-                    Assign
-                </div>
-            </div>
-        </div>
-    </ng-template>
-   
-
+      </div>
+    </div>
+  </ng-template>
 </div>
 
 <!-- Excel Upload Modal -->
 <div class="ExceluploadModal">
-    <div class="modal fade" id="Excelupload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content ExcelContentModal">
-                <div class="modal-body">
-                    <div >
-                        <div  style="position:relative;">
-
-                            
-                            <div class="d-flex justify-content-end">
-                                <div type="button" class="custom-close-btn d-flex justify-content-center align-items-center" data-bs-dismiss="modal"
-                                aria-label="Close">X</div>
-
-                              
-                            </div>
-                            <div class="row">
-                                <div class="col-12 d-flex" style="width: auto;position: relative;">
-                                    <img class="warning_image" alt="Warning image" src="assets/images/Warning.png"/>
-                                    <div class="warning_message font d-flex align-items-center ms-3 ps-3">
-                                      
-                                        The content does not match the template. Please refer it again!
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-7 mb-5">
-                                    <div class="font mt-4 view_message">
-                                        View Template before uploading:
-                                    </div>
-                                    <div class="buttons_div d-flex">
-                                        <div class="view_button_modal mt-2 font d-flex justify-content-center align-items-center">View</div>
-                                        <div class="download_button_modal mt-2 ms-4 font d-flex justify-content-center align-items-center">Download</div>
-                                    </div>
-                                    <div class="font file_label mt-4">
-                                        Questions File Name:
-                                        <p class="selected_file mt-1">{{ selectedFileName }}</p>
-                                        <div class="d-flex">
-                                            <div>
-                                                <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls, .csv" id="fileInput" #fileInput />
-                                                <label for="fileInput" class="browse-btn d-flex justify-content-center align-items-center" (change)="onFileChange($event)">Browse</label>
-                                            </div>
-                                            <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4" data-bs-toggle="modal"
-                                            data-bs-target="#WarningModal">
-                                                Upload
-                                            </div>
-                                      
-                                        </div>
-
-                                       
-
-
-                                         
-                                    </div>
-                                    <div *ngIf="!questionFileSelected ;then disableButtons else enableButtons"></div>
-
-                                    <div>
-                                       
-                                       <ng-template #disableButtons></ng-template>
-                                       <ng-template #enableButtons>
-                                        <div class="font file_label mt-4">
-                                        Answers File Name:</div>
-                                        <p class="selected_file mt-1">{{ selectedFileNameAnswer }}</p>
-                                        <div class="d-flex">
-                                            <div>
-                                                <input type="file" (change)="onFileChangeAnswer($event)" accept=".xlsx, .xls, .csv" id="fileInputAnswer" #fileInputAnswer [disabled]="!questionFileSelected"/>
-                                                <label for="fileInputAnswer" class="browse-btn d-flex justify-content-center align-items-center" (change)="onFileChangeAnswer($event)" [class.disabled]="!questionFileSelected">Browse</label>
-                                            </div>
-                                            <div >
-                                                <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4" data-bs-toggle="modal"
-                                                data-bs-target="#WarningModal" >
-                                                    Upload
-                                                </div>
-                                            </div>
-                                           
-                                      
-                                        </div>
-                                       </ng-template>
-
-
-                                        <div class="pre-approved font mt-3 d-flex align-items-center">
-                                            Is this content pre-approved:
-                                            <div class="form-check form-switch d-flex align-items-center ms-1">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckDefault">
-                                            </div>
-                                        </div>
-
-
-                                         
-                                    </div>
-                                </div>
-                                <div class="col-5 g-0 d-flex align-items-center right_side">
-                                    <div class="requirement_div mt-4">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="info-icon ms-1 mt-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                                      </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row d-flex justify-content-center mt-1">
-                                            <div class="col-12 font bg_content ">
-                                                <div class="content_requirement d-flex justify-content-center">
-                                                    Content Requirements
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-12 font content_description ms-2 mt-1">
-                                                Questions: 140 letters max
-                                               <br> Options: 25 letters max
-                                            </div>
-                                        
-                                        </div>
-
-                                        
-                                    </div>
-
-                                    <div class="row w-100">
-                                        <div class="col-12">
-                                            <div class="note font">
-                                                Note: Upload content batch wise
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div
+    class="modal fade"
+    id="Excelupload"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content ExcelContentModal">
+        <div class="modal-body">
+          <div>
+            <div style="position: relative">
+              <div class="d-flex justify-content-end">
+                <div
+                  type="button"
+                  class="custom-close-btn d-flex justify-content-center align-items-center"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  X
                 </div>
+              </div>
+              <div class="row">
+                <div
+                  class="col-12 d-flex"
+                  style="width: auto; position: relative"
+                >
+                  <img
+                    class="warning_image"
+                    alt="Warning image"
+                    src="assets/images/Warning.png"
+                  />
+                  <div
+                    class="warning_message font d-flex align-items-center ms-3 ps-3"
+                  >
+                    The content does not match the template. Please refer it
+                    again!
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 mb-5">
+                  <div class="font mt-4 view_message">
+                    View Template before uploading:
+                  </div>
+                  <div class="buttons_div d-flex">
+                    <div
+                      class="view_button_modal mt-2 font d-flex justify-content-center align-items-center"
+                    >
+                      View
+                    </div>
+                    <div
+                      class="download_button_modal mt-2 ms-4 font d-flex justify-content-center align-items-center"
+                    >
+                      Download
+                    </div>
+                  </div>
+                  <div class="font file_label mt-4">
+                    Questions File Name:
+                    <p class="selected_file mt-1">{{ selectedFileName }}</p>
+                    <div class="d-flex">
+                      <div>
+                        <input
+                          type="file"
+                          (change)="onFileChange($event)"
+                          accept=".xlsx, .xls, .csv"
+                          id="fileInput"
+                          #fileInput
+                        />
+                        <label
+                          for="fileInput"
+                          class="browse-btn d-flex justify-content-center align-items-center"
+                          (change)="onFileChange($event)"
+                          >Browse</label
+                        >
+                      </div>
+                      <div
+                        class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
+                        (click)="uploadQutionfile()"
+                      >
+                        Upload
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="
+                      !questionFileSelected;
+                      then disableButtons;
+                      else enableButtons
+                    "
+                  ></div>
+
+                  <div>
+                    <ng-template #disableButtons></ng-template>
+                    <ng-template #enableButtons>
+                      <div class="font file_label mt-4">Answers File Name:</div>
+                      <p class="selected_file mt-1">
+                        {{ selectedFileNameAnswer }}
+                      </p>
+                      <div class="d-flex">
+                        <div>
+                          <input
+                            type="file"
+                            (change)="onFileChangeAnswer($event)"
+                            accept=".xlsx, .xls, .csv"
+                            id="fileInputAnswer"
+                            #fileInputAnswer
+                            [disabled]="!questionFileSelected"
+                          />
+                          <label
+                            for="fileInputAnswer"
+                            class="browse-btn d-flex justify-content-center align-items-center"
+                            (change)="onFileChangeAnswer($event)"
+                            [class.disabled]="!questionFileSelected"
+                            >Browse</label
+                          >
+                        </div>
+                        <div>
+                          <div
+                            class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
+                            (click)="uploadAnswerfile()"
+                          >
+                            Upload
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <div
+                      class="pre-approved font mt-3 d-flex align-items-center"
+                    >
+                      Is this content pre-approved:
+                      <div
+                        class="form-check form-switch d-flex align-items-center ms-1"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          id="flexSwitchCheckDefault"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-5 g-0 d-flex align-items-center right_side">
+                  <div class="requirement_div mt-4">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="info-icon ms-1 mt-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            fill="currentColor"
+                            class="bi bi-info-circle"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                            />
+                            <path
+                              d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-center mt-1">
+                      <div class="col-12 font bg_content">
+                        <div
+                          class="content_requirement d-flex justify-content-center"
+                        >
+                          Content Requirements
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 font content_description ms-2 mt-1">
+                        Questions: 140 letters max
+                        <br />
+                        Options: 25 letters max
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row w-100">
+                    <div class="col-12">
+                      <div class="note font">
+                        Note: Upload content batch wise
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Warning Modal -->
 
 <div class="WarningModal">
-    <div class="modal fade" id="WarningModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-       
-        <div class="modal-dialog modal-dialog-centered" style="position:relative;display: flex; justify-content: center;">
-            
-            <div class="modal-content WarningModal">
-                <div class="warning_image_upload">
-                    <img src="assets/images/Warning.png" alt="Warning Image"/>
-                </div>
-                <div class="modal-body" style="border: 2px solid #000;" >
-                    <div>
-                        <div style="position:relative;">
-                            
-                            
-                            <div class="d-flex justify-content-end">
-                                <div type="button" class="custom-close-btn d-flex justify-content-center align-items-center" data-bs-dismiss="modal"
-                                aria-label="Close">X</div>
-
-                              
-                            </div>
-                            <div class="row d-flex justify-content-center mt-3">
-                                <div class="col-12 d-flex warning_message_upload justify-content-center font" style="width: auto;position: relative;text-align: center;">
-                                    No! The content requirements <br>are not met.
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-center">
-                                    <div class="upload_button font">
-                                        Upload Again
-                                    </div>
-                                </div>
-                            </div>
-                          
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div
+    class="modal fade"
+    id="WarningModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div
+      class="modal-dialog modal-dialog-centered"
+      style="position: relative; display: flex; justify-content: center"
+    >
+      <div class="modal-content WarningModal">
+        <div class="warning_image_upload">
+          <img src="assets/images/Warning.png" alt="Warning Image" />
         </div>
+        <div class="modal-body" style="border: 2px solid #000">
+          <div>
+            <div style="position: relative">
+              <div class="d-flex justify-content-end">
+                <div
+                  type="button"
+                  class="custom-close-btn d-flex justify-content-center align-items-center"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  X
+                </div>
+              </div>
+              <div class="row d-flex justify-content-center mt-3">
+                <div
+                  class="col-12 d-flex warning_message_upload justify-content-center font"
+                  style="width: auto; position: relative; text-align: center"
+                >
+                  No! The content requirements <br />are not met.
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <div class="upload_button font">Upload Again</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

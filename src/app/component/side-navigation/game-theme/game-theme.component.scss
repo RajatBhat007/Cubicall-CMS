@@ -2,7 +2,9 @@
   height: 5vh;
   width: 90%;
   background: #000;
-  padding-left: 1vw
+  margin-top: 2vh;
+  padding-left: 1vw;
+  color: #FFFFFF;
 }
 
 .input-group {
@@ -354,7 +356,10 @@
   width: 2.5vh;
   height: 2.5vh;
   border-radius: 100%;
-  background: #1b9de7
+  background: #000
+}
+.approved-header_submitted_circle{
+  background: #C4C4F6
 }
 
 .questionFileSelected {
@@ -599,6 +604,16 @@ input[type=file] {
   padding: 5%
 }
 
+.dropdown_org{
+  background: #000;
+  color: #FFFFFF;
+  padding: 0.3em;
+  font-size: 0.9em;
+}
+.dropdown-col{
+  margin-top: 2vh;
+}
+
 .lock_account,
 .logout {
   background: #e7f3f9;
@@ -624,20 +639,6 @@ input[type=file] {
   justify-content: space-between
 }
 
-/* Custom styles for the Flex Switch */
-.form-check-input[type="checkbox"][role="switch"] {
-  /* Default background color for OFF state */
-  background-color: white;
-}
-
-/* Custom styles for the switch knob (thumb) */
-.form-check-input[type="checkbox"][role="switch"] + .form-check-label::before {
-  /* Change the color of the knob */
-  background-color: black;
-}
-
-/* Custom styles for the Flex Switch when checked (ON state) */
-.form-check-input[type="checkbox"][role="switch"]:checked {
-  /* Background color for ON state */
-  background-color: #C4C4F6;
+.game-themes-image{
+  width: 80%;
 }
