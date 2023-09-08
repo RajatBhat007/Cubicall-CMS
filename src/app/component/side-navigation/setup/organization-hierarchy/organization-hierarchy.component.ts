@@ -46,7 +46,10 @@ export class OrganizationHierarchyComponent implements OnInit {
   subprocessIndex: string = '';
   processName: string = '';
   subTabName: string = 'create';
+  id_org: any = [];
+  id_cms_user: any = [];
   OrgHirerachtresponse: any = [];
+  apiData: any;
   CmsRoleList = [
     {
       username: 'Admin_123',
@@ -118,6 +121,11 @@ export class OrganizationHierarchyComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+    });
+
     this.addProcessRow(); // Add one row by default
   }
 
@@ -217,11 +225,15 @@ export class OrganizationHierarchyComponent implements OnInit {
 
   createAdminInfo() {
     this.onSubmit();
+
+    // this.id_org = localStorage.getItem('idOrganization');
+    // this.id_cms_user = localStorage.getItem('idCmsUser');
+
     // {    "Data":"{\n    \"HierarchyName\":\"Abc\",\n    \"ParentIdOrgHierarchy\":0,\n    \"IdOrganization\":4,\n    \"IdCmsUser\":1\n}"}
     const payload = {
       Data: {
-        IdOrganization: 4,
-        IdCmsUser: 1,
+        IdOrganization: Number(this.apiData?.user?.idOrganization),
+        IdCmsUser: Number(this.apiData?.user?.idCmsRole),
         ParentIdOrgHierarchy: 0,
         HierarchyName: this.vendorNameHierarchy,
       },

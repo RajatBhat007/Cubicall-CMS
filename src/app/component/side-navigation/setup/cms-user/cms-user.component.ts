@@ -17,6 +17,8 @@ export class CmsUserComponent {
   getOrganizationlist: any = [];
   idOrganization: any = '';
   CmsRole: any = [];
+  apiData: any;
+
   subtab = [
     {
       label: 'Create Cms User',
@@ -60,6 +62,10 @@ export class CmsUserComponent {
   ];
   constructor(private http: ApiServiceService) {}
   ngOnInit(): void {
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+    });
+
     this.getCmsUserDetailsList();
     this.getOrganization();
     this.getCmsRoleList();
@@ -67,22 +73,18 @@ export class CmsUserComponent {
 
   getOrganization() {
     this.http.getOrganisation().subscribe((res) => {
-      console.log(res);
       this.getOrganizationlist = res;
-      console.log(this.getOrganization);
     });
   }
   getCmsRoleList() {
-    this.idOrganization = localStorage.getItem('idOrganization');
+    this.idOrganization = this.apiData?.user?.idOrganization;
     this.http.getRolesList(this.idOrganization).subscribe((res) => {
       this.CmsRole = res;
-      console.log(this.CmsRoleList);
     });
   }
 
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
-    console.log(this.activeIndexSubTab);
   }
   selectedIndustryValue(value: any) {
     this.selectedDropdownIndustryValue =
@@ -90,18 +92,15 @@ export class CmsUserComponent {
   }
   selectedRoleValue(value: any) {
     this.selectedDropdownRoleValue = this.CmsRole[value].roleName;
-    console.log(value);
   }
   selectedVendorValue(value: any) {
     this.selectedDropdownVendorValue = value;
   }
   getCmsUserDetailsList() {
-    this.idCmsUser = localStorage.getItem('idCmsUser');
-    console.log('idCmsuser', this.idCmsUser);
+    this.idCmsUser = this.apiData?.user?.idCmsUser;
 
     this.http.getCMSUserDetails(this.idCmsUser).subscribe((res) => {
       this.userDetailsList = res;
-      console.log(this.userDetailsList);
     });
   }
 }

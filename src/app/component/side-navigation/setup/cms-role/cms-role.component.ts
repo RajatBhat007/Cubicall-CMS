@@ -17,8 +17,9 @@ export class CmsRoleComponent {
   idOrganization: any = '';
   CmsRoleList: any = [];
   getOrganizationlist: any = [];
-  functionName:string=''
-  functionDescription:string=''
+  functionName: string = '';
+  functionDescription: string = '';
+  apiData: any;
   subtab = [
     {
       label: 'Create CMS Role',
@@ -44,15 +45,14 @@ export class CmsRoleComponent {
       value: 0,
     },
   ];
-  cmsRoleName: string='';
-  cmsFunctionName: string='';
+  cmsRoleName: string = '';
+  cmsFunctionName: string = '';
 
-  constructor(public http: ApiServiceService,public  _router: Router) {
+  constructor(public http: ApiServiceService, public _router: Router) {
     console.log(this.activeUpdateButton);
   }
   ngOnInit(): void {
     this.getCmsRole_Function_List();
-    this.getOrganization();
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -65,7 +65,7 @@ export class CmsRoleComponent {
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
     console.log(this.activeIndexSubTab);
-    
+
     if (this.activeIndexSubTab == 1) {
       this.getCmsRoleList();
     }
@@ -75,7 +75,11 @@ export class CmsRoleComponent {
   }
 
   getCmsRole_Function_List() {
-    this.idOrganization = localStorage.getItem('idOrganization');
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+    });
+
     this.http.GetCmsRoleFunctionList(this.idOrganization).subscribe((res) => {
       this.RoleFunctionList = res;
     });
@@ -88,27 +92,26 @@ export class CmsRoleComponent {
     });
   }
   getCmsRoleList() {
-    this.idOrganization = localStorage.getItem('idOrganization');
+    this.idOrganization = this.apiData?.user?.idOrganization;
     this.http.getRolesList(this.idOrganization).subscribe((res) => {
       this.CmsRoleList = res;
       console.log(this.CmsRoleList);
     });
   }
 
-  viewFunction(value:any){
-   this.functionName=this.RoleFunctionList[value].functionName
-   this.functionDescription=this.RoleFunctionList[value].description
-   console.log(this.functionName);
-   console.log(this.functionDescription);
-   
+  viewFunction(value: any) {
+    this.functionName = this.RoleFunctionList[value].functionName;
+    this.functionDescription = this.RoleFunctionList[value].description;
+    console.log(this.functionName);
+    console.log(this.functionDescription);
   }
-  viewCmsRole(value:any){
-     console.log(value);
+  viewCmsRole(value: any) {
+    console.log(value);
     //  this.organizationName=this.CmsRoleList[value]
-     this.cmsRoleName=this.CmsRoleList[value].roleName
-     this.cmsFunctionName=this.CmsRoleList[value].idsFunction
+    this.cmsRoleName = this.CmsRoleList[value].roleName;
+    this.cmsFunctionName = this.CmsRoleList[value].idsFunction;
   }
-  navigateToCreateCmsRole(value:any){
+  navigateToCreateCmsRole(value: any) {
     // this._router.navigate(['home/setup'],{queryParams:{value}})
     this.activeIndexSubTab = 0;
   }

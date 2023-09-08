@@ -294,6 +294,38 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row mt-2">
+                        <div class="col-12">
+                          <div class="label_setup-logo font">
+                            Organization Code:
+                          </div>
+                          <div class="mt-2 org_code">
+                            <input
+                              class="form-control organisation_input font"
+                              type="text"
+                              id="orgCode"
+                              name="orgCode"
+                              formControlName="orgCode"
+                            />
+                            <div
+                              *ngIf="
+                                orgCodeControl?.invalid &&
+                                (orgCodeControl?.dirty ||
+                                  orgCodeControl?.touched)
+                              "
+                            >
+                              <div
+                                *ngIf="orgCodeControl?.errors?.['required']"
+                                class="font error_message"
+                              >
+                                Organization Code is required.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4"></div>
+                      </div>
                     </div>
 
                     <!-- Middle Input Side -->
@@ -427,6 +459,27 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row mt-2">
+                        <div class="col-12">
+                          <div
+                            class="label_setup font"
+                            style="visibility: hidden"
+                          >
+                            s
+                          </div>
+                          <div class="mt-2">
+                            <div class="d-flex">
+                              <div
+                                class="generate_button font d-flex justify-content-center fontInter"
+                                (click)="generateRandom8DigitNumber()"
+                              >
+                                Generate
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <!-- Right Input Side -->
@@ -497,40 +550,6 @@
                   </div>
 
                   <!-- Bootom Center label -->
-
-                  <div class="row">
-                    <div
-                      class="col-8 d-flex align-items-center mt-2"
-                      style="flex-direction: column"
-                    >
-                      <div class="label_setup-logo font">
-                        Organization Code:
-                      </div>
-                      <div class="mt-2 org_code">
-                        <input
-                          class="form-control organisation_input font"
-                          type="text"
-                          id="orgCode"
-                          name="orgCode"
-                          formControlName="orgCode"
-                        />
-                        <div
-                          *ngIf="
-                            orgCodeControl?.invalid &&
-                            (orgCodeControl?.dirty || orgCodeControl?.touched)
-                          "
-                        >
-                          <div
-                            *ngIf="orgCodeControl?.errors?.['required']"
-                            class="font error_message"
-                          >
-                            Organization Code is required.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-4"></div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -687,7 +706,7 @@
     </div>
     <div
       *ngIf="
-        activeIndexSubTab == '0';
+        activeIndexSubTab == '0' && activeIndexTab == '0';
         then createOrganizationbutton;
         else displayOrganization
       "
