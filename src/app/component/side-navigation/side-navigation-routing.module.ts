@@ -8,40 +8,47 @@ import { AuthGuard } from 'src/app/auth.guard';
 import { SetupComponent } from './setup/setup.component';
 import { UsersReportComponent } from './users-report/users-report.component';
 
+import { OrganizationHierarchyComponent } from './setup/organization-hierarchy/organization-hierarchy.component';
+
 const routes: Routes = [
   // { path: '', redirectTo: 'sidenav',pathMatch:'full' },
-  { path: '', component: SideNavigationComponent,
-  canActivate: [AuthGuard], 
-  children: [
-    {
-      path: 'game-theme',
-      component: GameThemeComponent
-    },
-    {
-      path: 'edit-question',
-      component: EditQuestionComponent
-    },
-    {
-      path: 'rtu',
-      component: RtuScreenComponent
-    },
-    {
-      path: 'setup',
-      component: SetupComponent
-    },
-    {
-      path:'users-report',
-      component:UsersReportComponent
-    }
-  ]
-},
- 
-  // { path: 'game-theme', component: GameThemesModule },
+  {
+    path: '',
+    component: SideNavigationComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'game-theme',
+        component: GameThemeComponent,
+      },
+      {
+        path: 'edit-question',
+        component: EditQuestionComponent,
+      },
+      {
+        path: 'rtu',
+        component: RtuScreenComponent,
+      },
+      {
+        path: 'setup',
+        component: SetupComponent,
+      },
+      {
+        path: 'organization',
+        component: OrganizationHierarchyComponent,
+      },
+      {
+        path: 'users-report',
+        component: UsersReportComponent,
+      },
+    ],
+  },
 
+  // { path: 'game-theme', component: GameThemesModule },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SideNavigationRoutingModule { }
+export class SideNavigationRoutingModule {}

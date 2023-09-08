@@ -4,6 +4,7 @@
     background: #000;
     margin-top: 2vh;
     padding-left: 1vw;
+    color: #FFFFFF;
   }
   
   .input-group {
@@ -44,7 +45,7 @@
     height: 5vh;
     background: #D7D7E8;
     color: #000;
-    
+  
   }
   
   #dropdownMenuButtonsetup,.organisation_input {
@@ -208,6 +209,7 @@
   .table-body-height{
     height: 36vh;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .drop_down_table {
     font-size: 0.7em;
@@ -275,7 +277,7 @@
   
   
   
-  .submit_button ,.submit_button_cms{
+  .submit_button ,.submit_button_cms,.generate_button{
     border-radius: 10px;
     background: #000000;
     color: #FFFFFF;
@@ -285,6 +287,9 @@
     width: 8%;
     box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
 
+  }
+  .generate_button{
+    width: 30%;
   }
 
   .disabled-button{
@@ -301,9 +306,39 @@
   
   .label_setup-logo,.org_code{
     font-size: 1em;
-    width: 48%;
+   
   }
 
+  .dropdown_org{
+    background: #000;
+    color: #FFFFFF;
+    padding: 0.3em;
+    font-size: 0.9em;
+  }
+
+  .lock_account,
+.logout {
+  background: #e7f3f9;
+  height: 5vh;
+  width: 95%;
+  padding: 5px;
+  color: #000;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 500;
+  margin: auto
+}
+
+.logout {
+  border-radius: 5px;
+  border: 1px solid #133870;
+  display: flex;
+  justify-content: space-between
+}
+
+.logut_dropdown {
+  background: #e7f3f9
+}
   .dropdown_values{
     width: 100%;
   }
@@ -392,3 +427,7 @@
   
   }
  
+
+  .setup-image{
+    width: 80%;
+  }

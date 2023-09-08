@@ -6,7 +6,7 @@
   background: #D7D7E8;
   color: #818195;
   min-width: 100%;
-
+  font-size: 0.9em;
 }
 
 .large-dropdown::after {
@@ -158,10 +158,13 @@ input[type=checkbox] {
   background: #D7D7E8;
   color: #818195;
   min-width: 100%;
-
+  font-size: 0.9em;
+  
 }
 .organisation_input{
-  color: #000000;
+  color: #000000 !important;
+  font-size: 0.9em;
+
 } 
 
 
@@ -298,7 +301,11 @@ input[type=checkbox] {
   background: #B0DDF6;
   border-radius: 8px;
 }
-
+.dropdownmenu{
+  height: 40vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .submit_button {
   border-radius: 10px;
   background: #000000;
@@ -314,11 +321,15 @@ input[type=checkbox] {
 .label_setup-logo,.org_code{
   font-size: 0.9em;
   width: 48%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .container-height{
 height: 43vh;
 overflow-y: auto;
+overflow-x: hidden;
 }
 .dropdown_values{
   width: 100%;

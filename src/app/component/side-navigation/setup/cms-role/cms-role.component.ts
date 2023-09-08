@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/service/api-service.service';
-import { FormSharingService } from 'src/app/service/form-sharing/form-sharing.service';
 
 @Component({
   selector: 'app-cms-role',
@@ -8,9 +8,6 @@ import { FormSharingService } from 'src/app/service/form-sharing/form-sharing.se
   styleUrls: ['./cms-role.component.scss'],
 })
 export class CmsRoleComponent {
-  formData: any = {};
-  apiResponse: any;
-
   selectedDropdownIndustryValue: string = 'Select from the drop-down';
   selectedDropdownBusinessTypeValue: string = 'Select from the drop-down';
   activeIndexSubTab: any = 0;
@@ -20,33 +17,9 @@ export class CmsRoleComponent {
   idOrganization: any = '';
   CmsRoleList: any = [];
   getOrganizationlist: any = [];
-  functionName = [
-    {
-      label: 'Upload Question and Answers',
-    },
-    {
-      label: 'Approve Question and Answers',
-    },
-    {
-      label: 'Edit Question and Answers',
-    },
-    {
-      label: 'Configure Game Time',
-    },
-    {
-      label: 'Configure Game Attempts',
-    },
-    {
-      label: 'Configure Game Streaks',
-    },
-    {
-      label: 'Configure Game Images',
-    },
-    {
-      label: 'Configure Main Screen Images',
-    },
-  ];
-
+  functionName: string = '';
+  functionDescription: string = '';
+  apiData: any;
   subtab = [
     {
       label: 'Create CMS Role',
@@ -72,32 +45,27 @@ export class CmsRoleComponent {
       value: 0,
     },
   ];
+  cmsRoleName: string = '';
+  cmsFunctionName: string = '';
 
-  constructor(
-    public http: ApiServiceService,
-    private formSharingService: FormSharingService
-  ) {
+  constructor(public http: ApiServiceService, public _router: Router) {
     console.log(this.activeUpdateButton);
   }
   ngOnInit(): void {
     this.getCmsRole_Function_List();
-    this.getOrganization();
-
-    this.http.apiResponse$.subscribe((response) => {
-      this.apiResponse = response;
-    });
   }
 
   updateSelectedIndustryValue(value: any) {
     this.selectedDropdownIndustryValue =
       this.getOrganizationlist[value].organizationName;
-    console.log(this.selectedDropdownIndustryValue);
   }
   updateSelectedBusinessTypeValue(value: any) {
     this.selectedDropdownBusinessTypeValue = value;
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
+    console.log(this.activeIndexSubTab);
+
     if (this.activeIndexSubTab == 1) {
       this.getCmsRoleList();
     }
@@ -107,7 +75,11 @@ export class CmsRoleComponent {
   }
 
   getCmsRole_Function_List() {
-    this.idOrganization = localStorage.getItem('idOrganization');
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+    });
+
     this.http.GetCmsRoleFunctionList(this.idOrganization).subscribe((res) => {
       this.RoleFunctionList = res;
     });
@@ -116,21 +88,31 @@ export class CmsRoleComponent {
     this.http.getOrganisation().subscribe((res) => {
       console.log(res);
       this.getOrganizationlist = res;
-      console.log(this.getOrganizationlist);
+      console.log(this.getOrganization);
     });
   }
   getCmsRoleList() {
-    this.idOrganization = localStorage.getItem('idOrganization');
+    this.idOrganization = this.apiData?.user?.idOrganization;
     this.http.getRolesList(this.idOrganization).subscribe((res) => {
       this.CmsRoleList = res;
       console.log(this.CmsRoleList);
     });
   }
 
-  onSubmit() {
-    console.log('submit');
-    console.log('Submitting API data:', this.apiResponse);
-    // Set the form data in the shared service
-    this.formSharingService.setFormData(this.formData);
+  viewFunction(value: any) {
+    this.functionName = this.RoleFunctionList[value].functionName;
+    this.functionDescription = this.RoleFunctionList[value].description;
+    console.log(this.functionName);
+    console.log(this.functionDescription);
+  }
+  viewCmsRole(value: any) {
+    console.log(value);
+    //  this.organizationName=this.CmsRoleList[value]
+    this.cmsRoleName = this.CmsRoleList[value].roleName;
+    this.cmsFunctionName = this.CmsRoleList[value].idsFunction;
+  }
+  navigateToCreateCmsRole(value: any) {
+    // this._router.navigate(['home/setup'],{queryParams:{value}})
+    this.activeIndexSubTab = 0;
   }
 }

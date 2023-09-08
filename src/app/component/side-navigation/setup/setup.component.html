@@ -1,92 +1,17 @@
 <div class="web-container-setup">
   <div class="row">
     <div class="col-7">
-      <div class="search-bar-container d-flex align-items-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-search"
-          viewBox="0 0 16 16"
-          style="color: white"
-        >
-          <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-          />
-        </svg>
-
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control font"
-            placeholder="Search anything"
-            aria-label=""
-            aria-describedby="basic-addon1"
-          />
-        </div>
-        <button
-          type="button"
-          class="close ms-2"
-          aria-label="Close"
-          style="color: #fff"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="search-bar-container d-flex align-items-center font">
+        Organization LOGO DISPLAYED
       </div>
     </div>
     <div class="col-5 pe-4 dropdown-col d-flex justify-content-end">
-      <div ngbDropdown class="dropdown" style="position: relative">
-        <button
-          ngbDropdownToggle
-          class="btn btn-secondary font"
-          type="button"
-          id="dropdownMenuButton1"
-          aria-expanded="false"
-        >
-          {{ selectedDropdownValue }}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="circle ms-1"
-            viewBox="0 0 41 41"
-            fill="none"
-          >
-            <circle
-              cx="20.5"
-              cy="20.5"
-              r="19.5"
-              fill="white"
-              stroke="#000"
-              stroke-width="2"
-            />
-          </svg>
-        </button>
-        <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-          <li>
-            <a
-              ngbDropdownItem
-              (click)="updateSelectedValue('Organization 1')"
-              class="font"
-              >Organization 1</a
-            >
-          </li>
-          <li>
-            <a
-              ngbDropdownItem
-              (click)="updateSelectedValue('Organization 2')"
-              class="font"
-              >Organization 2</a
-            >
-          </li>
-          <li>
-            <a
-              ngbDropdownItem
-              (click)="updateSelectedValue('Organization 3')"
-              class="font"
-              >Organization 3</a
-            >
-          </li>
-        </ul>
+      <div
+        ngbDropdown
+        class="dropdown_org d-flex justify-content-center align-items-center"
+        style="position: relative"
+      >
+        <div id="dropdownMenuButton1 font">{{ selectedDropdownValue }}</div>
       </div>
 
       <div
@@ -131,10 +56,33 @@
             />
           </svg>
         </button>
-        <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-          <li><a ngbDropdownItem class="font">Profile 1</a></li>
-          <li><a ngbDropdownItem class="font">Profile 2</a></li>
-          <li><a ngbDropdownItem class="font">Profile 3</a></li>
+        <ul
+          ngbDropdownMenu
+          aria-labelledby="dropdownMenuButton1"
+          class="logut_dropdown"
+        >
+          <li class="mt-2">
+            <a ngbDropdownItem class="font logout" (click)="logout()"
+              >Logout
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-box-arrow-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                />
+              </svg>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -142,7 +90,9 @@
 
   <div class="row mt-3">
     <div class="col-12 d-flex align-items-center" style="flex-direction: row">
-      <div class="circle-div"></div>
+      <div class="circle-div d-flex justify-content-center align-items-center">
+        <img class="setup-image" src="assets/images/sidenavigation/Setup.png" />
+      </div>
       <div class="font ms-2 title_name">Setup</div>
     </div>
   </div>
@@ -198,6 +148,7 @@
             "
           ></div>
           <ng-template #createOrganization>
+            <!-- <div *ngIf="editableData then noteditable else editable"></div> -->
             <div class="row w-100">
               <div class="col-12 ms-2 d-flex justify-content-center">
                 <div class="table-container">
@@ -343,6 +294,38 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row mt-2">
+                        <div class="col-12">
+                          <div class="label_setup-logo font">
+                            Organization Code:
+                          </div>
+                          <div class="mt-2 org_code">
+                            <input
+                              class="form-control organisation_input font"
+                              type="text"
+                              id="orgCode"
+                              name="orgCode"
+                              formControlName="orgCode"
+                            />
+                            <div
+                              *ngIf="
+                                orgCodeControl?.invalid &&
+                                (orgCodeControl?.dirty ||
+                                  orgCodeControl?.touched)
+                              "
+                            >
+                              <div
+                                *ngIf="orgCodeControl?.errors?.['required']"
+                                class="font error_message"
+                              >
+                                Organization Code is required.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4"></div>
+                      </div>
                     </div>
 
                     <!-- Middle Input Side -->
@@ -476,6 +459,27 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row mt-2">
+                        <div class="col-12">
+                          <div
+                            class="label_setup font"
+                            style="visibility: hidden"
+                          >
+                            s
+                          </div>
+                          <div class="mt-2">
+                            <div class="d-flex">
+                              <div
+                                class="generate_button font d-flex justify-content-center fontInter"
+                                (click)="generateRandom8DigitNumber()"
+                              >
+                                Generate
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <!-- Right Input Side -->
@@ -546,40 +550,6 @@
                   </div>
 
                   <!-- Bootom Center label -->
-
-                  <div class="row">
-                    <div
-                      class="col-8 d-flex align-items-center mt-2"
-                      style="flex-direction: column"
-                    >
-                      <div class="label_setup-logo font">
-                        Organization Code:
-                      </div>
-                      <div class="mt-2 org_code">
-                        <input
-                          class="form-control organisation_input font"
-                          type="text"
-                          id="orgCode"
-                          name="orgCode"
-                          formControlName="orgCode"
-                        />
-                        <div
-                          *ngIf="
-                            orgCodeControl?.invalid &&
-                            (orgCodeControl?.dirty || orgCodeControl?.touched)
-                          "
-                        >
-                          <div
-                            *ngIf="orgCodeControl?.errors?.['required']"
-                            class="font error_message"
-                          >
-                            Organization Code is required.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-4"></div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -595,7 +565,11 @@
 
                     <div class="col-4 mt-2 d-flex justify-content-end">
                       <div class="count-container pt-1">
-                        <div class="row w-100" *ngFor="let response of count">
+                        <div
+                          class="row w-100"
+                          *ngFor="let response of count; let i = index"
+                          (click)="changeFilter(i)"
+                        >
                           <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                             {{ response.label }}
                           </div>
@@ -611,8 +585,8 @@
                               class="form-check-input"
                               type="radio"
                               name="flexRadioDefault"
-                              id="flexRadioDefault2"
-                              checked
+                              [id]="'flexRadioDefault' + i"
+                              [checked]="i === activeRadiobutton"
                             />
                           </div>
                         </div>
@@ -662,11 +636,15 @@
                   </div>
 
                   <div class="table-body-height">
-                    <div class="row mt-2" *ngFor="let res of getOrganization">
+                    <div
+                      class="row mt-2"
+                      *ngFor="let res of getOrganization; let i = index"
+                    >
                       <div class="col-12 d-flex justify-content-center">
                         <div class="table-body d-flex align-items-center">
                           <div
                             class="edit_btn d-flex justify-content-center align-items-center"
+                            (click)="editOrganization(i)"
                           >
                             <img
                               class="edit_image"
@@ -684,6 +662,7 @@
                               type="checkbox"
                               role="switch"
                               id="flexSwitchCheckDefault"
+                              [checked]="res.status === 'A'"
                             />
                           </div>
 
@@ -707,73 +686,55 @@
             </div>
           </ng-template>
         </div>
-        <div class="" *ngIf="this.activeIndexTab == 1">
-          <app-organization-hierarchy></app-organization-hierarchy>
+
+        <div [ngSwitch]="activeIndexTab">
+          <div *ngSwitchCase="1">
+            <app-organization-hierarchy></app-organization-hierarchy>
+          </div>
+          <div *ngSwitchCase="2">
+            <app-cms-role></app-cms-role>
+          </div>
+          <div *ngSwitchCase="3">
+            <app-cms-user></app-cms-user>
+          </div>
+          <div *ngSwitchCase="4">
+            <app-batch></app-batch>
+          </div>
+          <!-- Add a default case if needed -->
         </div>
-        <div class="" *ngIf="this.activeIndexTab == 2">
-          <app-cms-role></app-cms-role>
+      </div>
+    </div>
+    <div
+      *ngIf="
+        activeIndexSubTab == '0' && activeIndexTab == '0';
+        then createOrganizationbutton;
+        else displayOrganization
+      "
+    ></div>
+    <ng-template #createOrganizationbutton>
+      <div *ngIf="!editableData; then noneditable; else editable"></div>
+      <ng-template #noneditable>
+        <div class="col-12 d-flex justify-content-end">
+          <button
+            class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
+            [disabled]="multiFieldForm.invalid"
+            [ngClass]="{ 'disabled-button': multiFieldForm.invalid }"
+          >
+            Submit
+          </button>
         </div>
-        <div class="" *ngIf="this.activeIndexTab == 3">
-          <app-cms-user></app-cms-user>
+      </ng-template>
+      <ng-template #editable>
+        <div class="col-12 d-flex justify-content-end">
+          <button
+            class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
+          >
+            Submit
+          </button>
         </div>
-        <div class="" *ngIf="this.activeIndexTab == 4">
-          <app-batch></app-batch>
-        </div>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 0">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
-          [disabled]="multiFieldForm.invalid"
-          [ngClass]="{ 'disabled-button': multiFieldForm.invalid }"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 1">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 2">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button_cms mt-3 me-3 font d-flex justify-content-center fontInter"
-          (click)="submitForm()"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 3">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-
-    <div class="row" *ngIf="this.activeIndexTab == 4">
-      <div class="col-12 d-flex justify-content-end">
-        <button
-          class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
+      </ng-template>
+    </ng-template>
+    <ng-template #displayOrganization> </ng-template>
   </form>
 </div>
 

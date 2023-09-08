@@ -1,12 +1,13 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
-import { FormSharingService } from 'src/app/service/form-sharing/form-sharing.service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-setup',
   templateUrl: './setup.component.html',
@@ -18,7 +19,7 @@ export class SetupComponent implements OnInit {
 
   activeTabGameThemes: Boolean = false;
 
-  selectedDropdownValue: string = 'Organization';
+  selectedDropdownValue: string = 'Organization Name';
   selectedDropdownIndustryValue: string = 'Select from the drop-down';
   selectedDropdownBusinessTypeValue: string = 'Select from the drop-down';
   status: any;
@@ -35,20 +36,34 @@ export class SetupComponent implements OnInit {
   domainEmailValue: string = '';
   selectedFile: File | null = null;
   selectedFileURL: any = null;
-  base64String: string | null = null;
+  base64String: string = '';
   selectedDropdownIndustryValueId: string = '';
   selectedDropdownBusinessTypeValueId: string = '';
   getOrganization: any = [];
   successModal: boolean = false;
+  editableData: boolean = false;
+  activeOrganizations: string = '';
+  inactiveOrganizations: string = '';
+  totalOrganization: string = '';
+  sharedData: string = '';
+  organizationNameedit: string = '';
+  phoneNumberedit: string = '';
+  domainEmailEdit: string = '';
+  orgCodeEdit: string = '';
+  orgNameEdit: string = '';
+  contactNameEdit: string = '';
+  contactEmailEdit: string = '';
+  isInputDisabled: boolean = true;
 
+  createOrgResponse: any = [];
   count = [
     {
       label: 'Total',
-      value: 7,
+      value: 0,
     },
     {
       label: 'Active',
-      value: 7,
+      value: 0,
     },
     {
       label: 'Inactive',
@@ -73,15 +88,20 @@ export class SetupComponent implements OnInit {
       id: '',
     },
   ];
+  sliced_base64string: string = '';
+  activeRadiobutton = 0;
+  getEditDetails: any = [];
+  random8DigitNumber: number | undefined;
 
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
     public http: ApiServiceService,
     private fb: FormBuilder,
+    public authService: AuthService,
     private modalService: NgbModal,
     private renderer: Renderer2,
-    private formSharingService: FormSharingService
+    private route: ActivatedRoute
   ) {
     this.multiFieldForm = this.fb.group({
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
@@ -128,23 +148,15 @@ export class SetupComponent implements OnInit {
   @ViewChild('organizationSuccessModal') organizationSuccessModal: any;
 
   ngOnInit(): void {
-    this.http.getOrganisation().subscribe((res) => {
-      console.log(res);
-      this.getOrganization = res;
-    });
+    this.multiFieldForm.get('orgCode')?.disable();
+
     this.http.getIndustryType().subscribe((res) => {
       this.industryType = res;
-      console.log(this.industryType);
     });
 
     this.http.getBusinessType().subscribe((res) => {
       this.businessType = res;
-      console.log(this.businessType);
     });
-  }
-
-  updateSelectedValue(value: any) {
-    this.selectedDropdownValue = value;
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -160,7 +172,7 @@ export class SetupComponent implements OnInit {
   }
   NavigateToTab(index: any) {
     this.activeIndexTab = index;
-    console.log(this.activeIndexTab);
+
     if (this.activeIndexTab == 0) {
       this.subtab = [
         {
@@ -181,12 +193,32 @@ export class SetupComponent implements OnInit {
         {
           label: 'Function to Role Mapping',
         },
+        // this._router.navigateByUrl('/organization'),
       ];
     }
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
-    console.log(this.activeIndexSubTab);
+
+    if (this.activeIndexSubTab == 1) {
+      this.http.getOrganisation().subscribe((res) => {
+        this.getOrganization = res;
+
+        this.totalOrganization = this.getOrganization;
+
+        this.count[0].value = this.getOrganization.length;
+        this.activeOrganizations = this.getOrganization.filter(
+          (org: { status: string }) => org.status === 'A'
+        );
+
+        this.count[1].value = this.activeOrganizations.length;
+        this.inactiveOrganizations = this.getOrganization.filter(
+          (org: { status: string }) => org.status === 'D'
+        );
+
+        this.count[2].value = this.inactiveOrganizations.length;
+      });
+    }
   }
   navigateToEditQuestion() {
     this._router.navigateByUrl('home/sidenav/edit-question');
@@ -194,7 +226,6 @@ export class SetupComponent implements OnInit {
 
   getPhoneNumberValue() {
     this.phoneNumber = this.multiFieldForm.get('phoneNumber')?.value || '';
-    console.log(this.phoneNumber);
   }
 
   get domainEmailControl() {
@@ -223,11 +254,13 @@ export class SetupComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = (e: any) => {
       this.base64String = e.target.result;
+
+      this.sliced_base64string = this.base64String.substring(
+        'data:image/png;base64,'.length
+      );
     };
     const image = reader.readAsDataURL(this.selectedFile);
-    console.log(image);
 
-    console.log(this.selectedFile);
     this.selectedFileURL = URL.createObjectURL(file);
   }
 
@@ -237,6 +270,7 @@ export class SetupComponent implements OnInit {
     this.contactEmailControl;
     this.contactNameControl;
     this.orgCodeControl;
+
     const payload = {
       Data: {
         IdOrganization: '',
@@ -252,15 +286,13 @@ export class SetupComponent implements OnInit {
         UpdatedDateTime: '',
         IdCmsUser: '',
         SenderPassword: '',
-        Logo_Imgbytes: this.base64String,
+        Logo_Imgbytes: this.sliced_base64string,
         IndustryName: this.selectedDropdownIndustryValue,
         BUSINESSTYPENAME: this.selectedDropdownBusinessTypeValue,
         IdBusinessType: this.selectedDropdownIndustryValueId,
         IdIndustry: this.selectedDropdownBusinessTypeValueId,
       },
     };
-
-    console.log(payload);
 
     const escapedOrganizationCode = JSON.stringify(
       payload.Data.OrganizationCode
@@ -286,11 +318,9 @@ export class SetupComponent implements OnInit {
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
 
-    console.log(body);
-
     this.http.createOrganisation(body).subscribe(
       (res) => {
-        console.log(res);
+        this.createOrgResponse = res;
         this.successModal = true;
         this.openModal();
       },
@@ -312,7 +342,8 @@ export class SetupComponent implements OnInit {
     });
 
     // You can pass data to the modal if needed
-    modalRef.componentInstance.someData = 'Hello from parent component';
+    modalRef.componentInstance.someData = this.createOrgResponse;
+    modalRef.componentInstance.screen = 'Organization';
   }
 
   submitForm() {
@@ -321,7 +352,70 @@ export class SetupComponent implements OnInit {
     };
 
     this.http.createCmsRole(formData).subscribe((response) => {
-      this.http.setApiResponse(response);
+      //  this.http.setApiResponse(response);
     });
+  }
+
+  changeFilter(index: any) {
+    if (index == 0) {
+      this.getOrganization = this.totalOrganization;
+    } else if (index == 1) {
+      this.getOrganization = this.activeOrganizations;
+    } else if (index == 2) {
+      this.getOrganization = this.inactiveOrganizations;
+    }
+  }
+
+  editOrganization(index: any) {
+    this.getEditDetails = this.getOrganization[index];
+
+    this.editableData = true;
+    this.activeIndexSubTab = 0;
+    this.selectedDropdownIndustryValue = this.getEditDetails?.industryName;
+    this.selectedDropdownBusinessTypeValue =
+      this.getEditDetails?.businesstypename;
+    this.organizationNameedit = this.getEditDetails?.organizationName;
+
+    this.selectedDropdownIndustryValueId = this.getEditDetails?.idIndustry;
+    this.selectedDropdownBusinessTypeValueId =
+      this.getEditDetails?.idBusinessType;
+
+    this.phoneNumberedit = this.getEditDetails?.phoneNo;
+    this.multiFieldForm.get('phoneNumber')?.setValue(this.phoneNumberedit);
+    this.multiFieldForm.get('phoneNumber')?.value || '';
+
+    this.domainEmailEdit = this.getEditDetails?.domainEmailId;
+    this.multiFieldForm.get('domainEmail')?.setValue(this.domainEmailEdit);
+    this.multiFieldForm.get('domainEmail')?.value || '';
+
+    this.orgCodeEdit = this.getEditDetails?.organizationCode;
+    this.multiFieldForm.get('orgCode')?.setValue(this.orgCodeEdit);
+    this.multiFieldForm.get('orgCode')?.value || '';
+
+    this.orgNameEdit = this.getEditDetails?.organizationName;
+    this.multiFieldForm.get('orgName')?.setValue(this.orgNameEdit);
+    this.multiFieldForm.get('orgName')?.value || '';
+
+    this.contactNameEdit = this.getEditDetails?.name;
+    this.multiFieldForm.get('contactName')?.setValue(this.contactNameEdit);
+    this.multiFieldForm.get('contactName')?.value || '';
+
+    this.contactEmailEdit = this.getEditDetails?.contactEmail;
+    this.multiFieldForm.get('contactEmail')?.setValue(this.contactEmailEdit);
+    this.multiFieldForm.get('contactEmail')?.value || '';
+  }
+
+  generateRandom8DigitNumber(): void {
+    const randomNumber = Math.floor(Math.random() * 100000000);
+    const eightDigitNumber = randomNumber.toString().padStart(8, '0');
+    this.random8DigitNumber = parseInt(eightDigitNumber, 10);
+    this.orgCodeEdit = this.random8DigitNumber.toString();
+    this.multiFieldForm.get('orgCode')?.setValue(this.orgCodeEdit);
+    this.multiFieldForm.get('orgCode')?.value || '';
+  }
+
+  logout() {
+    this.authService.logout();
+    this._router.navigateByUrl('');
   }
 }
