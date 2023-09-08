@@ -7,6 +7,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private http: ApiServiceService
   ) {}
+
   ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticated();
   }
@@ -58,14 +60,12 @@ export class LoginComponent implements OnInit {
     this.http.login(body).subscribe(
       (res) => {
         this.logindata = res;
-        console.log(this.logindata.idOrgHierarchy);
+
         localStorage.setItem('idOrgHierarchy', this.logindata.idOrgHierarchy);
         localStorage.setItem('idOrganization', this.logindata.idOrganization);
         localStorage.setItem('idCmsUser', this.logindata.idCmsUser);
         localStorage.setItem('idCmsRole', this.logindata.idCmsRole);
 
-        
-        
         this._router.navigateByUrl('home');
       },
       (error: HttpErrorResponse) => {

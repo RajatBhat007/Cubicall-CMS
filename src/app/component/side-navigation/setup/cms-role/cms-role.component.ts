@@ -15,16 +15,18 @@ export class CmsRoleComponent {
   activeUpdateButton: boolean = false;
   RoleFunctionList: any = [];
   idOrganization: any = '';
-  idCmsRole:any=''
+  idCmsRole: any = '';
   CmsRoleList: any = [];
   getOrganizationlist: any = [];
-  functionName:string=''
-  functionDescription:string=''
-  totalCmsRolelist:string=''
-  activeCmsRolelist:string=''
-  inactivCmsRoleList:string=''
+  functionName: string = '';
+  functionDescription: string = '';
+  totalCmsRolelist: string = '';
+  activeCmsRolelist: string = '';
+  inactivCmsRoleList: string = '';
   activeRadiobutton = 0;
+  organizationName: string = '';
 
+  apiData: any;
   subtab = [
     {
       label: 'Create CMS Role',
@@ -50,15 +52,14 @@ export class CmsRoleComponent {
       value: 0,
     },
   ];
-  cmsRoleName: string='';
-  cmsFunctionName: string='';
-  organizationName:string=''
-  constructor(public http: ApiServiceService,public  _router: Router) {
+  cmsRoleName: string = '';
+  cmsFunctionName: string = '';
+
+  constructor(public http: ApiServiceService, public _router: Router) {
     console.log(this.activeUpdateButton);
   }
   ngOnInit(): void {
     this.getCmsRole_Function_List();
-    this.getOrganization();
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -71,7 +72,7 @@ export class CmsRoleComponent {
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
     console.log(this.activeIndexSubTab);
-    
+
     if (this.activeIndexSubTab == 1) {
       this.getCmsRoleList();
     }
@@ -81,11 +82,14 @@ export class CmsRoleComponent {
   }
 
   getCmsRole_Function_List() {
-    this.idOrganization = localStorage.getItem('idOrganization');
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+    });
+
     this.http.GetCmsRoleFunctionList(this.idOrganization).subscribe((res) => {
       this.RoleFunctionList = res;
-       console.log(this.RoleFunctionList);
-      
+      console.log(this.RoleFunctionList);
     });
   }
   getOrganization() {
@@ -96,14 +100,11 @@ export class CmsRoleComponent {
     });
   }
   getCmsRoleList() {
-    this.idOrganization = localStorage.getItem('idOrganization');
-    this.idCmsRole=localStorage.getItem('idCmsRole')
-
-    this.http.getRolesList(-this.idOrganization,-this.idCmsRole).subscribe((res) => {
+    this.idOrganization = this.apiData?.user?.idOrganization;
+    this.http.getRolesList(this.idOrganization).subscribe((res) => {
       this.CmsRoleList = res;
       console.log(this.CmsRoleList);
 
- 
       this.totalCmsRolelist = this.CmsRoleList;
       this.count[0].value = this.CmsRoleList.length;
       this.activeCmsRolelist = this.CmsRoleList.filter(
@@ -116,25 +117,23 @@ export class CmsRoleComponent {
       );
       console.log(this.inactivCmsRoleList);
       this.count[2].value = this.inactivCmsRoleList.length;
-
     });
   }
 
-  viewFunction(value:any){
-   this.functionName=this.RoleFunctionList[value].functionName
-   this.functionDescription=this.RoleFunctionList[value].description
-   console.log(this.functionName);
-   console.log(this.functionDescription);
-   
+  viewFunction(value: any) {
+    this.functionName = this.RoleFunctionList[value].functionName;
+    this.functionDescription = this.RoleFunctionList[value].description;
+    console.log(this.functionName);
+    console.log(this.functionDescription);
   }
-  viewCmsRole(value:any){
-     console.log(value);
+  viewCmsRole(value: any) {
+    console.log(value);
     //  this.organizationName=this.CmsRoleList[value]
-     this.cmsRoleName=this.CmsRoleList[value].roleName
-     this.cmsFunctionName=this.CmsRoleList[value].idsFunction
-     this.organizationName=this.CmsRoleList[value].organizationName
+    this.cmsRoleName = this.CmsRoleList[value].roleName;
+    this.cmsFunctionName = this.CmsRoleList[value].idsFunction;
+    this.organizationName = this.CmsRoleList[value].organizationName;
   }
-  navigateToCreateCmsRole(value:any){
+  navigateToCreateCmsRole(value: any) {
     // this._router.navigate(['home/setup'],{queryParams:{value}})
     this.activeIndexSubTab = 0;
   }

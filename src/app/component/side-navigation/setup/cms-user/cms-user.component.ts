@@ -16,13 +16,13 @@ export class CmsUserComponent {
   userDetailsList: any;
   getOrganizationlist: any = [];
   idOrganization: any = '';
-  idCmsRole:any=''
+  idCmsRole: any = '';
   CmsRole: any = [];
-  username:string=''
-  function:string=''
-  totalUserlist:string=''
-  activeUserlist:string=''
-  inactivUserList:string=''
+  username: string = '';
+  function: string = '';
+  totalUserlist: string = '';
+  activeUserlist: string = '';
+  inactivUserList: string = '';
   activeRadiobutton = 0;
   subtab = [
     {
@@ -81,9 +81,9 @@ export class CmsUserComponent {
   }
   getCmsRoleList() {
     this.idOrganization = localStorage.getItem('idOrganization');
-    this.idCmsRole=localStorage.getItem('idCmsRole')
+    this.idCmsRole = localStorage.getItem('idCmsRole');
 
-    this.http.getRolesList(-this.idOrganization,-this.idCmsRole).subscribe((res) => {
+    this.http.getRolesList(this.idOrganization).subscribe((res) => {
       this.CmsRole = res;
       console.log(this.CmsRoleList);
     });
@@ -112,31 +112,30 @@ export class CmsUserComponent {
     this.http.getCMSUserDetails(this.idOrganization).subscribe((res) => {
       this.userDetailsList = res;
       console.log(this.userDetailsList);
-       this.totalUserlist = this.userDetailsList;
-        this.count[0].value = this.userDetailsList.length;
-        this.activeUserlist = this.userDetailsList.filter(
-          (org: { status: string }) => org.status === 'A'
-        );
-        console.log(this.activeUserlist);
-        this.count[1].value = this.activeUserlist.length;
-        this.inactivUserList = this.userDetailsList.filter(
-          (org: { status: string }) => org.status === 'D'
-        );
-        console.log(this.inactivUserList);
-        this.count[2].value = this.inactivUserList.length;
-    })
-
+      this.totalUserlist = this.userDetailsList;
+      this.count[0].value = this.userDetailsList.length;
+      this.activeUserlist = this.userDetailsList.filter(
+        (org: { status: string }) => org.status === 'A'
+      );
+      console.log(this.activeUserlist);
+      this.count[1].value = this.activeUserlist.length;
+      this.inactivUserList = this.userDetailsList.filter(
+        (org: { status: string }) => org.status === 'D'
+      );
+      console.log(this.inactivUserList);
+      this.count[2].value = this.inactivUserList.length;
+    });
   }
 
-  viewUserinfo(value:any){ 
-  console.log(value );
-  this.username=this.userDetailsList[value].userName
-  this.function=this.userDetailsList[value].functions
-  }
-
-  navigateToEditCmsUSer(value:any){
+  viewUserinfo(value: any) {
     console.log(value);
-    
+    this.username = this.userDetailsList[value].userName;
+    this.function = this.userDetailsList[value].functions;
+  }
+
+  navigateToEditCmsUSer(value: any) {
+    console.log(value);
+
     this.activeIndexSubTab = 0;
   }
   changeFilter(index: any) {
@@ -149,7 +148,4 @@ export class CmsUserComponent {
       this.userDetailsList = this.inactivUserList;
     }
   }
-
-
-
 }
