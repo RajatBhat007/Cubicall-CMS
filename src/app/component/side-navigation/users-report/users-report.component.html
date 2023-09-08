@@ -165,7 +165,7 @@
                                         <div class="col-12 d-flex justify-content-center">
                                             <div class="table-header">
                                                 <div class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3">
-                                                    <div class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
+                                                    <div class="col-3 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
                                                         <div  *ngIf="tableTitleValue!='User'" class="Status_label font d-flex align-items-center justify-content-center">
                                                             Detailed View
                                                          </div>
@@ -175,7 +175,7 @@
                                                          </div>
                                                     </div>
                                                    
-                                                    <div class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5">
+                                                    <div class="col checkbox-header d-flex justify-content-evenly align-items-center">
                                                         <div class="id-header font">
                                                             AHT
                                                         </div>
@@ -208,24 +208,25 @@
                                     <div class="table-body-height">
                                         <div class="row mt-2">
                                             <div class="col-12 d-flex flex-column justify-content-center" >
-                                                <div class="table-body ms-2 d-flex align-items-center mt-2" *ngFor="let performanceContent of tableContent ;let i=index">
-                                                    <div class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-3"  (click)="openInfoFormTable(i)">
-                                                        <div class="col-4 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
+                                                <div class="table-body  d-flex align-items-center ms-2 mt-2" *ngFor="let performanceContent of currentLevel ;let i=index">
+                                                    
+                                                    <div class="col-12 checkbox-header d-flex justify-content-between align-items-center ps-3 gap-2">
+                                                        <div class="col-3 checkbox-header d-flex justify-content-start align-items-center ps-1 gap-5">
                                                             <div  *ngIf="tableTitleValue!='User'" class="Status_label font d-flex align-items-center justify-content-center">
-                                                                <button class="detailed_view_btn">
+                                                                <button class="detailed_view_btn"  (click)="[openInfoFormTable(i)]">
                                                                     <i class="material-icons me-2" style="color: #fff;">{{ showPassword ? 'visibility' : 'visibility_off' }}</i>
                                                                     <span>View</span>
                                                                 </button>
                                                              </div>
                      
                                                              <div class="view-header font d-flex justify-content-center">
-                                                                {{tableTitleValue}}&nbsp;{{i+1}}
+                                                                {{tableTitleValue}}&nbsp; {{i+1}}
                                                              </div>
                                                         </div>
                                                        
-                                                        <div class="col-8 checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-5">
+                                                        <div class="col checkbox-header d-flex justify-content-evenly align-items-center pe-3 gap-3">
                                                             <div class="id-header font">
-                                                               {{performanceContent?.AHT}} 
+                                                                {{performanceContent?.AHT}} 
                                                             </div>
                                                             
                 
@@ -233,18 +234,18 @@
                                                                 {{performanceContent?.FCR}} 
                                                             </div>
                                                             
-                                                            <div class="created-date-header font d-flex justify-content-end">
+                                                            <div class="created-date-header font">
                                                                 {{performanceContent?.Quality}}
                                                             </div>
                                                             <div class="created-date-header font d-flex justify-content-end">
                                                                 {{performanceContent?.Service_level}}
                                                              </div>
                                                              <div class="created-date-header font d-flex justify-content-end">
-                                                              <button class="performance_btn_high" *ngIf="performanceContent.Performance=='High'">High</button>
-    
-                                                              <button class="performance_btn_Moderate" *ngIf="performanceContent.Performance=='Moderate'">Moderate</button>
-                                                              <button class="performance_btn_low" *ngIf="performanceContent.Performance=='Low'">Low</button>
-                                                             </div> 
+                                                                <button class="performance_btn_high" *ngIf="performanceContent.Performance=='High'">High</button>
+      
+                                                                <button class="performance_btn_Moderate" *ngIf="performanceContent.Performance=='Moderate'">Moderate</button>
+                                                                <button class="performance_btn_low" *ngIf="performanceContent.Performance=='Low'">Low</button>
+                                                               </div> 
                                                         </div>
                                                         
                                                          
