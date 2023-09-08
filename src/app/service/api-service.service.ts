@@ -13,7 +13,7 @@ export class ApiServiceService {
   URLstring = environment.apiURL;
   open: any;
   Path = 'CubiCallGameNewAPi/api';
-  mayurPath = 'CubicallApi-Mayur/api';
+  NewPath = 'CubicallGameNewApi_test/api';
   private getisAuthenticated = false;
   activeSubTabindex: any = 0;
   constructor(public Http: HttpClient) {
@@ -123,8 +123,8 @@ export class ApiServiceService {
     return this.Http.get(tempurl);
   }
 
-  getRolesList(data: any): Observable<any> {
-    var tempurl = `${this.URLstring}` + `${this.Path}/GetRoles?OrgId=${data}`;
+  getRolesList(data: any,role:any): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.NewPath}/GetRoles?OrgId=${data}&RoleId=${role}`;
     return this.Http.get(tempurl);
   }
 
@@ -143,7 +143,7 @@ export class ApiServiceService {
   getCMSUserDetails(data: any) {
     var tempurl =
       `${this.URLstring}` +
-      `${this.mayurPath}/GetCMSUserDetails?CMSUID=${data}`;
+      `${this.NewPath}/GetCMSUsers?oid=-${data}&uid=-1`;
     return this.Http.get(tempurl);
   }
 }

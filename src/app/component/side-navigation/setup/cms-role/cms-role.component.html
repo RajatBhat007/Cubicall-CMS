@@ -133,6 +133,7 @@
                         <div
                           class="table-body-height table-body"
                           *ngFor="let item of RoleFunctionList;let i=index"
+                  
                         >
                           <div class="row mt-2">
                             <div class="col-12 d-flex justify-content-center">
@@ -229,7 +230,9 @@
                     class="col-10 d-flex justify-content-end align-items-center"
                   >
                     <div class="Cms-Role-count-container pt-1">
-                      <div class="row w-100" *ngFor="let response of count">
+                      <div class="row w-100" *ngFor="let response of count;let i=index"
+                      (click)="changeFilter(i)"
+                      >
                         <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                           {{ response.label }}
                         </div>
@@ -246,7 +249,8 @@
                             type="radio"
                             name="flexRadioDefault"
                             id="flexRadioDefault2"
-                            checked
+                            [checked]="i === activeRadiobutton"
+
                           />
                         </div>
                       </div>
@@ -302,6 +306,7 @@
                             <div
                               class="table-body-height table-body"
                               *ngFor="let item of CmsRoleList;let i=index"
+                           
                             >
                               <div class="row mt-2">
                                 <div
@@ -358,12 +363,13 @@
                                         type="checkbox"
                                         role="switch"
                                         id="flexSwitchCheckDefault"
+                                        [checked]="item.status === 'A'"
                                       />
                                     </div>
 
-                                    <div
-                                      class="Organization-header font text-dark ms-4"
-                                    ></div>
+                                    <div class="Organization-header font text-dark ms-4">
+                                      {{item.organizationName}}
+                                  </div>
                                     <div class="Role-header ellipsis font text-dark">
                                       {{ item.roleName }}
                                     </div>
@@ -560,6 +566,7 @@
                   <input
                     class="form-control organisation_input font"
                     type="text"
+                    value="{{organizationName}}"
                   />
                 </div>
               </div>

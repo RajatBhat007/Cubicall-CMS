@@ -143,7 +143,9 @@
                                     </div>
                                     <div class="col-10 d-flex justify-content-end align-items-center">
                                         <div class="Cms-User-count-container pt-1">
-                                            <div class="row w-100" *ngFor="let response of count">
+                                            <div class="row w-100" *ngFor="let response of count;let i=index"
+                                            (click)="changeFilter(i)"
+                                            >
                                                 <div class="col-lg-5 col-sm-4  ps-4  font count_label">
                                                     {{response.label}}</div>
                                                 <div class="col-lg-5 col-sm-6 ">
@@ -155,7 +157,10 @@
                                                 <div class="col-lg-2  col-sm-2">
 
                                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                        id="flexRadioDefault2" checked>
+                                                        id="flexRadioDefault2" 
+                                                        [checked]="i === activeRadiobutton"
+
+                                                        >
                                                 </div>
                                             </div>
                                         </div>
@@ -206,13 +211,14 @@
                                                     </div>
                                                     <div class="display-Cms-User-body-height">
                                                         <div class="table-body-height table-body w-100"
-                                                            *ngFor="let item of CmsRoleList">
+                                                            *ngFor="let item of userDetailsList;let i=index">
                                                             <div class="row mt-2">
                                                                 <div class="col-12 d-flex justify-content-center">
                                                                     <div class="table-body d-flex align-items-center">
                                                                         <div class="view_div d-flex align-items-center justify-content-center"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#OrganizationDescriptionModal">
+                                                                            data-bs-target="#UserDescriptionModal"
+                                                                            (click)="viewUserinfo(i)">
                                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                                 class="eye-image" viewBox="0 0 28 20"
                                                                                 fill="none">
@@ -229,7 +235,8 @@
                                                                             </svg>
                                                                         </div>
                                                                         <div
-                                                                            class="edit_btn  d-flex justify-content-center align-items-center">
+                                                                            class="edit_btn  d-flex justify-content-center align-items-center"
+                                                                            (click)="navigateToEditCmsUSer('cmsUserEdit')">
                                                                             <img class="edit_image"
                                                                                 src="assets/images/Edit.svg"
                                                                                 alt="Edit Image" />
@@ -240,18 +247,19 @@
                                                                             <input class="form-check-input"
                                                                                 style="width: 2.5vw;height: 2.5vh;"
                                                                                 type="checkbox" role="switch"
-                                                                                id="flexSwitchCheckDefault">
+                                                                                id="flexSwitchCheckDefault"
+                                                                                [checked]="item.status === 'A'">
                                                                         </div>
                                                                         <div
                                                                         class="User-Name-header font text-dark ps-4">
-                                                                        {{item.username}}</div>
+                                                                        {{item.userName}}</div>
                                                                         <div
                                                                             class="Organization-header font text-dark ps-4">
-                                                                            {{item.label}}</div>
+                                                                            TGC</div>
                                                                         <div class="Role-header font text-dark ps-2">
-                                                                            {{item.role}}</div>
-                                                                        <div class="Function-header font text-dark ps-2">
-                                                                            {{item.function}}</div>
+                                                                            Admin Access</div>
+                                                                        <div class="Function-header ellipsis font text-dark ps-2">
+                                                                            {{item.functions}}</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -272,3 +280,109 @@
             </div>
         </div>
     </div>
+
+
+
+    <div
+      class="modal fade"
+      id="UserDescriptionModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered"
+        style="position: relative; display: flex; justify-content: center"
+      >
+        <div class="modal-content UserDescriptionModal">
+          <div class="d-flex justify-content-end">
+            <div
+              type="button"
+              class="custom-close-btn d-flex justify-content-center align-items-center m-2"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <svg
+                viewBox="0 0 36 36"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="cross-icon"
+              >
+                <g id="Group 8373">
+                  <circle
+                    id="Ellipse 21"
+                    cx="18"
+                    cy="18"
+                    r="17"
+                    fill="#D7D7E8"
+                    stroke="black"
+                    stroke-width="2"
+                  />
+                  <path
+                    id="Vector 3983"
+                    d="M9.5 10L28 27"
+                    stroke="black"
+                    stroke-width="5"
+                  />
+                  <path
+                    id="Vector 3984"
+                    d="M27.25 9.25L10.25 27.75"
+                    stroke="black"
+                    stroke-width="5"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="modal-body pt-0">
+            <div class="row">
+              <div class="col-12">
+                <div class="label_setup-logo font text-dark">User Name:</div>
+                <div class="mt-2">
+                  <input
+                    class="form-control organisation_input font"
+                    type="text"
+                    value="{{username}}"
+                  />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="label_setup-logo font text-dark">Organization:</div>
+                <div class="mt-2">
+                  <input
+                    class="form-control organisation_input font"
+                    type="text"
+                     value="TGC"
+                  />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="label_setup-logo font text-dark">Role:</div>
+                <div class="mt-2">
+                  <input
+                    class="form-control organisation_input font"
+                    type="text"
+                     value="Admin Access"
+                  />
+                </div>
+              </div>
+              <div class="col-12 mt-2">
+                <div class="label_setup-logo font">Function:</div>
+                <div class="question-container mt-2 font">
+                  <textarea
+                    class="form-control input-question "
+                    rows="7"
+                    value="{{function}}"
+                  ></textarea>
+                  <!-- Question -->
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

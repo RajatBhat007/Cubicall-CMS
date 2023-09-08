@@ -62,7 +62,9 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('idOrgHierarchy', this.logindata.idOrgHierarchy);
         localStorage.setItem('idOrganization', this.logindata.idOrganization);
         localStorage.setItem('idCmsUser', this.logindata.idCmsUser);
+        localStorage.setItem('idCmsRole', this.logindata.idCmsRole);
 
+        
         
         this._router.navigateByUrl('home');
       },

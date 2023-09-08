@@ -176,7 +176,32 @@ input[type=checkbox] {
   width: 48%;
 }
 .dropdownmenu{
-  height: 40vh;
+  height: auto;
+  max-height: 40vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
+.input-question {
+  background: #D7D7E8;
+  // border: none;
+  height: 17vh;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #000;
+  max-height: 16vh;
+}
+.cross-icon{
+  height: 3vh;
+}
+.UserDescriptionModal{
+  border-radius: 20px;
+  border: 4px solid #000;
+  background: #FFF;
+  height:auto;
+}
+.organisation_input{
+  color: #000000 !important;
+  font-size: 0.9em;
+
+} 
+

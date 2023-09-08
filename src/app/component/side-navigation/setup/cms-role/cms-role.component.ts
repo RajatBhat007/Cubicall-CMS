@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 
@@ -15,10 +15,16 @@ export class CmsRoleComponent {
   activeUpdateButton: boolean = false;
   RoleFunctionList: any = [];
   idOrganization: any = '';
+  idCmsRole:any=''
   CmsRoleList: any = [];
   getOrganizationlist: any = [];
   functionName:string=''
   functionDescription:string=''
+  totalCmsRolelist:string=''
+  activeCmsRolelist:string=''
+  inactivCmsRoleList:string=''
+  activeRadiobutton = 0;
+
   subtab = [
     {
       label: 'Create CMS Role',
@@ -33,11 +39,11 @@ export class CmsRoleComponent {
   count = [
     {
       label: 'Total:',
-      value: 7,
+      value: 0,
     },
     {
       label: 'Active:',
-      value: 7,
+      value: 0,
     },
     {
       label: 'Inactive:',
@@ -46,7 +52,7 @@ export class CmsRoleComponent {
   ];
   cmsRoleName: string='';
   cmsFunctionName: string='';
-
+  organizationName:string=''
   constructor(public http: ApiServiceService,public  _router: Router) {
     console.log(this.activeUpdateButton);
   }
@@ -78,6 +84,8 @@ export class CmsRoleComponent {
     this.idOrganization = localStorage.getItem('idOrganization');
     this.http.GetCmsRoleFunctionList(this.idOrganization).subscribe((res) => {
       this.RoleFunctionList = res;
+       console.log(this.RoleFunctionList);
+      
     });
   }
   getOrganization() {
@@ -89,9 +97,26 @@ export class CmsRoleComponent {
   }
   getCmsRoleList() {
     this.idOrganization = localStorage.getItem('idOrganization');
-    this.http.getRolesList(this.idOrganization).subscribe((res) => {
+    this.idCmsRole=localStorage.getItem('idCmsRole')
+
+    this.http.getRolesList(-this.idOrganization,-this.idCmsRole).subscribe((res) => {
       this.CmsRoleList = res;
       console.log(this.CmsRoleList);
+
+ 
+      this.totalCmsRolelist = this.CmsRoleList;
+      this.count[0].value = this.CmsRoleList.length;
+      this.activeCmsRolelist = this.CmsRoleList.filter(
+        (org: { status: string }) => org.status === 'A'
+      );
+      console.log(this.activeCmsRolelist);
+      this.count[1].value = this.activeCmsRolelist.length;
+      this.inactivCmsRoleList = this.CmsRoleList.filter(
+        (org: { status: string }) => org.status === 'D'
+      );
+      console.log(this.inactivCmsRoleList);
+      this.count[2].value = this.inactivCmsRoleList.length;
+
     });
   }
 
@@ -107,9 +132,21 @@ export class CmsRoleComponent {
     //  this.organizationName=this.CmsRoleList[value]
      this.cmsRoleName=this.CmsRoleList[value].roleName
      this.cmsFunctionName=this.CmsRoleList[value].idsFunction
+     this.organizationName=this.CmsRoleList[value].organizationName
   }
   navigateToCreateCmsRole(value:any){
     // this._router.navigate(['home/setup'],{queryParams:{value}})
     this.activeIndexSubTab = 0;
+  }
+
+  changeFilter(index: any) {
+    console.log(index);
+    if (index == 0) {
+      this.CmsRoleList = this.totalCmsRolelist;
+    } else if (index == 1) {
+      this.CmsRoleList = this.activeCmsRolelist;
+    } else if (index == 2) {
+      this.CmsRoleList = this.inactivCmsRoleList;
+    }
   }
 }
