@@ -92,6 +92,7 @@ export class SetupComponent implements OnInit {
   activeRadiobutton = 0;
   getEditDetails: any = [];
   random8DigitNumber: number | undefined;
+  apiData: any;
 
   constructor(
     public _router: Router,
@@ -137,18 +138,6 @@ export class SetupComponent implements OnInit {
     },
   ];
 
-  rolesWithAccess: { [key: string]: string[] } = {
-    CubiCallAdmin: [
-      'Organization',
-      'Organization Hierarchy',
-      'CMS Role',
-      'CMS User',
-      'Batch',
-    ],
-    SuperAdmin: ['Organization Hierarchy', 'CMS Role', 'CMS User', 'Batch'],
-    Admin: ['Organization Hierarchy', 'CMS Role', 'CMS User', 'Batch'],
-  };
-
   subtab: any = [
     {
       label: 'Create Organization',
@@ -160,6 +149,11 @@ export class SetupComponent implements OnInit {
   @ViewChild('organizationSuccessModal') organizationSuccessModal: any;
 
   ngOnInit(): void {
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+    });
+
     this.multiFieldForm.get('orgCode')?.disable();
 
     this.http.getIndustryType().subscribe((res) => {
@@ -170,14 +164,7 @@ export class SetupComponent implements OnInit {
       this.businessType = res;
     });
   }
-  userRole: string = 'Admin'; // Replace with the actual user's role
-
-  canSeeTab(tab: any): boolean {
-    console.log(tab);
-
-    const allowedTabs = this.rolesWithAccess[this.userRole];
-    return allowedTabs && allowedTabs.includes(tab.content);
-  }
+  userRole: string = ''; // Replace with the actual user's role
 
   updateSelectedIndustryValue(value: any) {
     this.selectedDropdownIndustryValue = this.industryType[value].industryname;
