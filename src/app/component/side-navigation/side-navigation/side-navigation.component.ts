@@ -30,6 +30,7 @@ export class SideNavigationComponent implements OnInit {
       image: 'assets/images/sidenavigation/RTU.png',
     },
   ];
+
   activeIndex: any = 0;
   activeTab: Boolean = false;
   constructor(
