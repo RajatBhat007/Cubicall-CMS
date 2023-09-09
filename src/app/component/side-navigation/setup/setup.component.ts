@@ -137,6 +137,18 @@ export class SetupComponent implements OnInit {
     },
   ];
 
+  rolesWithAccess: { [key: string]: string[] } = {
+    CubiCallAdmin: [
+      'Organization',
+      'Organization Hierarchy',
+      'CMS Role',
+      'CMS User',
+      'Batch',
+    ],
+    SuperAdmin: ['Organization Hierarchy', 'CMS Role', 'CMS User', 'Batch'],
+    Admin: ['Organization Hierarchy', 'CMS Role', 'CMS User', 'Batch'],
+  };
+
   subtab: any = [
     {
       label: 'Create Organization',
@@ -157,6 +169,14 @@ export class SetupComponent implements OnInit {
     this.http.getBusinessType().subscribe((res) => {
       this.businessType = res;
     });
+  }
+  userRole: string = 'Admin'; // Replace with the actual user's role
+
+  canSeeTab(tab: any): boolean {
+    console.log(tab);
+
+    const allowedTabs = this.rolesWithAccess[this.userRole];
+    return allowedTabs && allowedTabs.includes(tab.content);
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -416,6 +436,7 @@ export class SetupComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    localStorage.clear();
     this._router.navigateByUrl('');
   }
 }

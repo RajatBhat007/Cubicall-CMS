@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.isLoading = true;
     const payload = {
       Data: {
         UserName: this.uname,
@@ -59,11 +58,8 @@ export class LoginComponent implements OnInit {
 
     this.http.login(body).subscribe(
       (res) => {
+        this.isLoading = true;
         this.logindata = res;
-
-        localStorage.setItem('idOrgHierarchy', this.logindata.idOrgHierarchy);
-        localStorage.setItem('idOrganization', this.logindata.idOrganization);
-        localStorage.setItem('idCmsUser', this.logindata.idCmsUser);
 
         this._router.navigateByUrl('home');
       },
