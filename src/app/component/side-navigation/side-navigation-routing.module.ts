@@ -9,6 +9,8 @@ import { SetupComponent } from './setup/setup.component';
 import { UsersReportComponent } from './users-report/users-report.component';
 
 import { OrganizationHierarchyComponent } from './setup/organization-hierarchy/organization-hierarchy.component';
+import { CreateimgComponent } from 'src/app/createimg/createimg/createimg.component';
+import { GameEditComponent } from 'src/app/gameedit/game-edit/game-edit.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'sidenav',pathMatch:'full' },
@@ -21,6 +23,10 @@ const routes: Routes = [
         path: 'game-theme',
         component: GameThemeComponent,
       },
+        { 
+      path: 'gameedit',
+       component: GameEditComponent 
+      },
       {
         path: 'edit-question',
         component: EditQuestionComponent,
@@ -28,7 +34,10 @@ const routes: Routes = [
       {
         path: 'rtu',
         component: RtuScreenComponent,
-      },
+      },   { 
+        path: 'createimg',
+         component: CreateimgComponent 
+        },
       {
         path: 'setup',
         component: SetupComponent,

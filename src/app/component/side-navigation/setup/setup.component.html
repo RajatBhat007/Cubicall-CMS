@@ -687,7 +687,7 @@
     </div>
     <div
       *ngIf="
-        activeIndexSubTab == '0';
+        activeIndexSubTab == '0' && activeIndexTab == '0';
         then createOrganizationbutton;
         else displayOrganization
       "

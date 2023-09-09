@@ -1,0 +1,333 @@
+.search-bar-container {
+    height: 5vh;
+    width: 90%;
+    background: #000;
+    padding-left: 1vw
+  }
+  
+  .input-group {
+    width: 90%;
+    padding-left: 0.5vw;
+    height: 3vh;
+  }
+  
+  .form-control {
+    height: 3vh;
+    font-size: 0.8em;
+  }
+  
+  
+  .close {
+    border: 0;
+    background: 0;
+    color:#fff;
+    
+  }
+  
+  .dropdown-toggle {
+    background: #000000;
+    border: none;
+    color: #000000;
+    font-size: 0.9em;
+    border-radius: 0;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    color: #FFF;
+  }
+  .circle-div,
+  .circle-tab,
+  .tab {
+    background: #fff
+  }
+  
+  
+  #dropdownMenuButton2 {
+    border-radius: 0;
+    height: 5vh;
+    background: #D7D7E8;
+    color: #000;
+  
+  }
+  
+  .circle {
+    width: 3.5vh;
+    height: 3.5vh;
+    margin-right: .2vw
+  }
+  
+  .circle-div {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 100%;
+    border: 1px solid #000000
+  }
+  
+  .circle-tab {
+    width: 3vh;
+    height: 3vh;
+    border-radius: 100%;
+    border: 1px solid #000
+  }
+  
+  .title_name {
+    font-size: 1.1em
+  }
+  .box-edit-question {
+    width: 99%;
+    height:74vh;
+    border: 5px solid black;
+    background: #F5F5F7;
+    margin-top: 3vh;
+    border-radius: 10px;
+    margin-left: -1%;
+}
+
+
+.header_question {
+    width: 60%;
+    height: 4vh;
+    border-radius: 10px;
+    background: #000000;
+    color: #FFF;
+    font-size: 1.2em;
+}
+.container {
+    width: 90%;
+    height: 80%;
+    background: #F5F5F7;
+    margin-top: 3%;
+    
+    flex-direction: row;
+}
+.mainboxes {
+  display: flex;
+  align-items: start; 
+  margin-top: 1%;
+}
+.boxwhite {
+    display: flex; 
+    align-items: start; 
+}
+
+.box {
+    width: 5vw;
+    height: 6vh;
+    flex-shrink: 0;
+    border-radius: 7px;
+    background: #D7D7E8;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.whitebox {
+    width: 3.5vw;
+    height: 6vh;
+    flex-shrink: 0;
+    border-radius: 7px;
+    border: 2px solid #000;
+    background: #FFF;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -4%;
+}
+.note{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+.notetext{
+    color: #000;
+   font-family: Work Sans;
+   font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+     line-height: 48px; 
+}
+.checkbox-header {
+    height: 8vh;
+    width:10vw;
+  }
+  
+  .checkbox-input {
+    border: 1px solid #000
+  }
+  
+  .checkbox-input-checkbox {
+    border: 1px solid #000;
+    background-color: transparent
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.status {
+    color: #000;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.submit_button {
+    border-radius: 10px;
+    background: #000000;
+    color: #fff;
+    cursor: pointer;
+    width: 8vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // margin-left:700px;
+    line-height: -1.5%;
+    filter: drop-shadow(4px 7px 4px rgba(0, 0, 0, 0.25));
+}
+.col-auto {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.sta{
+    display: flex;
+    align-items: center;
+}
+.game_text3{
+  color: #000;
+  font-family: Work Sans;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 35px; 
+  margin-left: 4%;
+  
+}
+.eye{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 31px;
+    height: 22.545px;
+    padding: 2%;
+}
+.timebox1{
+width: 250px;
+height: 160px;
+flex-shrink: 0;
+border-radius: 17px;
+border: 2px solid #000;
+background: #D7D7E8;
+margin-top: 3%;
+}
+.attemptbox {
+    margin-left: 4%;
+    display: flex;
+    flex-direction: column; 
+    border-radius: 17px;
+    border: 2px solid #000;
+    background: #FFF;
+    justify-content: center;
+    align-items: center;
+    width:90%
+  }
+  .gametile{
+    width: 100%;
+height: 6vh;
+border-radius: 17px;
+border: 2px solid #000;
+background: #D7D7E8;
+  }
+  .timebox{
+    width: 29vw;
+height: 30vh;
+border-radius: 17px;
+border: 2px solid #000;
+background: #D7D7E8;
+  }
+  .img{
+    width:15%;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  .box2{
+    width: 50%;
+height: 9vh;
+border-radius: 17px;
+border: 2px solid #000;
+background: #D7D7E8;
+display: flex;
+align-items: center;
+  }
+  .box_choosepicture{
+    width: 15vw;
+height: 8vh;
+border-radius: 17px;
+background: #000;
+display: flex;
+align-items: center;
+color:#F5F5F7;
+  }
+  .submit_button1 {
+    border-radius: 10px;
+    background: #000000;
+    color: #fff;
+    cursor: pointer;
+    width: 8vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // margin-left:700px;
+    line-height: -1.5%;
+    filter: drop-shadow(4px 7px 4px rgba(0, 0, 0, 0.25));
+    margin-left: -3%;
+}
+.custom-left {
+  margin-left: 10px; 
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.submit_button {
+  cursor: pointer;
+}
+.custom-button {
+    height: 7vh;
+    background-color: black;
+    color: white;
+    padding: 1px 16px;
+    border: none;
+    cursor: pointer;
+    margin-left: 4%;
+    margin-top: 1%;
+  }
+  
+  .custom-button:hover {
+    background-color: #333; /* Change the background color on hover if desired */
+  }
+  
+
+

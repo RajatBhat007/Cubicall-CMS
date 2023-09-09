@@ -14,7 +14,7 @@ export class RtuScreenComponent implements OnInit {
   activeIndexTab: any = 0;
   activeIndexSubTab: any = 0;
   activeIndexDraftSubmit: any = 1;
-  activeAll: string = '1';
+  activeAll: any = '0';
   activeTabGameThemes: Boolean = false;
   selectedDropdownValue: string = 'Organization Name';
   circleClassName: string = '';

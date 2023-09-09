@@ -15,7 +15,11 @@ export class ApiServiceService {
   Path = 'CubiCallGameNewAPi/api';
   mayurPath='CubicallApi-Mayur/api'
   private getisAuthenticated = false;
+  isAttempted=false;
+  isopenGameTime= false;
+  isopenStreakTime=false;
   activeSubTabindex: any = 0;
+  isGameTile=false;
   constructor(public Http: HttpClient) {
     this.getisAuthenticated =
       localStorage.getItem('isAuthenticated') === 'true';
@@ -144,5 +148,9 @@ export class ApiServiceService {
     var tempurl = `${this.URLstring}` + `${this.mayurPath}/GetCMSUserDetails?CMSUID=${data}`;
     return this.Http.get(tempurl);
   }
-
+  activeSubTabvalue(data:any): void{
+    this.activeSubTabindex=data
+   console.log(this.activeSubTabindex);
+   
+  }
 }
