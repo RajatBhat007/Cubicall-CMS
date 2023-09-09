@@ -63,6 +63,11 @@
   background: #FFFFFF;
   color: #000;
   min-width: 100%;
+  position: relative;
+}
+.eye-button{
+  position: absolute;
+  right: 0;
 }
 
 .label_setup{
@@ -306,4 +311,12 @@ color: #fff;
   pointer-events: none; /* Prevents click events */
   opacity: 0.5; /* Reduces opacity to visually indicate disabled state */
   cursor: not-allowed; /* Changes cursor style to indicate not-allowed */
+}
+.error_message{
+  font-size: 0.8em;
+  padding: 4px;
+  color: red;
+}
+.input-group-append{
+  position: relative;
 }
