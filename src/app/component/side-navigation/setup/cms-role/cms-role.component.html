@@ -46,6 +46,7 @@
                               ? 'black'
                               : ''
                         }"
+                        (click)="getOrganization()"
                       >
                         {{ selectedDropdownIndustryValue }}
                       </button>
@@ -132,7 +133,7 @@
                       <div class="container-height">
                         <div
                           class="table-body-height table-body"
-                          *ngFor="let item of RoleFunctionList;let i=index"
+                          *ngFor="let item of RoleFunctionList; let i = index"
                         >
                           <div class="row mt-2">
                             <div class="col-12 d-flex justify-content-center">
@@ -181,7 +182,9 @@
                                   {{ item.functionName }}
                                 </div>
 
-                                <div class="label_setup-logo ellipsis font text-dark">
+                                <div
+                                  class="label_setup-logo ellipsis font text-dark"
+                                >
                                   {{ item.description }}
                                 </div>
                               </div>
@@ -301,7 +304,7 @@
                           <div class="display-Cms-Role-body-height">
                             <div
                               class="table-body-height table-body"
-                              *ngFor="let item of CmsRoleList;let i=index"
+                              *ngFor="let item of CmsRoleList; let i = index"
                             >
                               <div class="row mt-2">
                                 <div
@@ -340,7 +343,9 @@
                                     </div>
                                     <div
                                       class="edit_btn d-flex justify-content-center align-items-center"
-                                      (click)="navigateToCreateCmsRole('cmsRoleEdit')"
+                                      (click)="
+                                        navigateToCreateCmsRole('cmsRoleEdit')
+                                      "
                                     >
                                       <img
                                         class="edit_image"
@@ -364,10 +369,14 @@
                                     <div
                                       class="Organization-header font text-dark ms-4"
                                     ></div>
-                                    <div class="Role-header ellipsis font text-dark">
+                                    <div
+                                      class="Role-header ellipsis font text-dark"
+                                    >
                                       {{ item.roleName }}
                                     </div>
-                                    <div class="Function-header ellipsis font text-dark">
+                                    <div
+                                      class="Function-header ellipsis font text-dark"
+                                    >
                                       {{ item.idsFunction }}
                                     </div>
                                   </div>
@@ -477,7 +486,8 @@
                 <div class="mt-2">
                   <input
                     class="form-control organisation_input font"
-                    type="text" value="{{functionName}}"
+                    type="text"
+                    value="{{ functionName }}"
                   />
                 </div>
               </div>
@@ -488,7 +498,7 @@
                     class="form-control input-question p-0"
                     placeholder="Question"
                     rows="7"
-                    value="{{functionDescription}}"
+                    value="{{ functionDescription }}"
                   ></textarea>
                   <!-- Question -->
                 </div>
@@ -569,10 +579,9 @@
                   <input
                     class="form-control organisation_input font"
                     type="text"
-                    value="{{cmsRoleName}}"
+                    value="{{ cmsRoleName }}"
                   />
                 </div>
-                
               </div>
               <div class="col-12 mt-2">
                 <div class="label_setup-logo font">Function:</div>
@@ -581,7 +590,7 @@
                     class="form-control input-question p-0"
                     placeholder="Question"
                     rows="7"
-                    value="{{cmsFunctionName}}"
+                    value="{{ cmsFunctionName }}"
                   ></textarea>
                   <!-- Question -->
                 </div>

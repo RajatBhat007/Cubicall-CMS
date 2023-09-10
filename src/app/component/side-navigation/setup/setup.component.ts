@@ -53,6 +53,8 @@ export class SetupComponent implements OnInit {
   orgNameEdit: string = '';
   contactNameEdit: string = '';
   contactEmailEdit: string = '';
+  isInputDisabled: boolean = true;
+
   createOrgResponse: any = [];
   count = [
     {
@@ -89,6 +91,7 @@ export class SetupComponent implements OnInit {
   sliced_base64string: string = '';
   activeRadiobutton = 0;
   getEditDetails: any = [];
+  random8DigitNumber: number | undefined;
 
   constructor(
     public _router: Router,
@@ -134,6 +137,18 @@ export class SetupComponent implements OnInit {
     },
   ];
 
+  rolesWithAccess: { [key: string]: string[] } = {
+    CubiCallAdmin: [
+      'Organization',
+      'Organization Hierarchy',
+      'CMS Role',
+      'CMS User',
+      'Batch',
+    ],
+    SuperAdmin: ['Organization Hierarchy', 'CMS Role', 'CMS User', 'Batch'],
+    Admin: ['Organization Hierarchy', 'CMS Role', 'CMS User', 'Batch'],
+  };
+
   subtab: any = [
     {
       label: 'Create Organization',
@@ -145,15 +160,23 @@ export class SetupComponent implements OnInit {
   @ViewChild('organizationSuccessModal') organizationSuccessModal: any;
 
   ngOnInit(): void {
+    this.multiFieldForm.get('orgCode')?.disable();
+
     this.http.getIndustryType().subscribe((res) => {
       this.industryType = res;
-      console.log(this.industryType);
     });
 
     this.http.getBusinessType().subscribe((res) => {
       this.businessType = res;
-      console.log(this.businessType);
     });
+  }
+  userRole: string = 'Admin'; // Replace with the actual user's role
+
+  canSeeTab(tab: any): boolean {
+    console.log(tab);
+
+    const allowedTabs = this.rolesWithAccess[this.userRole];
+    return allowedTabs && allowedTabs.includes(tab.content);
   }
 
   updateSelectedIndustryValue(value: any) {
@@ -169,7 +192,7 @@ export class SetupComponent implements OnInit {
   }
   NavigateToTab(index: any) {
     this.activeIndexTab = index;
-    console.log(this.activeIndexTab);
+
     if (this.activeIndexTab == 0) {
       this.subtab = [
         {
@@ -196,10 +219,9 @@ export class SetupComponent implements OnInit {
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
-    console.log(this.activeIndexSubTab);
+
     if (this.activeIndexSubTab == 1) {
       this.http.getOrganisation().subscribe((res) => {
-        console.log(res);
         this.getOrganization = res;
 
         this.totalOrganization = this.getOrganization;
@@ -208,13 +230,11 @@ export class SetupComponent implements OnInit {
         this.activeOrganizations = this.getOrganization.filter(
           (org: { status: string }) => org.status === 'A'
         );
-        console.log(this.activeOrganizations);
 
         this.count[1].value = this.activeOrganizations.length;
         this.inactiveOrganizations = this.getOrganization.filter(
           (org: { status: string }) => org.status === 'D'
         );
-        console.log(this.inactiveOrganizations);
 
         this.count[2].value = this.inactiveOrganizations.length;
       });
@@ -226,7 +246,6 @@ export class SetupComponent implements OnInit {
 
   getPhoneNumberValue() {
     this.phoneNumber = this.multiFieldForm.get('phoneNumber')?.value || '';
-    console.log(this.phoneNumber);
   }
 
   get domainEmailControl() {
@@ -255,15 +274,13 @@ export class SetupComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = (e: any) => {
       this.base64String = e.target.result;
-      console.log(this.base64String);
+
       this.sliced_base64string = this.base64String.substring(
         'data:image/png;base64,'.length
       );
     };
     const image = reader.readAsDataURL(this.selectedFile);
-    console.log(image);
 
-    console.log(this.selectedFile);
     this.selectedFileURL = URL.createObjectURL(file);
   }
 
@@ -273,6 +290,7 @@ export class SetupComponent implements OnInit {
     this.contactEmailControl;
     this.contactNameControl;
     this.orgCodeControl;
+
     const payload = {
       Data: {
         IdOrganization: '',
@@ -295,8 +313,6 @@ export class SetupComponent implements OnInit {
         IdIndustry: this.selectedDropdownBusinessTypeValueId,
       },
     };
-
-    console.log(payload);
 
     const escapedOrganizationCode = JSON.stringify(
       payload.Data.OrganizationCode
@@ -322,11 +338,8 @@ export class SetupComponent implements OnInit {
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
 
-    console.log(body);
-
     this.http.createOrganisation(body).subscribe(
       (res) => {
-        console.log(res);
         this.createOrgResponse = res;
         this.successModal = true;
         this.openModal();
@@ -359,12 +372,11 @@ export class SetupComponent implements OnInit {
     };
 
     this.http.createCmsRole(formData).subscribe((response) => {
-    //  this.http.setApiResponse(response);
+      //  this.http.setApiResponse(response);
     });
   }
 
   changeFilter(index: any) {
-    console.log(index);
     if (index == 0) {
       this.getOrganization = this.totalOrganization;
     } else if (index == 1) {
@@ -376,7 +388,7 @@ export class SetupComponent implements OnInit {
 
   editOrganization(index: any) {
     this.getEditDetails = this.getOrganization[index];
-    console.log(this.getEditDetails);
+
     this.editableData = true;
     this.activeIndexSubTab = 0;
     this.selectedDropdownIndustryValue = this.getEditDetails?.industryName;
@@ -413,8 +425,18 @@ export class SetupComponent implements OnInit {
     this.multiFieldForm.get('contactEmail')?.value || '';
   }
 
+  generateRandom8DigitNumber(): void {
+    const randomNumber = Math.floor(Math.random() * 100000000);
+    const eightDigitNumber = randomNumber.toString().padStart(8, '0');
+    this.random8DigitNumber = parseInt(eightDigitNumber, 10);
+    this.orgCodeEdit = this.random8DigitNumber.toString();
+    this.multiFieldForm.get('orgCode')?.setValue(this.orgCodeEdit);
+    this.multiFieldForm.get('orgCode')?.value || '';
+  }
+
   logout() {
     this.authService.logout();
+    localStorage.clear();
     this._router.navigateByUrl('');
   }
 }

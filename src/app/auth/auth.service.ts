@@ -13,9 +13,6 @@ export class AuthService {
   }
 
   login(uname: string, password: string): boolean {
-    console.log(uname);
-    console.log(password);
-
     // Perform authentication logic and set isAuthenticated to true if successful
     this.getisAuthenticated = true;
     localStorage.setItem('isAuthenticated', 'true');

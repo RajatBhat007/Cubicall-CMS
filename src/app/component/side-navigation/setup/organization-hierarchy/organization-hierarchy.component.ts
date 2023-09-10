@@ -20,6 +20,7 @@ export class OrganizationHierarchyComponent implements OnInit {
   isDisabled: boolean = true; // Initially, the button is not disabled
   vendorData: string = '';
   vendorNameHierarchy: string = '';
+  creteAdminField!: FormGroup;
   subtab: any = [
     {
       label: 'Create Admin Role',
@@ -46,7 +47,10 @@ export class OrganizationHierarchyComponent implements OnInit {
   subprocessIndex: string = '';
   processName: string = '';
   subTabName: string = 'create';
+  id_org: any = [];
+  id_cms_user: any = [];
   OrgHirerachtresponse: any = [];
+  apiData: any;
   CmsRoleList = [
     {
       username: 'Admin_123',
@@ -97,6 +101,10 @@ export class OrganizationHierarchyComponent implements OnInit {
     },
   ];
   vendorForm: FormGroup;
+  employeeName: any;
+  employeeId: any;
+  employeePassword: any;
+  showpassword: boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -110,14 +118,50 @@ export class OrganizationHierarchyComponent implements OnInit {
     this.vendorForm = this.fb.group({
       vendorName: ['', [Validators.required]],
     });
+    
 
     this.processForm = this.formBuilder.group({
       processRows: this.formBuilder.array([]),
       subprocessRows: this.formBuilder.array([]),
       stage: this.formBuilder.array([]),
     });
+
+    this.creteAdminField = this.formBuilder.group({
+      empName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50),
+          Validators.pattern(/^[A-Za-z\s'-]+$/),
+        ],
+      ]
+      ,
+      empId: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-z]{2}-\d{4}(,[a-z]{2}-\d{4})*$/i)],
+      ]
+      ,
+      empPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*!()])[A-Za-z\d@#$%^&+=*!()]+$/),
+        ],
+      ]
+
+
+    })
+
+
   }
+  
   ngOnInit() {
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+    });
+
     this.addProcessRow(); // Add one row by default
   }
 
@@ -197,6 +241,16 @@ export class OrganizationHierarchyComponent implements OnInit {
   get stage(): FormArray {
     return this.processForm.get('stage') as FormArray;
   }
+
+  get empNameControl():FormArray {
+    return this.creteAdminField.get('empName') as FormArray;
+  }
+  get empIdControl():FormArray {
+    return this.creteAdminField.get('empId') as FormArray;
+  }
+  get empPasswordControl():FormArray {
+    return this.creteAdminField.get('empPassword') as FormArray;
+  }
   navigateToSubprocess(process: any, index: any) {
     console.log(index);
     this.subprocessIndex = index + 1;
@@ -217,11 +271,15 @@ export class OrganizationHierarchyComponent implements OnInit {
 
   createAdminInfo() {
     this.onSubmit();
+
+    // this.id_org = localStorage.getItem('idOrganization');
+    // this.id_cms_user = localStorage.getItem('idCmsUser');
+
     // {    "Data":"{\n    \"HierarchyName\":\"Abc\",\n    \"ParentIdOrgHierarchy\":0,\n    \"IdOrganization\":4,\n    \"IdCmsUser\":1\n}"}
     const payload = {
       Data: {
-        IdOrganization: 4,
-        IdCmsUser: 1,
+        IdOrganization: Number(this.apiData?.user?.idOrganization),
+        IdCmsUser: Number(this.apiData?.user?.idCmsRole),
         ParentIdOrgHierarchy: 0,
         HierarchyName: this.vendorNameHierarchy,
       },
@@ -262,7 +320,8 @@ export class OrganizationHierarchyComponent implements OnInit {
     console.log(this.adminInfo);
   }
   submitOrgHierarchy() {
-    this.openModal();
+    this.SubmitCreateAdminUser()
+    // this.openModal();
   }
   openModal() {
     const modalRef = this.modalService.open(ModalComponent, {
@@ -286,4 +345,57 @@ export class OrganizationHierarchyComponent implements OnInit {
       console.error('Form is invalid. Please check the fields.');
     }
   }
+  SubmitCreateAdminUser(){
+  
+      this.employeeName=this.creteAdminField.value.empName;
+      this.employeeId=this.creteAdminField.value.empId;
+      this.employeePassword=this.creteAdminField.value.empPassword;
+
+      const payload = {
+        Data: {
+          IdOrganization: Number(this.apiData?.user?.idOrganization),
+          UserName: this.employeeName,
+          ParentIdOrgHierarchy: 0,
+          Name: this.vendorNameHierarchy,
+          PhoneNo: '',
+          Password:this.employeePassword,
+          IdOrgHierarchy:this.OrgHirerachtresponse?.idOrgHierarchy,
+          IdCmsRole :Number(this.apiData?.user?.idCmsRole)
+        },
+      };
+
+      // const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"IdCmsUser\":${escapedIdCMSUser},\"ParentIdOrgHierarchy\":${escapedParentIdOrgHierarchy},\"HierarchyName\":${escapedHierarchyName}`;
+    const escapedIdOrg = JSON.stringify(payload.Data.IdOrganization);
+    const escapedUserName = JSON.stringify(payload.Data.UserName);
+    const escapedParentIdOrgHierarchy = JSON.stringify(
+      payload.Data.ParentIdOrgHierarchy
+    );
+    const escapedName = JSON.stringify(payload.Data.Name);
+    const escapedPhoneNo = JSON.stringify(payload.Data.PhoneNo);
+    const escapedPassword = JSON.stringify(payload.Data.Password);
+    const escapedIdOrgHierarchy = JSON.stringify(payload.Data.IdOrgHierarchy);
+
+    const escapedIdCmsRole = JSON.stringify(payload.Data.IdCmsRole);
+
+
+
+      const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"UserName\":${escapedUserName},\"Name\":${escapedName},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"IdOrgHierarchy\":${escapedIdOrgHierarchy},\"IdCmsRole\":${escapedIdCmsRole}`
+    const jsonString = JSON.stringify(escapedJsonString);
+    console.log(jsonString);
+    const jsonStringremovelast = jsonString.slice(0, -1);
+    const body = '{"Data":' + jsonStringremovelast + '}"}';
+      
+      this.http.createAdminUser(body).subscribe((res)=>{
+        console.log(res);
+      })
+
+  
+}
+togglePasswordVisibility(){
+  this.showpassword=!this.showpassword;
+}
+
+createAdminUser(){
+ 
+}
 }

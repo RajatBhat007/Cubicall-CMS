@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.0",
+    "@ngrx/effects": "^16.2.0",
     "@ngrx/store": "^16.2.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.0",
