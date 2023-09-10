@@ -164,4 +164,14 @@ export class ApiServiceService {
   getApiData(): Observable<any> {
     return this.apiDataSubject.asObservable();
   }
+
+  createAdminUser(data:any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl =`${this.URLstring}` + `${this.Path}/CreateAdminUser`;
+    return this.Http.post(tempurl, data, httpOptions);
+  }
 }
