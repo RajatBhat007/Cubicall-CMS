@@ -40,7 +40,7 @@ export class BatchComponent {
     },
     
 ]
- CmsRoleList=[
+ CmsRoleList:any=[
   {
     'label':'About Life',
     'role':"Admin Access",
@@ -85,18 +85,29 @@ subtab = [
   ]
   count = [{
     "label": 'Total:',
-    "value": 7
+    "value": ''
   },
   {
     "label": 'Active:',
-    "value": 7
+    "value": ''
   },
   {
     "label": 'Inactive:',
-    "value": 0
+    "value": ''
   },
 
   ]
+  filteredBatches: any[] = [];
+
+  idOrgnization: any;
+  apiData: any;
+  BatchData: any;
+  totalCountCmsRoleList: any;
+  totalBatches: any;
+  activeBatches: any;
+  inactiveBatches: any;
+  CmsBatchList: any;
+  isActivestatus: any =[];
  
 
 constructor(public apiservice:ApiServiceService){
@@ -104,6 +115,8 @@ console.log(this.activeUpdateButton);
 
 }
   ngOnInit(): void {
+    let body={}
+    this.apiservice.createBatch(body)
  
   }
 
@@ -118,7 +131,46 @@ console.log(this.activeUpdateButton);
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index
     console.log(this.activeIndexSubTab);
-     this.apiservice.activeSubTabvalue(this.activeIndexSubTab)
+    
+    
+     if(this.activeIndexSubTab==1){
+      this.apiservice.getApiData().subscribe((data) => {
+        this.apiData = data;
+        console.log(this.apiData);
+      });
+      this.idOrgnization=this.apiData?.user?.idOrganization
+      this.apiservice.getBatch(this.idOrgnization).subscribe((res)=>{
+        console.log(res);
+        this.BatchData=res;
+        this.CmsBatchList=this.BatchData[0]?.lstBatches;
+        console.log(this.CmsBatchList);
+        this.totalBatches = this.CmsBatchList?.length;
+        console.log(this.totalBatches);
+
+        this.count[0].value = this.totalBatches;
+        console.log(this.count[0].value );
+
+
+        console.log(this.CmsBatchList);
+        
+        this.filteredBatches = this.CmsBatchList?.reduce((filtered: any, org: { lstBatches: any[]; }) => {
+          console.log(org);
+          
+          const batches = org?.lstBatches?.filter(batch => batch.objHeirarchyBatchesMaster.isActive === "A") || [];
+          console.log(batches);
+          
+          return [...filtered, ...batches];
+        }, []);
+      
+
+        this.count[1].value = this.activeBatches?.length;
+        this.inactiveBatches = this.CmsBatchList?.objHeirarchyBatchesMaster?.filter(
+          (org: { status: string }) => org.status === 'D'
+        );
+
+        this.count[2].value = this.inactiveBatches?.length;
+      })
+     }
   }
   selectOption(index:any){
     this.activeIndexTab=index
@@ -128,6 +180,9 @@ console.log(this.activeUpdateButton);
 //   }
 NavigateToSubTab0(index: number) {
   this.activeIndexSubTab = index;
+}
+createBatch(){
+
 }
 
 

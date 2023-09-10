@@ -279,7 +279,7 @@ export class OrganizationHierarchyComponent implements OnInit {
     const payload = {
       Data: {
         IdOrganization: Number(this.apiData?.user?.idOrganization),
-        IdCmsUser: Number(this.apiData?.user?.idCmsRole),
+        IdCmsUser: Number(this.apiData?.user?.idCmsUser),
         ParentIdOrgHierarchy: 0,
         HierarchyName: this.vendorNameHierarchy,
       },
