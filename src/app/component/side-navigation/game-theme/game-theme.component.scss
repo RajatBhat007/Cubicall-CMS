@@ -1259,7 +1259,7 @@ margin-top:1% ;
   padding: 0% 10%;
 }
 .searchContainer{
-  width: 10vw;
+  width: 9vw;
   height: 3vh;
   background-color: #000000; 
   color: #FFFFFF;
@@ -1268,10 +1268,11 @@ margin-top:1% ;
   outline: none;
 }
 .searchBorderRadious{
-    margin-left: -100%;
+  
     border: 3px solid #D7D7E8;
     border-radius: 15px;
-    margin-top: -1%;
+    width: 100%;
+  
 }
 .tab {
   height: 7vh;

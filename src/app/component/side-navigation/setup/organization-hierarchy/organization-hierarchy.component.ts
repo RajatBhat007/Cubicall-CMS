@@ -119,6 +119,9 @@ export class OrganizationHierarchyComponent implements OnInit {
   employeePassword: any;
   showpassword: boolean = false;
   processName1: any;
+  organisationProcess: string = '';
+  idhierarchy: string = '';
+  idOrg: string = '';
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -178,6 +181,10 @@ export class OrganizationHierarchyComponent implements OnInit {
       this.apiData = data;
       console.log(this.apiData);
     });
+    this.idhierarchy = this.apiData?.user?.idOrgHierarchy;
+    this.idOrg = this.apiData?.user?.idOrganization;
+    console.log(this.idhierarchy);
+    console.log(this.idOrg);
 
     this.addProcessRow('page'); // Add one row by default
     this.addSubProcessRow('');
@@ -202,7 +209,7 @@ export class OrganizationHierarchyComponent implements OnInit {
       this.subTabName = 'create';
     } else if (this.activeIndexSubTab == 1) {
       this.subTabName = 'set';
-      this.getVendorDetails();
+      this.getVendorDetails('');
     } else if (this.activeIndexSubTab == 2) {
       this.subTabName = 'display';
       this.getCMSAdmindetails();
@@ -231,17 +238,22 @@ export class OrganizationHierarchyComponent implements OnInit {
       });
   }
 
-  getVendorDetails() {
-    console.log(this.apiData?.user?.idOrgHierarchy);
+  getVendorDetails(page: any) {
+    console.log(this.idhierarchy);
+    console.log(this.idOrg);
 
     this.http
-      .getVendorDetails(
-        this.apiData?.user?.idOrganization,
-        this.apiData?.user?.idOrgHierarchy
-      )
+      .getVendorDetails(this.idOrg, this.idhierarchy)
       .subscribe((res) => {
         this.organisationName = res;
         console.log(this.organisationName);
+        this.organisationProcess = this.organisationName[1].idOrgHierarchy;
+        console.log(this.organisationProcess);
+
+        this.processForm1
+          .get('processName')
+          ?.setValue(this.organisationProcess);
+        this.processForm1.get('processName')?.value || '';
       });
   }
 
@@ -448,10 +460,12 @@ export class OrganizationHierarchyComponent implements OnInit {
   postOrganisationHierarchy(pageInfo: any, description: any) {
     console.log(description);
 
+    this.getVendorDetails(pageInfo);
     this.descriptioninfo = description;
     console.log(pageInfo);
     if (pageInfo == 'process') {
       this.hierarchylevel = 3;
+
       this.vendorNameHierarchy = description;
     } else if (pageInfo == 'subprocess') {
       this.hierarchylevel = 4;

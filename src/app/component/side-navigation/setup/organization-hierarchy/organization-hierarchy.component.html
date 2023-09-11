@@ -38,7 +38,6 @@
                           [disabled]="isDisabled"
                           (input)="updateInputState($event)"
                         />
-                        
                       </div>
                       <div
                         *ngIf="
@@ -751,6 +750,7 @@
     ></div>
     <ng-template #defaultInfobtn>
       <div
+        *ngIf="activeIndexSubTab == 0"
         class="submit_button_organisation mt-3 me-3 font d-flex justify-content-center fontInter"
         [ngClass]="{ disabled: isDisabled }"
         (click)="isDisabled ? null : createAdminInfo()"
@@ -760,6 +760,7 @@
     </ng-template>
     <ng-template #adminInfodetailsbtb>
       <div
+        *ngIf="activeIndexSubTab == 0"
         class="submit_button_organisation mt-3 me-3 font d-flex justify-content-center fontInter"
         (click)="submitOrgHierarchy()"
       >
