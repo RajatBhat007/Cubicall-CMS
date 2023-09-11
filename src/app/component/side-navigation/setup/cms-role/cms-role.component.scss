@@ -36,8 +36,8 @@
 .question-container {
   height: 18vh;
   width: 100%;
-  border-radius: 10px;
-  border: 2px solid #133870;
+  border-radius:5px;
+  border: 1px solid #133870;
   background: #D7D7E8;
   color: #133870;
   padding: 8px;
@@ -49,6 +49,7 @@
   height: 17vh;
   font-size: 1em;
   max-height: 16vh;
+  outline: none;
 }
 
 .select-function-block {
@@ -87,7 +88,7 @@
   margin-left: 35px;
 }
 #flexSwitchCheckDefault{
-  border: 2px solid #000 !important;
+  // border: 2px solid #000 !important;
 
 }
 input[type=checkbox] {
@@ -420,3 +421,26 @@ height: 45vh;
   max-height: 43vh;
   overflow: auto;
 }
+.submit_button_function {
+  border-radius: 10px;
+  background: #000000;
+  color: #FFFFFF;
+  padding: 0.6em;
+  font-size: 0.8em;
+  cursor: pointer;
+  width: 8%;
+  box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+  
+  }
+  .disabled-button{
+    border-radius: 10px;
+    background: #000000;
+    color: #FFFFFF;
+    padding: 0.6em;
+    font-size: 0.8em;
+    cursor:not-allowed;
+    width: 8%;
+    box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+    opacity: 0.5;
+  }
+  

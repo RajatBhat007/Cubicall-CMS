@@ -146,6 +146,8 @@ export class SetupComponent implements OnInit {
       label: 'Display Organization',
     },
   ];
+
+  IdOrganization: string = '';
   @ViewChild('organizationSuccessModal') organizationSuccessModal: any;
 
   ngOnInit(): void {
@@ -277,10 +279,11 @@ export class SetupComponent implements OnInit {
     this.contactEmailControl;
     this.contactNameControl;
     this.orgCodeControl;
+    console.log(this.IdOrganization);
 
     const payload = {
       Data: {
-        IdOrganization: '',
+        IdOrganization: this.IdOrganization,
         OrganizationCode: this.orgCodeControl?.value,
         OrganizationName: this.orgNameControl?.value,
         Description: '',
@@ -291,7 +294,7 @@ export class SetupComponent implements OnInit {
         DomainEmailId: this.domainEmailControl?.value,
         Status: '',
         UpdatedDateTime: '',
-        IdCmsUser: '',
+        IdCmsUser: this.apiData?.user?.idCmsRole,
         SenderPassword: '',
         Logo_Imgbytes: this.sliced_base64string,
         IndustryName: this.selectedDropdownIndustryValue,
@@ -300,7 +303,8 @@ export class SetupComponent implements OnInit {
         IdIndustry: this.selectedDropdownBusinessTypeValueId,
       },
     };
-
+    const escapedIdOrganization = JSON.stringify(payload.Data.IdOrganization);
+    const escapedIdCmsUser = JSON.stringify(payload.Data.IdCmsUser);
     const escapedOrganizationCode = JSON.stringify(
       payload.Data.OrganizationCode
     );
@@ -320,7 +324,7 @@ export class SetupComponent implements OnInit {
     const escapedIdBusinessType = JSON.stringify(payload.Data.IdBusinessType);
     const escapedIdIndustry = JSON.stringify(payload.Data.IdIndustry);
 
-    const escapedJsonString = `{\"OrganizationCode\":${escapedOrganizationCode},\"OrganizationName\":${escapedOrganizationName},\"Name\":${escapedName},\"PhoneNo\":${escapedPhoneNo},\"ContactEmail\":${escapedContactEmail},\"DomainEmailId\":${escapedDomainEmailId},\"IndustryName\":${escapedIndustryName},\"BUSINESSTYPENAME\":${escapedBUSINESSTYPENAME},\"Logo_Imgbytes\":${escapedLogo_Imgbytes},\"IdBusinessType\":${escapedIdBusinessType},\"IdIndustry\":${escapedIdIndustry}`;
+    const escapedJsonString = `{\"OrganizationCode\":${escapedOrganizationCode},\"OrganizationName\":${escapedOrganizationName},\"Name\":${escapedName},\"PhoneNo\":${escapedPhoneNo},\"ContactEmail\":${escapedContactEmail},\"DomainEmailId\":${escapedDomainEmailId},\"IndustryName\":${escapedIndustryName},\"BUSINESSTYPENAME\":${escapedBUSINESSTYPENAME},\"Logo_Imgbytes\":${escapedLogo_Imgbytes},\"IdBusinessType\":${escapedIdBusinessType},\"IdIndustry\":${escapedIdIndustry},\"IdOrganization \":${escapedIdOrganization},\"IdCmsUser\":${escapedIdCmsUser}`;
     const jsonString = JSON.stringify(escapedJsonString);
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
@@ -420,7 +424,7 @@ export class SetupComponent implements OnInit {
   editOrganization(index: any) {
     this.getEditDetails = this.getOrganization[index];
     console.log(this.getEditDetails);
-
+    this.IdOrganization = this.getEditDetails?.idOrganization;
     this.editableData = true;
     this.activeIndexSubTab = 0;
     this.selectedDropdownIndustryValue = this.getEditDetails?.industryName;

@@ -23,169 +23,258 @@
         <div class="col-12 ms-2 d-flex justify-content-center">
           <div class="table-container">
             <!-- SubActive 1-->
-            <div class="row py-0" *ngIf="activeIndexSubTab == 0">
-              <div class="col-4 py-3">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="label_setup-logo font">Organization:</div>
-                    <div
-                      ngbDropdown
-                      class="dropdown mt-2 w-100"
-                      style="position: relative; display: inline-flex"
-                    >
-                      <button
-                        ngbDropdownToggle
-                        class="btn btn-secondary font large-dropdown"
-                        type="button"
-                        id="dropdownMenuButtonsetup"
-                        aria-expanded="false"
-                        [ngStyle]="{
-                          color:
-                            selectedDropdownIndustryValue !==
-                            'Select from the drop-down'
-                              ? 'black'
-                              : ''
-                        }"
-                        (click)="getOrganization()"
+            <form
+              [formGroup]="createCMSForm"
+              (ngSubmit)="CreateCmsRoleOnSubmit()"
+            >
+              <div class="row py-0" *ngIf="activeIndexSubTab == 0">
+                <div class="col-4 py-3">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="label_setup-logo font">Organization:</div>
+                      <div
+                        ngbDropdown
+                        class="dropdown mt-2 w-100"
+                        style="position: relative; display: inline-flex"
                       >
-                        {{ selectedDropdownIndustryValue }}
-                      </button>
-                      <ul
-                        ngbDropdownMenu
-                        aria-labelledby="dropdownMenuButton1"
-                        class="w-100 dropdownmenu"
-                      >
-                        <li
-                          *ngFor="
-                            let res of getOrganizationlist;
-                            let index = index
-                          "
+                        <button
+                          ngbDropdownToggle
+                          class="btn btn-secondary font large-dropdown"
+                          type="button"
+                          id="dropdownMenuButtonsetup"
+                          aria-expanded="false"
+                          [ngStyle]="{
+                            color:
+                              selectedDropdownIndustryValue !==
+                              'Select from the drop-down'
+                                ? 'black'
+                                : ''
+                          }"
+                          (click)="getOrganization()"
                         >
-                          <a
-                            ngbDropdownItem
-                            (click)="updateSelectedIndustryValue(index)"
-                            class="font"
+                          {{ selectedDropdownIndustryValue }}
+                        </button>
+                        <ul
+                          ngbDropdownMenu
+                          aria-labelledby="dropdownMenuButton1"
+                          class="w-100 dropdownmenu"
+                        >
+                          <li
+                            *ngFor="
+                              let res of getOrganizationlist;
+                              let index = index
+                            "
                           >
-                            {{ res.organizationName }}</a
-                          >
-                        </li>
-                      </ul>
+                            <a
+                              ngbDropdownItem
+                              (click)="updateSelectedIndustryValue(index)"
+                              class="font"
+                            >
+                              {{ res.organizationName }}</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-12 mt-2">
-                    <div class="label_setup-logo font">CMS Role Name::</div>
-                    <div class="mt-2">
-                      <input
-                        class="form-control organisation_input font"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-12 mt-2">
-                    <div class="label_setup-logo font">Description:</div>
-                    <div class="question-container mt-2 font">
-                      <textarea
-                        class="form-control input-question"
-                        placeholder="Question"
-                        rows="7"
-                      ></textarea>
-                      <!-- Question -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-8 py-4 select-function-block">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="label_setup-logo font">
-                      Select Functions for the Role created:
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="">
-                      <div class="row mt-2">
-                        <div class="col-12">
-                          <div class="table-header">
-                            <div class="row height4 align-items-center">
-                              <div class="col-6 d-flex">
-                                <div class="me-3 d-flex margin">
-                                  <div
-                                    class="form-check-input checkbox-input-checkbox"
-                                    style="
-                                      border: 1px solid #fff;
-                                      border-radius: 2px;
-                                    "
-                                  ></div>
-                                </div>
-                                <div class="label_setup-logo font text-light">
-                                  Function
-                                </div>
-                              </div>
-                              <div class="col-6 ps-4">
-                                <div class="label_setup-logo font text-light">
-                                  Description
-                                </div>
-                              </div>
-                            </div>
+                    <div class="col-12 mt-2">
+                      <div class="label_setup-logo font">CMS Role Name::</div>
+                      <div class="mt-2">
+                        <input
+                          class="form-control organisation_input font"
+                          type="text"
+                          id="cmsRoleName"
+                          name="cmsRoleName"
+                          formControlName="cmsRoleName"
+                        />
+
+                        <div
+                          *ngIf="cmsRoleNameControl?.invalid && (cmsRoleNameControl?.dirty ||cmsRoleNameControl?.touched)
+                             &&cmsRoleNameControl?.errors?.['required']"
+                        >
+                          <div class="p-0 font error_message">
+                            CMS Role Name name is required.
                           </div>
                         </div>
                       </div>
-                      <div class="container-height">
-                        <div
-                          class="table-body-height table-body"
-                          *ngFor="let item of RoleFunctionList; let i = index"
+                    </div>
+                    <div class="col-12">
+                      <div class="label_setup-logo font">Role Type:</div>
+                      <div
+                        ngbDropdown
+                        class="dropdown mt-2 w-100"
+                        style="position: relative; display: inline-flex"
+                      >
+                        <button
+                          ngbDropdownToggle
+                          class="btn btn-secondary font large-dropdown"
+                          type="button"
+                          id="dropdownMenuButtonsetup"
+                          aria-expanded="false"
+                          [ngStyle]="{
+                            color:
+                              selectedDropdownRoleTypeValue !==
+                              'Select from the drop-down'
+                                ? 'black'
+                                : ''
+                          }"
+                          (click)="GetRoleTypesList()"
                         >
-                          <div class="row mt-2">
-                            <div class="col-12 d-flex justify-content-center">
-                              <div class="table-body d-flex align-items-center">
-                                <div
-                                  class="view_div d-flex align-items-center justify-content-center"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#FunctionDescriptionModal"
-                                  (click)="viewFunction(i)"
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="eye-image"
-                                    viewBox="0 0 28 20"
-                                    fill="none"
-                                  >
-                                    <path
-                                      d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
-                                      stroke="#133870"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    />
-                                    <path
-                                      d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
-                                      stroke="#000"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    />
-                                  </svg>
-                                </div>
-                                <div class="checkbox">
-                                  <div class="ms-2 d-flex">
-                                    <input
-                                      class="form-check-box"
-                                      type="checkbox"
-                                      role="switch"
-                                      id="flexSwitchCheckDefault"
-                                    />
+                          {{ selectedDropdownRoleTypeValue }}
+                        </button>
+                        <ul
+                          ngbDropdownMenu
+                          aria-labelledby="dropdownMenuButton1"
+                          class="w-100 dropdownmenu"
+                          style="height: 20vh"
+                        >
+                          <li
+                            *ngFor="
+                              let res of getRoleTypelist;
+                              let index = index
+                            "
+                          >
+                            <a
+                              ngbDropdownItem
+                              (click)="updateSelectedgetRoleTypeValue(index)"
+                              class="font"
+                            >
+                              {{ res.roleTypeName }}</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                      <div class="label_setup-logo font">Description:</div>
+                      <div class="question-container mt-2 font">
+                        <textarea
+                          class="form-control input-question"
+                          placeholder="Question"
+                          rows="7"
+                          id="cmsRoleDescription"
+                          name="cmsRoleDescription"
+                          formControlName="cmsRoleDescription"
+                          (input)="updateCreateUserInputState($event)"
+                        ></textarea>
+                        <!-- Question -->
+                      </div>
+                      <div
+                        *ngIf="
+                          cmsRoleDescriptionControl?.invalid &&
+                          (cmsRoleDescriptionControl?.dirty ||
+                            cmsRoleDescriptionControl?.touched)
+                        "
+                      >
+                        <div
+                          *ngIf="cmsRoleDescriptionControl?.errors?.['required']"
+                          class="p-0 font error_message"
+                        >
+                          CMS Role Description is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-8 py-4 select-function-block">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="label_setup-logo font">
+                        Select Functions for the Role created:
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="">
+                        <div class="row mt-2">
+                          <div class="col-12">
+                            <div class="table-header">
+                              <div class="row height4 align-items-center">
+                                <div class="col-6 d-flex">
+                                  <div class="me-3 d-flex margin">
+                                    <div
+                                      class="form-check-input checkbox-input-checkbox"
+                                      style="
+                                        border: 1px solid #fff;
+                                        border-radius: 2px;
+                                      "
+                                    ></div>
+                                  </div>
+                                  <div class="label_setup-logo font text-light">
+                                    Function
                                   </div>
                                 </div>
-                                <div
-                                  class="label_setup-logo ellipsis font text-dark ms-3"
-                                >
-                                  {{ item.functionName }}
+                                <div class="col-6 ps-4">
+                                  <div class="label_setup-logo font text-light">
+                                    Description
+                                  </div>
                                 </div>
-
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="container-height">
+                          <div
+                            class="table-body-height table-body"
+                            *ngFor="let item of RoleFunctionList; let i = index"
+                          >
+                            <div class="row mt-2">
+                              <div class="col-12 d-flex justify-content-center">
                                 <div
-                                  class="label_setup-logo ellipsis font text-dark"
+                                  class="table-body d-flex align-items-center"
                                 >
-                                  {{ item.description }}
+                                  <div
+                                    class="view_div d-flex align-items-center justify-content-center"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#FunctionDescriptionModal"
+                                    (click)="viewFunction(i)"
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      class="eye-image"
+                                      viewBox="0 0 28 20"
+                                      fill="none"
+                                    >
+                                      <path
+                                        d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                                        stroke="#133870"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                      <path
+                                        d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                                        stroke="#000"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
+                                  </div>
+                                  <div class="checkbox">
+                                    <div class="ms-2 d-flex">
+                                      <input
+                                        class="form-check-box"
+                                        type="checkbox"
+                                        #checkboxes
+                                        role="switch"
+                                        [id]="'flexRadioDefault' + i"
+                                        (change)="
+                                          checkBoxvalue($event, item.idFunction)
+                                        "
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="label_setup-logo ellipsis font text-dark ms-3"
+                                  >
+                                    {{ item.functionName }}
+                                    {{ getEditCmsRoleDetails[i]?.idFunction }}
+                                  </div>
+
+                                  <div
+                                    class="label_setup-logo ellipsis font text-dark"
+                                  >
+                                    {{ item.description }}
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -196,43 +285,24 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
+
             <!-- SubActive 2-->
             <div class="row py-0" *ngIf="activeIndexSubTab == 1">
               <div class="col-12">
                 <div class="row display-Cms-Role-Header">
                   <div
                     class="col-2 d-flex justify-content-start align-items-end"
-                  >
-                    <div class="Cms-Role-list-Count">
-                      <div class="font text-light">
-                        {{ this.CmsRoleList.length }}
-                      </div>
-                      <div
-                        class="d-flex align-items-center justify-content-center"
-                      >
-                        <svg
-                          width="14"
-                          height="11"
-                          viewBox="0 0 14 11"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            id="Polygon 7"
-                            d="M12.1962 1L7 10L1.80385 1L12.1962 1Z"
-                            fill="white"
-                            stroke="white"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
+                  ></div>
                   <div
                     class="col-10 d-flex justify-content-end align-items-center"
                   >
                     <div class="Cms-Role-count-container pt-1">
-                      <div class="row w-100" *ngFor="let response of count">
+                      <div
+                        class="row w-100"
+                        *ngFor="let response of count; let i = index"
+                        (click)="changeFilter(i)"
+                      >
                         <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                           {{ response.label }}
                         </div>
@@ -249,7 +319,7 @@
                             type="radio"
                             name="flexRadioDefault"
                             id="flexRadioDefault2"
-                            checked
+                            [checked]="i === activeRadiobutton"
                           />
                         </div>
                       </div>
@@ -343,9 +413,7 @@
                                     </div>
                                     <div
                                       class="edit_btn d-flex justify-content-center align-items-center"
-                                      (click)="
-                                        navigateToCreateCmsRole('cmsRoleEdit')
-                                      "
+                                      (click)="editCmsRole(i)"
                                     >
                                       <img
                                         class="edit_image"
@@ -363,12 +431,15 @@
                                         type="checkbox"
                                         role="switch"
                                         id="flexSwitchCheckDefault"
+                                        [checked]="item.status === 'A'"
                                       />
                                     </div>
 
                                     <div
                                       class="Organization-header font text-dark ms-4"
-                                    ></div>
+                                    >
+                                      {{ item.organizationName }}
+                                    </div>
                                     <div
                                       class="Role-header ellipsis font text-dark"
                                     >
@@ -393,38 +464,99 @@
             </div>
 
             <!-- SubActive 3-->
-            <div class="row" *ngIf="activeIndexSubTab == 2">
-              <div class="col-6 py-3">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="label_setup-logo font">Function Name:</div>
-                    <div class="mt-2">
-                      <input
-                        class="form-control organisation_input font"
-                        type="text"
-                      />
+            <form
+              [formGroup]="createFunctionForm"
+              (ngSubmit)="createFunctionOnSubmit()"
+            >
+              <div class="row" *ngIf="activeIndexSubTab == 2">
+                <div class="col-6 py-3">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="label_setup-logo font">Function Name:</div>
+                      <div class="mt-2">
+                        <input
+                          class="form-control organisation_input font"
+                          type="text"
+                          id="functionName"
+                          name="functionName"
+                          formControlName="functionName"
+                        />
+
+                        <div
+                          *ngIf="functionNameControl?.invalid && (functionNameControl?.dirty ||functionNameControl?.touched)
+                             &&functionNameControl?.errors?.['required']"
+                        >
+                          <div class="p-0 font error_message">
+                            Function name is required.
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-12 mt-2">
-                    <div class="label_setup-logo font">Description:</div>
-                    <div class="question-container font border-dark mt-2">
-                      <textarea
-                        class="form-control input-question"
-                        placeholder="Question"
-                        rows="7"
-                      ></textarea>
+                    <div class="col-12 mt-2">
+                      <div class="label_setup-logo font">Description:</div>
+                      <div class="question-container font border-dark mt-2">
+                        <textarea
+                          class="p-0 form-control input-question"
+                          rows="7"
+                          id="functionDescription"
+                          name="functionDescription"
+                          formControlName="functionDescription"
+                          (input)="updateInputState($event)"
+                        ></textarea>
+                      </div>
+                      <div
+                        *ngIf="
+                          functionDescriptionControl?.invalid &&
+                          (functionDescriptionControl?.dirty ||
+                            functionDescriptionControl?.touched)
+                        "
+                      >
+                        <div
+                          *ngIf="functionDescriptionControl?.errors?.['required']"
+                          class="p-0 font error_message"
+                        >
+                          Function Description is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div class="col-6"></div>
               </div>
-              <div class="col-6"></div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="col-12 d-flex justify-content-end" *ngIf="activeIndexSubTab != 1">
+    <div
+      *ngIf="activeIndexSubTab === 0; then createCmsUser; else createCmsFuntion"
+    ></div>
+
+    <ng-template #createCmsUser>
+      <div
+        class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+        [ngClass]="{ disabled: isDisabledCreateUser }"
+        [ngClass]="{ 'disabled-button': createCMSForm.invalid }"
+        (click)="isDisabledCreateUser ? null : CreateCmsRoleOnSubmit()"
+      >
+        Create
+      </div>
+    </ng-template>
+
+    <ng-template #createCmsFuntion>
+      <div
+        class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+        [ngClass]="{ disabled: isDisabledCreateFunction }"
+        [ngClass]="{ 'disabled-button': createFunctionForm.invalid }"
+        (click)="isDisabledCreateFunction ? null : createFunctionOnSubmit()"
+      >
+        Create
+      </div>
+    </ng-template>
+  </div>
   <div class="FunctionDescriptionModal1">
     <div
       class="modal fade"
@@ -570,6 +702,7 @@
                   <input
                     class="form-control organisation_input font"
                     type="text"
+                    value="{{ organizationName }}"
                   />
                 </div>
               </div>
