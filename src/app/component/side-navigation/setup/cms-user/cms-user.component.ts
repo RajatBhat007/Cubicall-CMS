@@ -30,12 +30,22 @@ export class CmsUserComponent {
   activeRadiobutton = 0;
   apiData: any;
   createCmsUser: FormGroup;
-  isDisabledCreateUser: Boolean = true;
+  isDisabledCreateUser: boolean = true;
   showPassword: boolean = false;
   selectedOrganizationID: any;
   selectedCmsIdRole: any;
+  EditButton: Boolean = false;
   getEditUserDetails: any = [];
   editOrzation: any = [];
+  editRole: any = [];
+  activeOrganization: any = [];
+  activeRole: any = [];
+  activeOrganizationName: any = [];
+  getViewUserDetails: any = [];
+  organizationNameView: String = '';
+  roleNameView: String = '';
+  payload: any;
+  EditIdCmsUser: String = '';
   subtab = [
     {
       label: 'Create Cms User',
@@ -154,7 +164,7 @@ export class CmsUserComponent {
     console.log(this.activeIndexSubTab);
     if (this.activeIndexSubTab == 1) {
       this.getCmsUserDetailsList();
-      this.getOrganization();
+      this.EditButton = false;
     }
   }
   selectedIndustryValue(value: any) {
@@ -203,8 +213,10 @@ export class CmsUserComponent {
 
   viewUserinfo(value: any) {
     console.log(value);
-    this.username = this.userDetailsList[value].userName;
-    this.function = this.userDetailsList[value].functions;
+    this.username = this.userDetailsList[value]?.userName;
+    this.function = this.userDetailsList[value]?.functions;
+    this.organizationNameView = this.userDetailsList[value]?.organizationName;
+    this.roleNameView = this.userDetailsList[value]?.organizationName;
   }
 
   changeFilter(index: any) {
@@ -235,6 +247,7 @@ export class CmsUserComponent {
   updateInputState(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const inputValue = inputElement.value.trim();
+
     if (inputValue === null || inputValue === '') {
       this.isDisabledCreateUser = true; // Disable the input field when it's null or empty
     } else {
@@ -242,72 +255,138 @@ export class CmsUserComponent {
     }
   }
 
-  openModal() {
+  openModal(value: any) {
     const modalRef = this.modalService.open(ModalComponent, {
       centered: true,
     });
 
     // You can pass data to the modal if needed
-    modalRef.componentInstance.someData =
-      'Done! The User has been created successfully.';
+    modalRef.componentInstance.someData = value;
     modalRef.componentInstance.screen = 'user';
   }
 
   createCmsUserOnSubmit() {
-    console.log('hello');
-    const payload = {
-      Data: {
-        IdOrganization: Number(this.selectedOrganizationID),
-        UserName: this.femployeeUserNameControl?.value,
-        EmployeeId: this.empIdControl?.value,
-        Name: this.employeeNameControl?.value,
-        Email: '',
-        PhoneNo: '',
-        Password: this.empPasswordControl?.value,
-        Status: '', //pass A static
-        IdOrgHierarchy: Number(this.apiData?.user?.idOrgHierarchy),
-        IdCmsRole: Number(this.selectedCmsIdRole), //pass static because get roles api is not working
-      },
-    };
-    console.table(this.createCmsUser.value);
-    console.log(payload);
+    if (this.EditButton) {
+      console.log('hello');
+      this.payload = {
+        Data: {
+          IdCmsUser: this.EditIdCmsUser,
+          IdOrganization: this.getEditUserDetails?.idOrganization
+            ? this.getEditUserDetails?.idOrganization
+            : Number(this.selectedOrganizationID),
+          UserName: this.femployeeUserNameControl?.value,
+          EmployeeId: this.empIdControl?.value,
+          Name: this.employeeNameControl?.value,
+          Email: '',
+          PhoneNo: '',
+          Password: this.empPasswordControl?.value,
+          Status: this.getEditUserDetails?.status, //pass A static
+          IdOrgHierarchy: Number(this.apiData?.user?.idOrgHierarchy),
+          IdCmsRole: this.getEditUserDetails?.idCmsRole
+            ? this.getEditUserDetails?.idCmsRole
+            : Number(this.selectedCmsIdRole), //pass static because get roles api is not working
+        },
+      };
+      console.table(this.createCmsUser.value);
+      console.log(this.payload);
 
-    const escapedIdOrganization = JSON.stringify(payload.Data.IdOrganization);
-    const escapedUserName = JSON.stringify(payload.Data.UserName);
-    const escapedEmployeeId = JSON.stringify(payload.Data.EmployeeId);
-    const escapedName = JSON.stringify(payload.Data.Name);
-    const escapedEmail = JSON.stringify(payload.Data.Email);
-    const escapedPhoneNo = JSON.stringify(payload.Data.PhoneNo);
-    const escapedPassword = JSON.stringify(payload.Data.Password);
-    const escapedStatus = JSON.stringify(payload.Data.Status);
-    const escapedIdOrgHierarchy = JSON.stringify(payload.Data.IdOrgHierarchy);
-    const escapedIdCmsRole = JSON.stringify(payload.Data.IdCmsRole);
+      const escapedIdCmsUser = JSON.stringify(this.payload.Data.IdOrganization);
+      const escapedIdOrganization = JSON.stringify(
+        this.payload.Data.IdOrganization
+      );
+      const escapedUserName = JSON.stringify(this.payload.Data.UserName);
+      const escapedEmployeeId = JSON.stringify(this.payload.Data.EmployeeId);
+      const escapedName = JSON.stringify(this.payload.Data.Name);
+      const escapedEmail = JSON.stringify(this.payload.Data.Email);
+      const escapedPhoneNo = JSON.stringify(this.payload.Data.PhoneNo);
+      const escapedPassword = JSON.stringify(this.payload.Data.Password);
+      const escapedStatus = JSON.stringify(this.payload.Data.Status);
+      const escapedIdOrgHierarchy = JSON.stringify(
+        this.payload.Data.IdOrgHierarchy
+      );
+      const escapedIdCmsRole = JSON.stringify(this.payload.Data.IdCmsRole);
 
-    const escapedJsonString = `{\"IdOrganization\":${escapedIdOrganization},\"UserName\":${escapedUserName},\"EmployeeId\":${escapedEmployeeId},\"Name\":${escapedName},\"Email\":${escapedEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"Status\":${escapedStatus},\"IdOrgHierarchy\":${escapedIdOrgHierarchy}, \"IdCmsRole\":${escapedIdCmsRole}`;
-    const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
-    const jsonStringremovelast = jsonString.slice(0, -1);
-    const body = '{"Data":' + jsonStringremovelast + '}"}';
-    console.log(body);
-    console.table(this.createCmsUser.value);
+      const escapedJsonString = `{\"IdCmsUser\":${escapedIdCmsUser},\"IdOrganization\":${escapedIdOrganization},\"UserName\":${escapedUserName},\"EmployeeId\":${escapedEmployeeId},\"Name\":${escapedName},\"Email\":${escapedEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"Status\":${escapedStatus},\"IdOrgHierarchy\":${escapedIdOrgHierarchy}, \"IdCmsRole\":${escapedIdCmsRole}`;
+      const jsonString = JSON.stringify(escapedJsonString);
+      console.log(jsonString);
+      const jsonStringremovelast = jsonString.slice(0, -1);
+      const body = '{"Data":' + jsonStringremovelast + '}"}';
+      console.log(body);
+      console.table(this.createCmsUser.value);
 
-    this.http.CreateUser(body).subscribe(
-      (res) => {
-        console.log(res);
-        this.openModal();
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          window.alert('404 Not Found Error');
-        } else {
-          window.alert(error.error);
+      this.http.CreateUser(body).subscribe(
+        (res) => {
+          console.log(res);
+          this.openModal('Done! The User has been Updeted successfully.');
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            window.alert('404 Not Found Error');
+          } else {
+            window.alert(error.error);
+          }
         }
-      }
-    );
-    this.createCmsUser.reset();
-    this.selectedDropdownIndustryValue = 'Select from the drop-down';
-    this.selectedDropdownRoleValue = 'Select from the drop-down';
-    this.selectedDropdownVendorValue = 'Select from the drop-down';
+      );
+      this.createCmsUser.reset();
+      this.selectedDropdownIndustryValue = 'Select from the drop-down';
+      this.selectedDropdownRoleValue = 'Select from the drop-down';
+      this.selectedDropdownVendorValue = 'Select from the drop-down';
+      this.EditButton = false;
+    } else {
+      const payload = {
+        Data: {
+          IdOrganization: Number(this.selectedOrganizationID),
+          UserName: this.femployeeUserNameControl?.value,
+          EmployeeId: this.empIdControl?.value,
+          Name: this.employeeNameControl?.value,
+          Email: '',
+          PhoneNo: '',
+          Password: this.empPasswordControl?.value,
+          Status: '', //pass A static
+          IdOrgHierarchy: Number(this.apiData?.user?.idOrgHierarchy),
+          IdCmsRole: Number(this.selectedCmsIdRole), //pass static because get roles api is not working
+        },
+      };
+
+      console.table(this.createCmsUser.value);
+      console.log(this.payload);
+      const escapedIdOrganization = JSON.stringify(payload.Data.IdOrganization);
+      const escapedUserName = JSON.stringify(payload.Data.UserName);
+      const escapedEmployeeId = JSON.stringify(payload.Data.EmployeeId);
+      const escapedName = JSON.stringify(payload.Data.Name);
+      const escapedEmail = JSON.stringify(payload.Data.Email);
+      const escapedPhoneNo = JSON.stringify(payload.Data.PhoneNo);
+      const escapedPassword = JSON.stringify(payload.Data.Password);
+      const escapedStatus = JSON.stringify(payload.Data.Status);
+      const escapedIdOrgHierarchy = JSON.stringify(payload.Data.IdOrgHierarchy);
+      const escapedIdCmsRole = JSON.stringify(payload.Data.IdCmsRole);
+
+      const escapedJsonString = `{\"IdOrganization\":${escapedIdOrganization},\"UserName\":${escapedUserName},\"EmployeeId\":${escapedEmployeeId},\"Name\":${escapedName},\"Email\":${escapedEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"Status\":${escapedStatus},\"IdOrgHierarchy\":${escapedIdOrgHierarchy}, \"IdCmsRole\":${escapedIdCmsRole}`;
+      const jsonString = JSON.stringify(escapedJsonString);
+      console.log(jsonString);
+      const jsonStringremovelast = jsonString.slice(0, -1);
+      const body = '{"Data":' + jsonStringremovelast + '}"}';
+      console.log(body);
+      console.table(this.createCmsUser.value);
+
+      this.http.CreateUser(body).subscribe(
+        (res) => {
+          console.log(res);
+          this.openModal('Done! The User has been created successfully.');
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            window.alert('404 Not Found Error');
+          } else {
+            window.alert(error.error);
+          }
+        }
+      );
+      this.createCmsUser.reset();
+      this.selectedDropdownIndustryValue = 'Select from the drop-down';
+      this.selectedDropdownRoleValue = 'Select from the drop-down';
+      this.selectedDropdownVendorValue = 'Select from the drop-down';
+    }
   }
 
   // ------------edit Cms user ----------------
@@ -315,18 +394,29 @@ export class CmsUserComponent {
     console.log(value);
     this.getEditUserDetails = this.userDetailsList[value];
     console.log(this.getEditUserDetails);
+    this.EditButton = true;
+    // this.editOrzation = this.getOrganizationlist.map((elem:any) =>{
+    //   if( elem.idOrganization==this.getEditUserDetails?.idOrganization)
+    //  this.activeOrganization= this.getOrganizationlist.filter(
+    //   (org: { idOrganization: string }) => org.idOrganization == this.getEditUserDetails?.idOrganization
+    // );
+    // });
+    this.selectedDropdownIndustryValue =
+      this.getEditUserDetails?.organizationName;
 
-    //  this.selectedDropdownIndustryValue=this.getOrganizationlist[value].organizationName;
-    //  console.log(this.selectedDropdownIndustryValue);
-    console.log(this.getEditUserDetails.idOrganization);
+    // this.editRole = this.CmsRole.map((elem:any) =>{
+    //   if( elem.idCmsRole==this.getEditUserDetails?.idCmsRole)
+    //  this.activeRole= this.CmsRole.filter(
+    //   (org: { idCmsRole: string }) => org.idCmsRole == this.getEditUserDetails?.idCmsRole
+    // );
+    // });
+    this.selectedDropdownRoleValue = this.getEditUserDetails?.roleName;
+    // console.log(this.getEditUserDetails);
 
-    console.log(this.getOrganizationlist);
-    this.editOrzation = this.getOrganizationlist.map((elem: any) => {
-      if (elem.idOrganization == this.getEditUserDetails.idOrganization)
-        console.log('hello', this.getEditUserDetails.idOrganization);
+    // console.log(this.getEditUserDetails.idCmsUser);
 
-      // this.selectedDropdownIndustryValue=this.getOrganizationlist[this.getEditUserDetails.idOrganization].organizationName;
-    });
+    this.EditIdCmsUser = this.getEditUserDetails?.idCmsUser;
+    console.log(this.EditIdCmsUser);
 
     //  console.log(this.getOrganizationlist[value].organizationName);
 
