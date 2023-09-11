@@ -328,8 +328,52 @@ export class SetupComponent implements OnInit {
     this.http.createOrganisation(body).subscribe(
       (res) => {
         this.createOrgResponse = res;
+        this.createHierarchy();
+
         this.successModal = true;
         this.openModal();
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          window.alert('404 Not Found Error');
+          // Handle the 404 error, such as displaying a message to the user
+        } else {
+          window.alert(error.error);
+          // Handle other errors
+        }
+      }
+    );
+  }
+
+  createHierarchy() {
+    const payload = {
+      Data: {
+        IdOrganization: Number(this.apiData?.user?.idOrganization),
+        IdCmsUser: Number(this.apiData?.user?.idCmsRole),
+        ParentIdOrgHierarchy: 0,
+        HierarchyName: this.createOrgResponse?.organizationName,
+        HirLevel: 1,
+      },
+    };
+    const escapedIdOrg = JSON.stringify(payload.Data.IdOrganization);
+    const escapedIdCMSUser = JSON.stringify(payload.Data.IdCmsUser);
+    const escapedParentIdOrgHierarchy = JSON.stringify(
+      payload.Data.ParentIdOrgHierarchy
+    );
+    const escapedHierarchyName = JSON.stringify(payload.Data.HierarchyName);
+    const escapedHirLevel = JSON.stringify(payload.Data.HirLevel);
+
+    console.log(payload);
+    const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"IdCmsUser\":${escapedIdCMSUser},\"ParentIdOrgHierarchy\":${escapedParentIdOrgHierarchy},\"HierarchyName\":${escapedHierarchyName},\"HirLevel\":${escapedHirLevel}`;
+    const jsonString = JSON.stringify(escapedJsonString);
+    console.log(jsonString);
+    const jsonStringremovelast = jsonString.slice(0, -1);
+    const body = '{"Data":' + jsonStringremovelast + '}"}';
+    console.log(body);
+
+    this.http.createOrganisationHierarchy(body).subscribe(
+      (res) => {
+        console.log(res);
       },
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
@@ -375,6 +419,7 @@ export class SetupComponent implements OnInit {
 
   editOrganization(index: any) {
     this.getEditDetails = this.getOrganization[index];
+    console.log(this.getEditDetails);
 
     this.editableData = true;
     this.activeIndexSubTab = 0;

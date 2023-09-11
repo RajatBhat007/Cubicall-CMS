@@ -165,13 +165,36 @@ export class ApiServiceService {
     return this.apiDataSubject.asObservable();
   }
 
-  createAdminUser(data:any){
+  createAdminUser(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    var tempurl =`${this.URLstring}` + `${this.Path}/CreateAdminUser`;
+    var tempurl = `${this.URLstring}` + `${this.Path}/CreateAdminUser`;
     return this.Http.post(tempurl, data, httpOptions);
+  }
+
+  postOrganizationHierarchy(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/CreateOrgHirLevel`;
+    return this.Http.post(tempurl, data, httpOptions);
+  }
+
+  getAdminUserDetails(data: any) {
+    var tempurl =
+      `${this.URLstring}` + `${this.Path}/GetCMSAdminUserDetails?oid=${data}`;
+    return this.Http.get(tempurl);
+  }
+
+  getVendorDetails(data: any, data2: any) {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetOrgHierarchy?OrgId=${data}&ParentIdOrgHierarchy=${data2}`;
+    return this.Http.get(tempurl);
   }
 }
