@@ -196,4 +196,21 @@ export class ApiServiceService {
     var tempurl =`${this.URLstring}` + `${this.Path}/Batch/Create`;
     return this.Http.post(tempurl, data, httpOptions);
   }
+
+  getStages(data:any){
+   
+    var tempurl=`${this.URLstring}` + `${this.Path}/GetBottomToTopHeirarchyName?OrgId=${data}`
+    return this.Http.get(tempurl, data)
+  }
+
+  editBatch(data:any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl =`${this.URLstring}` + `${this.Path}/Batch/Edit`;
+    return this.Http.post(tempurl, data, httpOptions);
+
+  }
 }
