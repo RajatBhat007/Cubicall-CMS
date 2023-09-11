@@ -127,7 +127,10 @@
                                             [type]="showPassword ? 'text' : 'password'"
                                             id="empPassword"
                                             name="empPassword"
-                                            formControlName="empPassword">
+                                            formControlName="empPassword"
+                                          
+                                            (input)="updateInputState($event)"
+                                            >
                                             <div class="input-group-append mt-1">
                                                 <div
                                                   class="eye-button d-flex justify-content-center align-items-center"
@@ -146,7 +149,10 @@
                                             <input class="form-control organisation_input font" type="text"
                                             id="empId"
                                             name="empId"
-                                            formControlName="empId">
+                                            formControlName="empId"
+                                           
+                                            (input)="updateInputState($event)"
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +164,7 @@
                                 <div class="row display-Cms-User-Header">
                                     <div class="col-2 d-flex justify-content-start align-items-end">
                                         <div class="Cms-Role-User-Count">
-                                            <div class="font text-light">7</div>
+                                            <div class="font text-light">{{this.userDetailsList?.length}}</div>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -280,11 +286,12 @@
                                                                         <div
                                                                         class="User-Name-header font text-dark ps-4">
                                                                         {{item.userName}}</div>
-                                                                        <div
-                                                                            class="Organization-header font text-dark ps-4">
-                                                                            TGC</div>
+                                                                        <div class="Organization-header font text-dark ps-4">
+                                                                            {{item.organizationName}}
+                                                                        </div>
                                                                         <div class="Role-header font text-dark ps-2">
-                                                                            Admin Access</div>
+                                                                          {{item.roleName}}
+                                                                        </div>
                                                                         <div class="Function-header ellipsis font text-dark ps-2">
                                                                             {{item.functions}}</div>
                                                                     </div>
@@ -308,15 +315,29 @@
         </div>
     </div>
     <div class="col-12 d-flex justify-content-end"  *ngIf="activeIndexSubTab==0">
-        <div
+        <div *ngIf="!EditButton; then noneditable; else editable"></div>
+    <ng-template #noneditable>
+        <div 
         class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
         [ngClass]="{ disabled: isDisabledCreateUser }"
         [ngClass]="{ 'disabled-button': createCmsUser.invalid }"
         (click)="createCmsUserOnSubmit()"
-        >
+    >
         Create
       </div>
+    </ng-template>
+     
+      <ng-template #editable>
+        <div 
+        class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+        (click)="createCmsUserOnSubmit()"
+        >
+       Update
       </div>
+      </ng-template>
+   
+    </div>
+
 
 
     <div
@@ -390,7 +411,7 @@
                   <input
                     class="form-control organisation_input font"
                     type="text"
-                     value="TGC"
+                     value="{{organizationNameView}}"
                   />
                 </div>
               </div>

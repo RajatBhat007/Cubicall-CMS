@@ -142,7 +142,11 @@ export class ApiServiceService {
     var tempurl = `${this.URLstring}` + `${this.Path}/GetRoles?OrgId=${data}&&RoleId=${roleid}`;
     return this.Http.get(tempurl);
   }
-
+  getCMSUserDetails(data: any, uid: any) {
+    var tempurl =
+      `${this.URLstring}` + `${this.Path}/GetCMSUsers?oid=${data}&uid=${uid}`;
+    return this.Http.get(tempurl);
+  }
   createOrganisationHierarchy(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -154,15 +158,12 @@ export class ApiServiceService {
 
     return this.Http.post(tempurl, data, httpOptions);
   }
-  getCMSUserDetails(data: any, uid: any) {
-    var tempurl =
-      `${this.URLstring}` + `${this.Path}/GetCMSUsers?oid=${data}&uid=${uid}`;
-    return this.Http.get(tempurl);
-  }
+  
 
   getApiData(): Observable<any> {
     return this.apiDataSubject.asObservable();
   }
+
 
   CreateFunction(data: any) {
     const httpOptions = {
@@ -189,4 +190,5 @@ export class ApiServiceService {
     var tempurl = `${this.URLstring}` + `${this.Path}/GetRoleTypes`;
     return this.Http.get(tempurl);
   }
+
 }
