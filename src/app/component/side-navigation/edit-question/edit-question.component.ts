@@ -46,10 +46,12 @@ export class EditQuestionComponent {
   }
 
   close() {
-    if (this.value.value === 'rtuEdit') {
-      this._router.navigateByUrl('/home/rtu');
-    } else if (this.value.value === 'rtuView') {
-      this._router.navigateByUrl('/home/rtu');
-    }
+    // if (this.value.value === 'rtuEdit') {
+    //   this._router.navigateByUrl('/home/rtu');
+    // } else if (this.value.value === 'rtuView') {
+    //   this._router.navigateByUrl('/home/rtu');
+    // }
+    this._router.navigate(['/home/game-theme']); 
+
   }
 }

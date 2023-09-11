@@ -7,6 +7,9 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiServiceService {
+  activeSubTabvalue(activeIndexSubTab: any) {
+    throw new Error('Method not implemented.');
+  }
   private apiResponseSubject = new BehaviorSubject<any>({});
   apiResponse$ = this.apiResponseSubject.asObservable();
   private apiDataSubject = new BehaviorSubject<any>(null);
@@ -16,7 +19,11 @@ export class ApiServiceService {
   Path = 'CubicallGameNewApi_test/api';
 
   private getisAuthenticated = false;
+  isAttempted = false;
+  isopenGameTime = false;
+  isopenStreakTime = false;
   activeSubTabindex: any = 0;
+  isGameTile = false;
   private responseData: any;
   constructor(public Http: HttpClient) {
     this.getisAuthenticated =
@@ -196,5 +203,37 @@ export class ApiServiceService {
       `${this.URLstring}` +
       `${this.Path}/GetOrgHierarchy?OrgId=${data}&ParentIdOrgHierarchy=${data2}`;
     return this.Http.get(tempurl);
+  }
+
+  getBatch(data: any) {
+    var tempurl =
+      `${this.URLstring}` + `${this.Path}/Batch/Get?OrgId=${data}&BatchId=-1`;
+    return this.Http.get(tempurl);
+  }
+  createBatch(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/Batch/Create`;
+    return this.Http.post(tempurl, data, httpOptions);
+  }
+
+  getStages(data: any) {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetBottomToTopHeirarchyName?OrgId=${data}`;
+    return this.Http.get(tempurl, data);
+  }
+
+  editBatch(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/Batch/Edit`;
+    return this.Http.post(tempurl, data, httpOptions);
   }
 }

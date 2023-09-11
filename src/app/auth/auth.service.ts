@@ -23,7 +23,8 @@ export class AuthService {
   logout(): void {
     this.getisAuthenticated = false;
     localStorage.removeItem('isAuthenticated');
-    localStorage.clear();
+    localStorage.clear()
+    
   }
 
   isAuthenticated(): boolean {

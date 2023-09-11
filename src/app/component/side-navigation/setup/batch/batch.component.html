@@ -1,6 +1,345 @@
 <div class="row">
     <div class="col-12">
         <div class="bottom-conatiner">
-        
-    </div>
+            <div class="row">
+                <div class="col-5 ps-4 ">
+                    <div class="row mt-4 ps-2">
+                        <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j=index"
+                            (click)="NavigateToSubTab(j)">
+                            <div class="sub_tab font d-flex justify-content-center align-items-center"
+                                [ngClass]="{'sub-tab-active': j === activeIndexSubTab}">
+                                {{res_sub.label}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+
+
+            <div class="row w-100">
+                <div class="col-12 ms-2 d-flex justify-content-center">
+                    <div class="table-container">
+                        <!--  SubActive 1-->
+                        <div class="row py-0" *ngIf="activeIndexSubTab==0">
+                            <div class="col-4 py-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- <div class="label_setup-logo font">Style:</div>
+                                <div ngbDropdown class="dropdown mt-2 w-100"
+                                    style="position: relative; display: inline-flex; ">
+                                    <button ngbDropdownToggle class="btn btn-secondary font large-dropdown"
+                                        type="button" id="dropdownMenuButtonsetup" aria-expanded="false" style="background: #C4C4F6;"
+                                        [ngStyle]="{'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
+                                        {{selectedDropdownIndustryValue}}
+                                    </button>
+                                    <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="w-100">
+                                        <li><a ngbDropdownItem
+                                                (click)="updateSelectedIndustryValue('Organization 1')"
+                                                class="font">NHT - Sub Process - Process - Client/ Vendor</a></li>
+                                        <li><a ngbDropdownItem
+                                                (click)="updateSelectedIndustryValue('Organization 2')"
+                                                class="font">NHT - Sub Process - Process - Client/ Vendor</a></li>
+                                        <li><a ngbDropdownItem
+                                                (click)="updateSelectedIndustryValue('Organization 3')"
+                                                class="font"> - Sub Process - Process - Client/ Vendor</a></li>
+                                                <li><a ngbDropdownItem
+                                                    (click)="updateSelectedIndustryValue('Organization 3')"
+                                                    class="font">NHT - Sub Process - Process - Client/ Vendor</a></li>
+                                                    <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Organization 3')"
+                                                        class="font">NHT - Sub Process - Process - Client/ Vendor</a></li>
+                                    </ul>
+                                </div> -->
+                                        <div class="label_setup-logo font">Stage:</div>
+                                        <div ngbDropdown class="dropdown mt-2 w-100 custom-dropdown">
+                                            <button ngbDropdownToggle class="btn btn-secondary font large-dropdown"
+                                                type="button" id="dropdownMenuButtonsetup" aria-expanded="false"
+                                                [ngStyle]="{'background-color': '#F5F5F7', 'color': selectedDropdownIndustryValue !== 'Select from the drop-down' ? 'black' : ''}">
+                                                {{selectedDropdownIndustryValue}}
+                                            </button>
+                                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1"
+                                                class="w-100 custom-dropdown-menu" >
+                                                <li *ngFor="let hierachicalStageName of stagesName"><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue(hierachicalStageName?.hierarchyName,this.hierachicalStageName)"
+                                                        class="font">{{hierachicalStageName?.hierarchyName}}</a>
+                                                </li>
+                                                <!-- <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('NHT - Sub Process - Process - Client/ Vendor')"
+                                                        class="font">NHT - Sub Process - Process - Client/ Vendor</a>
+                                                </li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('Sub Process - Process - Client/ Vendor')"
+                                                        class="font"> Sub Process - Process - Client/ Vendor</a></li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('NHT - Sub Process - Process - Client/ Vendor')"
+                                                        class="font">NHT - Sub Process - Process - Client/ Vendor</a>
+                                                </li>
+                                                <li><a ngbDropdownItem
+                                                        (click)="updateSelectedIndustryValue('NHT - Sub Process - Process - Client/ Vendor')"
+                                                        class="font">NHT - Sub Process - Process - Client/ Vendor</a>
+                                                </li> -->
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <div class="label_setup-logo font">Batch Name:</div>
+                                        <div class="mt-2">
+                                            <input class="form-control organisation_input font" type="text" [(ngModel)]="batch_name" >
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="col-8 py-4 select-function-block">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="label_setup-logo font" style="width:61%">Assign Game Themes for this
+                                            specific Batch:</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="">
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <div class="table-header">
+                                                        <div class="row height4 align-items-center">
+                                                            <div class="col-6 d-flex" style="margin-left:-2%">
+                                                                <div class="me-3 d-flex margin">
+                                                                    <div class="form-check-input checkbox-input-checkbox"
+                                                                        style="border: 1px solid #fff; border-radius: 2px;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="label_setup-logo fs-6 font text-light">
+                                                                    Game Theme</div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="label_setup-logo fs-6 font text-light">
+                                                                    Date of Assigning</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-body-height table-body" *ngFor="let item of functionName;let i=index">
+                                                <div class="row mt-2">
+
+                                                    <div class="col-12 d-flex justify-content-center">
+                                                        <div class="table-body d-flex align-items-center">
+                                                            <div class="view_div d-flex align-items-center justify-content-center"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#FunctionDescriptionModal">
+
+                                                            </div>
+                                                            <div class="checkbox">
+                                                                <div class="ms-2 d-flex">
+                                                                    <input class="form-check-box" type="checkbox" (click)="getCheckboxValue(item.batch_id)"
+                                                                        role="switch"  id="flexSwitchCheckDefault">
+                                                                </div>
+                                                            </div>
+                                                            <div class="label_setup-logo font text-dark ms-3">
+                                                                {{ item.label }}
+                                                            </div>
+                                                            <div class="label_setup-logo font text-dark ms-3">
+                                                                {{ item.date }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--  SubActive 2-->
+                        <div class="row py-0" *ngIf="activeIndexSubTab==1">
+                            <div class="col-12">
+                                <div class="row display-Cms-Role-Header">
+                                    <div class="col-2 d-flex justify-content-start align-items-end">
+                                        <!-- <div class="Cms-Role-list-Count">
+                                    <div class="font text-light">7</div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path id="Polygon 7" d="M12.1962 1L7 10L1.80385 1L12.1962 1Z"
+                                                fill="white" stroke="white" />
+                                        </svg>
+                                    </div>
+                                </div> -->
+                                        <div class="col-5 mt-2 p-0 d-flex">
+                                            <div class="searchBorderRadious d-flex">
+                                                <div class="searchIconBacground">
+                                                    <img src="assets/images/Search.svg" alt="" class="searchIcon" />
+                                                </div>
+                                                <div class="ms-1">
+                                                    <input type="search" class="searchContainer" name="" id="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-10 d-flex justify-content-end align-items-center">
+                                        <div class="Cms-Role-count-container pt-1">
+                                           
+                                            <div class="row w-100" *ngFor="let response of count">
+                                                
+                                                <div class="col-lg-5 col-sm-4  ps-4  font count_label">
+                                                    {{response.label}}</div>
+                                                <div class="col-lg-5 col-sm-6 ">
+                                                    <div
+                                                        class="count-points text-light font d-flex justify-content-center align-items-center mt-1">
+                                                        {{response.value}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2  col-sm-2">
+
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                        id="flexRadioDefault2" checked>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row display-Cms-Role-body">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row mt-2">
+                                                    <div class="col-12">
+                                                        <div class="table-header">
+                                                            <div class="checkbox-header d-flex align-items-center">
+                                                                <div class="edit_btn d-flex justify-content-center align-items-center"
+                                                                    (click)="NavigateToSubTab(0)">
+                                                                    <img class="edit_image" src="assets/images/Edit.svg"
+                                                                        alt="Edit Image" />
+                                                                </div>
+
+                                                                <div class="checkbox">
+                                                                    <div class="form-check d-flex align-items-center">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div
+                                                                    class="Status_label font d-flex align-items-center justify-content-center text-light">
+                                                                    Status
+                                                                </div>
+
+                                                                <div
+                                                                    class="Organization-header font d-flex justify-content-center ps-4 text-light">
+                                                                    Stage
+                                                                </div>
+
+                                                                <div
+                                                                    class="Role-header font d-flex justify-content-center text-light ps-4">
+                                                                    Batch ID
+                                                                </div>
+
+
+                                                                <div class="Function-header font text-light ps-4">
+                                                                    Assign Game Themes
+                                                                </div>
+                                                                <div class="Function-header font text-light ps-4">
+                                                                    Creation Date
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="display-Cms-Role-body-height">
+                                                        <div class="table-body-height table-body w-100"
+                                                            *ngFor="let item of CmsBatchList">
+                                                            <div class="row mt-2">
+                                                                <div class="col-12 d-flex justify-content-center">
+                                                                    <div class="table-body d-flex align-items-center">
+                                                                        <div class="view_div d-flex align-items-center justify-content-center" 
+                                             editBatch                               data-bs-toggle="modal"
+                                                                            data-bs-target="#OrganizationDescriptionModal">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                class="eye-image" viewBox="0 0 28 20"
+                                                                                fill="none">
+                                                                                <path
+                                                                                    d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                                                                                    stroke="#133870" stroke-width="2"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round" />
+                                                                                <path
+                                                                                    d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                                                                                    stroke="#000" stroke-width="2"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="edit_btn d-flex justify-content-center align-items-center"
+                                                                            (click)="[NavigateToSubTab0(0),editBatch(item)]">
+                                                                            <img class="edit_image"
+                                                                                src="assets/images/Edit.svg"
+                                                                                alt="Edit Image" />
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="form-check form-switch d-flex align-items-center">
+                                                                            <input class="form-check-input"
+                                                                                style="width: 2.5vw;height: 2.5vh;"
+                                                                                type="checkbox" role="switch"
+                                                                                id="flexSwitchCheckDefault">
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="Organization-header font text-dark   d-flex justify-content-center pe-5 me-2">
+                                                                            {{item?.objOrganizationHierarchy?.hierarchyName}}</div>
+                                                                        <div
+                                                                            class="Role-header  d-flex justify-content-start font text-dark">
+                                                                            {{item?.idBatch}}</div>
+                                                                        <div
+                                                                            class="Function-header font d-flex justify-content-center">
+                                                                            {{item?.objHeirarchyBatchesMaster?.updatedDateTime|
+                                                                            date:'dd-MM-YYYY'}}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SubActive 3-->
+                        <div class="row" *ngIf="activeIndexSubTab==2">
+                            <div class="col-6 py-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="label_setup-logo font">Function Name:</div>
+                                        <div class="mt-2">
+                                            <input class="form-control organisation_input font" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <div class="label_setup-logo font">Description:</div>
+                                        <div class="question-container font border-dark mt-2">
+                                            <textarea class="form-control input-question" placeholder="Question"
+                                                rows="7"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="assign" (click)="createBatch()">Assign</div>

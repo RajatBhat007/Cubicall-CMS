@@ -57,7 +57,7 @@ export class SideNavigationComponent implements OnInit {
     } else if (this.activeIndex == 1) {
       this._router.navigateByUrl('/home/game-theme');
     } else if (this.activeIndex == 3) {
-      this._router.navigateByUrl('/home/users-report');
+      // this._router.navigateByUrl('/home/users-report');
     } else if (this.activeIndex == 4) {
       this._router.navigateByUrl('/home/rtu');
     }

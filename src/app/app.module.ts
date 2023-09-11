@@ -7,9 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './pages/modal/modal.component';
+import { CreateimgComponent } from './createimg/createimg/createimg.component';
+import { GameEditComponent } from './gameedit/game-edit/game-edit.component';
 
 @NgModule({
-  declarations: [AppComponent, ModalComponent],
+  declarations: [AppComponent, ModalComponent, CreateimgComponent, GameEditComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

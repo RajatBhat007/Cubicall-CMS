@@ -80,10 +80,20 @@
 .box-edit-question {
     width: 99%;
     height: 80vh;
-    border: 5px solid #B0DDF6;
+    border: 5px solid black;
     background: #F5F5F7;
     margin-top: 3vh;
     border-radius: 10px;
+}
+// .feedback-box {
+//     width: 468px;
+// height: 167px;
+// border-radius: 17px;
+// border: 2px solid #000;
+// background: #D7D7E8;
+// }
+
+.feedback-content {
 }
 
 
@@ -97,13 +107,13 @@
 }
 
 .content-requirement-edit-que {
-    width: auto;
+    width: 130%;
     height: auto;
     max-height: 9vh;
     border-radius: 10px;
     background: #D7D7E8;
     padding: 5px;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
     border: 1px solid #000000;
     
@@ -250,10 +260,10 @@ position: relative;
   }
 
   .WarningModal{
+    border-radius: 23px;
     border: 7px solid #000;
     background: #D7D7E8;
     box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 80%;
   }
 
   .warning_image_upload{
@@ -284,7 +294,7 @@ position: relative;
   }
   .warning_message_upload{
     font-size: 1.2em;
-    color: #133870;
+    color: black;
   }
 
 
@@ -292,9 +302,10 @@ position: relative;
     width: auto;
     font-size: 0.8em;
     padding: 6px;
-    color: #FFFFFF;
+    color: white;
     border-radius: 8px;
-    background: #1B9DE7;
+    background: #D7D7E8;
     margin-top: 3vh;
     cursor: pointer;
+    
   }

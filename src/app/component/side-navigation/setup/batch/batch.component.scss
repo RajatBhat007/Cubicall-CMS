@@ -1,7 +1,569 @@
 .bottom-conatiner {
-    border: 2px solid #000;
-    background: #F5F5F7;
-    height: 67vh;
-    width: 99%;
-  }
-  
+  border: 2px solid #000;
+  background: #F5F5F7;
+  height: 67vh;
+  width: 99%;
+}
+#dropdownMenuButtonsetup,
+.organisation_input {
+height: 4.5vh;
+border-radius: 5px;
+border: 1px solid #000;
+background: #D7D7E8;
+color: #818195;
+min-width: 100%;
+
+}
+
+.large-dropdown::after {
+position: absolute;
+font-size: 3em;
+right: 0.2em;
+color: #000000;
+}
+
+.dropdown-toggle {
+background: #000;
+border: none;
+color: #FFF;
+font-size: 0.9em;
+border-radius: 0;
+height: 5vh;
+display: flex;
+align-items: center;
+}
+
+.label_setup-logo,
+.org_code {
+font-size: 1em;
+width: 64%;
+gap:5em;
+}
+/* Custom styling for the dropdown */
+// .custom-dropdown {
+//     position: relative;
+//     display: inline-flex;
+//   }
+
+//   .custom-dropdown-menu {
+//     background-color: #F5F5F7;
+//     max-height: 200px; 
+//     overflow-y: auto;
+//     border: 1px solid #000; 
+//     border-radius: 5px; 
+//   }
+
+//   .custom-dropdown-menu li {
+//     background-color: #FFF; 
+//     margin: 5px;
+//     padding: 5px;
+//     border: 1px solid #000; 
+//     display: flex;
+//     flex-direction: column;
+//     flex-shrink: 0;
+//      color: #000;
+//     font-family: Work Sans;
+//     font-size: 12px;
+//     font-style: normal;
+//     font-weight: 500;
+//     line-height: 20.5px;
+//     white-space:nowrap;
+//     overflow:hidden;
+//     text-overflow: ellipsis;
+// }
+
+//   .custom-dropdown-menu li a {
+//     color: #000; /* Black text color */
+//   }
+
+//   .custom-dropdown-menu::-webkit-scrollbar {
+//     width: 12px; /* Width of the scrollbar */
+//   }
+
+//   .custom-dropdown-menu::-webkit-scrollbar-thumb {
+//     background-color: #000; /* Black scrollbar thumb */
+//   }
+
+//   .custom-dropdown-menu::-webkit-scrollbar-track {
+//     background-color: #F5F5F7; /* Background of the scrollbar track */
+//   }
+/* Custom styling for the dropdown */
+.custom-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.custom-dropdown-menu {
+  background-color: #F5F5F7;
+  max-height: 200px; /* Adjust the max height as needed */
+  overflow-y: auto;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.custom-dropdown-menu li {
+  background-color: #FFF;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: Work Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Styling for the scrollbar */
+.custom-dropdown-menu::-webkit-scrollbar {
+  height: 10vh;
+  width: 1vw;
+  background-color: #fff;
+border:1px solid black}
+
+.custom-dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: black; 
+  width: 5vw;
+  border-radius: 5px;
+  border: 2px solid #000;
+  background: #000;
+  width: 14px;
+height: 146px;
+flex-shrink: 0;
+}
+
+/* Styling for the custom up and down buttons */
+.custom-dropdown-menu::-webkit-scrollbar-button {
+  background-color: #000; /* Black color for the up and down buttons */
+  width: 8px; /* Set the width of the buttons */
+  height: 12px; /* Set the height of the buttons */
+}
+
+
+
+
+
+.question-container {
+height: 18vh;
+width: 100%;
+border-radius: 10px;
+border: 2px solid #133870;
+background: #D7D7E8;
+color: #133870;
+padding: 8px;
+}
+
+.input-question {
+background: transparent;
+border: none;
+height: 17vh;
+font-size: 1em;
+max-height: 16vh;
+}
+
+.select-function-block {
+border-radius: 5px;
+border-top: 0.5px solid #000;
+border-bottom: 0.5px solid #000;
+border-left: 2px solid #000000;
+background: #D7D7E8;
+height: 56.5vh;
+overflow: hidden;
+}
+.table-body {
+width:100%;
+height: 4vh;
+border-radius: 20px;
+background: #F5F5F7 !important;
+}
+.table-header {
+width: 100%;
+height: 4vh;
+border-radius: 20px;
+background: #000000
+
+}
+.height4{
+height: 4vh;
+}
+.table-body {
+background: #F5F5F7
+}
+.eye-image {
+height: 2vh
+}
+.margin{
+margin-left: 35px;
+}
+#flexSwitchCheckDefault{
+border: 2px solid #000 !important;
+
+}
+input[type=checkbox] {
+height: 1em;
+width: 1em;
+}
+.checkbox-input {
+border: 2px solid #000
+}
+
+.checkbox-input-checkbox {
+border: 2px solid #FFFFFF;
+background-color: transparent;
+}
+.cross-icon{
+height: 3vh;
+}
+.FunctionDescriptionModal{
+border-radius: 20px;
+border: 4px solid #000;
+background: #FFF;
+height:auto;
+}
+
+
+// ------------------------------------------//
+
+.input-group {
+width: 90%;
+padding-left: 0.5vw;
+height: 3vh;
+}
+
+.close {
+border: none;
+background: transparent;
+}
+
+.dropdown-col {
+margin-top: 2vh;
+
+}
+
+.dropdown-toggle {
+background: #000;
+border: none;
+color: #FFF;
+font-size: 0.9em;
+border-radius: 0;
+height: 5vh;
+display: flex;
+align-items: center;
+}
+
+
+#dropdownMenuButton2 {
+border-radius: 0;
+height: 5vh;
+background: #D7D7E8;
+color: #000;
+
+}
+#dropdownMenuButton2 {
+border-radius: 0;
+height: 5vh;
+background: #D7D7E8;
+color: #000;
+
+}
+#dropdownMenuButtonsetup,.organisation_input {
+height: 4.5vh;
+border-radius: 5px;
+border: 1px solid #000;
+background: #D7D7E8;
+color: #818195;
+min-width: 100%;
+
+}
+.organisation_input{
+color: #000000;
+} 
+
+
+
+.large-dropdown::after {
+position: absolute;
+font-size: 3em;
+right: 0.2em;
+color: #000000;
+}
+.circle {
+width: 3.5vh;
+height: 3.5vh;
+margin-right: 0.2vw;
+}
+
+.circle-div {
+width: 5vh;
+height: 5vh;
+border-radius: 100%;
+background: #FFF;
+border: 1px solid #000;
+}
+
+
+.circle-tab {
+width: 3vh;
+height: 3vh;
+border-radius: 100%;
+background: #FFFFFF;
+border: 1px solid #1B9DE7;
+}
+
+.title_name {
+font-size: 1.1em;
+}
+
+.tab {
+
+height: 7vh;
+background: #FFFFFF;
+border: 2px solid #000;
+border-bottom: none;
+position: relative;
+
+}
+
+.tab_color {
+position: absolute;
+top: 0;
+right: 0;
+width: 1.5vh;
+height: 1.5vh;
+z-index: 10;
+background: #7B7FCF;
+}
+
+.mat-title {
+font-size: 0.7em;
+}
+
+.bottom-conatiner {
+border: 2px solid #000;
+background: #F5F5F7;
+height: 67vh;
+width: 99%;
+
+
+}
+
+.tab-active {
+height: 7vh;
+background: #D7D7E8;
+border: 2px solid #000;
+border-bottom: none;
+position: relative;
+}
+
+.count_label {
+font-size: 0.8em;
+}
+.checkbox-header{
+height: 4vh;
+}
+.count-points {
+height: 2vh;
+border-radius: 10px;
+background: #000000;
+font-size: 0.8em;
+
+}
+
+.sub_tab {
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+background: #D7D7E8;
+font-size: 0.7em;
+height: 4vh;
+text-align: center;
+cursor: pointer;
+padding: 12px;
+line-height: 1;
+border: 2px solid #000;
+border-bottom: none;
+}
+
+.sub-tab-active {
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+background: #FFFFFF;
+font-size: 0.7em;
+height: 4vh;
+text-align: center;
+cursor: pointer;
+border: 2px solid #000;
+border-bottom: none;
+line-height: 1;
+}
+
+.table-container {
+width: 100%;
+height: 57vh;
+background: #FFFFFF;
+border: 2px solid #000;
+position: relative;
+padding: 0em 0.8em 0em 1em;
+overflow: hidden;
+border-radius: 0px 5px 5px;
+}
+
+.drop_down_table {
+font-size: 0.7em;
+width: 3vh;
+height: 2vh;
+background: #B0DDF6;
+border-radius: 8px;
+}
+
+.submit_button {
+border-radius: 10px;
+background: #000000;
+color: #FFFFFF;
+padding: 0.6em;
+font-size: 0.8em;
+cursor: pointer;
+width: 20%;
+box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+
+}
+
+.label_setup-logo,.org_code{
+font-size: 1em;
+width: 48%;
+}
+
+.dropdown_values{
+width: 100%;
+}
+
+.logo-image{
+flex-direction: column;
+}
+
+.logo-image-conatiner{
+height: 17vh;
+width: 40%;
+background: #D7D7E8;
+border-radius: 10px;
+border: 1px solid #000000;
+}
+
+.browse_image{
+background: black;
+color: white;
+padding: 5px;
+border-radius: 2em;
+min-width: 35%;
+display: flex;
+justify-content: center;
+font-size: 1em;
+cursor: pointer;
+box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+
+}
+
+
+// ----------------------------
+.display-Cms-Role-Header{
+height: 12vh;
+}
+.Cms-Role-list-Count{
+background-color: #000000;
+width: 30%;
+padding: 1%;
+border-radius: 36px;
+display: flex;
+justify-content:space-evenly;
+align-items: center;
+}
+.Cms-Role-count-container{
+min-width:13vw;
+height: 10vh;
+border-radius: 10px;
+background: #F5F5F7;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+justify-content: center;
+border: 1px solid #000;
+}
+.display-Cms-Role-body{
+height: 45vh;
+}
+.display-Cms-Role-body-height{
+height: 36vh;
+overflow-y: auto;
+overflow-x: hidden;
+}
+.edit_btn {
+width: 3%;
+height: 3vh;
+cursor: pointer
+}
+.edit_image {
+height: 1.5vh
+}
+.view_div {
+width: 2%
+}
+.Organization-header {
+width: 33%;
+}
+.Role-header{
+width: 20%;
+}
+.Function-header{
+width: 37%;
+}
+.searchIconBacground{
+  width: 2vw;
+  height: 3vh;
+  background-color: #000000; 
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding:0.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.searchIcon{
+  height: 2vh;
+  border-radius: 36px;
+  display: flex;
+  justify-content: center;
+  padding: 0% 10%;
+}
+.searchContainer{
+  width: 10vw;
+  height: 3vh;
+  background-color: #000000; 
+  color: #FFFFFF;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  outline: none;
+}
+.searchBorderRadious{
+    margin-left: 21;
+    border: 3px solid #D7D7E8;
+    border-radius: 15px;
+    margin-top: -1%;
+}
+.assign{
+  width: 100px;
+  height:40px;
+  border-radius: 10px;
+  background: #000;
+  color:white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:85%;
+  margin-top: 1%;
+}
