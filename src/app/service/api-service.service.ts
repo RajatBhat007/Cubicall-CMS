@@ -125,7 +125,6 @@ export class ApiServiceService {
       }),
     };
     var tempurl = `${this.URLstring}` + `${this.Path}/CreateCMSRole`;
-
     return this.Http.post(tempurl, data, httpOptions);
   }
 
@@ -139,8 +138,8 @@ export class ApiServiceService {
     return this.Http.get(tempurl);
   }
 
-  getRolesList(data: any): Observable<any> {
-    var tempurl = `${this.URLstring}` + `${this.Path}/GetRoles?OrgId=${data}`;
+  getRolesList(data: any, roleid: any): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetRoles?OrgId=${data}&&RoleId=${roleid}`;
     return this.Http.get(tempurl);
   }
 
@@ -155,13 +154,39 @@ export class ApiServiceService {
 
     return this.Http.post(tempurl, data, httpOptions);
   }
-  getCMSUserDetails(data: any) {
+  getCMSUserDetails(data: any, uid: any) {
     var tempurl =
-      `${this.URLstring}` + `${this.Path}/GetCMSUserDetails?CMSUID=${data}`;
+      `${this.URLstring}` + `${this.Path}/GetCMSUsers?oid=${data}&uid=${uid}`;
     return this.Http.get(tempurl);
   }
 
   getApiData(): Observable<any> {
     return this.apiDataSubject.asObservable();
+  }
+
+  CreateFunction(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/CreateFunction`;
+
+    return this.Http.post(tempurl, data, httpOptions);
+  }
+
+  CreateUser(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl = `${this.URLstring}` + `${this.Path}/CreateUser`;
+
+    return this.Http.post(tempurl, data, httpOptions);
+  }
+  getRoleType(): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetRoleTypes`;
+    return this.Http.get(tempurl);
   }
 }

@@ -202,6 +202,28 @@ input[type=checkbox] {
 .organisation_input{
   color: #000000 !important;
   font-size: 0.9em;
-
+  position: relative;
 } 
 
+.input-group-append{
+  
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 4vh;
+  position: absolute;
+    top: 0;
+    right: 0;
+}
+.eye-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  
+}
+.password-input {
+  position: relative;
+  border-radius: 20px;
+
+  font-size: 1.2em;
+}

@@ -82,6 +82,32 @@
               </div>
             </div>
           </div>
+          <div class="row" *ngSwitchCase="'case3'">
+            <div class="col-12 d-flex justify-content-center">
+              <div
+                type="button"
+                class="custom-close-btn d-flex justify-content-center align-items-center submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                Submit
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngSwitchCase="'case4'">
+            <div class="col-12 d-flex justify-content-center">
+              <div
+                type="button"
+                class="custom-close-btn d-flex justify-content-center align-items-center submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                Close
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

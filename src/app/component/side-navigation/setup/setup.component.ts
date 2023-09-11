@@ -373,7 +373,7 @@ export class SetupComponent implements OnInit {
     this.activeIndexSubTab = 0;
     this.selectedDropdownIndustryValue = this.getEditDetails?.industryName;
     this.selectedDropdownBusinessTypeValue =
-      this.getEditDetails?.businesstypename;
+    this.getEditDetails?.businesstypename;
     this.organizationNameedit = this.getEditDetails?.organizationName;
 
     this.selectedDropdownIndustryValueId = this.getEditDetails?.idIndustry;

@@ -23,6 +23,7 @@
         <div class="col-12 ms-2 d-flex justify-content-center">
           <div class="table-container">
             <!-- SubActive 1-->
+            <form [formGroup]="createCMSForm" (ngSubmit)="CreateCmsRoleOnSubmit()">
             <div class="row py-0" *ngIf="activeIndexSubTab == 0">
               <div class="col-4 py-3">
                 <div class="row">
@@ -78,7 +79,63 @@
                       <input
                         class="form-control organisation_input font"
                         type="text"
+                        id="cmsRoleName"
+                        name="cmsRoleName"
+                        formControlName="cmsRoleName"
                       />
+
+                      <div *ngIf="cmsRoleNameControl?.invalid && (cmsRoleNameControl?.dirty ||cmsRoleNameControl?.touched)
+                             &&cmsRoleNameControl?.errors?.['required']">
+                        <div class="p-0 font error_message" >
+                            CMS Role Name name is required.
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="label_setup-logo font">Role Type:</div>
+                    <div
+                      ngbDropdown
+                      class="dropdown mt-2 w-100"
+                      style="position: relative; display: inline-flex"
+                    >
+                      <button
+                        ngbDropdownToggle
+                        class="btn btn-secondary font large-dropdown"
+                        type="button"
+                        id="dropdownMenuButtonsetup"
+                        aria-expanded="false"
+                        [ngStyle]="{
+                          color:
+                          selectedDropdownRoleTypeValue !==
+                            'Select from the drop-down'
+                              ? 'black'
+                              : ''
+                        }"
+                        (click)="GetRoleTypesList()"
+                      >
+                        {{ selectedDropdownRoleTypeValue }}
+                      </button>
+                      <ul
+                        ngbDropdownMenu
+                        aria-labelledby="dropdownMenuButton1"
+                        class="w-100 dropdownmenu" style="height: 20vh;"
+                      >
+                        <li
+                          *ngFor="
+                            let res of getRoleTypelist;
+                            let index = index
+                          "
+                        >
+                          <a
+                            ngbDropdownItem
+                            (click)="updateSelectedgetRoleTypeValue(index)"
+                            class="font"
+                          >
+                            {{ res.roleTypeName }}</a
+                          >
+                        </li>
+                      </ul>
                     </div>
                   </div>
                   <div class="col-12 mt-2">
@@ -88,10 +145,21 @@
                         class="form-control input-question"
                         placeholder="Question"
                         rows="7"
+                        id="cmsRoleDescription"
+                        name="cmsRoleDescription"
+                        formControlName="cmsRoleDescription"
+                        (input)="updateCreateUserInputState($event)"
+                        
                       ></textarea>
                       <!-- Question -->
                     </div>
+                    <div *ngIf="cmsRoleDescriptionControl?.invalid && (cmsRoleDescriptionControl?.dirty ||cmsRoleDescriptionControl?.touched)">
+                      <div *ngIf="cmsRoleDescriptionControl?.errors?.['required']" class="p-0 font error_message" >
+                           CMS Role Description is required.
+                       </div>
+                    </div>
                   </div>
+                 
                 </div>
               </div>
               <div class="col-8 py-4 select-function-block">
@@ -133,7 +201,7 @@
                       <div class="container-height">
                         <div
                           class="table-body-height table-body"
-                          *ngFor="let item of RoleFunctionList; let i = index"
+                          *ngFor="let item of RoleFunctionList ; let i = index"
                         >
                           <div class="row mt-2">
                             <div class="col-12 d-flex justify-content-center">
@@ -167,12 +235,17 @@
                                   </svg>
                                 </div>
                                 <div class="checkbox">
-                                  <div class="ms-2 d-flex">
-                                    <input
+                                  <div class="ms-2 d-flex" >
+                                   
+                                    <input 
                                       class="form-check-box"
                                       type="checkbox"
+                                      #checkboxes
                                       role="switch"
-                                      id="flexSwitchCheckDefault"
+                                      
+                                      [id]="'flexRadioDefault' + i"
+                                      
+                                      (change)="checkBoxvalue($event,item.idFunction)"
                                     />
                                   </div>
                                 </div>
@@ -180,6 +253,7 @@
                                   class="label_setup-logo ellipsis font text-dark ms-3"
                                 >
                                   {{ item.functionName }}
+                                  {{getEditCmsRoleDetails[i]?.idFunction}}
                                 </div>
 
                                 <div
@@ -197,6 +271,8 @@
                 </div>
               </div>
             </div>
+            </form>
+
             <!-- SubActive 2-->
             <div class="row py-0" *ngIf="activeIndexSubTab == 1">
               <div class="col-12">
@@ -348,7 +424,7 @@
                                     <div
                                       class="edit_btn d-flex justify-content-center align-items-center"
                                       (click)="
-                                        navigateToCreateCmsRole('cmsRoleEdit')
+                                      editCmsRole(i)
                                       "
                                     >
                                       <img
@@ -371,9 +447,10 @@
                                       />
                                     </div>
 
-                                    <div
-                                      class="Organization-header font text-dark ms-4"
-                                    ></div>
+                                    <div class="Organization-header font text-dark ms-4">
+                                      {{ item.organizationName }}
+
+                                  </div>
                                     <div
                                       class="Role-header ellipsis font text-dark"
                                     >
@@ -398,6 +475,7 @@
             </div>
 
             <!-- SubActive 3-->
+            <form [formGroup]="createFunctionForm" (ngSubmit)="createFunctionOnSubmit()">
             <div class="row" *ngIf="activeIndexSubTab == 2">
               <div class="col-6 py-3">
                 <div class="row">
@@ -407,29 +485,77 @@
                       <input
                         class="form-control organisation_input font"
                         type="text"
-                      />
+                        id="functionName"
+                        name="functionName"
+                        formControlName="functionName"
+                        />
+
+                      <div *ngIf="functionNameControl?.invalid && (functionNameControl?.dirty ||functionNameControl?.touched)
+                             &&functionNameControl?.errors?.['required']">
+                        <div class="p-0 font error_message" >
+                                Function name is required.
+                         </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-12 mt-2">
                     <div class="label_setup-logo font">Description:</div>
                     <div class="question-container font border-dark mt-2">
                       <textarea
-                        class="form-control input-question"
-                        placeholder="Question"
+                        class="p-0 form-control input-question"
                         rows="7"
+                        id="functionDescription"
+                        name="functionDescription"
+                        formControlName="functionDescription"
+                        (input)="updateInputState($event)"
                       ></textarea>
+                   
+                    </div>
+                    <div *ngIf="functionDescriptionControl?.invalid && (functionDescriptionControl?.dirty ||functionDescriptionControl?.touched)">
+                      <div *ngIf="functionDescriptionControl?.errors?.['required']" class="p-0 font error_message" >
+                              Function Description is required.
+                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-6"></div>
             </div>
+            </form>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 
+ 
+  <div class="col-12 d-flex justify-content-end" *ngIf="activeIndexSubTab != 1">
+    <div *ngIf="activeIndexSubTab === 0 ;then createCmsUser else createCmsFuntion"></div>
+
+    <ng-template #createCmsUser>
+      <div
+      class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+      [ngClass]="{ disabled: isDisabledCreateUser }"
+      [ngClass]="{ 'disabled-button': createCMSForm.invalid }"
+      (click)="isDisabledCreateUser ? null : CreateCmsRoleOnSubmit()"
+      >
+      Create
+    </div>
+    </ng-template>
+
+    <ng-template #createCmsFuntion>
+      <div
+      class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+      [ngClass]="{ disabled: isDisabledCreateFunction }"
+      [ngClass]="{ 'disabled-button': createFunctionForm.invalid }"
+      (click)="isDisabledCreateFunction ? null : createFunctionOnSubmit()"
+      >
+      Create
+    </div>
+    </ng-template>
+  
+  </div>
   <div class="FunctionDescriptionModal1">
     <div
       class="modal fade"
@@ -615,4 +741,7 @@
       </div>
     </div>
   </div>
+
 </div>
+
+

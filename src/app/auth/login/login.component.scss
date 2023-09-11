@@ -126,4 +126,9 @@
     align-items: center;
     height: 4vh;
   }
-  
+  .loader
+  {
+ width: 100vw; 
+ height: 100vh;
+ background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);  
+  }

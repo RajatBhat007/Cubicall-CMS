@@ -18,6 +18,14 @@ export class ModalComponent implements OnInit {
     if (this.screen == 'Setup') {
       this.variableName = 'case2';
     }
+    else if(this.screen == 'function') {
+      this.variableName = 'case4';
+
+    }
+     else if(this.screen == 'user') {
+      this.variableName = 'case4';
+
+    }
   }
 
   closeModal() {
