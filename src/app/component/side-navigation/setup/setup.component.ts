@@ -397,7 +397,8 @@ export class SetupComponent implements OnInit {
     });
 
     // You can pass data to the modal if needed
-    modalRef.componentInstance.someData = this.createOrgResponse;
+    modalRef.componentInstance.someData =
+      'Done! The Organization has been created successfully.';
     modalRef.componentInstance.screen = 'Organization';
   }
 

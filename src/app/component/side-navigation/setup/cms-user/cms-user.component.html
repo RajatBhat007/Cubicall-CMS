@@ -216,6 +216,7 @@
                           id="empPassword"
                           name="empPassword"
                           formControlName="empPassword"
+                          (input)="updateInputState($event)"
                         />
                         <div class="input-group-append mt-1">
                           <div
@@ -242,6 +243,7 @@
                           id="empId"
                           name="empId"
                           formControlName="empId"
+                          (input)="updateInputState($event)"
                         />
                       </div>
                     </div>
@@ -254,7 +256,31 @@
                 <div class="row display-Cms-User-Header">
                   <div
                     class="col-2 d-flex justify-content-start align-items-end"
-                  ></div>
+                  >
+                    <div class="Cms-Role-User-Count">
+                      <div class="font text-light">
+                        {{ this.userDetailsList?.length }}
+                      </div>
+                      <div
+                        class="d-flex align-items-center justify-content-center"
+                      >
+                        <svg
+                          width="14"
+                          height="11"
+                          viewBox="0 0 14 11"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            id="Polygon 7"
+                            d="M12.1962 1L7 10L1.80385 1L12.1962 1Z"
+                            fill="white"
+                            stroke="white"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="col-10 d-flex justify-content-end align-items-center"
                   >
@@ -408,12 +434,12 @@
                                     <div
                                       class="Organization-header font text-dark ps-4"
                                     >
-                                      TGC
+                                      {{ item.organizationName }}
                                     </div>
                                     <div
                                       class="Role-header font text-dark ps-2"
                                     >
-                                      Admin Access
+                                      {{ item.roleName }}
                                     </div>
                                     <div
                                       class="Function-header ellipsis font text-dark ps-2"
@@ -438,14 +464,26 @@
     </div>
   </div>
   <div class="col-12 d-flex justify-content-end" *ngIf="activeIndexSubTab == 0">
-    <div
-      class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
-      [ngClass]="{ disabled: isDisabledCreateUser }"
-      [ngClass]="{ 'disabled-button': createCmsUser.invalid }"
-      (click)="createCmsUserOnSubmit()"
-    >
-      Create
-    </div>
+    <div *ngIf="!EditButton; then noneditable; else editable"></div>
+    <ng-template #noneditable>
+      <div
+        class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+        [ngClass]="{ disabled: isDisabledCreateUser }"
+        [ngClass]="{ 'disabled-button': createCmsUser.invalid }"
+        (click)="createCmsUserOnSubmit()"
+      >
+        Create
+      </div>
+    </ng-template>
+
+    <ng-template #editable>
+      <div
+        class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+        (click)="createCmsUserOnSubmit()"
+      >
+        Update
+      </div>
+    </ng-template>
   </div>
 
   <div
@@ -464,53 +502,287 @@
       <div class="modal-content UserDescriptionModal">
         <div class="d-flex justify-content-end">
           <div
-            type="button"
-            class="custom-close-btn d-flex justify-content-center align-items-center m-2"
-            data-bs-dismiss="modal"
-            aria-label="Close"
+            class="col-3 ps-0"
+            *ngFor="let res_sub of subtab; let j = index"
+            (click)="NavigateToSubTab(j)"
           >
-            <svg
-              viewBox="0 0 36 36"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="cross-icon"
+            <div
+              class="sub_tab font d-flex justify-content-center align-items-center"
+              [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }"
             >
-              <g id="Group 8373">
-                <circle
-                  id="Ellipse 21"
-                  cx="18"
-                  cy="18"
-                  r="17"
-                  fill="#D7D7E8"
-                  stroke="black"
-                  stroke-width="2"
-                />
-                <path
-                  id="Vector 3983"
-                  d="M9.5 10L28 27"
-                  stroke="black"
-                  stroke-width="5"
-                />
-                <path
-                  id="Vector 3984"
-                  d="M27.25 9.25L10.25 27.75"
-                  stroke="black"
-                  stroke-width="5"
-                />
-              </g>
-            </svg>
+              {{ res_sub.label }}
+            </div>
           </div>
         </div>
-        <div class="modal-body pt-0">
-          <div class="row">
+      </div>
+    </div>
+    <div class="row w-100">
+      <div class="col-12 ms-2 d-flex justify-content-center">
+        <div class="table-container">
+          <form
+            [formGroup]="createCmsUser"
+            (ngSubmit)="createCmsUserOnSubmit()"
+          >
+            <div class="row py-0" *ngIf="activeIndexSubTab == 0">
+              <div class="row pt-3">
+                <div class="col-4">
+                  <div class="col-12">
+                    <div class="label_setup-logo font">Organization:</div>
+                    <div
+                      ngbDropdown
+                      class="dropdown mt-2 w-100"
+                      style="position: relative; display: inline-flex"
+                    >
+                      <button
+                        ngbDropdownToggle
+                        class="btn btn-secondary font large-dropdown"
+                        type="button"
+                        id="dropdownMenuButtonsetup"
+                        aria-expanded="false"
+                        [ngStyle]="{
+                          color:
+                            selectedDropdownIndustryValue !==
+                            'Select from the drop-down'
+                              ? 'black'
+                              : ''
+                        }"
+                        (click)="getOrganization()"
+                      >
+                        {{ selectedDropdownIndustryValue }}
+                      </button>
+                      <ul
+                        ngbDropdownMenu
+                        aria-labelledby="dropdownMenuButton1"
+                        class="w-100 dropdownmenu"
+                      >
+                        <li
+                          *ngFor="
+                            let res of getOrganizationlist;
+                            let index = index
+                          "
+                        >
+                          <a
+                            ngbDropdownItem
+                            (click)="selectedIndustryValue(index)"
+                            class="font"
+                          >
+                            {{ res.organizationName }}</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="col-12">
+                    <div class="label_setup-logo font">Role:</div>
+                    <div
+                      ngbDropdown
+                      class="dropdown mt-2 w-100"
+                      style="position: relative; display: inline-flex"
+                    >
+                      <button
+                        ngbDropdownToggle
+                        class="btn btn-secondary font large-dropdown"
+                        type="button"
+                        id="dropdownMenuButtonsetup"
+                        aria-expanded="false"
+                        [ngStyle]="{
+                          color:
+                            selectedDropdownRoleValue !==
+                            'Select from the drop-down'
+                              ? 'black'
+                              : ''
+                        }"
+                        (click)="this.getCmsRoleList()"
+                      >
+                        {{ selectedDropdownRoleValue }}
+                      </button>
+                      <ul
+                        ngbDropdownMenu
+                        aria-labelledby="dropdownMenuButton1"
+                        class="w-100 dropdownmenu"
+                      >
+                        <li *ngFor="let res of CmsRole; let index = index">
+                          <a
+                            ngbDropdownItem
+                            (click)="selectedRoleValue(index)"
+                            class="font"
+                          >
+                            {{ res.roleName }}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="col-12">
+                    <div class="label_setup-logo font mt-2">Vendor:</div>
+                    <div
+                      ngbDropdown
+                      class="dropdown mt-2 w-100"
+                      style="position: relative; display: inline-flex"
+                    >
+                      <button
+                        ngbDropdownToggle
+                        class="btn btn-secondary font large-dropdown"
+                        type="button"
+                        id="dropdownMenuButtonsetup"
+                        aria-expanded="false"
+                        [ngStyle]="{
+                          color:
+                            selectedDropdownVendorValue !==
+                            'Select from the drop-down'
+                              ? 'black'
+                              : ''
+                        }"
+                      >
+                        {{ selectedDropdownVendorValue }}
+                      </button>
+                      <ul
+                        ngbDropdownMenu
+                        aria-labelledby="dropdownMenuButton1"
+                        class="w-100"
+                      >
+                        <li>
+                          <a
+                            ngbDropdownItem
+                            (click)="selectedVendorValue('Organization 1')"
+                            class="font"
+                            >Organization 1</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            ngbDropdownItem
+                            (click)="selectedVendorValue('Organization 2')"
+                            class="font"
+                            >Organization 2</a
+                          >
+                        </li>
+                        <li>
+                          <a
+                            ngbDropdownItem
+                            (click)="selectedVendorValue('Organization 3')"
+                            class="font"
+                            >Organization 3</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <div class="col-12 mt-3">
+                    <div class="label_setup-logo font">User Name:</div>
+                    <div class="mt-2">
+                      <input
+                        class="form-control organisation_input font"
+                        type="text"
+                        id="employeeUserName"
+                        name="employeeUserName"
+                        formControlName="employeeUserName"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 mt-2">
+                    <div class="label_setup-logo font">Employee Name:</div>
+                    <div class="mt-2">
+                      <input
+                        class="form-control organisation_input font"
+                        type="text"
+                        id="employeeName"
+                        name="employeeName"
+                        formControlName="employeeName"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="col-12 mt-3">
+                    <div class="label_setup-logo font">Password:</div>
+                    <div class="mt-2 password-input">
+                      <input
+                        class="form-control organisation_input font"
+                        [type]="showPassword ? 'text' : 'password'"
+                        id="empPassword"
+                        name="empPassword"
+                        formControlName="empPassword"
+                      />
+                      <div class="input-group-append mt-1">
+                        <div
+                          class="eye-button d-flex justify-content-center align-items-center"
+                          (click)="togglePasswordVisibility()"
+                        >
+                          <i
+                            class="material-icons me-2"
+                            style="color: #133870"
+                            >{{
+                              showPassword ? "visibility" : "visibility_off"
+                            }}</i
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 mt-2">
+                    <div class="label_setup-logo font">Employee Id:</div>
+                    <div class="mt-2">
+                      <input
+                        class="form-control organisation_input font"
+                        type="text"
+                        id="empId"
+                        name="empId"
+                        formControlName="empId"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="row py-0" *ngIf="activeIndexSubTab == 1">
             <div class="col-12">
-              <div class="label_setup-logo font text-dark">User Name:</div>
-              <div class="mt-2">
-                <input
-                  class="form-control organisation_input font"
-                  type="text"
-                  value="{{ username }}"
-                />
+              <div class="row display-Cms-User-Header">
+                <div
+                  class="col-2 d-flex justify-content-start align-items-end"
+                ></div>
+                <div
+                  class="col-10 d-flex justify-content-end align-items-center"
+                >
+                  <div class="Cms-User-count-container pt-1">
+                    <div
+                      class="row w-100"
+                      *ngFor="let response of count; let i = index"
+                      (click)="changeFilter(i)"
+                    >
+                      <div class="col-lg-5 col-sm-4 ps-4 font count_label">
+                        {{ response.label }}
+                      </div>
+                      <div class="col-lg-5 col-sm-6">
+                        <div
+                          class="count-points text-light font d-flex justify-content-center align-items-center mt-1"
+                        >
+                          {{ response.value }}
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-2">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="flexRadioDefault2"
+                          [checked]="i === activeRadiobutton"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-12">
@@ -519,30 +791,121 @@
                 <input
                   class="form-control organisation_input font"
                   type="text"
-                  value="TGC"
+                  value="{{ organizationNameView }}"
                 />
               </div>
             </div>
-            <div class="col-12">
-              <div class="label_setup-logo font text-dark">Role:</div>
-              <div class="mt-2">
-                <input
-                  class="form-control organisation_input font"
-                  type="text"
-                  value="Admin Access"
-                />
-              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-12 d-flex justify-content-end" *ngIf="activeIndexSubTab == 0">
+  <div
+    class="submit_button_function mt-3 me-3 font d-flex justify-content-center fontInter"
+    [ngClass]="{ disabled: isDisabledCreateUser }"
+    [ngClass]="{ 'disabled-button': createCmsUser.invalid }"
+    (click)="createCmsUserOnSubmit()"
+  >
+    Create
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="UserDescriptionModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered"
+    style="position: relative; display: flex; justify-content: center"
+  >
+    <div class="modal-content UserDescriptionModal">
+      <div class="d-flex justify-content-end">
+        <div
+          type="button"
+          class="custom-close-btn d-flex justify-content-center align-items-center m-2"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <svg
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="cross-icon"
+          >
+            <g id="Group 8373">
+              <circle
+                id="Ellipse 21"
+                cx="18"
+                cy="18"
+                r="17"
+                fill="#D7D7E8"
+                stroke="black"
+                stroke-width="2"
+              />
+              <path
+                id="Vector 3983"
+                d="M9.5 10L28 27"
+                stroke="black"
+                stroke-width="5"
+              />
+              <path
+                id="Vector 3984"
+                d="M27.25 9.25L10.25 27.75"
+                stroke="black"
+                stroke-width="5"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-body pt-0">
+        <div class="row">
+          <div class="col-12">
+            <div class="label_setup-logo font text-dark">User Name:</div>
+            <div class="mt-2">
+              <input
+                class="form-control organisation_input font"
+                type="text"
+                value="{{ username }}"
+              />
             </div>
-            <div class="col-12 mt-2">
-              <div class="label_setup-logo font">Function:</div>
-              <div class="question-container mt-2 font">
-                <textarea
-                  class="form-control input-question"
-                  rows="7"
-                  value="{{ function }}"
-                ></textarea>
-                <!-- Question -->
-              </div>
+          </div>
+          <div class="col-12">
+            <div class="label_setup-logo font text-dark">Organization:</div>
+            <div class="mt-2">
+              <input
+                class="form-control organisation_input font"
+                type="text"
+                value="TGC"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="label_setup-logo font text-dark">Role:</div>
+            <div class="mt-2">
+              <input
+                class="form-control organisation_input font"
+                type="text"
+                value="Admin Access"
+              />
+            </div>
+          </div>
+          <div class="col-12 mt-2">
+            <div class="label_setup-logo font">Function:</div>
+            <div class="question-container mt-2 font">
+              <textarea
+                class="form-control input-question"
+                rows="7"
+                value="{{ function }}"
+              ></textarea>
+              <!-- Question -->
             </div>
           </div>
         </div>

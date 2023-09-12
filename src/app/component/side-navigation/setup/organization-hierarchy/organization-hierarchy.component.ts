@@ -443,7 +443,9 @@ export class OrganizationHierarchyComponent implements OnInit {
         console.log(res);
         this.OrgHirerachtresponse = res;
         this.ParentIdOrgHierarchy = this.OrgHirerachtresponse.idOrgHierarchy;
-        this.openModal();
+        if (this.hierarchylevel == 5) {
+          this.openModal();
+        }
       },
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
