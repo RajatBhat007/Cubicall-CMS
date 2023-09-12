@@ -127,7 +127,7 @@
     <div class="col-12">
       <div class="bottom-conatiner">
         <div class="row">
-          <div class="col-5 mt-5 ps-4">
+          <div class="col-4 mt-5 ps-4">
             <div class="upload_button_cover">
               <div
                 class="upload-button font d-flex justify-content-center align-items-center"
@@ -167,12 +167,72 @@
             </div>
           </div>
 
-          <div
-            *ngIf="activeIndexSubTab == 0; then draftDiv; else withoutDraftDiv"
-          ></div>
+          <div *ngIf="activeIndexSubTab == 0; then draftDiv; else withoutDraftDiv"></div>
           <ng-template #draftDiv>
-            <div class="col-3 mt-4 d-flex">
-              <div
+            <div class="col-5 mt-4">
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <div
+                    class="all font mx-0"
+                    (click)="View('1')"
+                    [ngClass]="{ ceterTab: '2' === activeAll }"
+                  >
+                    <div
+                      class="d-flex justify-content-center align-items-center"
+                      [ngClass]="{ 'activeTab-button-active': '1' === activeAll }"
+                    >
+                    Draft
+                    </div>
+                  </div>
+                  <div
+                    class="mt-4"
+                    style="width: 2vh; border-top: 2px solid #000"
+                  ></div>
+                  <div
+                    class="all font  mx-0"
+                    (click)="View('2')"
+                    [ngClass]="{ ceterTab: '1' === activeAll }">
+                    <div
+                      class="d-flex justify-content-center align-items-center"
+                      [ngClass]="{ 'activeTab-button-active': '2' === activeAll }"
+                    >
+                    Rejected
+                    </div>
+                  </div>
+                  <div
+                  class="mt-4"
+                  style="width: 2vh; border-top: 2px solid #000"
+                ></div>
+                  <div
+                  class="all font  mx-0"
+                  (click)="View('3')"
+                  [ngClass]="{ ceterTab: '1'===activeAll }">
+                  <div
+                    class="d-flex justify-content-center align-items-center"
+                    [ngClass]="{ 'activeTab-button-active': '3' === activeIndexDraftSubmit }"
+                  >
+                  Submitted
+                  </div>
+                </div>
+                <div
+                class="mt-4"
+                style="width: 2vh; border-top: 2px solid #000"></div>
+
+                <div
+                class="all font mx-0"
+                (click)="View('4')"
+                [ngClass]="{ ceterTab: '1'=== activeAll }">
+                <div
+                  class="d-flex justify-content-center align-items-center"
+                  [ngClass]="{ 'activeTab-button-active': '4' === activeAll }"
+                >
+                Assigned
+                </div>
+              </div>
+                </div>
+              </div>
+
+              <!-- <div
                 class="draft-button font d-flex justify-content-center align-items-center"
                 (click)="View('1')"
                 [ngClass]="{
@@ -223,15 +283,15 @@
                 style="width: 15vw"
               >
                 Assigned
-              </div>
-            </div>
+              </div>-->
+            </div> 
           </ng-template>
 
           <ng-template #withoutDraftDiv>
-            <div class="col-3 mt-4 d-flex"></div>
+            <div class="col-5 mt-4 d-flex"></div>
           </ng-template>
 
-          <div class="col-4 mt-2 d-flex justify-content-end">
+          <div class="col-3 mt-2 d-flex justify-content-end">
             <div class="count-container pt-1">
               <div class="row w-100" *ngFor="let response of count">
                 <div class="col-lg-5 col-sm-4 ps-4 font count_label">
@@ -579,7 +639,7 @@
                         </div>
 
                         <div class="table-body-height">
-                          <div class="row mt-2" *ngFor="let res of tableData">
+                          <div class="row mt-2" *ngFor="let res of gameTime">
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
                                 <div
@@ -614,22 +674,29 @@
                                     type="checkbox"
                                     role="switch"
                                     id="flexSwitchCheckDefault"
+                                    [checked]="res.isActive === 'A'"
+
                                   />
                                 </div>
                                 <div
-                                  class="id-header1"
-                                  style="margin-right: 10%"
+                                  class="id-header text-dark text-center"
+                                  
                                 >
-                                  {{ res.id }}
+                                  {{ res.cubesFacesId }}
                                 </div>
-                                <div class="game-header1">
-                                  {{ res.game }}
+                                <div class="game-header text-dark text-justify">
+                                  {{ res.overAllTimer /60}}min
                                 </div>
                                 <div
-                                  class="tile-header1 font d-flex align-items-center justify-content-center"
+                                  class="tile-header text-dark text-justify font"
                                 >
-                                  {{ res.tile }}
+                                  {{ res.perTileTimer }} sec
                                 </div>
+                                <div
+                                class="created-date-header text-dark font d-flex justify-content-start"
+                              >
+                                {{res.updatedDateTime|slice:0:-9}}
+                              </div>
                               </div>
                             </div>
                           </div>
@@ -727,6 +794,12 @@
                                     margin-right: 1%;
                                   "
                                 ></div>
+                                <div
+                                class="Status_label font d-flex align-items-center justify-content-center"
+                                style="margin-left: 1%"
+                              >
+                                Status
+                              </div>
                                 <!-- <div class="Status_label font d-flex align-items-center justify-content-center">
                                                         Status
                                                     </div> -->
@@ -744,9 +817,9 @@
                                   class="game-header font"
                                   style="color: white"
                                 >
-                                  Game Time
+                                  Attempt No
                                 </div>
-                                <div class="tile-header font">Tile Time</div>
+                                <div class="tile-header font">Game Point</div>
                                 <div
                                   class="created-date-header font d-flex justify-content-start"
                                 >
@@ -758,7 +831,7 @@
                         </div>
 
                         <div class="table-body-height">
-                          <div class="row mt-2" *ngFor="let res of tableData">
+                          <div class="row mt-2" *ngFor="let res of cubeFaceGameAttempt">
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
                                 <div
@@ -793,22 +866,29 @@
                                     type="checkbox"
                                     role="switch"
                                     id="flexSwitchCheckDefault"
+                                    [checked]="res.isActive === 'A'"
                                   />
                                 </div>
                                 <div
-                                  class="id-header1"
-                                  style="margin-right: 10%"
+                                  class="id-header text-dark text-center"
+                                  
                                 >
-                                  {{ res.id }}
+                                  {{ res.cubesFacesId }}
                                 </div>
-                                <div class="game-header1">
-                                  {{ res.game }}
+                                <div class="game-header text-dark text-center">
+
+                                  {{ res.attemptNo }}
                                 </div>
                                 <div
-                                  class="tile-header1 font d-flex align-items-center justify-content-center"
-                                >
-                                  {{ res.tile }}
+                                class="tile-header text-dark ps-3 font"
+                              >
+                                  {{ res.gamePoints }}
                                 </div>
+                                <div
+                                class="created-date-header ps-3 text-dark font "
+                              >
+                                {{res.updatedDateTime|slice:0:-9}}
+                              </div>
                               </div>
                             </div>
                           </div>
@@ -919,10 +999,10 @@
                                 </div>
 
                                 <div class="streak-header" style="color: white">
-                                  Streak Time
+                                  Streak 
                                 </div>
                                 <div class="point-header" style="color: white">
-                                  Point Time
+                                  Point
                                 </div>
                                 <div
                                   class="created-date-header font d-flex justify-content-start"
@@ -935,7 +1015,7 @@
                         </div>
 
                         <div class="table-body-height">
-                          <div class="row mt-2" *ngFor="let res of tableData1">
+                          <div class="row mt-2" *ngFor="let res of cubeFaceGameStreak">
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
                                 <div
@@ -970,22 +1050,29 @@
                                     type="checkbox"
                                     role="switch"
                                     id="flexSwitchCheckDefault"
+                                    [checked]="res.isActive === 'A'"
+
                                   />
                                 </div>
                                 <div
-                                  class="id-header1"
-                                  style="margin-right: 10%"
-                                >
-                                  {{ res.id }}
-                                </div>
-                                <div class="streak-header1">
-                                  {{ res.streak }}
+                                class="id-header text-dark text-center"
+                                
+                              >
+                                {{ res.cubesFacesId }}
+                              </div>
+                                <div class="streak-header text-dark text-center">
+                                  {{ res.streak }} X
                                 </div>
                                 <div
-                                  class="point-header1 font d-flex align-items-center justify-content-center"
+                                  class="point-header text-dark font text-center"
                                 >
-                                  {{ res.point }}
+                                  +{{ res.streakPoints }}
                                 </div>
+                                <div
+                                class="created-date-header ps-3 text-dark font "
+                              >
+                                {{res.updatedDateTime|slice:0:-9}}
+                              </div>
                               </div>
                             </div>
                           </div>
@@ -1422,9 +1509,8 @@
                   <div *ngIf="activeIndexSubTab == '0'">
                     <div class="topbar" style="margin-top: -2%">
                       <div class="row">
-                        <div class="col-6"></div>
-                        <div class="col-5 mt-2 p-0 d-flex">
-                          <div class="searchBorderRadious d-flex">
+                        <div class="col-2 mt-2">
+                          <div class="searchBorderRadious d-flex ms-2">
                             <div class="searchIconBacground">
                               <img
                                 src="assets/images/Search.svg"
@@ -1441,7 +1527,9 @@
                               />
                             </div>
                           </div>
+                          <!-- Adjust the column width as needed -->
                         </div>
+                        <div class="col-5 mt-2 p-0 d-flex"></div>
                       </div>
                       <div class="row mt-2">
                         <div class="col-12 d-flex justify-content-center">

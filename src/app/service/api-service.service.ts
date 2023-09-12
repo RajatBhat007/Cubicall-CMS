@@ -263,4 +263,17 @@ export class ApiServiceService {
     var tempurl = `${this.URLstring}` + `${this.Path}/GetRoleTypes`;
     return this.Http.get(tempurl);
   }
+
+  getCubeFaceGameTime(data: any,id:any): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetCubeFaceGameTimeDetails?OrgId=${data}&CubesFacesGameId=${id}`;
+    return this.Http.get(tempurl);
+  }
+  getCubeFaceGameAttempt(data: any,id:any): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetCubeFaceGameAttemptDetails?OrgId=${data}&AttemptNoId=${id}`;
+    return this.Http.get(tempurl);
+  }
+  getCubeFaceGameStreak(data: any,id:any): Observable<any> {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetCubeFaceGameStreakDetails?OrgId=${data}&StreakId=${id}`;
+    return this.Http.get(tempurl);
+  }
 }

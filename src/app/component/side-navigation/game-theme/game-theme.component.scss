@@ -127,7 +127,7 @@
 }
 
 .upload-button {
-  width: 20%;
+  width: 7vw;
   height: 3vh;
   background: #ffffff;
   font-size: .8em;
@@ -225,7 +225,7 @@
 }
 
 .count-container {
-  min-width: 52%;
+  min-width: 13vw;
   height: 14vh;
   border-radius: 10px;
   background: #F5F5F7;
@@ -428,7 +428,7 @@
 }
 
 .table-body-height {
-  height: 41vh;
+  height: 3vh;
   overflow-y: auto;
   overflow-x: hidden
 }
@@ -889,7 +889,7 @@ color:#000;
 }
 
 .table-body-height {
-  height: 41vh;
+  height: 31vh;
   overflow-y: auto;
   overflow-x: hidden
 }
@@ -1336,4 +1336,8 @@ margin-top:1% ;
 }
 .draftsection{
   margin-left:10%;
+}
+.ceterTab{
+  display: flex;
+  justify-content: center;
 }
