@@ -307,7 +307,10 @@ export class OrganizationHierarchyComponent implements OnInit {
     console.log(this.idOrg);
 
     this.http
-      .getVendorDetails(this.idOrg, this.idhierarchy)
+      .getVendorDetails(
+        this.apiData?.role?.idOrganization,
+        this.apiData?.user?.idOrgHierarchy
+      )
       .subscribe((res) => {
         this.organisationName = res;
         console.log(this.organisationName);
@@ -349,7 +352,7 @@ export class OrganizationHierarchyComponent implements OnInit {
       })
     );
 
-    const newIndex = processRows.length - 2; // Index of the newly added FormGroup
+    const newIndex = processRows.value.length - 2; // Index of the newly added FormGroup
     console.log(newIndex);
     console.log(this.processRows);
 
@@ -373,7 +376,7 @@ export class OrganizationHierarchyComponent implements OnInit {
       })
     );
 
-    const newIndexsubprocess = subprocessRows.length - 2; // Index of the newly added FormGroup
+    const newIndexsubprocess = subprocessRows.value.length - 2; // Index of the newly added FormGroup
     console.log(newIndexsubprocess);
     console.log(this.subprocessRows);
 
@@ -480,7 +483,7 @@ export class OrganizationHierarchyComponent implements OnInit {
     const payload = {
       Data: {
         IdOrganization: Number(this.apiData?.user?.idOrganization),
-        IdCmsUser: Number(this.apiData?.user?.idCmsRole),
+        IdCmsUser: Number(this.apiData?.user?.idCmsUser),
         ParentIdOrgHierarchy: this.ParentIdOrgHierarchy,
         HierarchyName: this.vendorNameHierarchy,
         HirLevel: this.hierarchylevel,
@@ -531,8 +534,12 @@ export class OrganizationHierarchyComponent implements OnInit {
     console.log(pageInfo);
     if (pageInfo == 'process') {
       this.hierarchylevel = 3;
-
+      this.ParentIdOrgHierarchy =
+        this.ParentIdOrgHierarchy == 0
+          ? this.apiData?.user?.idOrgHierarchy
+          : this.ParentIdOrgHierarchy;
       this.vendorNameHierarchy = description;
+      console.log(this.ParentIdOrgHierarchy);
     } else if (pageInfo == 'subprocess') {
       this.hierarchylevel = 4;
       this.vendorNameHierarchy = description;

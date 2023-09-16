@@ -100,7 +100,7 @@ export class ApiServiceService {
   isAuthenticated(): boolean {
     return this.getisAuthenticated;
   }
-  
+
   getIndustryType(): Observable<any> {
     var tempurl = `${this.URLstring}` + `${this.Path}/GetIndustryList`;
     return this.Http.get(tempurl);
@@ -228,6 +228,11 @@ export class ApiServiceService {
     return this.Http.get(tempurl, data);
   }
 
+  getStagesName(data: any) {
+    var tempurl = `${this.URLstring}` + `${this.Path}/GetStages?userId=${data}`;
+    return this.Http.get(tempurl, data);
+  }
+
   editBatch(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -265,20 +270,26 @@ export class ApiServiceService {
     return this.Http.get(tempurl);
   }
 
-  getCubeFaceGameTime(data: any,id:any): Observable<any> {
-    var tempurl = `${this.URLstring}` + `${this.Path}/GetCubeFaceGameTimeDetails?OrgId=${data}&CubesFacesGameId=${id}`;
+  getCubeFaceGameTime(data: any, id: any): Observable<any> {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetCubeFaceGameTimeDetails?OrgId=${data}&CubesFacesGameId=${id}`;
     return this.Http.get(tempurl);
   }
-  getCubeFaceGameAttempt(data: any,id:any): Observable<any> {
-    var tempurl = `${this.URLstring}` + `${this.Path}/GetCubeFaceGameAttemptDetails?OrgId=${data}&AttemptNoId=${id}`;
+  getCubeFaceGameAttempt(data: any, id: any): Observable<any> {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetCubeFaceGameAttemptDetails?OrgId=${data}&AttemptNoId=${id}`;
     return this.Http.get(tempurl);
   }
-  getCubeFaceGameStreak(data: any,id:any): Observable<any> {
-    var tempurl = `${this.URLstring}` + `${this.Path}/GetCubeFaceGameStreakDetails?OrgId=${data}&StreakId=${id}`;
+  getCubeFaceGameStreak(data: any, id: any): Observable<any> {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetCubeFaceGameStreakDetails?OrgId=${data}&StreakId=${id}`;
     return this.Http.get(tempurl);
   }
 
-  setCubeFaceGameTime(data:any){
+  setCubeFaceGameTime(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -286,21 +297,20 @@ export class ApiServiceService {
     };
     var tempurl = `${this.URLstring}` + `${this.Path}/InsUpdCubeFaceGameTime`;
     return this.Http.post(tempurl, data, httpOptions);
-  
   }
-  
-   setCubeFaceGameAttempt(data:any){
+
+  setCubeFaceGameAttempt(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    var tempurl = `${this.URLstring}` + `${this.Path}/InsUpdCubeFaceGameAttempt`;
+    var tempurl =
+      `${this.URLstring}` + `${this.Path}/InsUpdCubeFaceGameAttempt`;
     return this.Http.post(tempurl, data, httpOptions);
+  }
 
-   }
-
-   setCubeFaceGameStreakDetails(data:any){
+  setCubeFaceGameStreakDetails(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -308,6 +318,5 @@ export class ApiServiceService {
     };
     var tempurl = `${this.URLstring}` + `${this.Path}/InsUpdCubeFaceGameStreak`;
     return this.Http.post(tempurl, data, httpOptions);
-   }
-
+  }
 }

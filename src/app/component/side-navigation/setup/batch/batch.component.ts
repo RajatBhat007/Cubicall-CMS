@@ -277,7 +277,7 @@ export class BatchComponent {
 
     console.log(payload);
 
-    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"IdOrgHierarchy\":${escapedIdOrgHierarchy},\"BatchName\":${escapedBatchName},\"IsActive\":${escapedIsActive},\"IdOrganization\":${escapedIdOrganization},\"IdCmsUser\":${escapedIdCmsUser},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster},\"CubesFacesId\":${escapeCubesFacesId},\"IdBatch\":${escapedIdBatch},\"IsActive\":${escapedIsActive},\"ScheduledDateTime\":${escapedScheduledDateTime}`;
+    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster}`;
     const jsonString = JSON.stringify(escapedJsonString);
     console.log(jsonString);
     const jsonStringremovelast = jsonString.slice(0, -1);

@@ -5,33 +5,84 @@
         Organization LOGO DISPLAYED
       </div>
     </div>
-    <div class="col-5 pe-4 dropdown-col d-flex justify-content-end" style="margin: auto">
-      <div ngbDropdown class="dropdown_org d-flex justify-content-center align-items-center" style="position: relative">
+    <div
+      class="col-5 pe-4 dropdown-col d-flex justify-content-end"
+      style="margin: auto"
+    >
+      <div
+        ngbDropdown
+        class="dropdown_org d-flex justify-content-center align-items-center"
+        style="position: relative"
+      >
         <div id="dropdownMenuButton1 font">{{ selectedDropdownValue }}</div>
       </div>
 
-      <div ngbDropdown class="dropdown" style="position: relative; display: inline-flex">
-        <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton2"
-          aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" class="circle" viewBox="0 0 41 41" fill="none">
-            <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#000" stroke-width="2" />
+      <div
+        ngbDropdown
+        class="dropdown"
+        style="position: relative; display: inline-flex"
+      >
+        <button
+          ngbDropdownToggle
+          class="btn btn-secondary"
+          type="button"
+          id="dropdownMenuButton2"
+          aria-expanded="false"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="circle"
+            viewBox="0 0 41 41"
+            fill="none"
+          >
+            <circle
+              cx="20.5"
+              cy="20.5"
+              r="19.5"
+              fill="#fff"
+              stroke="#000"
+              stroke-width="2"
+            />
             <path
               d="M28 30V28C28 26.9391 27.5786 25.9217 26.8284 25.1716C26.0783 24.4214 25.0609 24 24 24H16C14.9391 24 13.9217 24.4214 13.1716 25.1716C12.4214 25.9217 12 26.9391 12 28V30"
-              stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              stroke="#133870"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
             <path
               d="M20 20C22.2091 20 24 18.2091 24 16C24 13.7909 22.2091 12 20 12C17.7909 12 16 13.7909 16 16C16 18.2091 17.7909 20 20 20Z"
-              stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              stroke="#133870"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
-        <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1" class="logut_dropdown">
+        <ul
+          ngbDropdownMenu
+          aria-labelledby="dropdownMenuButton1"
+          class="logut_dropdown"
+        >
           <li class="mt-2">
-            <a ngbDropdownItem class="font logout" (click)="logout()">Logout
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-                <path fill-rule="evenodd"
-                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+            <a ngbDropdownItem class="font logout" (click)="logout()"
+              >Logout
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-box-arrow-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                />
               </svg>
             </a>
           </li>
@@ -50,10 +101,16 @@
   <div class="row mt-3">
     <div class="col-10">
       <div class="row">
-        <div class="col-2" *ngFor="let res of matTab; let i = index" (click)="NavigateToTab(i)"
-          style="cursor: pointer; padding-right: 0">
-          <div class="tab d-flex justify-content-center align-items-center flex-column"
-            [ngClass]="{ 'tab-active': i === activeIndexTab }">
+        <div
+          class="col-2"
+          *ngFor="let res of matTab; let i = index"
+          (click)="NavigateToTab(i)"
+          style="cursor: pointer; padding-right: 0"
+        >
+          <div
+            class="tab d-flex justify-content-center align-items-center flex-column"
+            [ngClass]="{ 'tab-active': i === activeIndexTab }"
+          >
             <div class="circle-tab1">
               <img src="{{ res.icon }}" class="iconHeight" alt="" />
             </div>
@@ -70,64 +127,146 @@
     <div class="col-12">
       <div class="bottom-conatiner">
         <div class="row">
-          <div class="col-4 mt-5 ps-4">
+          <!-- <div
+            class="upload-button font d-flex justify-content-center align-items-center"
+            style="cursor: pointer"
+            *ngIf="isupload"
+            (click)="Create()"
+          >
+            Create
+            <span
+              class="add_btn ms-1 d-flex align-items-center justify-content-center"
+              >+</span
+            >
+          </div> -->
+
+          <div class="col-4 mt-4 ps-4">
             <div class="upload_button_cover">
               <div *ngIf="!hideuploadButton">
-                <div class="upload-button font d-flex justify-content-center align-items-center" style="cursor: pointer"
-                  data-bs-toggle="modal" data-bs-target="#Excelupload" *ngIf="!isupload">
+                <div
+                  class="upload-button font d-flex justify-content-center align-items-center"
+                  style="cursor: pointer"
+                  data-bs-toggle="modal"
+                  data-bs-target="#Excelupload"
+                  *ngIf="!isupload && uploadButton"
+                >
                   Upload
-                  <span class="add_btn ms-1 d-flex align-items-center justify-content-center">+</span>
-                </div>
-                <div class="upload-button font d-flex justify-content-center align-items-center" style="cursor: pointer"
-                  *ngIf="isupload" (click)="Create()">
-                  Create
-                  <span class="add_btn ms-1 d-flex align-items-center justify-content-center">+</span>
+                  <span
+                    class="add_btn ms-1 d-flex align-items-center justify-content-center"
+                    >+</span
+                  >
                 </div>
               </div>
-              <div class="upload-button1  font d-flex justify-content-center align-items-center" style="cursor: pointer"
-              *ngIf="hideuploadButton">
+
+              <div
+                class="upload-button font d-flex justify-content-center align-items-center"
+                style="cursor: pointer"
+                *ngIf="isupload"
+                (click)="Create()"
+              >
+                Create
+                <span
+                  class="add_btn ms-1 d-flex align-items-center justify-content-center"
+                  >+</span
+                >
               </div>
+
+              <div
+                class="upload-button1 font d-flex justify-content-center align-items-center"
+                style="cursor: pointer"
+                *ngIf="hideuploadButton"
+              ></div>
             </div>
-            <div class="row mt-4 ps-2">
-              <div class="col-3 ps-0" *ngFor="let res_sub of subtab; let j = index" (click)="NavigateToSubTab(j)">
-                <div class="sub_tab font d-flex justify-content-center align-items-center"
-                  [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }">
+            <div class="row mt-5 ps-2">
+              <div
+                class="col-3 ps-0"
+                *ngFor="let res_sub of subtab; let j = index"
+                (click)="NavigateToSubTab(j)"
+              >
+                <div
+                  class="sub_tab font d-flex justify-content-center align-items-center"
+                  [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }"
+                >
                   {{ res_sub.label }}
                 </div>
               </div>
             </div>
           </div>
 
-          <div *ngIf="activeIndexSubTab == 0; then draftDiv; else withoutDraftDiv"></div>
+          <div
+            *ngIf="activeIndexSubTab == 0; then draftDiv; else withoutDraftDiv"
+          ></div>
           <ng-template #draftDiv>
             <div class="col-5 mt-4">
               <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                  <div class="all font mx-0" (click)="View('1')" [ngClass]="{ ceterTab: '2' === activeAll }">
-                    <div class="d-flex justify-content-center align-items-center"
-                      [ngClass]="{ 'activeTab-button-active': '1' === activeAll }">
+                  <div
+                    class="all font mx-0"
+                    (click)="View('1')"
+                    [ngClass]="{ ceterTab: '2' === activeAll }"
+                  >
+                    <div
+                      class="d-flex justify-content-center align-items-center"
+                      [ngClass]="{
+                        'activeTab-button-active': '1' === activeAll
+                      }"
+                    >
                       Draft
                     </div>
                   </div>
-                  <div class="mt-4" style="width: 2vh; border-top: 2px solid #000"></div>
-                  <div class="all font  mx-0" (click)="View('2')" [ngClass]="{ ceterTab: '1' === activeAll }">
-                    <div class="d-flex justify-content-center align-items-center"
-                      [ngClass]="{ 'activeTab-button-active': '2' === activeAll }">
+                  <div
+                    class="mt-4"
+                    style="width: 2vh; border-top: 2px solid #000"
+                  ></div>
+                  <div
+                    class="all font mx-0"
+                    (click)="View('2')"
+                    [ngClass]="{ ceterTab: '1' === activeAll }"
+                  >
+                    <div
+                      class="d-flex justify-content-center align-items-center"
+                      [ngClass]="{
+                        'activeTab-button-active': '2' === activeAll
+                      }"
+                    >
                       Rejected
                     </div>
                   </div>
-                  <div class="mt-4" style="width: 2vh; border-top: 2px solid #000"></div>
-                  <div class="all font  mx-0" (click)="View('3')" [ngClass]="{ ceterTab: '1'=== activeAll }">
-                    <div class="d-flex justify-content-center align-items-center"
-                      [ngClass]="{ 'activeTab-button-active': '3' === activeIndexDraftSubmit }">
+                  <div
+                    class="mt-4"
+                    style="width: 2vh; border-top: 2px solid #000"
+                  ></div>
+                  <div
+                    class="all font mx-0"
+                    (click)="View('3')"
+                    [ngClass]="{ ceterTab: '1' === activeAll }"
+                  >
+                    <div
+                      class="d-flex justify-content-center align-items-center"
+                      [ngClass]="{
+                        'activeTab-button-active':
+                          '3' === activeIndexDraftSubmit
+                      }"
+                    >
                       Submitted
                     </div>
                   </div>
-                  <div class="mt-4" style="width: 2vh; border-top: 2px solid #000"></div>
+                  <div
+                    class="mt-4"
+                    style="width: 2vh; border-top: 2px solid #000"
+                  ></div>
 
-                  <div class="all font mx-0" (click)="View('4')" [ngClass]="{ ceterTab: '1'=== activeAll }">
-                    <div class="d-flex justify-content-center align-items-center"
-                      [ngClass]="{ 'activeTab-button-active': '4' === activeAll }">
+                  <div
+                    class="all font mx-0"
+                    (click)="View('4')"
+                    [ngClass]="{ ceterTab: '1' === activeAll }"
+                  >
+                    <div
+                      class="d-flex justify-content-center align-items-center"
+                      [ngClass]="{
+                        'activeTab-button-active': '4' === activeAll
+                      }"
+                    >
                       Assigned
                     </div>
                   </div>
@@ -195,20 +334,30 @@
 
           <div class="col-3 mt-2 d-flex justify-content-end">
             <div class="count-container pt-1">
-              <div class="row w-100" *ngFor="let response of count;let i =index"
-              (click)="changeFilter(i)" >
+              <div
+                class="row w-100"
+                *ngFor="let response of count; let i = index"
+                (click)="changeFilter(i)"
+              >
                 <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                   {{ response.label }}
                 </div>
                 <div class="col-lg-5 col-sm-6">
-                  <div class="count-points font d-flex justify-content-center align-items-center mt-1">
+                  <div
+                    class="count-points font d-flex justify-content-center align-items-center mt-1"
+                  >
                     {{ response.value }}
                   </div>
                 </div>
                 <div class="col-lg-2 col-sm-2">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                  [checked]="i === activeRadiobutton"
-                  checked />
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault2"
+                    [checked]="i === activeRadiobutton"
+                    checked
+                  />
                 </div>
               </div>
             </div>
@@ -225,10 +374,19 @@
                       <div class="col-2 mt-2">
                         <div class="searchBorderRadious d-flex ms-2">
                           <div class="searchIconBacground">
-                            <img src="assets/images/Search.svg" alt="" class="searchIcon" />
+                            <img
+                              src="assets/images/Search.svg"
+                              alt=""
+                              class="searchIcon"
+                            />
                           </div>
                           <div class="ms-1">
-                            <input type="search" class="searchContainer" name="" id="" />
+                            <input
+                              type="search"
+                              class="searchContainer"
+                              name=""
+                              id=""
+                            />
                           </div>
                         </div>
                         <!-- Adjust the column width as needed -->
@@ -238,33 +396,54 @@
                     <div class="row mt-2">
                       <div class="col-12 d-flex justify-content-center">
                         <div class="table-header">
-                          <div class="checkbox-header d-flex align-items-center">
-                            <div class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToGameEdit()"></div>
+                          <div
+                            class="checkbox-header d-flex align-items-center"
+                          >
+                            <div
+                              class="edit_btn d-flex justify-content-center align-items-center"
+                              (click)="navigateToGameEdit()"
+                            ></div>
                             <div class="checkbox" style="margin-left: -2%">
                               <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input checkbox-input-checkbox" type="checkbox"
-                                  style="margin-right: 1%" value="" id="flexCheckDefault" disabled />
+                                <input
+                                  class="form-check-input checkbox-input-checkbox"
+                                  type="checkbox"
+                                  style="margin-right: 1%"
+                                  value=""
+                                  id="flexCheckDefault"
+                                  disabled
+                                />
                               </div>
                             </div>
-                            <div class="form-check-input checkbox-input-checkbox"
-                              style="border: 1px solid #fff; border-radius: 2px"></div>
-                            <div class="Status_label font d-flex align-items-center justify-content-center"
-                              style="margin-left: 1%">
+                            <div
+                              class="form-check-input checkbox-input-checkbox"
+                              style="border: 1px solid #fff; border-radius: 2px"
+                            ></div>
+                            <div
+                              class="Status_label font d-flex align-items-center justify-content-center"
+                              style="margin-left: 1%"
+                            >
                               Status
                             </div>
 
-                            <div class="view-header font d-flex justify-content-center">
+                            <div
+                              class="view-header font d-flex justify-content-center"
+                            >
                               View
                             </div>
 
                             <div class="id-header font">Id</div>
 
-                            <div class="question-header font" style="color: white">
+                            <div
+                              class="question-header font"
+                              style="color: white"
+                            >
                               Questions
                             </div>
 
-                            <div class="submitted-date-header font d-flex justify-content-end">
+                            <div
+                              class="submitted-date-header font d-flex justify-content-end"
+                            >
                               Created date
                             </div>
                           </div>
@@ -276,30 +455,64 @@
                       <div class="row mt-2" *ngFor="let res of tableData">
                         <div class="col-12 d-flex justify-content-center">
                           <div class="table-body d-flex align-items-center">
-                            <div class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToEditQuestion()">
-                              <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
+                            <div
+                              class="edit_btn d-flex justify-content-center align-items-center"
+                              (click)="navigateToEditQuestion()"
+                            >
+                              <img
+                                class="edit_image"
+                                src="assets/images/Edit.svg"
+                                alt="Edit Image"
+                              />
                             </div>
                             <div class="checkbox">
                               <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                  id="flexCheckDefault" />
+                                <input
+                                  class="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                />
                               </div>
                             </div>
 
-                            <div class="form-check form-switch d-flex align-items-center">
-                              <input class="form-check-input" style="width: 5vh; height: 2vh" type="checkbox"
-                                role="switch" id="flexSwitchCheckDefault" />
+                            <div
+                              class="form-check form-switch d-flex align-items-center"
+                            >
+                              <input
+                                class="form-check-input"
+                                style="width: 5vh; height: 2vh"
+                                type="checkbox"
+                                role="switch"
+                                id="flexSwitchCheckDefault"
+                              />
                             </div>
 
-                            <button class="view-button" (click)="navigateToEditQuestion()" style="margin-left: 3%">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="eye-image" viewBox="0 0 28 20" fill="none">
+                            <button
+                              class="view-button"
+                              (click)="navigateToEditQuestion()"
+                              style="margin-left: 3%"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="eye-image"
+                                viewBox="0 0 28 20"
+                                fill="none"
+                              >
                                 <path
                                   d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
-                                  stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                  stroke="#133870"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
                                 <path
                                   d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
-                                  stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                  stroke="#000"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
                               </svg>
                             </button>
                           </div>
@@ -307,30 +520,54 @@
                       </div>
                     </div>
 
-                    <div class="row d-flex justify-content-center align-items-center">
+                    <div
+                      class="row d-flex justify-content-center align-items-center"
+                    >
                       <div class="table-footer d-flex align-items-center">
-                        <div class="count-no font d-flex justify-content-center align-items-center">
+                        <div
+                          class="count-no font d-flex justify-content-center align-items-center"
+                        >
                           5
                         </div>
                         <div class="dash ms-1 d-flex align-items-center">/</div>
-                        <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                        <div
+                          class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                        >
                           9
                         </div>
 
                         <div class="pagination d-flex justify-content-end">
                           <div class="left_arrow d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24"
-                              fill="none">
-                              <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="triangle-left"
+                              viewBox="0 0 16 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                                fill="#000"
+                              />
                             </svg>
                           </div>
-                          <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                          <div
+                            class="page-no d-flex justify-content-center align-items-center font ms-1"
+                          >
                             1
                           </div>
-                          <div class="right_arrow d-flex align-items-center ms-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24"
-                              fill="none">
-                              <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                          <div
+                            class="right_arrow d-flex align-items-center ms-1"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="triangle-left"
+                              viewBox="0 0 17 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                                fill="#000"
+                              />
                             </svg>
                           </div>
                         </div>
@@ -344,10 +581,19 @@
                         <div class="col-2 mt-2">
                           <div class="searchBorderRadious d-flex ms-2">
                             <div class="searchIconBacground">
-                              <img src="assets/images/Search.svg" alt="" class="searchIcon" />
+                              <img
+                                src="assets/images/Search.svg"
+                                alt=""
+                                class="searchIcon"
+                              />
                             </div>
                             <div class="ms-1">
-                              <input type="search" class="searchContainer" name="" id="" />
+                              <input
+                                type="search"
+                                class="searchContainer"
+                                name=""
+                                id=""
+                              />
                             </div>
                           </div>
                           <!-- Adjust the column width as needed -->
@@ -356,13 +602,22 @@
                       </div>
                       <div class="row">
                         <div class="col-12">
-                          <div class="row justify-content-center align-items-center" style="margin-top: -1.3%">
+                          <div
+                            class="row justify-content-center align-items-center"
+                            style="margin-top: -1.3%"
+                          >
                             <div class="col-4"></div>
-                            <div class="col-1 ps-0" *ngFor="let res_sub of subsubtab; let j = index"
-                              (click)="activateSubSubTab(j)">
-                              <div class="ssub_tab" [ngClass]="{
+                            <div
+                              class="col-1 ps-0"
+                              *ngFor="let res_sub of subsubtab; let j = index"
+                              (click)="activateSubSubTab(j)"
+                            >
+                              <div
+                                class="ssub_tab"
+                                [ngClass]="{
                                   'ssub-tab-active': j === activeSubSubTab
-                                }">
+                                }"
+                              >
                                 {{ res_sub.label }}
                               </div>
                             </div>
@@ -372,32 +627,56 @@
                       </div>
                       <div *ngIf="activeSubSubTab === 0">
                         <div class="row mt-2">
-                          <div class="col-12 d-flex justify-content-center" style="margin-top: -1%">
+                          <div
+                            class="col-12 d-flex justify-content-center"
+                            style="margin-top: -1%"
+                          >
                             <div class="table-header">
-                              <div class="checkbox-header d-flex align-items-center">
-                                <div class="edit_btn d-flex justify-content-center align-items-center"></div>
+                              <div
+                                class="checkbox-header d-flex align-items-center"
+                              >
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                ></div>
                                 <div class="checkbox" style="margin-left: -2%">
-                                  <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input checkbox-input-checkbox" type="checkbox"
-                                      style="margin-right: 1%" value="" id="flexCheckDefault" disabled />
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input-checkbox"
+                                      type="checkbox"
+                                      style="margin-right: 1%"
+                                      value=""
+                                      id="flexCheckDefault"
+                                      disabled
+                                    />
                                   </div>
                                 </div>
-                                <div class="form-check-input checkbox-input-checkbox" style="
+                                <div
+                                  class="form-check-input checkbox-input-checkbox"
+                                  style="
                                     border: 1px solid #fff;
                                     border-radius: 2px;
-                                  "></div>
-                                <div class="Status_label font d-flex align-items-center justify-content-center"
-                                  style="margin-left: 1%">
+                                  "
+                                ></div>
+                                <div
+                                  class="Status_label font d-flex align-items-center justify-content-center"
+                                  style="margin-left: 1%"
+                                >
                                   Status
                                 </div>
 
-                                <div class="id-header font d-flex align-items-center justify-content-center">
+                                <div
+                                  class="id-header font d-flex align-items-center justify-content-center"
+                                >
                                   Id
                                 </div>
 
                                 <div class="game-header font">Game Time</div>
                                 <div class="tile-header font">Tile Time</div>
-                                <div class="created-date-header font d-flex justify-content-start">
+                                <div
+                                  class="created-date-header font d-flex justify-content-start"
+                                >
                                   Created date
                                 </div>
                               </div>
@@ -406,67 +685,121 @@
                         </div>
 
                         <div class="table-body-height">
-                          <div class="row mt-2" *ngFor="let res of cubeFaceIdViseGameTimeData;let i=index">
+                          <div
+                            class="row mt-2"
+                            *ngFor="
+                              let res of cubeFaceIdViseGameTimeData;
+                              let i = index
+                            "
+                          >
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
-                                <div class="edit_btn d-flex justify-content-center align-items-center"
-                                  (click)="editGameTime(i,'gametime')">
-                                  <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                  (click)="editGameTime(i, 'gametime')"
+                                >
+                                  <img
+                                    class="edit_image"
+                                    src="assets/images/Edit.svg"
+                                    alt="Edit Image"
+                                  />
                                 </div>
                                 <div class="checkbox">
-                                  <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                      id="flexCheckDefault" />
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input"
+                                      type="checkbox"
+                                      value=""
+                                      id="flexCheckDefault"
+                                    />
                                   </div>
                                 </div>
 
-                                <div class="form-check form-switch d-flex align-items-center">
-                                  <input class="form-check-input" style="width: 5vh; height: 2vh" type="checkbox"
-                                    role="switch" id="flexSwitchCheckDefault" [checked]="res.isActive === 'A'" />
+                                <div
+                                  class="form-check form-switch d-flex align-items-center"
+                                >
+                                  <input
+                                    class="form-check-input"
+                                    style="width: 5vh; height: 2vh"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="flexSwitchCheckDefault"
+                                    [checked]="res.isActive === 'A'"
+                                  />
                                 </div>
                                 <div class="id-header text-dark text-center">
                                   {{ res.cubesFacesId }}
                                 </div>
                                 <div class="game-header text-dark text-justify">
-                                  {{ res.overAllTimer /60}}min
+                                  {{ res.overAllTimer / 60 }}min
                                 </div>
-                                <div class="tile-header text-dark text-justify font">
+                                <div
+                                  class="tile-header text-dark text-justify font"
+                                >
                                   {{ res.perTileTimer }} sec
                                 </div>
-                                <div class="created-date-header text-dark font d-flex justify-content-start">
-                                  {{res.updatedDateTime|slice:0:-9}}
+                                <div
+                                  class="created-date-header text-dark font d-flex justify-content-start"
+                                >
+                                  {{ res.updatedDateTime | slice : 0 : -9 }}
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        <div class="row d-flex justify-content-center align-items-center">
+                        <div
+                          class="row d-flex justify-content-center align-items-center"
+                        >
                           <div class="table-footer d-flex align-items-center">
-                            <div class="count-no font d-flex justify-content-center align-items-center">
+                            <div
+                              class="count-no font d-flex justify-content-center align-items-center"
+                            >
                               5
                             </div>
                             <div class="dash ms-1 d-flex align-items-center">
                               /
                             </div>
-                            <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                            <div
+                              class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                            >
                               9
                             </div>
 
                             <div class="pagination d-flex justify-content-end">
                               <div class="left_arrow d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24"
-                                  fill="none">
-                                  <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="triangle-left"
+                                  viewBox="0 0 16 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                                    fill="#000"
+                                  />
                                 </svg>
                               </div>
-                              <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                              <div
+                                class="page-no d-flex justify-content-center align-items-center font ms-1"
+                              >
                                 1
                               </div>
-                              <div class="right_arrow d-flex align-items-center ms-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24"
-                                  fill="none">
-                                  <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                              <div
+                                class="right_arrow d-flex align-items-center ms-1"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="triangle-left"
+                                  viewBox="0 0 17 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                                    fill="#000"
+                                  />
                                 </svg>
                               </div>
                             </div>
@@ -476,23 +809,43 @@
 
                       <div *ngIf="activeSubSubTab === 1">
                         <div class="row mt-2">
-                          <div class="col-12 d-flex justify-content-center" style="margin-top: -1%">
+                          <div
+                            class="col-12 d-flex justify-content-center"
+                            style="margin-top: -1%"
+                          >
                             <div class="table-header">
-                              <div class="checkbox-header d-flex align-items-center">
-                                <div class="edit_btn d-flex justify-content-center align-items-center"></div>
+                              <div
+                                class="checkbox-header d-flex align-items-center"
+                              >
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                ></div>
                                 <div class="checkbox" style="margin-left: -2%">
-                                  <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input checkbox-input-checkbox" type="checkbox"
-                                      style="margin-right: 1%" value="" id="flexCheckDefault" disabled />
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input-checkbox"
+                                      type="checkbox"
+                                      style="margin-right: 1%"
+                                      value=""
+                                      id="flexCheckDefault"
+                                      disabled
+                                    />
                                   </div>
                                 </div>
-                                <div class="form-check-input checkbox-input-checkbox" style="
+                                <div
+                                  class="form-check-input checkbox-input-checkbox"
+                                  style="
                                     border: 1px solid #fff;
                                     border-radius: 2px;
                                     margin-right: 1%;
-                                  "></div>
-                                <div class="Status_label font d-flex align-items-center justify-content-center"
-                                  style="margin-left: 1%">
+                                  "
+                                ></div>
+                                <div
+                                  class="Status_label font d-flex align-items-center justify-content-center"
+                                  style="margin-left: 1%"
+                                >
                                   Status
                                 </div>
                                 <!-- <div class="Status_label font d-flex align-items-center justify-content-center">
@@ -502,15 +855,22 @@
                                                          Status
                                                       </div> -->
 
-                                <div class="id-header font d-flex align-items-center justify-content-center">
+                                <div
+                                  class="id-header font d-flex align-items-center justify-content-center"
+                                >
                                   Id
                                 </div>
 
-                                <div class="game-header font" style="color: white">
+                                <div
+                                  class="game-header font"
+                                  style="color: white"
+                                >
                                   Attempt No
                                 </div>
                                 <div class="tile-header font">Game Point</div>
-                                <div class="created-date-header font d-flex justify-content-start">
+                                <div
+                                  class="created-date-header font d-flex justify-content-start"
+                                >
                                   Created date
                                 </div>
                               </div>
@@ -519,68 +879,119 @@
                         </div>
 
                         <div class="table-body-height">
-                          <div class="row mt-2" *ngFor="let res of cubeFaceIdViseGameAttemtData;let i=index">
+                          <div
+                            class="row mt-2"
+                            *ngFor="
+                              let res of cubeFaceIdViseGameAttemtData;
+                              let i = index
+                            "
+                          >
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
-                                <div class="edit_btn d-flex justify-content-center align-items-center"
-                                  (click)="editGameTime(i,'attempt')">
-                                  <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                  (click)="editGameTime(i, 'attempt')"
+                                >
+                                  <img
+                                    class="edit_image"
+                                    src="assets/images/Edit.svg"
+                                    alt="Edit Image"
+                                  />
                                 </div>
                                 <div class="checkbox">
-                                  <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                      id="flexCheckDefault" />
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input"
+                                      type="checkbox"
+                                      value=""
+                                      id="flexCheckDefault"
+                                    />
                                   </div>
                                 </div>
 
-                                <div class="form-check form-switch d-flex align-items-center">
-                                  <input class="form-check-input" style="width: 5vh; height: 2vh" type="checkbox"
-                                    role="switch" id="flexSwitchCheckDefault" [checked]="res.isActive === 'A'" />
+                                <div
+                                  class="form-check form-switch d-flex align-items-center"
+                                >
+                                  <input
+                                    class="form-check-input"
+                                    style="width: 5vh; height: 2vh"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="flexSwitchCheckDefault"
+                                    [checked]="res.isActive === 'A'"
+                                  />
                                 </div>
                                 <div class="id-header text-dark text-center">
                                   {{ res.cubesFacesId }}
                                 </div>
                                 <div class="game-header text-dark text-center">
-
                                   {{ res.attemptNo }}
                                 </div>
                                 <div class="tile-header text-dark ps-3 font">
                                   {{ res.gamePoints }}
                                 </div>
-                                <div class="created-date-header ps-3 text-dark font ">
-                                  {{res.updatedDateTime|slice:0:-9}}
+                                <div
+                                  class="created-date-header ps-3 text-dark font"
+                                >
+                                  {{ res.updatedDateTime | slice : 0 : -9 }}
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        <div class="row d-flex justify-content-center align-items-center">
+                        <div
+                          class="row d-flex justify-content-center align-items-center"
+                        >
                           <div class="table-footer d-flex align-items-center">
-                            <div class="count-no font d-flex justify-content-center align-items-center">
+                            <div
+                              class="count-no font d-flex justify-content-center align-items-center"
+                            >
                               5
                             </div>
                             <div class="dash ms-1 d-flex align-items-center">
                               /
                             </div>
-                            <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                            <div
+                              class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                            >
                               9
                             </div>
 
                             <div class="pagination d-flex justify-content-end">
                               <div class="left_arrow d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24"
-                                  fill="none">
-                                  <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="triangle-left"
+                                  viewBox="0 0 16 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                                    fill="#000"
+                                  />
                                 </svg>
                               </div>
-                              <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                              <div
+                                class="page-no d-flex justify-content-center align-items-center font ms-1"
+                              >
                                 1
                               </div>
-                              <div class="right_arrow d-flex align-items-center ms-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24"
-                                  fill="none">
-                                  <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                              <div
+                                class="right_arrow d-flex align-items-center ms-1"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="triangle-left"
+                                  viewBox="0 0 17 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                                    fill="#000"
+                                  />
                                 </svg>
                               </div>
                             </div>
@@ -590,26 +1001,48 @@
 
                       <div *ngIf="activeSubSubTab === 2">
                         <div class="row mt-2">
-                          <div class="col-12 d-flex justify-content-center" style="margin-top: -1%">
+                          <div
+                            class="col-12 d-flex justify-content-center"
+                            style="margin-top: -1%"
+                          >
                             <div class="table-header">
-                              <div class="checkbox-header d-flex align-items-center">
-                                <div class="edit_btn d-flex justify-content-center align-items-center"></div>
+                              <div
+                                class="checkbox-header d-flex align-items-center"
+                              >
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                ></div>
                                 <div class="checkbox" style="margin-left: -2%">
-                                  <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input checkbox-input-checkbox" type="checkbox"
-                                      style="margin-right: 1%" value="" id="flexCheckDefault" disabled />
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input-checkbox"
+                                      type="checkbox"
+                                      style="margin-right: 1%"
+                                      value=""
+                                      id="flexCheckDefault"
+                                      disabled
+                                    />
                                   </div>
                                 </div>
-                                <div class="form-check-input checkbox-input-checkbox" style="
+                                <div
+                                  class="form-check-input checkbox-input-checkbox"
+                                  style="
                                     border: 1px solid #fff;
                                     border-radius: 2px;
                                     margin-right: 1%;
-                                  "></div>
-                                <div class="Status_label font d-flex align-items-center justify-content-center">
+                                  "
+                                ></div>
+                                <div
+                                  class="Status_label font d-flex align-items-center justify-content-center"
+                                >
                                   Status
                                 </div>
 
-                                <div class="id-header font d-flex align-items-center justify-content-center">
+                                <div
+                                  class="id-header font d-flex align-items-center justify-content-center"
+                                >
                                   Id
                                 </div>
 
@@ -619,7 +1052,9 @@
                                 <div class="point-header" style="color: white">
                                   Point
                                 </div>
-                                <div class="created-date-header font d-flex justify-content-start">
+                                <div
+                                  class="created-date-header font d-flex justify-content-start"
+                                >
                                   Created date
                                 </div>
                               </div>
@@ -628,67 +1063,123 @@
                         </div>
 
                         <div class="table-body-height">
-                          <div class="row mt-2" *ngFor="let res of cubeFaceIdViseGameStreakData;let i=index">
+                          <div
+                            class="row mt-2"
+                            *ngFor="
+                              let res of cubeFaceIdViseGameStreakData;
+                              let i = index
+                            "
+                          >
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
-                                <div class="edit_btn d-flex justify-content-center align-items-center"
-                                (click)="editGameTime(i,'streak')">
-                                  <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                  (click)="editGameTime(i, 'streak')"
+                                >
+                                  <img
+                                    class="edit_image"
+                                    src="assets/images/Edit.svg"
+                                    alt="Edit Image"
+                                  />
                                 </div>
                                 <div class="checkbox">
-                                  <div class="form-check d-flex align-items-center">
-                                    <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                      id="flexCheckDefault" />
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input"
+                                      type="checkbox"
+                                      value=""
+                                      id="flexCheckDefault"
+                                    />
                                   </div>
                                 </div>
 
-                                <div class="form-check form-switch d-flex align-items-center">
-                                  <input class="form-check-input" style="width: 5vh; height: 2vh" type="checkbox"
-                                    role="switch" id="flexSwitchCheckDefault" [checked]="res.isActive === 'A'" />
+                                <div
+                                  class="form-check form-switch d-flex align-items-center"
+                                >
+                                  <input
+                                    class="form-check-input"
+                                    style="width: 5vh; height: 2vh"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="flexSwitchCheckDefault"
+                                    [checked]="res.isActive === 'A'"
+                                  />
                                 </div>
                                 <div class="id-header text-dark text-center">
                                   {{ res.cubesFacesId }}
                                 </div>
-                                <div class="streak-header text-dark text-center">
+                                <div
+                                  class="streak-header text-dark text-center"
+                                >
                                   {{ res.streak }}x
                                 </div>
-                                <div class="point-header text-dark font text-center">
+                                <div
+                                  class="point-header text-dark font text-center"
+                                >
                                   +{{ res.streakPoints }}
                                 </div>
-                                <div class="created-date-header ps-3 text-dark font ">
-                                  {{res.updatedDateTime|slice:0:-9}}
+                                <div
+                                  class="created-date-header ps-3 text-dark font"
+                                >
+                                  {{ res.updatedDateTime | slice : 0 : -9 }}
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        <div class="row d-flex justify-content-center align-items-center">
+                        <div
+                          class="row d-flex justify-content-center align-items-center"
+                        >
                           <div class="table-footer d-flex align-items-center">
-                            <div class="count-no font d-flex justify-content-center align-items-center">
+                            <div
+                              class="count-no font d-flex justify-content-center align-items-center"
+                            >
                               5
                             </div>
                             <div class="dash ms-1 d-flex align-items-center">
                               /
                             </div>
-                            <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                            <div
+                              class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                            >
                               9
                             </div>
 
                             <div class="pagination d-flex justify-content-end">
                               <div class="left_arrow d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24"
-                                  fill="none">
-                                  <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="triangle-left"
+                                  viewBox="0 0 16 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                                    fill="#000"
+                                  />
                                 </svg>
                               </div>
-                              <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                              <div
+                                class="page-no d-flex justify-content-center align-items-center font ms-1"
+                              >
                                 1
                               </div>
-                              <div class="right_arrow d-flex align-items-center ms-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24"
-                                  fill="none">
-                                  <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                              <div
+                                class="right_arrow d-flex align-items-center ms-1"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="triangle-left"
+                                  viewBox="0 0 17 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                                    fill="#000"
+                                  />
                                 </svg>
                               </div>
                             </div>
@@ -704,10 +1195,19 @@
                         <div class="col-2 mt-2">
                           <div class="searchBorderRadious d-flex ms-2">
                             <div class="searchIconBacground">
-                              <img src="assets/images/Search.svg" alt="" class="searchIcon" />
+                              <img
+                                src="assets/images/Search.svg"
+                                alt=""
+                                class="searchIcon"
+                              />
                             </div>
                             <div class="ms-1">
-                              <input type="search" class="searchContainer" name="" id="" />
+                              <input
+                                type="search"
+                                class="searchContainer"
+                                name=""
+                                id=""
+                              />
                             </div>
                           </div>
                           <!-- Adjust the column width as needed -->
@@ -717,36 +1217,63 @@
                       <div class="row mt-2">
                         <div class="col-12 d-flex justify-content-center">
                           <div class="table-header">
-                            <div class="checkbox-header d-flex align-items-center">
-                              <div class="edit_btn d-flex justify-content-center align-items-center"></div>
+                            <div
+                              class="checkbox-header d-flex align-items-center"
+                            >
+                              <div
+                                class="edit_btn d-flex justify-content-center align-items-center"
+                              ></div>
                               <div class="checkbox" style="margin-left: -2%">
-                                <div class="form-check d-flex align-items-center">
-                                  <input class="form-check-input checkbox-input-checkbox" type="checkbox"
-                                    style="margin-right: 1%" value="" id="flexCheckDefault" disabled />
+                                <div
+                                  class="form-check d-flex align-items-center"
+                                >
+                                  <input
+                                    class="form-check-input checkbox-input-checkbox"
+                                    type="checkbox"
+                                    style="margin-right: 1%"
+                                    value=""
+                                    id="flexCheckDefault"
+                                    disabled
+                                  />
                                 </div>
                               </div>
-                              <div class="form-check-input checkbox-input-checkbox" style="
+                              <div
+                                class="form-check-input checkbox-input-checkbox"
+                                style="
                                   border: 1px solid #fff;
                                   border-radius: 2px;
                                   margin-right: 1%;
-                                "></div>
-                              <div class="Status_label font d-flex align-items-center justify-content-center">
+                                "
+                              ></div>
+                              <div
+                                class="Status_label font d-flex align-items-center justify-content-center"
+                              >
                                 Status
                               </div>
-                              <div class="id-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="id-header font d-flex align-items-center justify-content-center"
+                              >
                                 View
                               </div>
-                              <div class="id-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="id-header font d-flex align-items-center justify-content-center"
+                              >
                                 Id
                               </div>
                               <div class="game-header font">Image Name</div>
-                              <div class="tile-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="tile-header font d-flex align-items-center justify-content-center"
+                              >
                                 Image
                               </div>
-                              <div class="tile-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="tile-header font d-flex align-items-center justify-content-center"
+                              >
                                 File Address
                               </div>
-                              <div class="created-date-header font d-flex justify-content-center">
+                              <div
+                                class="created-date-header font d-flex justify-content-center"
+                              >
                                 Created date
                               </div>
                             </div>
@@ -755,36 +1282,63 @@
                       </div>
                       <div class="table-body-height">
                         <div class="rectangle">
-                          <img src="assets/images/Group 8595.png" (click)="navigateToCreateimg()" />
+                          <img
+                            src="assets/images/Group 8595.png"
+                            (click)="navigateToCreateimg()"
+                          />
                         </div>
                       </div>
 
-                      <div class="row d-flex justify-content-center align-items-center">
+                      <div
+                        class="row d-flex justify-content-center align-items-center"
+                      >
                         <div class="table-footer d-flex align-items-center">
-                          <div class="count-no font d-flex justify-content-center align-items-center">
+                          <div
+                            class="count-no font d-flex justify-content-center align-items-center"
+                          >
                             5
                           </div>
                           <div class="dash ms-1 d-flex align-items-center">
                             /
                           </div>
-                          <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                          <div
+                            class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                          >
                             20
                           </div>
 
                           <div class="pagination d-flex justify-content-end">
                             <div class="left_arrow d-flex align-items-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24"
-                                fill="none">
-                                <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="triangle-left"
+                                viewBox="0 0 16 24"
+                                fill="none"
+                              >
+                                <path
+                                  d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                                  fill="#000"
+                                />
                               </svg>
                             </div>
-                            <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                            <div
+                              class="page-no d-flex justify-content-center align-items-center font ms-1"
+                            >
                               1
                             </div>
-                            <div class="right_arrow d-flex align-items-center ms-1">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24"
-                                fill="none">
-                                <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                            <div
+                              class="right_arrow d-flex align-items-center ms-1"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="triangle-left"
+                                viewBox="0 0 17 24"
+                                fill="none"
+                              >
+                                <path
+                                  d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                                  fill="#000"
+                                />
                               </svg>
                             </div>
                           </div>
@@ -797,10 +1351,19 @@
                       <div class="col-2 mt-2">
                         <div class="searchBorderRadious d-flex ms-2">
                           <div class="searchIconBacground">
-                            <img src="assets/images/Search.svg" alt="" class="searchIcon" />
+                            <img
+                              src="assets/images/Search.svg"
+                              alt=""
+                              class="searchIcon"
+                            />
                           </div>
                           <div class="ms-1">
-                            <input type="search" class="searchContainer" name="" id="" />
+                            <input
+                              type="search"
+                              class="searchContainer"
+                              name=""
+                              id=""
+                            />
                           </div>
                         </div>
                         <!-- Adjust the column width as needed -->
@@ -810,40 +1373,66 @@
                     <div class="row mt-2">
                       <div class="col-12 d-flex justify-content-center">
                         <div class="table-header">
-                          <div class="checkbox-header d-flex align-items-center">
-                            <div class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToGameEdit()"></div>
+                          <div
+                            class="checkbox-header d-flex align-items-center"
+                          >
+                            <div
+                              class="edit_btn d-flex justify-content-center align-items-center"
+                              (click)="navigateToGameEdit()"
+                            ></div>
                             <div class="checkbox" style="margin-left: -2%">
                               <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input checkbox-input-checkbox" style="margin-right: 1%"
-                                  type="checkbox" value="" id="flexCheckDefault" disabled />
+                                <input
+                                  class="form-check-input checkbox-input-checkbox"
+                                  style="margin-right: 1%"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                  disabled
+                                />
                               </div>
                             </div>
-                            <div class="form-check-input checkbox-input-checkbox" style="
+                            <div
+                              class="form-check-input checkbox-input-checkbox"
+                              style="
                                 border: 1px solid #fff;
                                 border-radius: 2px;
                                 margin-right: 1%;
-                              "></div>
-                            <div class="Status_label font d-flex align-items-center justify-content-center">
+                              "
+                            ></div>
+                            <div
+                              class="Status_label font d-flex align-items-center justify-content-center"
+                            >
                               Status
                             </div>
 
-                            <div class="id-header font d-flex justify-content-center">
+                            <div
+                              class="id-header font d-flex justify-content-center"
+                            >
                               Id
                             </div>
 
-                            <div class="question-header font" style="color: white">
+                            <div
+                              class="question-header font"
+                              style="color: white"
+                            >
                               Questions
                             </div>
 
-                            <div class="id-header font d-flex justify-content-center">
+                            <div
+                              class="id-header font d-flex justify-content-center"
+                            >
                               Approve
                             </div>
 
-                            <div class="id-header font d-flex justify-content-center">
+                            <div
+                              class="id-header font d-flex justify-content-center"
+                            >
                               Reject
                             </div>
-                            <div class="feedback font d-flex justify-content-end">
+                            <div
+                              class="feedback font d-flex justify-content-end"
+                            >
                               Feedback
                             </div>
                           </div>
@@ -855,20 +1444,37 @@
                       <div class="row mt-2" *ngFor="let res of tableData">
                         <div class="col-12 d-flex justify-content-center">
                           <div class="table-body d-flex align-items-center">
-                            <div class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToEditQuestion()">
-                              <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
+                            <div
+                              class="edit_btn d-flex justify-content-center align-items-center"
+                              (click)="navigateToEditQuestion()"
+                            >
+                              <img
+                                class="edit_image"
+                                src="assets/images/Edit.svg"
+                                alt="Edit Image"
+                              />
                             </div>
                             <div class="checkbox">
                               <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                  id="flexCheckDefault" />
+                                <input
+                                  class="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                />
                               </div>
                             </div>
 
-                            <div class="form-check form-switch d-flex align-items-center">
-                              <input class="form-check-input" style="width: 5vh; height: 2vh; margin-left: 2%"
-                                type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                            <div
+                              class="form-check form-switch d-flex align-items-center"
+                            >
+                              <input
+                                class="form-check-input"
+                                style="width: 5vh; height: 2vh; margin-left: 2%"
+                                type="checkbox"
+                                role="switch"
+                                id="flexSwitchCheckDefault"
+                              />
                             </div>
 
                             <!-- <button class="view-button" (click)="navigateToEditQuestion()" style="margin-left:5%">
@@ -891,30 +1497,54 @@
                       </div>
                     </div>
 
-                    <div class="row d-flex justify-content-center align-items-center">
+                    <div
+                      class="row d-flex justify-content-center align-items-center"
+                    >
                       <div class="table-footer d-flex align-items-center">
-                        <div class="count-no font d-flex justify-content-center align-items-center">
+                        <div
+                          class="count-no font d-flex justify-content-center align-items-center"
+                        >
                           5
                         </div>
                         <div class="dash ms-1 d-flex align-items-center">/</div>
-                        <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                        <div
+                          class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                        >
                           9
                         </div>
 
                         <div class="pagination d-flex justify-content-end">
                           <div class="left_arrow d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24"
-                              fill="none">
-                              <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="triangle-left"
+                              viewBox="0 0 16 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                                fill="#000"
+                              />
                             </svg>
                           </div>
-                          <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                          <div
+                            class="page-no d-flex justify-content-center align-items-center font ms-1"
+                          >
                             1
                           </div>
-                          <div class="right_arrow d-flex align-items-center ms-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24"
-                              fill="none">
-                              <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                          <div
+                            class="right_arrow d-flex align-items-center ms-1"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="triangle-left"
+                              viewBox="0 0 17 24"
+                              fill="none"
+                            >
+                              <path
+                                d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                                fill="#000"
+                              />
                             </svg>
                           </div>
                         </div>
@@ -924,17 +1554,29 @@
                 </div>
                 <!-- Rejected Tab -->
 
-                <div *ngIf="activeIndexDraftSubmit == '2'" style="margin-top: 3vh">
+                <div
+                  *ngIf="activeIndexDraftSubmit == '2'"
+                  style="margin-top: 3vh"
+                >
                   <div *ngIf="activeIndexSubTab == '0'">
                     <div class="topbar" style="margin-top: -2%">
                       <div class="row">
                         <div class="col-2 mt-2">
                           <div class="searchBorderRadious d-flex ms-2">
                             <div class="searchIconBacground">
-                              <img src="assets/images/Search.svg" alt="" class="searchIcon" />
+                              <img
+                                src="assets/images/Search.svg"
+                                alt=""
+                                class="searchIcon"
+                              />
                             </div>
                             <div class="ms-1">
-                              <input type="search" class="searchContainer" name="" id="" />
+                              <input
+                                type="search"
+                                class="searchContainer"
+                                name=""
+                                id=""
+                              />
                             </div>
                           </div>
                           <!-- Adjust the column width as needed -->
@@ -944,36 +1586,62 @@
                       <div class="row mt-2">
                         <div class="col-12 d-flex justify-content-center">
                           <div class="table-header">
-                            <div class="checkbox-header d-flex align-items-center">
-                              <div class="edit_btn d-flex justify-content-center align-items-center"></div>
+                            <div
+                              class="checkbox-header d-flex align-items-center"
+                            >
+                              <div
+                                class="edit_btn d-flex justify-content-center align-items-center"
+                              ></div>
                               <div class="checkbox">
-                                <div class="form-check d-flex align-items-center">
-                                  <input class="form-check-input checkbox-input-checkbox" type="checkbox" value=""
-                                    id="flexCheckDefault" disabled />
+                                <div
+                                  class="form-check d-flex align-items-center"
+                                >
+                                  <input
+                                    class="form-check-input checkbox-input-checkbox"
+                                    type="checkbox"
+                                    value=""
+                                    id="flexCheckDefault"
+                                    disabled
+                                  />
                                 </div>
                               </div>
-                              <div class="form-check-input checkbox-input-checkbox" style="
+                              <div
+                                class="form-check-input checkbox-input-checkbox"
+                                style="
                                   border: 1px solid #fff;
                                   border-radius: 2px;
                                   margin-right: 1%;
-                                "></div>
-                              <div class="Status_label font d-flex align-items-center justify-content-center">
+                                "
+                              ></div>
+                              <div
+                                class="Status_label font d-flex align-items-center justify-content-center"
+                              >
                                 Status
                               </div>
-                              <div class="id-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="id-header font d-flex align-items-center justify-content-center"
+                              >
                                 View
                               </div>
-                              <div class="id-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="id-header font d-flex align-items-center justify-content-center"
+                              >
                                 Id
                               </div>
                               <div class="game-header font">Image Name</div>
-                              <div class="tile-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="tile-header font d-flex align-items-center justify-content-center"
+                              >
                                 Image
                               </div>
-                              <div class="tile-header font d-flex align-items-center justify-content-center">
+                              <div
+                                class="tile-header font d-flex align-items-center justify-content-center"
+                              >
                                 File Address
                               </div>
-                              <div class="submitted-date-header font d-flex justify-content-end">
+                              <div
+                                class="submitted-date-header font d-flex justify-content-end"
+                              >
                                 Created date
                               </div>
                             </div>
@@ -986,32 +1654,56 @@
                         </div>
                       </div>
 
-                      <div class="row d-flex justify-content-center align-items-center">
+                      <div
+                        class="row d-flex justify-content-center align-items-center"
+                      >
                         <div class="table-footer d-flex align-items-center">
-                          <div class="count-no font d-flex justify-content-center align-items-center">
+                          <div
+                            class="count-no font d-flex justify-content-center align-items-center"
+                          >
                             5
                           </div>
                           <div class="dash ms-1 d-flex align-items-center">
                             /
                           </div>
-                          <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                          <div
+                            class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                          >
                             20
                           </div>
 
                           <div class="pagination d-flex justify-content-end">
                             <div class="left_arrow d-flex align-items-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24"
-                                fill="none">
-                                <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="triangle-left"
+                                viewBox="0 0 16 24"
+                                fill="none"
+                              >
+                                <path
+                                  d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                                  fill="#000"
+                                />
                               </svg>
                             </div>
-                            <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                            <div
+                              class="page-no d-flex justify-content-center align-items-center font ms-1"
+                            >
                               1
                             </div>
-                            <div class="right_arrow d-flex align-items-center ms-1">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24"
-                                fill="none">
-                                <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                            <div
+                              class="right_arrow d-flex align-items-center ms-1"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="triangle-left"
+                                viewBox="0 0 17 24"
+                                fill="none"
+                              >
+                                <path
+                                  d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                                  fill="#000"
+                                />
                               </svg>
                             </div>
                           </div>
@@ -1027,24 +1719,39 @@
                     <div class="col-12 d-flex justify-content-center">
                       <div class="table-header">
                         <div class="checkbox-header d-flex align-items-center">
-                          <div class="edit_btn d-flex justify-content-center align-items-center"></div>
+                          <div
+                            class="edit_btn d-flex justify-content-center align-items-center"
+                          ></div>
                           <div class="checkbox" style="margin-left: -2%">
                             <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input checkbox-input-checkbox" type="checkbox"
-                                style="margin-right: 1%" value="" id="flexCheckDefault" disabled />
+                              <input
+                                class="form-check-input checkbox-input-checkbox"
+                                type="checkbox"
+                                style="margin-right: 1%"
+                                value=""
+                                id="flexCheckDefault"
+                                disabled
+                              />
                             </div>
                           </div>
 
-                          <div class="form-check-input checkbox-input-checkbox" style="
+                          <div
+                            class="form-check-input checkbox-input-checkbox"
+                            style="
                               border: 1px solid #fff;
                               border-radius: 2px;
                               margin-right: 1%;
-                            "></div>
-                          <div class="Status_label font d-flex align-items-center justify-content-center">
+                            "
+                          ></div>
+                          <div
+                            class="Status_label font d-flex align-items-center justify-content-center"
+                          >
                             Status
                           </div>
 
-                          <div class="id-header_submitted font d-flex justify-content-center">
+                          <div
+                            class="id-header_submitted font d-flex justify-content-center"
+                          >
                             Id
                           </div>
 
@@ -1060,7 +1767,9 @@
                             Approved
                           </div>
 
-                          <div class="submitted-date-header font d-flex justify-content-end">
+                          <div
+                            class="submitted-date-header font d-flex justify-content-end"
+                          >
                             Submitted date
                           </div>
                         </div>
@@ -1072,60 +1781,107 @@
                     <div class="row mt-2" *ngFor="let res of tableData">
                       <div class="col-12 d-flex justify-content-center">
                         <div class="table-body d-flex align-items-center">
-                          <div class="edit_btn d-flex justify-content-center align-items-center"
-                            (click)="navigateToEditQuestion()"></div>
+                          <div
+                            class="edit_btn d-flex justify-content-center align-items-center"
+                            (click)="navigateToEditQuestion()"
+                          ></div>
                           <div class="checkbox">
                             <div class="form-check d-flex align-items-center">
-                              <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                id="flexCheckDefault" />
+                              <input
+                                class="form-check-input checkbox-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
                             </div>
                           </div>
 
-                          <div class="form-check form-switch d-flex align-items-center">
-                            <input class="form-check-input" style="width: 5vh; height: 2vh; margin-left: -88%"
-                              type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                          <div
+                            class="form-check form-switch d-flex align-items-center"
+                          >
+                            <input
+                              class="form-check-input"
+                              style="width: 5vh; height: 2vh; margin-left: -88%"
+                              type="checkbox"
+                              role="switch"
+                              id="flexSwitchCheckDefault"
+                            />
                           </div>
 
-                          <div class="view_div d-flex align-items-center justify-content-center"></div>
+                          <div
+                            class="view_div d-flex align-items-center justify-content-center"
+                          ></div>
 
                           <div class="questions-body_submitted font"></div>
 
-                          <div class="pending-header_submitted font d-flex ms-3">
-                            <div class="pending-header_submitted_circle ms-2"></div>
+                          <div
+                            class="pending-header_submitted font d-flex ms-3"
+                          >
+                            <div
+                              class="pending-header_submitted_circle ms-2"
+                            ></div>
                           </div>
 
                           <div class="approved-header_submitted font">
-                            <div class="approved-header_submitted_circle ms-3"></div>
+                            <div
+                              class="approved-header_submitted_circle ms-3"
+                            ></div>
                           </div>
 
-                          <div class="submitted-date-body font d-flex justify-content-end"></div>
+                          <div
+                            class="submitted-date-body font d-flex justify-content-end"
+                          ></div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="row d-flex justify-content-center align-items-center">
+                  <div
+                    class="row d-flex justify-content-center align-items-center"
+                  >
                     <div class="table-footer d-flex align-items-center">
-                      <div class="count-no font d-flex justify-content-center align-items-center">
+                      <div
+                        class="count-no font d-flex justify-content-center align-items-center"
+                      >
                         5
                       </div>
                       <div class="dash ms-1 d-flex align-items-center">/</div>
-                      <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                      <div
+                        class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                      >
                         9
                       </div>
 
                       <div class="pagination d-flex justify-content-end">
                         <div class="left_arrow d-flex align-items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24" fill="none">
-                            <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 16 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                              fill="#000"
+                            />
                           </svg>
                         </div>
-                        <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                        <div
+                          class="page-no d-flex justify-content-center align-items-center font ms-1"
+                        >
                           1
                         </div>
                         <div class="right_arrow d-flex align-items-center ms-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24" fill="none">
-                            <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 17 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                              fill="#000"
+                            />
                           </svg>
                         </div>
                       </div>
@@ -1135,188 +1891,280 @@
                 <!-- Assigned tab -->
                 <div *ngIf="activeIndexDraftSubmit == '4'">
                   <div class="bordert">
-                    <div class="col-4 py-3">
+                    <div class="col-5 py-2">
                       <div class="row">
                         <div class="col-12">
-                          <div class="label_setup-logo font" style="color: black">
-                            <div class="labelfont">Assigned to XXX Stage:</div>
+                          <div class="label_setup font">
+                            Assigned to XXX Stage:
                           </div>
-                          <div ngbDropdown class="box mt-2 w-100 custom-dropdown">
-                            <button ngbDropdownToggle class="box btn-secondary font large-dropdown" type="button"
-                              id="dropdownMenuButtonsetup" aria-expanded="false" style="color: black" [ngStyle]="{
+
+                          <div
+                            ngbDropdown
+                            class="dropdown mt-2 w-100"
+                            style="position: relative; display: inline-flex"
+                          >
+                            <button
+                              ngbDropdownToggle
+                              class="btn btn-secondary font large-dropdown"
+                              type="button"
+                              id="dropdownMenuButtonsetup"
+                              aria-expanded="false"
+                              [ngStyle]="{
                                 color:
                                   selectedDropdownIndustryValue !==
                                   'Select from the drop-down'
                                     ? 'black'
                                     : ''
-                              }">
+                              }"
+                              (click)="GetStageNames()"
+                            >
                               {{ selectedDropdownIndustryValue }}
                             </button>
-                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1"
-                              class="w-100 custom-dropdown-menu">
+                            <ul
+                              ngbDropdownMenu
+                              aria-labelledby="dropdownMenuButton1"
+                              class="dropdown_values w-100"
+                              style="height: 33vh; overflow-y: auto"
+                            >
                               <li>
-                                <a ngbDropdownItem (click)="
-                                    updateSelectedIndustryValue(
-                                      'Organization 1'
-                                    )
-                                  " class="font">NHT - Sub Process - Process - Client/
-                                  Vendor</a>
-                              </li>
-                              <li>
-                                <a ngbDropdownItem (click)="
-                                    updateSelectedIndustryValue(
-                                      'Organization 2'
-                                    )
-                                  " class="font">NHT - Sub Process - Process - Client/
-                                  Vendor</a>
-                              </li>
-                              <li>
-                                <a ngbDropdownItem (click)="
-                                    updateSelectedIndustryValue(
-                                      'Organization 3'
-                                    )
-                                  " class="font">
-                                  - Sub Process - Process - Client/ Vendor</a>
-                              </li>
-                              <li>
-                                <a ngbDropdownItem (click)="
-                                    updateSelectedIndustryValue(
-                                      'Organization 3'
-                                    )
-                                  " class="font">NHT - Sub Process - Process - Client/
-                                  Vendor</a>
-                              </li>
-                              <li>
-                                <a ngbDropdownItem (click)="
-                                    updateSelectedIndustryValue(
-                                      'Organization 3'
-                                    )
-                                  " class="font">NHT - Sub Process - Process - Client/
-                                  Vendor</a>
+                                <a
+                                  ngbDropdownItem
+                                  *ngFor="
+                                    let res of stageDropdown;
+                                    let index = index
+                                  "
+                                  (click)="updateSelectedIndustryValue(index)"
+                                  class="font"
+                                  >{{ res.hierarchyName }}</a
+                                >
                               </li>
                             </ul>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="topbar">
-                      <div class="Cms-Role-list-Count" style="margin-top: -1%; width: 4%; margin-left: -0%">
-                        <div class="font text-light" style="padding: 1%">0</div>
-                        <div class="d-flex align-items-center justify-content-center">
-                          <svg width="14" height="11" viewBox="0 0 14 11" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path id="Polygon 7" d="M12.1962 1L7 10L1.80385 1L12.1962 1Z" fill="white" stroke="white">
-                            </path>
-                          </svg>
-                        </div>
-                      </div>
-                      <div class="search-container" style="
-                          margin-left: 6%;
-                          border-radius: 36px;
-                          margin-top: -2.3%;
-                        ">
-                        <form action="/action_page.php">
-                          <input type="text" placeholder="Search.." name="search"
-                            style="background-color: black; font-size: small" />
-                          <button type="submit">
-                            <i class="fa fa-search"></i>
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                    <div class="table-header" style="margin-top: 1%">
-                      <div class="checkbox-header d-flex align-items-center">
-                        <div class="edit_btn d-flex justify-content-center align-items-center"
-                          (click)="navigateToEditQuestion()"></div>
-                        <div class="checkbox">
-                          <div class="form-check d-flex align-items-center">
-                            <input class="form-check-input checkbox-input-checkbox" type="checkbox" value=""
-                              id="flexCheckDefault" disabled />
+                    <div class="row">
+                      <div class="col-2 mt-2">
+                        <div class="searchBorderRadious d-flex ms-2">
+                          <div class="searchIconBacground">
+                            <img
+                              src="assets/images/Search.svg"
+                              alt=""
+                              class="searchIcon"
+                            />
+                          </div>
+                          <div class="ms-1">
+                            <input
+                              type="search"
+                              class="searchContainer"
+                              name=""
+                              id=""
+                            />
                           </div>
                         </div>
-                        <div class="form-check-input checkbox-input-checkbox" style="
-                            border: 1px solid #fff;
-                            border-radius: 2px;
-                            margin-right: 1%;
-                          "></div>
-                        <div class="Status_label font d-flex align-items-center justify-content-center">
-                          Status
-                        </div>
+                        <!-- Adjust the column width as needed -->
+                      </div>
+                      <div class="col-5 mt-2 p-0 d-flex"></div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-12 d-flex justify-content-center">
+                        <div class="table-header">
+                          <div
+                            class="checkbox-header d-flex align-items-center"
+                          >
+                            <div
+                              class="edit_btn d-flex justify-content-center align-items-center"
+                              (click)="navigateToGameEdit()"
+                            ></div>
+                            <div class="checkbox" style="margin-left: -2%">
+                              <div class="form-check d-flex align-items-center">
+                                <input
+                                  class="form-check-input checkbox-input-checkbox"
+                                  type="checkbox"
+                                  style="margin-right: 1%"
+                                  value=""
+                                  id="flexCheckDefault"
+                                  disabled
+                                />
+                              </div>
+                            </div>
+                            <div
+                              class="form-check-input checkbox-input-checkbox"
+                              style="border: 1px solid #fff; border-radius: 2px"
+                            ></div>
+                            <div
+                              class="Status_label font d-flex align-items-center justify-content-center"
+                              style="margin-left: 1%"
+                            >
+                              Status
+                            </div>
 
-                        <div class="view-header font d-flex justify-content-center">
-                          View
-                        </div>
+                            <div
+                              class="view-header font d-flex justify-content-center"
+                            >
+                              View
+                            </div>
 
-                        <div class="id-header font">Id</div>
+                            <div class="id-header font">Id</div>
 
-                        <div class="question-header font" style="color: white">
-                          Questions
-                        </div>
+                            <div
+                              class="question-header font"
+                              style="color: white; width: 47%"
+                            >
+                              Questions
+                            </div>
 
-                        <div class="feedback-header font d-flex justify-content-center" style="color: white">
-                          Created date
+                            <div
+                              class="submitted-date-header font d-flex justify-content-end"
+                            >
+                              Created date
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class="table-body-height">
-                      <div class="row mt-2" *ngFor="let res of tableData">
+                    <div class="table-body-height-question">
+                      <div
+                        class="row mt-2"
+                        *ngFor="let res of questionListResponse"
+                      >
                         <div class="col-12 d-flex justify-content-center">
                           <div class="table-body d-flex align-items-center">
-                            <div class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToEditQuestion()">
-                              <img class="edit_image" src="assets/images/Edit.svg" alt="Edit Image" />
+                            <div
+                              class="edit_btn d-flex justify-content-center align-items-center"
+                              (click)="navigateToEditQuestion()"
+                            >
+                              <img
+                                class="edit_image"
+                                src="assets/images/Edit.svg"
+                                alt="Edit Image"
+                              />
                             </div>
                             <div class="checkbox">
                               <div class="form-check d-flex align-items-center">
-                                <input class="form-check-input checkbox-input" type="checkbox" value=""
-                                  id="flexCheckDefault" />
+                                <input
+                                  class="form-check-input checkbox-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                />
                               </div>
                             </div>
 
-                            <div class="form-check form-switch d-flex align-items-center">
-                              <input class="form-check-input" style="width: 5vh; height: 2vh" type="checkbox"
-                                role="switch" id="flexSwitchCheckDefault" />
+                            <div
+                              class="form-check form-switch d-flex align-items-center"
+                            >
+                              <input
+                                class="form-check-input"
+                                style="width: 5vh; height: 2vh"
+                                type="checkbox"
+                                role="switch"
+                                id="flexSwitchCheckDefault"
+                                [checked]="res?.isActive == 'A'"
+                              />
                             </div>
 
-                            <button class="view-button" (click)="navigateToEditQuestion()" style="margin-left: 5%">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="eye-image" viewBox="0 0 28 20" fill="none">
+                            <button
+                              class="view-button"
+                              (click)="navigateToEditQuestion()"
+                              style="margin-left: 3%"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="eye-image"
+                                viewBox="0 0 28 20"
+                                fill="none"
+                              >
                                 <path
                                   d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
-                                  stroke="#133870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                  stroke="#133870"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
                                 <path
                                   d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
-                                  stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                  stroke="#000"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
                               </svg>
                             </button>
+
+                            <div
+                              class="id-header font d-flex justify-content-center"
+                              style="color: #000; width: 13%"
+                            >
+                              {{ res?.perTileQuestionId }}
+                            </div>
+
+                            <div
+                              class="question-header font ellipsis"
+                              style="color: #000; width: 47%; margin-left: 3.5%"
+                            >
+                              {{ res?.question }}
+                            </div>
+
+                            <div
+                              class="submitted-date-header font d-flex justify-content-end"
+                              style="color: #000"
+                            >
+                              {{ res?.updatedDateTime | date : "dd/MM/yyyy" }}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="row d-flex justify-content-center align-items-center">
+                  <div
+                    class="row d-flex justify-content-center align-items-center"
+                  >
                     <div class="table-footer d-flex align-items-center">
-                      <div class="count-no font d-flex justify-content-center align-items-center">
+                      <div
+                        class="count-no font d-flex justify-content-center align-items-center"
+                      >
                         5
                       </div>
                       <div class="dash ms-1 d-flex align-items-center">/</div>
-                      <div class="count-out-of font d-flex justify-content-center align-items-center ms-1">
+                      <div
+                        class="count-out-of font d-flex justify-content-center align-items-center ms-1"
+                      >
                         9
                       </div>
 
                       <div class="pagination d-flex justify-content-end">
                         <div class="left_arrow d-flex align-items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 16 24" fill="none">
-                            <path d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z" fill="white" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 16 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M0.0644526 12L15.8019 0.741668L15.8019 23.2583L0.0644526 12Z"
+                              fill="#000"
+                            />
                           </svg>
                         </div>
-                        <div class="page-no d-flex justify-content-center align-items-center font ms-1">
+                        <div
+                          class="page-no d-flex justify-content-center align-items-center font ms-1"
+                        >
                           1
                         </div>
                         <div class="right_arrow d-flex align-items-center ms-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="triangle-left" viewBox="0 0 17 24" fill="none">
-                            <path d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z" fill="white" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="triangle-left"
+                            viewBox="0 0 17 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M16.0103 12L0.272775 0.741668L0.272774 23.2583L16.0103 12Z"
+                              fill="#000"
+                            />
                           </svg>
                         </div>
                       </div>
@@ -1327,25 +2175,31 @@
             </div>
           </div>
 
-          <div *ngIf="
+          <div
+            *ngIf="
               activeIndexDraftSubmit == '1';
               then draft_btn;
               else submitted_btn
-            "></div>
+            "
+          ></div>
 
           <ng-template #draft_btn>
-            <div class="row">
+            <div class="row mt-4 p-0">
               <div class="col-12 d-flex justify-content-end">
-                <div class="submit_button mt-3 me-3 font d-flex justify-content-center">
+                <div
+                  class="submit_button mt-3 font d-flex justify-content-center"
+                >
                   Submit
                 </div>
               </div>
             </div>
           </ng-template>
           <ng-template #submitted_btn>
-            <div class="row">
+            <div class="row mt-4 p-0">
               <div class="col-12 d-flex justify-content-end">
-                <div class="submit_button mt-3 me-3 font d-flex justify-content-center">
+                <div
+                  class="submit_button mt-3 font d-flex justify-content-center"
+                >
                   Assign
                 </div>
               </div>
@@ -1355,23 +2209,43 @@
 
         <!-- Excel Upload Modal -->
         <div class="ExceluploadModal">
-          <div class="modal fade" id="Excelupload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div
+            class="modal fade"
+            id="Excelupload"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content ExcelContentModal">
                 <div class="modal-body">
                   <div>
                     <div style="position: relative">
                       <div class="d-flex justify-content-end">
-                        <div type="button" class="custom-close-btn d-flex justify-content-center align-items-center"
-                          data-bs-dismiss="modal" aria-label="Close">
+                        <div
+                          type="button"
+                          class="custom-close-btn d-flex justify-content-center align-items-center"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
                           X
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-12 d-flex" style="width: auto; position: relative">
-                          <img class="warning_image" alt="Warning image" src="assets/images/Warning.png" />
-                          <div class="warning_message font d-flex align-items-center ms-3 ps-3">
+                        <div
+                          class="col-12 d-flex"
+                          style="width: auto; position: relative"
+                        >
+                          <img
+                            class="warning_image"
+                            alt="Warning image"
+                            src="assets/images/Warning.png"
+                          />
+                          <div
+                            class="warning_message font d-flex align-items-center ms-3 ps-3"
+                          >
                             The content does not match the template. Please
                             refer it again!
                           </div>
@@ -1384,11 +2258,14 @@
                             View Template before uploading:
                           </div>
                           <div class="buttons_div d-flex">
-                            <div class="view_button_modal mt-2 font d-flex justify-content-center align-items-center">
+                            <div
+                              class="view_button_modal mt-2 font d-flex justify-content-center align-items-center"
+                            >
                               View
                             </div>
                             <div
-                              class="download_button_modal mt-2 ms-4 font d-flex justify-content-center align-items-center">
+                              class="download_button_modal mt-2 ms-4 font d-flex justify-content-center align-items-center"
+                            >
                               Download
                             </div>
                           </div>
@@ -1399,23 +2276,35 @@
                             </p>
                             <div class="d-flex">
                               <div>
-                                <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls, .csv"
-                                  id="fileInput" #fileInput />
-                                <label for="fileInput"
+                                <input
+                                  type="file"
+                                  (change)="onFileChange($event)"
+                                  accept=".xlsx, .xls, .csv"
+                                  id="fileInput"
+                                  #fileInput
+                                />
+                                <label
+                                  for="fileInput"
                                   class="browse-btn d-flex justify-content-center align-items-center"
-                                  (change)="onFileChange($event)">Browse</label>
+                                  (change)="onFileChange($event)"
+                                  >Browse</label
+                                >
                               </div>
-                              <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
-                                (click)="uploadQutionfile()">
+                              <div
+                                class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
+                                (click)="uploadQutionfile()"
+                              >
                                 Upload
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="
+                          <div
+                            *ngIf="
                               !questionFileSelected;
                               then disableButtons;
                               else enableButtons
-                            "></div>
+                            "
+                          ></div>
 
                           <div>
                             <ng-template #disableButtons></ng-template>
@@ -1428,41 +2317,71 @@
                               </p>
                               <div class="d-flex">
                                 <div>
-                                  <input type="file" (change)="onFileChangeAnswer($event)" accept=".xlsx, .xls, .csv"
-                                    id="fileInputAnswer" #fileInputAnswer [disabled]="!questionFileSelected" />
-                                  <label for="fileInputAnswer"
+                                  <input
+                                    type="file"
+                                    (change)="onFileChangeAnswer($event)"
+                                    accept=".xlsx, .xls, .csv"
+                                    id="fileInputAnswer"
+                                    #fileInputAnswer
+                                    [disabled]="!questionFileSelected"
+                                  />
+                                  <label
+                                    for="fileInputAnswer"
                                     class="browse-btn d-flex justify-content-center align-items-center"
                                     (change)="onFileChangeAnswer($event)"
-                                    [class.disabled]="!questionFileSelected">Browse</label>
+                                    [class.disabled]="!questionFileSelected"
+                                    >Browse</label
+                                  >
                                 </div>
                                 <div>
-                                  <div class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
-                                    (click)="uploadAnswerfile()">
+                                  <div
+                                    class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
+                                    (click)="uploadAnswerfile()"
+                                  >
                                     Upload
                                   </div>
                                 </div>
                               </div>
                             </ng-template>
 
-                            <div class="pre-approved font mt-3 d-flex align-items-center">
+                            <div
+                              class="pre-approved font mt-3 d-flex align-items-center"
+                            >
                               Is this content pre-approved:
-                              <div class="form-check form-switch d-flex align-items-center ms-1">
-                                <input class="form-check-input" type="checkbox" role="switch"
-                                  id="flexSwitchCheckDefault" />
+                              <div
+                                class="form-check form-switch d-flex align-items-center ms-1"
+                              >
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  role="switch"
+                                  id="flexSwitchCheckDefault"
+                                />
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="col-5 g-0 d-flex align-items-center right_side">
+                        <div
+                          class="col-5 g-0 d-flex align-items-center right_side"
+                        >
                           <div class="requirement_div mt-4">
                             <div class="row">
                               <div class="col-12">
                                 <div class="info-icon ms-1 mt-1">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                    class="bi bi-info-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="14"
+                                    height="14"
+                                    fill="currentColor"
+                                    class="bi bi-info-circle"
+                                    viewBox="0 0 16 16"
+                                  >
                                     <path
-                                      d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                      d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                                    />
+                                    <path
+                                      d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+                                    />
                                   </svg>
                                 </div>
                               </div>
@@ -1470,14 +2389,18 @@
 
                             <div class="row d-flex justify-content-center mt-1">
                               <div class="col-12 font bg_content">
-                                <div class="content_requirement d-flex justify-content-center">
+                                <div
+                                  class="content_requirement d-flex justify-content-center"
+                                >
                                   Content Requirements
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-12 font content_description ms-2 mt-1">
+                              <div
+                                class="col-12 font content_description ms-2 mt-1"
+                              >
                                 Questions: 140 letters max
                                 <br />
                                 Options: 25 letters max
@@ -1505,10 +2428,19 @@
         <!-- Warning Modal -->
 
         <div class="WarningModal">
-          <div class="modal fade" id="WarningModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered"
-              style="position: relative; display: flex; justify-content: center">
+          <div
+            class="modal fade"
+            id="WarningModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered"
+              style="position: relative; display: flex; justify-content: center"
+            >
               <div class="modal-content WarningModal">
                 <div class="warning_image_upload">
                   <img src="assets/images/Warning.png" alt="Warning Image" />
@@ -1517,17 +2449,24 @@
                   <div>
                     <div style="position: relative">
                       <div class="d-flex justify-content-end">
-                        <div type="button" class="custom-close-btn d-flex justify-content-center align-items-center"
-                          data-bs-dismiss="modal" aria-label="Close">
+                        <div
+                          type="button"
+                          class="custom-close-btn d-flex justify-content-center align-items-center"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
                           X
                         </div>
                       </div>
                       <div class="row d-flex justify-content-center mt-3">
-                        <div class="col-12 d-flex warning_message_upload justify-content-center font" style="
+                        <div
+                          class="col-12 d-flex warning_message_upload justify-content-center font"
+                          style="
                             width: auto;
                             position: relative;
                             text-align: center;
-                          ">
+                          "
+                        >
                           No! The content requirements <br />are not met.
                         </div>
                       </div>
@@ -1536,7 +2475,10 @@
                           <div class="upload_button font">Upload Again</div>
                         </div>
                       </div>
-                      <div class="feedback-popup" [ngClass]="{ 'show-popup': isPopupVisible }">
+                      <div
+                        class="feedback-popup"
+                        [ngClass]="{ 'show-popup': isPopupVisible }"
+                      >
                         <div class="feedback-content">
                           <h1>Give Feedback</h1>
                           <p>Please provide your feedback here:</p>

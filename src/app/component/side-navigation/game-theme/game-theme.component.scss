@@ -761,7 +761,7 @@ color:#000;
   color:black;
 }
 .bordert{
-  width:95%;
+ 
   margin-left: 1%;
   height:20%;
 }
@@ -889,7 +889,7 @@ color:#000;
 }
 
 .table-body-height {
-  height: 31vh;
+  height: 37vh;
   overflow-y: auto;
   overflow-x: hidden
 }
@@ -1233,7 +1233,7 @@ margin-top:1% ;
 }
 /* Add CSS to style the second "Upload" button */
 .upload-button:nth-child(2) {
-  margin-left: 19%;
+  
   margin-top: -3%;
 }
 .searchBorderRadious{
@@ -1342,4 +1342,27 @@ margin-top:1% ;
 .ceterTab{
   display: flex;
   justify-content: center;
+}
+
+#dropdownMenuButtonsetup {
+  height: 4.5vh;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: #D7D7E8;
+  color: #818195;
+  min-width: 100%;
+
+}
+
+.large-dropdown::after {
+  position: absolute;
+  font-size: 3em;
+  right: 0.2em;
+  color: #000000;
+}
+
+.table-body-height-question{
+  height: 22vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

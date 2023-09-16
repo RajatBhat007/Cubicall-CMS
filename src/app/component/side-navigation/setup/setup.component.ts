@@ -401,12 +401,12 @@ export class SetupComponent implements OnInit {
         Logo_Imgbytes: this.sliced_base64string,
         IndustryName: this.selectedDropdownIndustryValue,
         BUSINESSTYPENAME: this.selectedDropdownBusinessTypeValue,
-        IdBusinessType: this.selectedDropdownIndustryValueId,
-        IdIndustry: this.selectedDropdownBusinessTypeValueId,
+        IdBusinessType: Number(this.selectedDropdownBusinessTypeValueId),
+        IdIndustry: Number(this.selectedDropdownIndustryValueId),
       },
     };
     console.log(payload.Data);
-    
+
     const escapedIdOrganization = JSON.stringify(payload.Data.IdOrganization);
     const escapedIdCmsUser = JSON.stringify(payload.Data.IdCmsUser);
     const escapedOrganizationCode = JSON.stringify(

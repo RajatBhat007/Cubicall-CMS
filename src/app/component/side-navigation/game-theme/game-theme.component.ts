@@ -44,24 +44,27 @@ export class GameThemeComponent implements OnInit {
   isEditMode: boolean = false;
   currentSection: string = '';
   isupload = false;
-  iscreate:boolean=false;
+  iscreate: boolean = false;
   isStatusTab: boolean = false;
   isactive = false;
-  hideuploadButton:boolean=false;
+  hideuploadButton: boolean = false;
   apiData: any;
   idOrganization: number = 0;
   gameTime: any = [];
   cubeFaceGameAttempt: any = [];
   cubeFaceGameStreak: any = [];
-  cubeFaceId:number=0;
+  cubeFaceId: number = 0;
   value: any;
-  totalList:any='';
-  activeList:String='';
-  inactiveList:String='';
-  editGameTimeArray:any=[]
-  cubeFaceIdViseGameTimeData:any=[];
-  cubeFaceIdViseGameAttemtData:any=[];
-  cubeFaceIdViseGameStreakData:any=[];
+  totalList: any = '';
+  activeList: String = '';
+  inactiveList: String = '';
+  editGameTimeArray: any = [];
+  cubeFaceIdViseGameTimeData: any = [];
+  cubeFaceIdViseGameAttemtData: any = [];
+  cubeFaceIdViseGameStreakData: any = [];
+  questionListResponse: any = [];
+  uploadButton: boolean = false;
+  stageDropdown: any = [];
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -146,17 +149,7 @@ export class GameThemeComponent implements OnInit {
       label: 'Streak',
     },
   ];
-  tableData = [
-    {
-      id: '',
-      game: '',
-    },
-    {
-      id: '',
-      game: '',
-      tile: '',
-    },
-  ];
+  tableData = [];
 
   tableData1 = [
     {
@@ -189,29 +182,43 @@ export class GameThemeComponent implements OnInit {
   ];
   ngOnInit(): void {
     this.http.getApiData().subscribe((data) => {
-        this.apiData = data;
-        console.log(this.apiData);
-      });
+      this.apiData = data;
+      console.log(this.apiData);
+      if (this.apiData?.role?.idRoleType >= 4) {
+        this.uploadButton = true;
+      }
+    });
 
     this._route.queryParams.subscribe((params) => {
-        console.log(params);
-        this.value = params;
-        console.log(this.value.activeIndexSubTab);
-        console.log(this.value.activeIndexSubTab);
-        
-        if (this.value.activeIndexSubTab=='1') {
-            this.NavigateToSubTab(Number(this.value.activeIndexSubTab))    
-        } 
-        
-      });
+      console.log(params);
+      this.value = params;
+      console.log(this.value.activeIndexSubTab);
+      console.log(this.value.activeIndexSubTab);
 
-   
-    this.View('1');
-    this.status = 'rejected';
-    this.http.getQuestionList(1, 1).subscribe((res) => {
-    //   console.log(res);
+      if (this.value.activeIndexSubTab == '1') {
+        this.NavigateToSubTab(Number(this.value.activeIndexSubTab));
+      }
     });
-  
+
+    this.View('4');
+    this.status = 'rejected';
+  }
+
+  GetQuestionData() {
+    this.http
+      .getQuestionList(
+        this.apiData?.user?.idOrganization,
+        this.activeIndexTab + 1
+      )
+      .subscribe((res) => {
+        this.questionListResponse = res;
+      });
+  }
+
+  GetStageNames() {
+    this.http.getStagesName(this.apiData?.user?.idCmsUser).subscribe((res) => {
+      this.stageDropdown = res;
+    });
   }
 
   onFileChange(event: any) {
@@ -344,10 +351,10 @@ export class GameThemeComponent implements OnInit {
   }
   NavigateToTab(index: any) {
     this.activeIndexTab = index;
-    if(this.activeSubSubTab == '0'){
+    this.GetQuestionData();
+    if (this.activeSubSubTab == '0') {
       this.getCubeFaceGameTime();
-    }
-    else if (this.activeSubSubTab == '1') {
+    } else if (this.activeSubSubTab == '1') {
       this.getCubeFaceGameAttempt();
     } else if (this.activeSubSubTab == '2') {
       this.getCubeFaceGameStreak();
@@ -356,19 +363,16 @@ export class GameThemeComponent implements OnInit {
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
     console.log(this.activeIndexSubTab);
-    
+
     if (this.activeIndexSubTab == '0') {
       this.isStatusTab == true;
     }
     if (this.activeIndexSubTab == '0') {
       this.isactive == true;
-      this.isupload=false
+      this.isupload = false;
     } else if (this.activeIndexSubTab == index) {
       this.getCubeFaceGameTime();
-      this.isupload=true
-    
-    
-
+      this.isupload = true;
     }
     if (this.activeIndexsubSubTab == '0') {
     }
@@ -393,14 +397,46 @@ export class GameThemeComponent implements OnInit {
     this.activeAll = value;
     this.activeIndexDraftSubmit = value;
     this.activeIndexRejectedSubmit = value;
-    if(value=='1'){
-     console.log('hello');
-     this.hideuploadButton=false;
-    //  this.getCubeFaceGameAttempt()
-    }
-    else if(value=='2')
-    {
-     this.hideuploadButton=true;
+    if (value == '1') {
+      console.log('hello');
+      this.hideuploadButton = false;
+      this.subtab = [
+        {
+          label: 'Content',
+        },
+        {
+          label: 'Game Points & Details',
+        },
+        {
+          label: 'Configure Images',
+        },
+        {
+          label: 'Contant Approval',
+        },
+      ];
+      //  this.getCubeFaceGameAttempt()
+    } else if (value == '2') {
+      this.subtab = [
+        {
+          label: 'Contant Approval',
+        },
+      ];
+      this.hideuploadButton = true;
+    } else if (value == '4') {
+      this.subtab = [
+        {
+          label: 'Contant Approval',
+        },
+      ];
+      this.hideuploadButton = true;
+      this.GetQuestionData();
+    } else {
+      this.subtab = [
+        {
+          label: 'Contant Approval',
+        },
+      ];
+      this.hideuploadButton = true;
     }
   }
 
@@ -416,11 +452,10 @@ export class GameThemeComponent implements OnInit {
   }
   activateSubSubTab(index: number) {
     this.activeSubSubTab = index;
-   console.log(this.activeSubSubTab);
-    if(this.activeSubSubTab == '0'){
+    console.log(this.activeSubSubTab);
+    if (this.activeSubSubTab == '0') {
       this.getCubeFaceGameTime();
-    }
-    else if (this.activeSubSubTab == '1') {
+    } else if (this.activeSubSubTab == '1') {
       this.getCubeFaceGameAttempt();
     } else if (this.activeSubSubTab == '2') {
       this.getCubeFaceGameStreak();
@@ -467,11 +502,9 @@ export class GameThemeComponent implements OnInit {
   }
   setActiveAll() {}
 
-
-  
   changeFilter(index: any) {
     console.log(index);
-    if(this.activeSubSubTab == '0'){
+    if (this.activeSubSubTab == '0') {
       if (index == 0) {
         this.gameTime = this.totalList;
       } else if (index == 1) {
@@ -479,8 +512,7 @@ export class GameThemeComponent implements OnInit {
       } else if (index == 2) {
         this.gameTime = this.inactiveList;
       }
-    }
-    else if(this.activeSubSubTab == '1'){
+    } else if (this.activeSubSubTab == '1') {
       if (index == 0) {
         this.cubeFaceGameAttempt = this.totalList;
       } else if (index == 1) {
@@ -488,8 +520,7 @@ export class GameThemeComponent implements OnInit {
       } else if (index == 2) {
         this.cubeFaceGameAttempt = this.inactiveList;
       }
-    }
-    else if(this.activeSubSubTab == '2'){
+    } else if (this.activeSubSubTab == '2') {
       if (index == 0) {
         this.cubeFaceGameStreak = this.totalList;
       } else if (index == 1) {
@@ -498,26 +529,25 @@ export class GameThemeComponent implements OnInit {
         this.cubeFaceGameStreak = this.inactiveList;
       }
     }
-   
-   
-
   }
 
-
-  getCubeFaceGameTime() {    
+  getCubeFaceGameTime() {
     console.log('getCubeFaceGameTime');
     this.idOrganization = this.apiData?.user?.idOrganization;
-    let CubesFacesGameId =-1;
-    this.http.getCubeFaceGameTime(this.idOrganization, CubesFacesGameId).subscribe((res) => {
+    let CubesFacesGameId = -1;
+    this.http
+      .getCubeFaceGameTime(this.idOrganization, CubesFacesGameId)
+      .subscribe((res) => {
         this.gameTime = res;
         console.log(this.gameTime);
-         
-        this.cubeFaceIdViseGameTimeData=this.gameTime.filter(
-          (org: { cubesFacesId: string }) => org.cubesFacesId === this.activeIndexTab+1
+
+        this.cubeFaceIdViseGameTimeData = this.gameTime.filter(
+          (org: { cubesFacesId: string }) =>
+            org.cubesFacesId === this.activeIndexTab + 1
         );
         console.log(this.cubeFaceIdViseGameTimeData);
-        
-        this.totalList= this.gameTime;
+
+        this.totalList = this.gameTime;
         console.log(this.totalList);
         this.count[0].value = this.gameTime.length;
         this.activeList = this.gameTime.filter(
@@ -527,28 +557,28 @@ export class GameThemeComponent implements OnInit {
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.gameTime.filter(
           (org: { isActive: string }) => org.isActive === 'D'
-        ); 
+        );
         console.log(this.inactiveList);
         this.count[2].value = this.inactiveList.length;
       });
-
   }
 
   getCubeFaceGameAttempt() {
     this.idOrganization = this.apiData?.user?.idOrganization;
     let AttemptNoId = -1;
-    this.http.getCubeFaceGameAttempt(this.idOrganization, AttemptNoId).subscribe((res) => {
+    this.http
+      .getCubeFaceGameAttempt(this.idOrganization, AttemptNoId)
+      .subscribe((res) => {
         console.log(res);
         this.cubeFaceGameAttempt = res;
-          
-        
-        this.cubeFaceIdViseGameAttemtData=this.cubeFaceGameAttempt.filter(
-          (org: { cubesFacesId: string }) => org.cubesFacesId === this.activeIndexTab+1
+
+        this.cubeFaceIdViseGameAttemtData = this.cubeFaceGameAttempt.filter(
+          (org: { cubesFacesId: string }) =>
+            org.cubesFacesId === this.activeIndexTab + 1
         );
         console.log(this.cubeFaceIdViseGameTimeData);
-        
 
-        this.totalList= this.cubeFaceGameAttempt;
+        this.totalList = this.cubeFaceGameAttempt;
         console.log(this.totalList);
         this.count[0].value = this.cubeFaceGameAttempt.length;
         this.activeList = this.cubeFaceGameAttempt.filter(
@@ -558,7 +588,7 @@ export class GameThemeComponent implements OnInit {
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.cubeFaceGameAttempt.filter(
           (org: { isActive: string }) => org.isActive === 'D'
-        ); 
+        );
         console.log(this.inactiveList);
         this.count[2].value = this.inactiveList.length;
       });
@@ -567,17 +597,19 @@ export class GameThemeComponent implements OnInit {
   getCubeFaceGameStreak() {
     this.idOrganization = this.apiData?.user?.idOrganization;
     let StreakId = -1;
-    this.http.getCubeFaceGameStreak(this.idOrganization, StreakId).subscribe((res) => {
+    this.http
+      .getCubeFaceGameStreak(this.idOrganization, StreakId)
+      .subscribe((res) => {
         console.log(res);
         this.cubeFaceGameStreak = res;
 
-        this.cubeFaceIdViseGameStreakData=this.cubeFaceGameStreak.filter(
-          (org: { cubesFacesId: string }) => org.cubesFacesId === this.activeIndexTab+1
+        this.cubeFaceIdViseGameStreakData = this.cubeFaceGameStreak.filter(
+          (org: { cubesFacesId: string }) =>
+            org.cubesFacesId === this.activeIndexTab + 1
         );
         console.log(this.cubeFaceIdViseGameStreakData);
-        
 
-        this.totalList= this.cubeFaceGameStreak;
+        this.totalList = this.cubeFaceGameStreak;
         console.log(this.totalList);
         this.count[0].value = this.cubeFaceGameStreak.length;
         this.activeList = this.cubeFaceGameStreak.filter(
@@ -587,48 +619,70 @@ export class GameThemeComponent implements OnInit {
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.cubeFaceGameStreak.filter(
           (org: { isActive: string }) => org.isActive === 'D'
-        ); 
+        );
         console.log(this.inactiveList);
         this.count[2].value = this.inactiveList.length;
       });
   }
 
-
-  Create(){
+  Create() {
     console.log(this.activeIndexSubTab);
-    console.log(this.activeIndexTab+1);
-    let gamePointsActiveTab=this.activeSubSubTab 
-    let cubeFaceId=this.activeIndexTab+1
-    let categoryName=this.matTab[this.activeIndexTab].content
-    this._router.navigate(['home/edit-question'], { queryParams: {cubeFaceId,gamePointsActiveTab,categoryName}});
+    console.log(this.activeIndexTab + 1);
+    let gamePointsActiveTab = this.activeSubSubTab;
+    let cubeFaceId = this.activeIndexTab + 1;
+    let categoryName = this.matTab[this.activeIndexTab].content;
+    this._router.navigate(['home/edit-question'], {
+      queryParams: { cubeFaceId, gamePointsActiveTab, categoryName },
+    });
   }
 
-  editGameTime(value:any,label:any){
-   if(label=='gametime'){
-    console.log(this.gameTime[value]);
-    let gamePointsActiveTab=this.activeSubSubTab;
-    let cubesFacesGameId = JSON.stringify(this.gameTime[value]);
-    let cubeFaceId=this.gameTime[value].cubesFacesId;
-    let categoryName=this.gameTime[value].categoryName;
-    this._router.navigate(['home/edit-question'], { queryParams:{cubeFaceId,gamePointsActiveTab,categoryName,cubesFacesGameId}}); 
-   }
-   else if(label=='attempt'){
-    console.log(this.cubeFaceGameAttempt[value]);
-    let gamePointsActiveTab=this.activeSubSubTab;
-    let cubeFaceGameAttemptEdit = JSON.stringify(this.cubeFaceGameAttempt[value]);
-    let cubeFaceId=this.cubeFaceGameAttempt[value]?.cubesFacesId;
-    let categoryName=this.cubeFaceGameAttempt[value]?.categoryName;
-    this._router.navigate(['home/edit-question'], { queryParams:{cubeFaceId,gamePointsActiveTab,categoryName,cubeFaceGameAttemptEdit}});
- 
-   }
-   else if(label=='streak'){
-    console.log(this.cubeFaceGameStreak[value]);
-    let gamePointsActiveTab=this.activeSubSubTab;
-    let cubeFaceGameStreakEdit = JSON.stringify(this.cubeFaceGameStreak[value]);
-    let cubeFaceId=this.cubeFaceGameStreak[value]?.cubesFacesId;
-    let categoryName=this.cubeFaceGameStreak[value]?.categoryName;
-    this._router.navigate(['home/edit-question'], { queryParams:{cubeFaceId,gamePointsActiveTab,categoryName,cubeFaceGameStreakEdit}});
- 
-   }
+  editGameTime(value: any, label: any) {
+    if (label == 'gametime') {
+      console.log(this.gameTime[value]);
+      let gamePointsActiveTab = this.activeSubSubTab;
+      let cubesFacesGameId = JSON.stringify(this.gameTime[value]);
+      let cubeFaceId = this.gameTime[value].cubesFacesId;
+      let categoryName = this.gameTime[value].categoryName;
+      this._router.navigate(['home/edit-question'], {
+        queryParams: {
+          cubeFaceId,
+          gamePointsActiveTab,
+          categoryName,
+          cubesFacesGameId,
+        },
+      });
+    } else if (label == 'attempt') {
+      console.log(this.cubeFaceGameAttempt[value]);
+      let gamePointsActiveTab = this.activeSubSubTab;
+      let cubeFaceGameAttemptEdit = JSON.stringify(
+        this.cubeFaceGameAttempt[value]
+      );
+      let cubeFaceId = this.cubeFaceGameAttempt[value]?.cubesFacesId;
+      let categoryName = this.cubeFaceGameAttempt[value]?.categoryName;
+      this._router.navigate(['home/edit-question'], {
+        queryParams: {
+          cubeFaceId,
+          gamePointsActiveTab,
+          categoryName,
+          cubeFaceGameAttemptEdit,
+        },
+      });
+    } else if (label == 'streak') {
+      console.log(this.cubeFaceGameStreak[value]);
+      let gamePointsActiveTab = this.activeSubSubTab;
+      let cubeFaceGameStreakEdit = JSON.stringify(
+        this.cubeFaceGameStreak[value]
+      );
+      let cubeFaceId = this.cubeFaceGameStreak[value]?.cubesFacesId;
+      let categoryName = this.cubeFaceGameStreak[value]?.categoryName;
+      this._router.navigate(['home/edit-question'], {
+        queryParams: {
+          cubeFaceId,
+          gamePointsActiveTab,
+          categoryName,
+          cubeFaceGameStreakEdit,
+        },
+      });
+    }
   }
 }
