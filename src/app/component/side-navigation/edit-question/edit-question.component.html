@@ -37,11 +37,11 @@
                             3</a></li>
                 </ul>
             </div>
-  
+
             <div ngbDropdown class="dropdown" style="position: relative; display: inline-flex;">
                 <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton2"
                     aria-expanded="false">
-  
+
                     <svg xmlns="http://www.w3.org/2000/svg" class="circle" viewBox="0 0 41 41" fill="none">
                         <circle cx="20.5" cy="20.5" r="19.5" fill="white" stroke="#000" stroke-width="2" />
                         <path
@@ -58,7 +58,7 @@
                     <li><a ngbDropdownItem class="font">Profile 3</a></li>
                 </ul>
             </div>
-  
+
         </div>
 
     </div>
@@ -73,114 +73,594 @@
     </div>
 
     <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <div class="box-edit-question">
-                <div class="row">
-                    <div class="col-11 d-flex justify-content-center mt-3 font">
-                        <div class="header_question d-flex justify-content-center align-items-center">
-                            Defuse the Bomb
+        <div [ngSwitch]="gamePointsActiveTab">
+            <div *ngSwitchDefault>
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="box-edit-question">
+                        <div class="row">
+                            <div class="col-11 d-flex justify-content-center mt-3 font">
+                                <div class="header_question d-flex justify-content-center align-items-center">
+                                    Defuse the Bomb
+                                </div>
+
+                            </div>
+                            <div class="col-1 d-flex justify-content-center align-items-center">
+                                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    class="cross-icon" (click)="close()">
+                                    <g id="Group 8373">
+                                        <circle id="Ellipse 21" cx="18" cy="18" r="17" fill="#D7D7E8" stroke="black"
+                                            stroke-width="2" />
+                                        <path id="Vector 3983" d="M9.5 10L28 27" stroke="black" stroke-width="5" />
+                                        <path id="Vector 3984" d="M27.25 9.25L10.25 27.75" stroke="black"
+                                            stroke-width="5" />
+                                    </g>
+                                </svg>
+                            </div>
                         </div>
 
-                    </div>
-                    <div class="col-1 d-flex justify-content-center align-items-center">
-                    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="cross-icon" (click)="close()">
-                        <g id="Group 8373">
-                            <circle id="Ellipse 21" cx="18" cy="18" r="17" fill="#D7D7E8" stroke="black"
-                                stroke-width="2" />
-                            <path id="Vector 3983" d="M9.5 10L28 27" stroke="black" stroke-width="5" />
-                            <path id="Vector 3984" d="M27.25 9.25L10.25 27.75" stroke="black"
-                                stroke-width="5" />
-                        </g>
-                    </svg>
-                </div>
-                </div>
+                        <div class="row mt-3 ms-2">
+                            <div class="col-3">
+                                <div class="content-requirement-edit-que">
+                                    <div class="row d-flex">
+                                        <div class="col-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="info-image"
+                                                viewBox="0 0 27 27" fill="none">
+                                                <path
+                                                    d="M13.3475 25.8595C20.0315 25.8595 25.4499 20.4411 25.4499 13.7571C25.4499 7.07315 20.0315 1.65472 13.3475 1.65472C6.66354 1.65472 1.24512 7.07315 1.24512 13.7571C1.24512 20.4411 6.66354 25.8595 13.3475 25.8595Z"
+                                                    stroke="#133870" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M13.3472 18.5981V13.7571" stroke="#133870" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M13.3472 8.91608H13.3573" stroke="#133870" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
 
-                <div class="row mt-3 ms-2">
-                    <div class="col-3">
-                        <div class="content-requirement-edit-que">
-                            <div class="row d-flex">
-                                <div class="col-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="info-image" viewBox="0 0 27 27"
-                                        fill="none">
+
+                                        </div>
+                                        <div class="col-10 font content-req d-flex align-items-center">
+                                            Content Requirements: Questions: 140 letters max Options: 25 letters max
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="col-9"></div>
+                        </div>
+
+                        <div class="row ms-3 mt-2">
+                            <div class="col-2 d-flex align-items-center id_div">
+                                <div class="id-label font d-flex align-items-center">
+                                    ID:
+                                </div>
+                                <div class="id_number d-flex justify-content-center align-items-center font">
+                                    1
+                                </div>
+                            </div>
+                            <div class="col-10"></div>
+                        </div>
+                        <div class="col-10 feedback-box">
+                            <div class="feedback-content">
+                                <!-- Your feedback content goes here -->
+                            </div>
+                        </div>
+
+                        <div class="row ms-2 mt-2">
+                            <div class="col-12 d-flex ">
+                                <div class="d-flex question-container font">
+                                    <textarea class="form-control input-question" placeholder="Question"
+                                        rows="7"></textarea>
+                                    <!-- Question -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-1 ansewer_hint_section d-flex justify-content-center">
+                            <div class="col-7">
+                                <div class="radio-button-custom d-flex mt-2"
+                                    *ngFor="let res of answerOption; let i=index" (click)="selectOption(i)">
+                                    <div class="radio-button ms-3"
+                                        [ngClass]="{'radio-button-active': i === activeIndexTab}">
+                                    </div>
+                                    <div class="option_1 font d-flex align-items-center ps-2 ms-2">{{res.option}}</div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-5">
+                                <div class="d-flex hint-container font mt-2">
+                                    <textarea class="form-control hint-question" placeholder="Hint" rows="7"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5 last_row">
+                            <div class="col-6 d-flex" style="margin-top:-1%">
+                                <div class="status_label font ms-3 d-flex align-items-center">STATUS</div>
+                                <div class="form-check form-switch d-flex ms-2">
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                        id="flexSwitchCheckDefault">
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end" style="margin-top:-1%">
+                                <div class="button_div d-flex justify-content-center align-items-center font"
+                                    data-bs-toggle="modal" data-bs-target="#WarningModal">
+                                    Done
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngSwitchCase="0">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="box-edit-question">
+                        <div class="row">
+                            <div class="col-11 d-flex justify-content-center mt-3 font">
+                                <div class="header_question d-flex justify-content-center align-items-center">
+                                   {{categoryName}}
+                                </div>
+
+                            </div>
+                            <div class="col-1 d-flex justify-content-center align-items-center">
+                                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    class="cross-icon" (click)="close()">
+                                    <g id="Group 8373">
+                                        <circle id="Ellipse 21" cx="18" cy="18" r="17" fill="#D7D7E8" stroke="black"
+                                            stroke-width="2" />
+                                        <path id="Vector 3983" d="M9.5 10L28 27" stroke="black" stroke-width="5" />
+                                        <path id="Vector 3984" d="M27.25 9.25L10.25 27.75" stroke="black"
+                                            stroke-width="5" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                         
+                        <div class="row mt-5">
+                            <div class="col-1 ms-5">
+                                <div class="idBlock d-flex ps-1">
+                                    <div class="font  d-flex justify-content-center align-items-center">id:</div>
+                                    <div class="font ms-1 id d-flex justify-content-center align-items-center p-1">42211</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    * Tile Time multiplied by 16 should not exceed the Game Time
+                                </div>
+                            </div>
+                            <div class="col-5"></div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-3 ms-5">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Game Time
+                                </div>
+
+                                <div class="GameTileStopwatch mt-2  font p-1 d-flex justify-content-center align-items-center">
+                                    <div class="font WatchContainer d-flex justify-content-center align-items-center">
+                                        <div class="">
+                                            <div class="Time">
+                                                <input type="text"
+                                                 value="{{currentValue}}"
+                                                 class="input_time text-center" >
+                                            </div>
+                                            <div class="bottom-border mx-2"></div>
+                                        </div> 
+                                      </div>
+                                </div>
+                                 <div class="timecontainer d-flex justify-content-center mt-2">
+                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('gametime')">
+                                        -
+                                    </div>
+                                    <div class="font minButton px-3 py-1 mx-3 font d-flex justify-content-center align-items-center">
+                                        Min
+                                    </div>
+                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('gametime')">
+                                        +
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Tile Time
+                                </div>
+
+                                <div class="TileTimeStopwatch font p-1 d-flex justify-content-center align-items-center">
+                                    <div class="font WatchContainer d-flex justify-content-center align-items-center">
+                                        <div class="">
+                                            <div class="Time">
+                                                <input type="text"
+                                                 value="{{tileTime}}"
+                                                 class="input_time text-center">
+                                            </div>
+                                            <div class="bottom-border mx-2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timecontainer d-flex justify-content-center mt-2">
+                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('tiletime')">
+                                        -
+                                    </div>
+                                    <div class="font minButton px-3 py-1 mx-3 font d-flex justify-content-center align-items-center">
+                                        Sec
+                                    </div>
+                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('tiletime')">
+                                        +
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="col-4">
+
+                            </div>
+                        </div>
+                          
+                        <div class="row">
+                            <div class="col-12  noteBlock d-flex justify-content-end align-items-end">
+                                <div class="font me-5">
+                                    Note: All the active scoring will be published.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row donebuttonBlock">
+                            <div class="col-1 p-0"></div>
+                             <div class="col-5 ps-0 d-flex justify-content-start align-items-center">
+                             <div class="font status fontInter">
+                                status
+                             </div>
+                             <div
+                             class="form-check form-switch d-flex align-items-center"  >
+                             <input
+                               class="form-check-input"
+                               style="width:5vw; height: 4vh"
+                               type="checkbox"
+                               role="switch"
+                               id="flexSwitchCheckDefault" 
+                               [checked]="status=='A'"
+                               (change)="checkBoxvalue($event)"
+                               />
+                            </div>
+                            </div> 
+                            <div class="col-6 pe-5 d-flex align-items-center justify-content-end">
+                                <div class="donebutton font fontInter" (click)="setCubeFaceGameTime()">
+                                    Done
+                                  </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngSwitchCase="1">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="box-edit-question">
+                        <div class="row">
+                            <div class="col-11 d-flex justify-content-center mt-3 font">
+                                <div class="header_question d-flex justify-content-center align-items-center">
+                                    {{categoryName}}
+
+                                </div>
+                            </div>
+                            <div class="col-1 d-flex justify-content-center align-items-center">
+                                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    class="cross-icon" (click)="close()">
+                                    <g id="Group 8373">
+                                        <circle id="Ellipse 21" cx="18" cy="18" r="17" fill="#D7D7E8" stroke="black"
+                                            stroke-width="2" />
+                                        <path id="Vector 3983" d="M9.5 10L28 27" stroke="black" stroke-width="5" />
+                                        <path id="Vector 3984" d="M27.25 9.25L10.25 27.75" stroke="black"
+                                            stroke-width="5" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>                       
+                        <div class="row marginTop">
+                            <div class="col-1 ms-5">
+                                <div class="idBlock d-flex ps-1">
+                                    <div class="font  d-flex justify-content-center align-items-center">id:</div>
+                                    <div class="font ms-1 id d-flex justify-content-center align-items-center p-1">42211</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <!-- <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    * Tile Time multiplied by 16 should not exceed the Game Time
+                                </div> -->
+                            </div>
+                            <div class="col-5"></div>
+                        </div>
+                        <div class="row marginTop mx-5">
+                            <div class="col-4">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Attempt No:
+                                </div>
+
+                                <div class="GameTileStopwatch mt-2  font p-1 d-flex justify-content-center align-items-center">
+                                    <div class="font WatchContainer d-flex justify-content-center align-items-center">
+                                        <div class="">
+                                            <div class="Time">
+                                                <input type="text"
+                                                 value="{{attemptNo}}"
+                                                 class="input_time text-center" >
+                                            </div>
+                                            <div class="bottom-border mx-2"></div>
+                                        </div> 
+                                      </div>
+                                </div>
+                                 <div class="timecontainer d-flex justify-content-center mt-2">
+                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('attemptNo')">
+                                        -
+                                    </div>
+                                    <div class="font minButton px-3 py-1 mx-3 font d-flex justify-content-center align-items-center">
+                                        No.
+                                    </div>
+                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('attemptNo')">
+                                        +
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Points:
+                                </div>
+
+                                <div class="TileTimeStopwatch font p-1 d-flex justify-content-center align-items-center">
+                                    <div class="font WatchContainer d-flex justify-content-center align-items-center">
+                                        <div class="">
+                                            <div class="Time">
+                                                <input type="text"
+                                                 value="{{gamePoints}}"
+                                                 class="input_time text-center">
+                                            </div>
+                                            <div class="bottom-border mx-2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timecontainer d-flex justify-content-center mt-2">
+                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('attemptPoints')">
+                                        -
+                                    </div>
+                                    <div class="font minButton px-3 py-1 mx-3 font d-flex justify-content-center align-items-center">
+                                        Points
+                                    </div>
+                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('attemptPoints')">
+                                        +
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Points across other attempts:
+                                </div>
+                                <div class="AttemptInfoCard font p-1">
+                                    <div>
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="eye-image"
+                                        viewBox="0 0 28 20"
+                                        fill="none"
+                                      >
                                         <path
-                                            d="M13.3475 25.8595C20.0315 25.8595 25.4499 20.4411 25.4499 13.7571C25.4499 7.07315 20.0315 1.65472 13.3475 1.65472C6.66354 1.65472 1.24512 7.07315 1.24512 13.7571C1.24512 20.4411 6.66354 25.8595 13.3475 25.8595Z"
-                                            stroke="#133870" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path d="M13.3472 18.5981V13.7571" stroke="#133870" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M13.3472 8.91608H13.3573" stroke="#133870" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-
-                                </div>
-                                <div class="col-10 font content-req d-flex align-items-center">
-                                    Content Requirements: Questions: 140 letters max Options: 25 letters max
+                                          d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                                          stroke="#133870"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                        <path
+                                          d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                                          stroke="#000"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+    
+                                    <div class="font p-1 px-3 AttemptTile" *ngFor="let item of Attempt">    
+                                            {{item.attemt}}
+                                    </div>
                                 </div>
                             </div>
-
-
-                        </div>
-                    </div>
-                    <div class="col-9"></div>
-                </div>
-
-                <div class="row ms-3 mt-2">
-                    <div class="col-2 d-flex align-items-center id_div">
-                        <div class="id-label font d-flex align-items-center">
-                            ID:
-                        </div>
-                        <div class="id_number d-flex justify-content-center align-items-center font">
-                            1
-                        </div>
-                    </div>
-                    <div class="col-10"></div>
-                </div>
-                <div class="col-10 feedback-box">
-                    <div class="feedback-content">
-                        <!-- Your feedback content goes here -->
-                    </div>
-                </div>
-
-                <div class="row ms-2 mt-2">
-                    <div class="col-12 d-flex ">
-                        <div class="d-flex question-container font">
-                            <textarea class="form-control input-question" placeholder="Question" rows="7"></textarea>
-                            <!-- Question -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-1 ansewer_hint_section d-flex justify-content-center">
-                    <div class="col-7">
-                        <div class="radio-button-custom d-flex mt-2" *ngFor="let res of answerOption; let i=index"
-                            (click)="selectOption(i)">
-                            <div class="radio-button ms-3" [ngClass]="{'radio-button-active': i === activeIndexTab}">
+                        </div>                      
+                        <div class="row">
+                            <div class="col-12 noteBlock d-flex justify-content-end align-items-end">
+                                <div class="font me-5">
+                                    Note: All the active scoring will be published.
+                                </div>
+                             
                             </div>
-                            <div class="option_1 font d-flex align-items-center ps-2 ms-2">{{res.option}}</div>
                         </div>
-
-
-                    </div>
-
-                    <div class="col-5">
-                        <div class="d-flex hint-container font mt-2">
-                            <textarea class="form-control hint-question" placeholder="Hint" rows="7"></textarea>
+                        <div class="row donebuttonBlock">
+                            <div class="col-1 p-0"></div>
+                             <div class="col-5 ps-0 d-flex justify-content-start align-items-center">
+                             <div class="font status fontInter">
+                                status
+                             </div>
+                             <div
+                             class="form-check form-switch d-flex align-items-center"  >
+                             <input
+                               class="form-check-input"
+                               style="width:5vw; height: 4vh"
+                               type="checkbox"
+                               role="switch"
+                               id="flexSwitchCheckDefault" />
+                            </div>
+                            </div> 
+                            <div class="col-6 pe-5 d-flex align-items-center justify-content-end">
+                                <div class="donebutton mt-1 font fontInter" (click)="setCubeFaceGameAttempt()">
+                                    Done
+                                  </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row mt-5 last_row">
-                    <div class="col-6 d-flex" style="margin-top:-1%">
-                        <div class="status_label font ms-3 d-flex align-items-center">STATUS</div>
-                        <div class="form-check form-switch d-flex ms-2">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <div *ngSwitchCase="2">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="box-edit-question">
+                        <div class="row">
+                            <div class="col-11 d-flex justify-content-center mt-3 font">
+                                <div class="header_question d-flex justify-content-center align-items-center">
+                                    {{categoryName}}
+                                </div>
+                            </div>
+                            <div class="col-1 d-flex justify-content-center align-items-center">
+                                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    class="cross-icon" (click)="close()">
+                                    <g id="Group 8373">
+                                        <circle id="Ellipse 21" cx="18" cy="18" r="17" fill="#D7D7E8" stroke="black"
+                                            stroke-width="2" />
+                                        <path id="Vector 3983" d="M9.5 10L28 27" stroke="black" stroke-width="5" />
+                                        <path id="Vector 3984" d="M27.25 9.25L10.25 27.75" stroke="black"
+                                            stroke-width="5" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>                       
+                        <div class="row marginTop">
+                            <div class="col-1 ms-5">
+                                <div class="idBlock d-flex ps-1">
+                                    <div class="font  d-flex justify-content-center align-items-center">id:</div>
+                                    <div class="font ms-1 id d-flex justify-content-center align-items-center p-1">42211</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <!-- <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    * Tile Time multiplied by 16 should not exceed the Game Time
+                                </div> -->
+                            </div>
+                            <div class="col-5"></div>
                         </div>
-                    </div>
-                    <div class="col-6 d-flex justify-content-end" style="margin-top:-1%">
-                        <div class="button_div d-flex justify-content-center align-items-center font" data-bs-toggle="modal"
-                        data-bs-target="#WarningModal">
-                            Done
+                        <div class="row marginTop mx-5">
+                            <div class="col-4">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Streak:
+                                </div>
+
+                                <div class="GameTileStopwatch mt-2  font p-1 d-flex justify-content-center align-items-center">
+                                    <div class="font WatchContainer d-flex justify-content-center align-items-center">
+                                        <div class="">
+                                            <div class="Time">
+                                                <input type="text"
+                                                 value="{{streakNew}}X"
+                                                 class="input_time text-center" >
+                                            </div>
+                                            <div class="bottom-border mx-2"></div>
+                                        </div> 
+                                      </div>
+                                </div>
+                                 <div class="timecontainer d-flex justify-content-center mt-2">
+                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('streak')">
+                                        -
+                                    </div>
+                                    <div class="font minButton px-3 py-1 mx-3 font d-flex justify-content-center align-items-center">
+                                        No.
+                                    </div>
+                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('streak')">
+                                        +
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Points:
+                                </div>
+
+                                <div class="TileTimeStopwatch font p-1 d-flex justify-content-center align-items-center">
+                                    <div class="font WatchContainer d-flex justify-content-center align-items-center">
+                                        <div class="">
+                                            <div class="Time">
+                                                <input type="text"
+                                                 value="+{{streakNewPoint}}"
+                                                 class="input_time text-center">
+                                            </div>
+                                            <div class="bottom-border mx-2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timecontainer d-flex justify-content-center mt-2">
+                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('streakPoint')">
+                                        -
+                                    </div>
+                                    <div class="font minButton px-3 py-1 mx-3 font d-flex justify-content-center align-items-center">
+                                        Points
+                                    </div>
+                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('streakPoint')">
+                                        +
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="name font p-1 d-flex justify-content-center align-items-center">
+                                    Points across other attempts:
+                                </div>
+                                <div class="AttemptInfoCard font p-1">
+                                    <div>
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="eye-image"
+                                        viewBox="0 0 28 20"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                                          stroke="#133870"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                        <path
+                                          d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                                          stroke="#000"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+    
+                                    <div class="font p-1 px-3 AttemptTile" *ngFor="let item of Streak">    
+                                            {{item.label}}: {{item.value}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                        <div class="row">
+                            <div class="col-12 noteBlock d-flex justify-content-end align-items-end">
+                                <div class="font me-5">
+                                    Note: All the active scoring will be published.
+                                </div>
+                             
+                            </div>
+                        </div>
+                        <div class="row donebuttonBlock">
+                            <div class="col-1 p-0"></div>
+                             <div class="col-5 ps-0 d-flex justify-content-start align-items-center">
+                             <div class="font status fontInter">
+                                status
+                             </div>
+                             <div
+                             class="form-check form-switch d-flex align-items-center"  >
+                             <input
+                               class="form-check-input"
+                               style="width:5vw; height: 4vh"
+                               type="checkbox"
+                               role="switch"
+                               id="flexSwitchCheckDefault" 
+
+                               [checked]="status=='A'"
+                               />
+                            </div>
+                            </div> 
+                            <div class="col-6 pe-5 d-flex align-items-center justify-content-end">
+                                <div class="donebutton mt-1 font fontInter" (click)="setCubeFaceGameStreak()">
+                                    Done
+                                  </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,43 +672,45 @@
 
 
 
-</div>
 
 
-<!-- Warning Modal -->
+    <!-- Warning Modal -->
     <div class="modal fade" id="WarningModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-       
-        <div class="modal-dialog modal-dialog-centered" style="position:relative;display: flex; justify-content: center;">
-            
+
+        <div class="modal-dialog modal-dialog-centered"
+            style="position:relative;display: flex; justify-content: center;">
+
             <div class="modal-content WarningModal">
                 <div class="warning_image_upload">
-                    <img src="assets/images/Warning.png" alt="Warning Image"/>
+                    <img src="assets/images/Warning.png" alt="Warning Image" />
                 </div>
-                <div class="modal-body" >
+                <div class="modal-body">
                     <div>
                         <div style="position:relative;">
-                            
-                            
-                            <div class="d-flex justify-content-end">
-                                <div type="button" class="custom-close-btn d-flex justify-content-center align-items-center" data-bs-dismiss="modal"
-                                aria-label="Close">X</div>
 
-                              
+
+                            <div class="d-flex justify-content-end">
+                                <div type="button"
+                                    class="custom-close-btn d-flex justify-content-center align-items-center"
+                                    data-bs-dismiss="modal" aria-label="Close">X</div>
+
+
                             </div>
                             <div class="row d-flex justify-content-center mt-3">
-                                <div class="col-12 d-flex warning_message_upload justify-content-center font" style="width: auto;position: relative;text-align: center;">
+                                <div class="col-12 d-flex warning_message_upload justify-content-center font"
+                                    style="width: auto;position: relative;text-align: center;">
                                     No! The content requirements <br>are not met.
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center">
-                                    <div class="edit_button font" >
-                                        Done
+                                    <div class="edit_button font">
+                                    
                                     </div>
                                 </div>
                             </div>
-                          
+
                         </div>
                     </div>
                 </div>

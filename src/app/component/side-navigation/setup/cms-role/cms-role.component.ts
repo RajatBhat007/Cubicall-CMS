@@ -53,6 +53,7 @@ export class CmsRoleComponent {
   activeCmsRoleFunction: any = [];
   activeFunctionID: any;
   redirectedFrom: string = '';
+
   subtab = [
     {
       label: 'Create CMS Role',
