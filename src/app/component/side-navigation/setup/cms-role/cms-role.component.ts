@@ -36,8 +36,8 @@ export class CmsRoleComponent {
   createCMSForm: FormGroup
   apiData: any;
   selectedDropdownIdRoleTypeValue: Number = 0
-  isDisabledCreateFunction: Boolean = true;
-  isDisabledCreateUser: Boolean = true;
+  isDisabledCreateFunction:boolean = true;
+  isDisabledCreateUser: boolean = true;
   idFunction: any = []
   selectedOrganizationID: any
   getEditCmsRoleDetails:any=[]
