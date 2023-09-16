@@ -85,6 +85,7 @@
     margin-top: 3vh;
     border-radius: 10px;
 }
+
 // .feedback-box {
 //     width: 468px;
 // height: 167px;
@@ -93,8 +94,7 @@
 // background: #D7D7E8;
 // }
 
-.feedback-content {
-}
+.feedback-content {}
 
 
 .header_question {
@@ -116,7 +116,7 @@
     overflow-y: hidden;
     overflow-x: hidden;
     border: 1px solid #000000;
-    
+
 }
 
 .info-image {
@@ -182,13 +182,13 @@
     width: 100%;
     height: 21vh;
     border: 2px solid #133870;
- background: #D7D7E8;
+    background: #D7D7E8;
     color: #133870;
     border-radius: 10px;
 }
 
-.radio-button{
-position: relative;
+.radio-button {
+    position: relative;
 }
 
 .radio-button {
@@ -208,7 +208,7 @@ position: relative;
     height: 4.5vh;
     border-radius: 8px;
     border: 2px solid #133870;
- background: #D7D7E8;
+    background: #D7D7E8;
 }
 
 .radio-button-active {
@@ -219,7 +219,8 @@ position: relative;
     background: #FFF;
 }
 
-.status_label,.Status_label_submitted {
+.status_label,
+.Status_label_submitted {
     color: #000;
 
 }
@@ -257,48 +258,50 @@ position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+}
 
-  .WarningModal{
+.WarningModal {
     border-radius: 23px;
     border: 7px solid #000;
     background: #D7D7E8;
     box-shadow: 10px 15px 4px 0px rgba(0, 0, 0, 0.25);
-  }
+}
 
-  .warning_image_upload{
+.warning_image_upload {
     position: absolute;
-      z-index: 1;
-      left: -10%;
-      top: -22%;
-  
-  }
+    z-index: 1;
+    left: -10%;
+    top: -22%;
+
+}
 
 
-.modal-body{
+.modal-body {
     border-radius: 23px;
-   
-   
-  }
 
-  .custom-close-btn{
+
+}
+
+.custom-close-btn {
     color: #FFFFFF;
     background: #1B9DE7;
     border-radius: 100%;
     width: 3vh;
     height: 3vh;
     border: 1px solid #133870;
-  }
-  .cross-icon{
+}
+
+.cross-icon {
     height: 3vh;
-  }
-  .warning_message_upload{
+}
+
+.warning_message_upload {
     font-size: 1.2em;
     color: black;
-  }
+}
 
 
-.edit_button{
+.edit_button {
     width: auto;
     font-size: 0.8em;
     padding: 6px;
@@ -307,5 +310,138 @@ position: relative;
     background: #D7D7E8;
     margin-top: 3vh;
     cursor: pointer;
-    
-  }
+
+}
+
+
+//   --------
+.idBlock {
+    border-radius: 7px;
+    background: #D7D7E8;
+    height: 5vh;
+}
+
+.id {
+    width: 4vw;
+    height: 5vh;
+    border-radius: 7px;
+    border: 2px solid #000;
+    background: #FFF;
+}
+
+.name {
+    border-radius: 10px;
+    border: 2px solid #000;
+    background: #D7D7E8;
+    height: 5vh;
+}
+
+.GameTileStopwatch,
+.TileTimeStopwatch {
+    border-radius: 10px;
+    border: 2px solid #000;
+    background: #D7D7E8;
+    height: 22vh;
+    margin-top: 2vh;
+}
+
+.addButton,
+.substractButton {
+    background: #D7D7E8;
+    border-radius: 100%;
+    width: 4vh;
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.minButton {
+    height: 4vh;
+    background: #000000;
+    color: #FFFFFF;
+}
+
+.WatchContainer {
+    height: 16vh;
+    width: 16vh;
+    border-radius: 100%;
+    border: 5px solid #FFFFFF;
+}
+
+.Time {
+    // padding: 2%;
+    font-size:3vw;
+    font-weight: 500;
+    line-height: 20px;
+    // border-bottom: 5px solid #FFFFFF;
+    height: 6vh;
+    width:5vw;
+    text-align: center;
+    background-color:transparent;
+}
+
+.bottom-border {
+    height: 1vh;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    // width:5vw;
+}
+
+.noteBlock {
+    height: 12vh;
+    width: 100%;
+}
+
+.donebuttonBlock {
+    height: 8vh;
+    width: 100%;
+}
+
+.donebutton {
+    border-radius: 10px;
+    background: #000000;
+    color: #FFFFFF;
+    padding: 0.6em;
+    font-size: 0.8em;
+    cursor: pointer;
+    width: 18%;
+    box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+.status{
+    color: #000000;
+    font-weight: 700;
+    line-height: normal;
+    font-size: 1.5em;
+}
+.input_time{
+    width:5.5vw;
+    background-color: transparent;
+    outline: transparent;
+
+}
+.AttemptInfoCard{
+    border-radius: 10px;
+    background: #D7D7E8;
+    height: 22vh;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 2px solid #000000;
+
+}
+.AttemptTile{
+   font-size: 2vh;
+   color: #000000;
+   background-color: #FFFFFF;
+   border-radius: 10px;
+   border: 2px solid #000000;
+}
+.eye-image{
+ height: 2vh;
+}
+.marginTop{
+margin-top: 4vh;
+}

@@ -518,14 +518,10 @@ export class CmsUserComponent {
       ?.setValue(this.getEditUserDetails?.name);
     this.createCmsUser.get('employeeName')?.value || '';
 
-    this.createCmsUser
-      .get('empId')
-      ?.setValue(this.getEditUserDetails?.employeeId);
+    this.createCmsUser.get('empId')?.setValue(this.getEditUserDetails?.employeeId);
     this.createCmsUser.get('empId')?.value || '';
 
-    this.createCmsUser
-      .get('empPassword')
-      ?.setValue(this.getEditUserDetails?.password);
+    this.createCmsUser.get('empPassword')?.setValue(this.getEditUserDetails?.password);
     this.createCmsUser.get('empPassword')?.value || '';
 
     this.userDetailsList[value].userName;

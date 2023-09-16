@@ -405,6 +405,8 @@ export class SetupComponent implements OnInit {
         IdIndustry: this.selectedDropdownBusinessTypeValueId,
       },
     };
+    console.log(payload.Data);
+    
     const escapedIdOrganization = JSON.stringify(payload.Data.IdOrganization);
     const escapedIdCmsUser = JSON.stringify(payload.Data.IdCmsUser);
     const escapedOrganizationCode = JSON.stringify(

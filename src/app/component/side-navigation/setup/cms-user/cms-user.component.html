@@ -558,32 +558,101 @@
       </div>
     </ng-template>
   </div>
-
+</div>
+<div
+  class="modal fade"
+  id="UserDescriptionModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
   <div
-    class="modal fade"
-    id="UserDescriptionModal"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
+    class="modal-dialog modal-dialog-centered"
+    style="position: relative; display: flex; justify-content: center"
   >
-    <div
-      class="modal-dialog modal-dialog-centered"
-      style="position: relative; display: flex; justify-content: center"
-    >
-      <div class="modal-content UserDescriptionModal">
-        <div class="d-flex justify-content-end">
-          <div
-            class="col-3 ps-0"
-            *ngFor="let res_sub of subtab; let j = index"
-            (click)="NavigateToSubTab(j)"
+    <div class="modal-content UserDescriptionModal">
+      <div class="d-flex justify-content-end">
+        <div
+          type="button"
+          class="custom-close-btn d-flex justify-content-center align-items-center m-2"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <svg
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="cross-icon"
           >
-            <div
-              class="sub_tab font d-flex justify-content-center align-items-center"
-              [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }"
-            >
-              {{ res_sub.label }}
+            <g id="Group 8373">
+              <circle
+                id="Ellipse 21"
+                cx="18"
+                cy="18"
+                r="17"
+                fill="#D7D7E8"
+                stroke="black"
+                stroke-width="2"
+              />
+              <path
+                id="Vector 3983"
+                d="M9.5 10L28 27"
+                stroke="black"
+                stroke-width="5"
+              />
+              <path
+                id="Vector 3984"
+                d="M27.25 9.25L10.25 27.75"
+                stroke="black"
+                stroke-width="5"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-body pt-0">
+        <div class="row">
+          <div class="col-12">
+            <div class="label_setup-logo font text-dark">User Name:</div>
+            <div class="mt-2">
+              <input
+                class="form-control organisation_input font"
+                type="text"
+                value="{{ username }}"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="label_setup-logo font text-dark">Organization:</div>
+            <div class="mt-2">
+              <input
+                class="form-control organisation_input font"
+                type="text"
+                value="TGC"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="label_setup-logo font text-dark">Role:</div>
+            <div class="mt-2">
+              <input
+                class="form-control organisation_input font"
+                type="text"
+                value="Admin Access"
+              />
+            </div>
+          </div>
+          <div class="col-12 mt-2">
+            <div class="label_setup-logo font">Function:</div>
+            <div class="question-container mt-2 font">
+              <textarea
+                class="form-control input-question"
+                rows="7"
+                value="{{ function }}"
+              ></textarea>
+              <!-- Question -->
             </div>
           </div>
         </div>
