@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -17,6 +17,8 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
   styleUrls: ['./organization-hierarchy.component.scss'],
 })
 export class OrganizationHierarchyComponent implements OnInit {
+  @Input() user: any;
+
   isDisabled: boolean = true; // Initially, the button is not disabled
   vendorData: string = '';
   vendorNameHierarchy: string = '';
@@ -113,6 +115,7 @@ export class OrganizationHierarchyComponent implements OnInit {
       value: 16,
     },
   ];
+  redirectedFrom: string = '';
   vendorForm: FormGroup;
   employeeName: any;
   employeeId: any;
@@ -177,10 +180,7 @@ export class OrganizationHierarchyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.getApiData().subscribe((data) => {
-      this.apiData = data;
-      console.log(this.apiData);
-    });
+    this.getApiData();
     this.idhierarchy = this.apiData?.user?.idOrgHierarchy;
     this.idOrg = this.apiData?.user?.idOrganization;
     console.log(this.idhierarchy);
@@ -189,6 +189,70 @@ export class OrganizationHierarchyComponent implements OnInit {
     this.addProcessRow('page'); // Add one row by default
     this.addSubProcessRow('');
     this.addStageRow('');
+  }
+
+  getApiData() {
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+    });
+    this.redirectedFrom = this.user?.key1
+      ? this.user?.key1
+      : this.apiData?.role?.roleName;
+    console.log(this.redirectedFrom);
+
+    switch (this.redirectedFrom) {
+      case 'CubiCall Admin':
+        this.subtab = [
+          {
+            label: 'Create Admin Role',
+          },
+          {
+            label: 'Set Hierarchy',
+          },
+          {
+            label: 'Display Admin Roles',
+          },
+        ];
+
+        break;
+
+      case 'Super Admin':
+        this.subtab = [
+          {
+            label: 'Create Admin Role',
+          },
+          {
+            label: 'Set Hierarchy',
+          },
+        ];
+
+        break;
+
+      case 'Admin':
+        this.subtab = [
+          {
+            label: 'Set Hierarchy',
+          },
+        ];
+        this.subTabName = 'set';
+        break;
+
+      default:
+        // Handle the default case if the user role is unknown or not recognized
+        this.subtab = [
+          {
+            label: 'Create Admin Role',
+          },
+          {
+            label: 'Set Hierarchy',
+          },
+          {
+            label: 'Display Admin Roles',
+          },
+        ];
+        break;
+    }
   }
 
   updateInputState(event: Event) {

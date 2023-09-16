@@ -121,7 +121,10 @@
   <form (ngSubmit)="SubmitCreateOrganisation()" [formGroup]="multiFieldForm">
     <div class="row">
       <div class="col-12">
-        <div class="bottom-conatiner" *ngIf="activeIndexTab == 0">
+        <div
+          class="bottom-conatiner"
+          *ngIf="activeIndexTab == 0 && userRole == 'CubiCall Admin'"
+        >
           <div class="row">
             <div class="col-5 ps-4">
               <div class="row mt-4 ps-2">
@@ -177,6 +180,7 @@
                                     ? 'black'
                                     : ''
                               }"
+                              (click)="getIndustryType()"
                             >
                               {{ selectedDropdownIndustryValue }}
                             </button>
@@ -353,6 +357,7 @@
                                     ? 'black'
                                     : ''
                               }"
+                              (click)="getBusinessType()"
                             >
                               {{ selectedDropdownBusinessTypeValue }}
                             </button>
@@ -687,20 +692,72 @@
           </ng-template>
         </div>
 
-        <div [ngSwitch]="activeIndexTab">
-          <div *ngSwitchCase="1">
-            <app-organization-hierarchy></app-organization-hierarchy>
+        <div [ngSwitch]="userRole">
+          <div *ngSwitchCase="'CubiCall Admin'">
+            <div [ngSwitch]="activeIndexTab">
+              <div *ngSwitchCase="1">
+                <app-organization-hierarchy></app-organization-hierarchy>
+              </div>
+              <div *ngSwitchCase="2">
+                <app-cms-role></app-cms-role>
+              </div>
+              <div *ngSwitchCase="3">
+                <app-cms-user></app-cms-user>
+              </div>
+              <div *ngSwitchCase="4">
+                <app-batch></app-batch>
+              </div>
+              <!-- Add a default case if needed -->
+            </div>
           </div>
-          <div *ngSwitchCase="2">
-            <app-cms-role></app-cms-role>
+
+          <div *ngSwitchCase="'Super Admin'">
+            <div [ngSwitch]="activeIndexTab">
+              <div *ngSwitchCase="0">
+                <app-organization-hierarchy
+                  [user]="user"
+                ></app-organization-hierarchy>
+              </div>
+              <div *ngSwitchCase="1">
+                <app-cms-role [user]="user"></app-cms-role>
+              </div>
+              <div *ngSwitchCase="2">
+                <app-cms-user [user]="user"></app-cms-user>
+              </div>
+              <div *ngSwitchCase="3">
+                <app-batch></app-batch>
+              </div>
+              <!-- Add a default case if needed -->
+            </div>
           </div>
-          <div *ngSwitchCase="3">
-            <app-cms-user></app-cms-user>
+          <div *ngSwitchCase="'Admin'">
+            <div [ngSwitch]="activeIndexTab">
+              <div *ngSwitchCase="0">
+                <app-organization-hierarchy
+                  [user]="user"
+                ></app-organization-hierarchy>
+              </div>
+              <div *ngSwitchCase="1">
+                <app-cms-role [user]="user"></app-cms-role>
+              </div>
+              <div *ngSwitchCase="2">
+                <app-cms-user [user]="user"></app-cms-user>
+              </div>
+              <div *ngSwitchCase="3">
+                <app-batch></app-batch>
+              </div>
+              <!-- Add a default case if needed -->
+            </div>
           </div>
-          <div *ngSwitchCase="4">
-            <app-batch></app-batch>
+
+          <div *ngSwitchCase="'Trainer'">
+            <div [ngSwitch]="activeIndexTab">
+              <div *ngSwitchCase="0">
+                <app-batch></app-batch>
+              </div>
+              <!-- Add a default case if needed -->
+            </div>
           </div>
-          <!-- Add a default case if needed -->
         </div>
       </div>
     </div>
@@ -714,7 +771,10 @@
     <ng-template #createOrganizationbutton>
       <div *ngIf="!editableData; then noneditable; else editable"></div>
       <ng-template #noneditable>
-        <div class="col-12 d-flex justify-content-end">
+        <div
+          class="col-12 d-flex justify-content-end"
+          *ngIf="userRole == 'CubiCall Admin'"
+        >
           <button
             class="submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
             [disabled]="multiFieldForm.invalid"

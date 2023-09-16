@@ -93,6 +93,7 @@ export class SetupComponent implements OnInit {
   getEditDetails: any = [];
   random8DigitNumber: number | undefined;
   apiData: any;
+  userRole: string = ''; // Replace with the actual user's role
 
   constructor(
     public _router: Router,
@@ -115,28 +116,7 @@ export class SetupComponent implements OnInit {
       // selectedBusiness: ['', [Validators.required, this.validateDropdownBusiness]],
     });
   }
-  matTab = [
-    {
-      content: 'Organization',
-      color: '#7B7FCF',
-    },
-    {
-      content: 'Organization Hierarchy',
-      color: '#D43539',
-    },
-    {
-      content: 'CMS Role',
-      color: '#D43539',
-    },
-    {
-      content: 'CMS User',
-      color: '#FAA54A',
-    },
-    {
-      content: 'Batch',
-      color: '#55BC87',
-    },
-  ];
+  matTab: any = [];
 
   subtab: any = [
     {
@@ -147,26 +127,148 @@ export class SetupComponent implements OnInit {
     },
   ];
 
+  user = {
+    key1: '',
+
+    // Add more data as needed
+  };
+
   IdOrganization: string = '';
   @ViewChild('organizationSuccessModal') organizationSuccessModal: any;
 
   ngOnInit(): void {
+    this.getApiData();
+    this.user.key1 = this.userRole;
+    console.log(this.user.key1);
+
+    this.multiFieldForm.get('orgCode')?.disable();
+  }
+
+  getApiData() {
     this.http.getApiData().subscribe((data) => {
       this.apiData = data;
+      this.userRole = this.apiData?.role?.roleName;
       console.log(this.apiData);
     });
 
-    this.multiFieldForm.get('orgCode')?.disable();
+    switch (this.userRole) {
+      case 'CubiCall Admin':
+        this.matTab = [
+          {
+            content: 'Organization',
+            color: '#7B7FCF',
+          },
+          {
+            content: 'Organization Hierarchy',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS Role',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS User',
+            color: '#FAA54A',
+          },
+          {
+            content: 'Batch',
+            color: '#55BC87',
+          },
+        ];
 
+        break;
+
+      case 'Super Admin':
+        this.matTab = [
+          {
+            content: 'Organization Hierarchy',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS Role',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS User',
+            color: '#FAA54A',
+          },
+          {
+            content: 'Batch',
+            color: '#55BC87',
+          },
+        ];
+
+        break;
+
+      case 'Admin':
+        this.matTab = [
+          {
+            content: 'Organization Hierarchy',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS Role',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS User',
+            color: '#FAA54A',
+          },
+          {
+            content: 'Batch',
+            color: '#55BC87',
+          },
+        ];
+        break;
+
+      case 'Trainer':
+        this.matTab = [
+          {
+            content: 'Batch',
+            color: '#55BC87',
+          },
+        ];
+        break;
+
+      default:
+        // Handle the default case if the user role is unknown or not recognized
+        this.matTab = [
+          {
+            content: 'Organization',
+            color: '#7B7FCF',
+          },
+          {
+            content: 'Organization Hierarchy',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS Role',
+            color: '#D43539',
+          },
+          {
+            content: 'CMS User',
+            color: '#FAA54A',
+          },
+          {
+            content: 'Batch',
+            color: '#55BC87',
+          },
+        ];
+        break;
+    }
+  }
+
+  getIndustryType() {
     this.http.getIndustryType().subscribe((res) => {
       this.industryType = res;
     });
+  }
 
+  getBusinessType() {
     this.http.getBusinessType().subscribe((res) => {
       this.businessType = res;
     });
   }
-  userRole: string = ''; // Replace with the actual user's role
 
   updateSelectedIndustryValue(value: any) {
     this.selectedDropdownIndustryValue = this.industryType[value].industryname;

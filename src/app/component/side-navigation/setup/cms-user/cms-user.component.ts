@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subscriber } from 'rxjs';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +12,8 @@ import { ModalComponent } from 'src/app/pages/modal/modal.component';
   styleUrls: ['./cms-user.component.scss'],
 })
 export class CmsUserComponent {
+  @Input() user: any;
+
   activeIndexSubTab: any = 0;
   selectedDropdownIndustryValue: string = 'Select from the drop-down';
   selectedDropdownRoleValue: string = 'Select from the drop-down';
@@ -46,6 +48,11 @@ export class CmsUserComponent {
   roleNameView: String = '';
   payload: any;
   EditIdCmsUser: String = '';
+  redirectedFrom: string = '';
+  CmsRoleresponse: any = [];
+  selectedDropdownRoleId: number = 0;
+  vendorDetailsResponse: any = [];
+  idOrganization1: number = 0;
   subtab = [
     {
       label: 'Create Cms User',
@@ -87,6 +94,8 @@ export class CmsUserComponent {
       value: 0,
     },
   ];
+  stageResponse: any = [];
+  divVisible: boolean = false;
   constructor(
     private http: ApiServiceService,
     private fb: FormBuilder,
@@ -130,11 +139,47 @@ export class CmsUserComponent {
     });
   }
   ngOnInit(): void {
+    this.getApiData();
+  }
+
+  getApiData() {
     this.http.getApiData().subscribe((data) => {
       this.apiData = data;
       console.log(this.apiData);
     });
+
+    this.redirectedFrom = this.user?.key1
+      ? this.user?.key1
+      : this.apiData?.role?.roleName;
+    console.log(this.redirectedFrom);
+
+    if (this.apiData?.role.roleName == this.user?.key1) {
+      this.selectedDropdownIndustryValue = this.apiData?.role?.organizationName;
+      this.selectedOrganizationID = this.apiData?.role?.idOrganization;
+    }
   }
+
+  getVendorDetails() {
+    this.http
+      .getVendorDetails(
+        this.apiData?.role?.idOrganization,
+        this.apiData?.user?.idOrgHierarchy
+      )
+      .subscribe((res) => {
+        this.vendorDetailsResponse = res;
+        console.log(this.vendorDetailsResponse);
+
+        // console.log(this.organisationName);
+        // this.organisationProcess = this.organisationName[1].idOrgHierarchy;
+        // console.log(this.organisationProcess);
+
+        // this.processForm1
+        //   .get('processName')
+        //   ?.setValue(this.organisationProcess);
+        // this.processForm1.get('processName')?.value || '';
+      });
+  }
+
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
@@ -143,19 +188,37 @@ export class CmsUserComponent {
       this.getOrganizationlist = res;
     });
   }
-  getCmsRoleList() {
+  GetRoleTypesList() {
+    // this.http.getRoleType().subscribe((res) => {
+    //   this.CmsRoleresponse = res;
+    //   console.log(this.CmsRoleresponse);
+    //   const filteredRoles = this.CmsRoleresponse.filter(
+    //     (role: { idRoleType: number }) =>
+    //       role.idRoleType > this.apiData?.role?.idRoleType
+    //   );
+
+    //   this.CmsRole = filteredRoles;
+    //   console.log(this.CmsRole);
+    // });
     if (this.apiData?.user?.idOrganization === 1) {
       this.idOrganization = -this.apiData?.user?.idOrganization;
       this.idCmsRole = -this.apiData?.user?.idCmsRole;
     } else {
-      this.idOrganization = this.apiData?.user?.idOrganization;
-      this.idCmsRole = this.apiData?.user?.idCmsRole;
+      this.idOrganization = this.selectedOrganizationID;
+      this.idCmsRole = -1;
     }
     this.http
-      .getRolesList(this.idOrganization, this.idCmsRole)
+      .getRolesList(this.selectedOrganizationID, this.idCmsRole)
       .subscribe((res) => {
-        this.CmsRole = res;
-        console.log(this.CmsRoleList);
+        this.CmsRoleresponse = res;
+        console.log(this.CmsRoleresponse);
+        const filteredRoles = this.CmsRoleresponse.filter(
+          (role: { idRoleType: number }) =>
+            role.idRoleType > this.apiData?.role?.idRoleType
+        );
+
+        this.CmsRole = filteredRoles;
+        console.log(this.CmsRole);
       });
   }
 
@@ -170,29 +233,45 @@ export class CmsUserComponent {
   selectedIndustryValue(value: any) {
     this.selectedDropdownIndustryValue =
       this.getOrganizationlist[value].organizationName;
-    console.log();
+
     this.selectedOrganizationID =
       this.getOrganizationlist[value].idOrganization;
+    console.log(this.selectedOrganizationID);
   }
   selectedRoleValue(value: any) {
     this.selectedDropdownRoleValue = this.CmsRole[value].roleName;
-    console.log(value);
-    this.selectedCmsIdRole = this.CmsRole[value].idCmsRole;
+    console.log(this.selectedDropdownRoleValue);
+    this.selectedDropdownRoleId = Number(this.CmsRole[value]?.idRoleType);
+    console.log(this.selectedDropdownRoleId);
+
+    this.selectedCmsIdRole = this.CmsRole[value]?.idCmsRole;
+    console.log(this.selectedCmsIdRole);
+
+    this.divVisible = true;
   }
   selectedVendorValue(value: any) {
-    this.selectedDropdownVendorValue = value;
+    this.selectedDropdownVendorValue =
+      this.vendorDetailsResponse[value].hierarchyName;
+  }
+
+  selectedStageValue(value: any) {
+    this.selectedDropdownVendorValue = this.stageResponse[value].hierarchyName;
   }
   getCmsUserDetailsList() {
-    if (this.apiData?.user?.idOrganization === 1) {
-      this.idOrganization = -this.apiData?.user?.idOrganization;
-      this.idCmsUser = -this.apiData?.user?.idCmsRole;
+    console.log(this.user?.key1);
+
+    if (this.apiData?.role?.idOrganization == 1) {
+      this.idOrganization1 = -1;
+      this.idCmsUser = -1;
     } else {
-      this.idOrganization = this.apiData?.user?.idOrganization;
+      this.idOrganization1 = this.apiData?.user?.idOrganization;
       this.idCmsUser = -1;
     }
+    console.log(this.idOrganization1);
+    console.log(this.idCmsUser);
 
     this.http
-      .getCMSUserDetails(this.idOrganization, this.idCmsUser)
+      .getCMSUserDetails(this.idOrganization1, this.idCmsUser)
       .subscribe((res) => {
         this.userDetailsList = res;
         console.log(this.userDetailsList);
@@ -211,6 +290,15 @@ export class CmsUserComponent {
       });
   }
 
+  GetStage() {
+    this.http.getStages(this.apiData?.role?.idOrganization).subscribe((res) => {
+      console.log(res);
+      this.stageResponse = res;
+      console.log(this.stageResponse);
+
+      // this.hierachicalStageName = this.stagesName?.hierarchyName;
+    });
+  }
   viewUserinfo(value: any) {
     console.log(value);
     this.username = this.userDetailsList[value]?.userName;

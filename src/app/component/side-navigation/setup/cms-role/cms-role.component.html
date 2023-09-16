@@ -37,47 +37,71 @@
                         class="dropdown mt-2 w-100"
                         style="position: relative; display: inline-flex"
                       >
-                        <button
-                          ngbDropdownToggle
-                          class="btn btn-secondary font large-dropdown"
-                          type="button"
-                          id="dropdownMenuButtonsetup"
-                          aria-expanded="false"
-                          [ngStyle]="{
-                            color:
-                              selectedDropdownIndustryValue !==
-                              'Select from the drop-down'
-                                ? 'black'
-                                : ''
-                          }"
-                          (click)="getOrganization()"
-                        >
-                          {{ selectedDropdownIndustryValue }}
-                        </button>
-                        <ul
-                          ngbDropdownMenu
-                          aria-labelledby="dropdownMenuButton1"
-                          class="w-100 dropdownmenu"
-                        >
-                          <li
-                            *ngFor="
-                              let res of getOrganizationlist;
-                              let index = index
-                            "
+                        <div
+                          *ngIf="user?.key1; then noDropdown; else dropdown"
+                        ></div>
+                        <ng-template #dropdown>
+                          <button
+                            ngbDropdownToggle
+                            class="btn btn-secondary font large-dropdown"
+                            type="button"
+                            id="dropdownMenuButtonsetup"
+                            aria-expanded="false"
+                            [ngStyle]="{
+                              color:
+                                selectedDropdownIndustryValue !==
+                                'Select from the drop-down'
+                                  ? 'black'
+                                  : ''
+                            }"
+                            (click)="getOrganization()"
                           >
-                            <a
-                              ngbDropdownItem
-                              (click)="updateSelectedIndustryValue(index)"
-                              class="font"
+                            {{ selectedDropdownIndustryValue }}
+                          </button>
+
+                          <ul
+                            ngbDropdownMenu
+                            aria-labelledby="dropdownMenuButton1"
+                            class="w-100 dropdownmenu"
+                          >
+                            <li
+                              *ngFor="
+                                let res of getOrganizationlist;
+                                let index = index
+                              "
                             >
-                              {{ res.organizationName }}</a
-                            >
-                          </li>
-                        </ul>
+                              <a
+                                ngbDropdownItem
+                                (click)="updateSelectedIndustryValue(index)"
+                                class="font"
+                              >
+                                {{ res.organizationName }}</a
+                              >
+                            </li>
+                          </ul>
+                        </ng-template>
+                        <ng-template #noDropdown>
+                          <button
+                            ngbDropdownToggle
+                            class="btn btn-secondary font large-dropdown"
+                            type="button"
+                            id="dropdownMenuButtonsetup"
+                            aria-expanded="false"
+                            [ngStyle]="{
+                              color:
+                                selectedDropdownIndustryValue !==
+                                'Select from the drop-down'
+                                  ? 'black'
+                                  : ''
+                            }"
+                          >
+                            {{ selectedDropdownIndustryValue }}
+                          </button>
+                        </ng-template>
                       </div>
                     </div>
                     <div class="col-12 mt-2">
-                      <div class="label_setup-logo font">CMS Role Name::</div>
+                      <div class="label_setup-logo font">CMS Role Name:</div>
                       <div class="mt-2">
                         <input
                           class="form-control organisation_input font"
