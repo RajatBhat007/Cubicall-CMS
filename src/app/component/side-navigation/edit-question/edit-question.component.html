@@ -1,21 +1,8 @@
 <div class="web-container-game-theme">
     <div class="row">
         <div class="col-7">
-            <div class="search-bar-container d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                </svg>
-
-                <div class="input-group">
-
-                    <input type="text" class="form-control font" placeholder="Search anything" aria-label=""
-                        aria-describedby="basic-addon1">
-                </div>
-                <button type="button" class="close ms-2" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="search-bar-container d-flex align-items-center font">
+                Organization LOGO DISPLAYED 
             </div>
         </div>
         <div class="col-5 pe-4 dropdown-col d-flex justify-content-end">
@@ -244,7 +231,8 @@
                                             <div class="Time">
                                                 <input type="text"
                                                  value="{{currentValue}}"
-                                                 class="input_time text-center" >
+                                                 class="input_time text-center" 
+                                                >
                                             </div>
                                             <div class="bottom-border mx-2"></div>
                                         </div> 
@@ -269,10 +257,11 @@
 
                                 <div class="TileTimeStopwatch font p-1 d-flex justify-content-center align-items-center">
                                     <div class="font WatchContainer d-flex justify-content-center align-items-center">
-                                        <div class="">
-                                            <div class="Time">
+                                        <div class="d-flex flex-column justify-content-center  ">
+                                            <div class="Time text-center">
                                                 <input type="text"
                                                  value="{{tileTime}}"
+                                                
                                                  class="input_time text-center">
                                             </div>
                                             <div class="bottom-border mx-2"></div>
@@ -280,13 +269,13 @@
                                     </div>
                                 </div>
                                 <div class="timecontainer d-flex justify-content-center mt-2">
-                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('tiletime')">
+                                    <div class="addButton p-2" (click)="decreaseGameTimeValue('defaulttiletime')">
                                         -
                                     </div>
                                     <div class="font minButton px-3 py-1 mx-3 font d-flex justify-content-center align-items-center">
                                         Sec
                                     </div>
-                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('tiletime')">
+                                    <div class="substractButton p-2" (click)="increaseGameTimeValue('defaulttiletime')">
                                         +
                                     </div>
                                  </div>
@@ -383,6 +372,7 @@
                                             <div class="Time">
                                                 <input type="text"
                                                  value="{{attemptNo}}"
+                                                 [(ngModel)]="userInputAttemptNo"
                                                  class="input_time text-center" >
                                             </div>
                                             <div class="bottom-border mx-2"></div>

@@ -33,6 +33,9 @@ export class EditQuestionComponent {
   status:string=''
   payload:any;
   activeStatus:String=''
+  // userInputcurrentValue:number=0;
+  userInputAttemptNo:number=0
+  userInputTileTime:number=15;
   answerOption = [
     {
       option: 'Option 1',
@@ -70,7 +73,10 @@ export class EditQuestionComponent {
    }
 ]
 constructor(private route: ActivatedRoute, public _router: Router,private http:ApiServiceService,
-  private modalService: NgbModal,) { }
+  private modalService: NgbModal,) { 
+  // this.userInputcurrentValue=this.currentValue
+  // this.userInputAttemptNo=this.attemptNo 
+  }
 
 
   ngOnInit(): void {
@@ -114,21 +120,45 @@ constructor(private route: ActivatedRoute, public _router: Router,private http:A
   }
 
   increaseGameTimeValue(value:any) {
-    if(value=='gametime'){
-      this.currentValue += 1; 
-      this.gameTime=this.currentValue
+    if(value=='gametime'){ 
+      // if(this.userInputcurrentValue){
+      //   this.userInputcurrentValue ++;
+      //   this.currentValue=this.userInputcurrentValue
+      // }
+      // else{
+        this.currentValue ++; 
+         
+      // }
     }
-    else if(value=='tiletime'){
-      this.tileTime +=1; 
+   if(value=='defaulttiletime'){
+      // if(this.userInputTileTime){
+      //      this.userInputTileTime++;
+      //     this.tileTime=this.userInputTileTime; 
+      // }
+      // else{
+        this.tileTime ++;
+      // }
+       
      }
     else if(value=='attemptNo'){
-     this.attemptNo +=1;
+     if(this.userInputAttemptNo){
+      if( this.attemptNo <4){
+        this.userInputAttemptNo++;
+        this.attemptNo=this.userInputAttemptNo;
+      }
+     
+     }
+     else{
+      if( this.attemptNo <4){
+      this.attemptNo ++;
+      }
+     }
     }
     else if(value=='attemptPoints'){
       if (this.gamePoints<1) {
-        this.gamePoints -=1;
+        this.gamePoints ++;
       }else{
-        this.gamePoints +=1;
+        this.gamePoints ++;
       }
       
     }
@@ -148,14 +178,17 @@ constructor(private route: ActivatedRoute, public _router: Router,private http:A
         this.currentValue -= 1; 
       }
     }
-    else if(value=='tiletime'){
+    else if(value=='defaulttiletime'){
       if (this.tileTime >1) {
         this.tileTime -=1; 
       }
      }
     else if(value=='attemptNo'){
       if (this.attemptNo > 1) {
-        this.attemptNo -= 1; 
+        this.attemptNo += 1;      
+      }
+      else{
+        this.attemptNo=1
       }
     }
     else if(value=='attemptPoints'){
@@ -265,7 +298,11 @@ constructor(private route: ActivatedRoute, public _router: Router,private http:A
   }
 
   editCubeFaceGameTime(data:any){
+    console.log(111222222222);
+    
    this.currentValue=data.overAllTimer/60;
+   console.log(this.currentValue);
+   
    this.tileTime=data.perTileTimer;
    this.status=data.isActive
    console.log(this.tileTime);
