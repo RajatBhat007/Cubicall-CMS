@@ -506,27 +506,27 @@ export class GameThemeComponent implements OnInit {
     console.log(index);
     if (this.activeSubSubTab == '0') {
       if (index == 0) {
-        this.gameTime = this.totalList;
+        this.cubeFaceIdViseGameTimeData = this.totalList;
       } else if (index == 1) {
-        this.gameTime = this.activeList;
+        this.cubeFaceIdViseGameTimeData = this.activeList;
       } else if (index == 2) {
-        this.gameTime = this.inactiveList;
+        this.cubeFaceIdViseGameTimeData = this.inactiveList;
       }
     } else if (this.activeSubSubTab == '1') {
       if (index == 0) {
-        this.cubeFaceGameAttempt = this.totalList;
+        this.cubeFaceIdViseGameAttemtData = this.totalList;
       } else if (index == 1) {
-        this.cubeFaceGameAttempt = this.activeList;
+        this.cubeFaceIdViseGameAttemtData = this.activeList;
       } else if (index == 2) {
-        this.cubeFaceGameAttempt = this.inactiveList;
+        this.cubeFaceIdViseGameAttemtData = this.inactiveList;
       }
     } else if (this.activeSubSubTab == '2') {
       if (index == 0) {
-        this.cubeFaceGameStreak = this.totalList;
+        this.cubeFaceIdViseGameStreakData = this.totalList;
       } else if (index == 1) {
-        this.cubeFaceGameStreak = this.activeList;
+        this.cubeFaceIdViseGameStreakData = this.activeList;
       } else if (index == 2) {
-        this.cubeFaceGameStreak = this.inactiveList;
+        this.cubeFaceIdViseGameStreakData = this.inactiveList;
       }
     }
   }
@@ -547,15 +547,15 @@ export class GameThemeComponent implements OnInit {
         );
         console.log(this.cubeFaceIdViseGameTimeData);
 
-        this.totalList = this.gameTime;
+        this.totalList = this.cubeFaceIdViseGameTimeData;
         console.log(this.totalList);
-        this.count[0].value = this.gameTime.length;
-        this.activeList = this.gameTime.filter(
+        this.count[0].value = this.cubeFaceIdViseGameTimeData.length;
+        this.activeList = this.cubeFaceIdViseGameTimeData.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
         console.log(this.activeList);
         this.count[1].value = this.activeList.length;
-        this.inactiveList = this.gameTime.filter(
+        this.inactiveList = this.cubeFaceIdViseGameTimeData.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
         console.log(this.inactiveList);
@@ -578,15 +578,15 @@ export class GameThemeComponent implements OnInit {
         );
         console.log(this.cubeFaceIdViseGameTimeData);
 
-        this.totalList = this.cubeFaceGameAttempt;
+        this.totalList = this.cubeFaceIdViseGameAttemtData;
         console.log(this.totalList);
-        this.count[0].value = this.cubeFaceGameAttempt.length;
-        this.activeList = this.cubeFaceGameAttempt.filter(
+        this.count[0].value = this.cubeFaceIdViseGameAttemtData.length;
+        this.activeList = this.cubeFaceIdViseGameAttemtData.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
         console.log(this.activeList);
         this.count[1].value = this.activeList.length;
-        this.inactiveList = this.cubeFaceGameAttempt.filter(
+        this.inactiveList = this.cubeFaceIdViseGameAttemtData.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
         console.log(this.inactiveList);
@@ -609,15 +609,15 @@ export class GameThemeComponent implements OnInit {
         );
         console.log(this.cubeFaceIdViseGameStreakData);
 
-        this.totalList = this.cubeFaceGameStreak;
+        this.totalList = this.cubeFaceIdViseGameStreakData;
         console.log(this.totalList);
-        this.count[0].value = this.cubeFaceGameStreak.length;
-        this.activeList = this.cubeFaceGameStreak.filter(
+        this.count[0].value = this.cubeFaceIdViseGameStreakData.length;
+        this.activeList = this.cubeFaceIdViseGameStreakData.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
         console.log(this.activeList);
         this.count[1].value = this.activeList.length;
-        this.inactiveList = this.cubeFaceGameStreak.filter(
+        this.inactiveList = this.cubeFaceIdViseGameStreakData.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
         console.log(this.inactiveList);
@@ -638,11 +638,13 @@ export class GameThemeComponent implements OnInit {
 
   editGameTime(value: any, label: any) {
     if (label == 'gametime') {
-      console.log(this.gameTime[value]);
+      console.log(this.cubeFaceIdViseGameTimeData[value]);
       let gamePointsActiveTab = this.activeSubSubTab;
-      let cubesFacesGameId = JSON.stringify(this.gameTime[value]);
-      let cubeFaceId = this.gameTime[value].cubesFacesId;
-      let categoryName = this.gameTime[value].categoryName;
+      let cubesFacesGameId = JSON.stringify(
+        this.cubeFaceIdViseGameTimeData[value]
+      );
+      let cubeFaceId = this.cubeFaceIdViseGameTimeData[value].cubesFacesId;
+      let categoryName = this.cubeFaceIdViseGameTimeData[value].categoryName;
       this._router.navigate(['home/edit-question'], {
         queryParams: {
           cubeFaceId,
@@ -652,13 +654,13 @@ export class GameThemeComponent implements OnInit {
         },
       });
     } else if (label == 'attempt') {
-      console.log(this.cubeFaceGameAttempt[value]);
+      console.log(this.cubeFaceIdViseGameAttemtData[value]);
       let gamePointsActiveTab = this.activeSubSubTab;
       let cubeFaceGameAttemptEdit = JSON.stringify(
-        this.cubeFaceGameAttempt[value]
+        this.cubeFaceIdViseGameAttemtData[value]
       );
-      let cubeFaceId = this.cubeFaceGameAttempt[value]?.cubesFacesId;
-      let categoryName = this.cubeFaceGameAttempt[value]?.categoryName;
+      let cubeFaceId = this.cubeFaceIdViseGameAttemtData[value]?.cubesFacesId;
+      let categoryName = this.cubeFaceIdViseGameAttemtData[value]?.categoryName;
       this._router.navigate(['home/edit-question'], {
         queryParams: {
           cubeFaceId,
@@ -668,13 +670,13 @@ export class GameThemeComponent implements OnInit {
         },
       });
     } else if (label == 'streak') {
-      console.log(this.cubeFaceGameStreak[value]);
+      console.log(this.cubeFaceIdViseGameStreakData[value]);
       let gamePointsActiveTab = this.activeSubSubTab;
       let cubeFaceGameStreakEdit = JSON.stringify(
-        this.cubeFaceGameStreak[value]
+        this.cubeFaceIdViseGameStreakData[value]
       );
-      let cubeFaceId = this.cubeFaceGameStreak[value]?.cubesFacesId;
-      let categoryName = this.cubeFaceGameStreak[value]?.categoryName;
+      let cubeFaceId = this.cubeFaceIdViseGameStreakData[value]?.cubesFacesId;
+      let categoryName = this.cubeFaceIdViseGameStreakData[value]?.categoryName;
       this._router.navigate(['home/edit-question'], {
         queryParams: {
           cubeFaceId,
