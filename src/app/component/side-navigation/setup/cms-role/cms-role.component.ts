@@ -53,7 +53,7 @@ export class CmsRoleComponent {
   activeCmsRoleFunction: any = [];
   activeFunctionID: any;
   redirectedFrom: string = '';
-
+  CmsRoleListResponse: any = [];
   subtab = [
     {
       label: 'Create CMS Role',
@@ -250,8 +250,26 @@ export class CmsRoleComponent {
     this.http
       .getRolesList(this.idOrganization, this.idCmsRole)
       .subscribe((res) => {
-        this.CmsRoleList = res;
-        console.log(this.CmsRoleList);
+        if (this.apiData?.role?.idRoleType > 2) {
+          this.CmsRoleListResponse = res;
+          console.log(this.CmsRoleListResponse);
+          this.CmsRoleList = this.CmsRoleListResponse.filter(
+            (org: { idRoleType: number }) =>
+              org.idRoleType !== 1 &&
+              org.idRoleType !== 2 &&
+              org.idRoleType !== 3
+          );
+        } else if (this.apiData?.role?.idRoleType == 2) {
+          this.CmsRoleListResponse = res;
+          console.log(this.CmsRoleListResponse);
+          this.CmsRoleList = this.CmsRoleListResponse.filter(
+            (org: { idRoleType: number }) =>
+              org.idRoleType !== 1 && org.idRoleType !== 2
+          );
+        } else {
+          this.CmsRoleList = res;
+          console.log(this.CmsRoleList);
+        }
 
         this.totalCmsRolelist = this.CmsRoleList;
         this.count[0].value = this.CmsRoleList.length;

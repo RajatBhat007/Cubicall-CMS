@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -16,13 +16,14 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
   templateUrl: './organization-hierarchy.component.html',
   styleUrls: ['./organization-hierarchy.component.scss'],
 })
-export class OrganizationHierarchyComponent implements OnInit {
+export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   @Input() user: any;
 
   isDisabled: boolean = true; // Initially, the button is not disabled
   vendorData: string = '';
   vendorNameHierarchy: string = '';
   creteAdminField!: FormGroup;
+  createAdminResponse: any = [];
   subtab: any = [
     {
       label: 'Create Admin Role',
@@ -62,6 +63,8 @@ export class OrganizationHierarchyComponent implements OnInit {
   descriptioninfo: string = '';
   getAdmindetails: any = [];
   getVendordetails: any = [];
+  getOrgHierarchyResponse: any = [];
+
   totalCmsAdmin: string = '';
   activeRadiobutton = 0;
   ParentIdOrgHierarchy: number = 0;
@@ -125,6 +128,13 @@ export class OrganizationHierarchyComponent implements OnInit {
   organisationProcess: string = '';
   idhierarchy: string = '';
   idOrg: string = '';
+  processList: any = [];
+  subprocessList: any = [];
+  stageList: any = [];
+  vendorList: any = [];
+  location: any;
+  processNameRightSide: string = '';
+  subprocessNameRightSide: string = '';
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -181,6 +191,8 @@ export class OrganizationHierarchyComponent implements OnInit {
 
   ngOnInit() {
     this.getApiData();
+    this.GetOrgHierarchyTree();
+
     this.idhierarchy = this.apiData?.user?.idOrgHierarchy;
     this.idOrg = this.apiData?.user?.idOrganization;
     console.log(this.idhierarchy);
@@ -189,6 +201,11 @@ export class OrganizationHierarchyComponent implements OnInit {
     this.addProcessRow('page'); // Add one row by default
     this.addSubProcessRow('');
     this.addStageRow('');
+    this.location = localStorage.getItem('tab');
+    if (this.location == 'setHierarchy') {
+      this.activeIndexSubTab = 1;
+      this.subTabName = 'set';
+    }
   }
 
   getApiData() {
@@ -253,6 +270,67 @@ export class OrganizationHierarchyComponent implements OnInit {
         ];
         break;
     }
+  }
+
+  GetOrgHierarchyTree() {
+    console.log(this.apiData?.user?.idOrganization);
+
+    this.http
+      .GetOrgHierarchyTree(
+        this.apiData?.user?.idOrganization,
+        this.apiData?.user?.idOrgHierarchy
+      )
+      .subscribe((res) => {
+        this.getOrgHierarchyResponse = res;
+        console.log(this.getOrgHierarchyResponse);
+
+        this.vendorList = this.getOrgHierarchyResponse.filter(
+          (org: { hirarchyLevelType: string }) =>
+            org?.hirarchyLevelType === 'Vendor - Client'
+        );
+        console.log(this.vendorList);
+
+        this.processList = this.getOrgHierarchyResponse.filter(
+          (org: { hirarchyLevelType: string }) =>
+            org?.hirarchyLevelType === 'Proecss'
+        );
+        console.log(this.processList);
+
+        this.subprocessList = this.getOrgHierarchyResponse.filter(
+          (org: { hirarchyLevelType: string }) =>
+            org?.hirarchyLevelType === 'Sub Process'
+        );
+        console.log(this.subprocessList);
+
+        this.stageList = this.getOrgHierarchyResponse.filter(
+          (org: { hirarchyLevelType: string }) =>
+            org?.hirarchyLevelType === 'Stage'
+        );
+
+        console.log(this.stageList);
+
+        // const processRowsArray = this.processForm1.get(
+        //   'processRows'
+        // ) as FormArray;
+        // console.log(processRowsArray);
+        // const rowIndex = 0; // Change this to the desired row index.
+        // if (rowIndex >= 0 && rowIndex < processRowsArray.length) {
+        //   // Get the FormGroup representing the row at the specified index.
+        //   const rowFormGroup = processRowsArray.at(rowIndex) as FormGroup;
+
+        //   // Check if the FormGroup and the processName control exist.
+        //   if (rowFormGroup && rowFormGroup.get('processName')) {
+        //     // Set the value of the processName control.
+        //     rowFormGroup
+        //       .get('processName')
+        //       ?.setValue(this.getOrgHierarchyResponse[0]?.hirarchyLevelType);
+        //   }
+        // }
+        // this.processName1
+        //   .get('processName')
+        //   ?.setValue(this.getOrgHierarchyResponse[0]?.hirarchyLevelType);
+        // this.processName1.get('processName')?.value || '';
+      });
   }
 
   updateInputState(event: Event) {
@@ -364,6 +442,7 @@ export class OrganizationHierarchyComponent implements OnInit {
     if (page == 'process') {
       this.postOrganisationHierarchy(page, this.processName1);
     }
+    this.GetOrgHierarchyTree();
   }
 
   addSubProcessRow(page: any) {
@@ -389,6 +468,8 @@ export class OrganizationHierarchyComponent implements OnInit {
     if (page == 'subprocess') {
       this.postOrganisationHierarchy(page, this.subprocessName);
     }
+    this.GetOrgHierarchyTree();
+
     // this.createHierarchy(this.subprocessName);
   }
 
@@ -411,6 +492,7 @@ export class OrganizationHierarchyComponent implements OnInit {
     if (page == 'stage') {
       this.postOrganisationHierarchy(page, this.stageName);
     }
+    this.GetOrgHierarchyTree();
     // this.createHierarchy(this.subprocessName);
   }
 
@@ -459,12 +541,23 @@ export class OrganizationHierarchyComponent implements OnInit {
     if (process == 'subprocess') {
       this.subprocess = false;
       console.log(process);
+      console.log(this.processList[index]);
+      this.processNameRightSide = this.processList[index].hierarchyName;
+      console.log(this.processNameRightSide);
+      this.ParentIdOrgHierarchy =
+        this.processList[index]?.idOrganizationHirarchy;
     } else if (process == 'process') {
+      console.log(this.processList[index]);
       this.subprocess = true;
       console.log(process);
     } else {
       this.subprocess = false;
       console.log(process);
+      console.log(this.subprocessList[index]);
+      this.subprocessNameRightSide = this.subprocessList[index].hierarchyName;
+      console.log(this.subprocessNameRightSide);
+      this.ParentIdOrgHierarchy =
+        this.subprocessList[index]?.idOrganizationHirarchy;
     }
 
     console.log(this.subprocess);
@@ -511,7 +604,7 @@ export class OrganizationHierarchyComponent implements OnInit {
         this.OrgHirerachtresponse = res;
         this.ParentIdOrgHierarchy = this.OrgHirerachtresponse.idOrgHierarchy;
         if (this.hierarchylevel == 5) {
-          this.openModal();
+          // this.openModal();
         }
       },
       (error: HttpErrorResponse) => {
@@ -540,12 +633,15 @@ export class OrganizationHierarchyComponent implements OnInit {
           : this.ParentIdOrgHierarchy;
       this.vendorNameHierarchy = description;
       console.log(this.ParentIdOrgHierarchy);
+      this.openModalProcess();
     } else if (pageInfo == 'subprocess') {
       this.hierarchylevel = 4;
       this.vendorNameHierarchy = description;
+      this.openModalSubProcess();
     } else if (pageInfo == 'stage') {
       this.hierarchylevel = 5;
       this.vendorNameHierarchy = description;
+      this.openModalStageProcess();
     } else {
       this.hierarchylevel = 2;
     }
@@ -554,7 +650,7 @@ export class OrganizationHierarchyComponent implements OnInit {
 
   submitOrgHierarchy() {
     this.SubmitCreateAdminUser();
-    // this.openModal();
+    this.openModal();
   }
   openModal() {
     const modalRef = this.modalService.open(ModalComponent, {
@@ -567,6 +663,38 @@ export class OrganizationHierarchyComponent implements OnInit {
     modalRef.componentInstance.screen = 'Setup';
   }
 
+  openModalProcess() {
+    const modalRef = this.modalService.open(ModalComponent, {
+      centered: true,
+    });
+
+    // You can pass data to the modal if needed
+    modalRef.componentInstance.someData =
+      'Done! The Process has been created successfully.';
+    modalRef.componentInstance.screen = '';
+  }
+
+  openModalSubProcess() {
+    const modalRef = this.modalService.open(ModalComponent, {
+      centered: true,
+    });
+
+    // You can pass data to the modal if needed
+    modalRef.componentInstance.someData =
+      'Done! The SubProcess has been created successfully.';
+    modalRef.componentInstance.screen = '';
+  }
+
+  openModalStageProcess() {
+    const modalRef = this.modalService.open(ModalComponent, {
+      centered: true,
+    });
+
+    // You can pass data to the modal if needed
+    modalRef.componentInstance.someData =
+      'Done! The Stage has been created successfully.';
+    modalRef.componentInstance.screen = '';
+  }
   onSubmit() {
     if (this.vendorForm.valid) {
       // Form is valid, submit the data
@@ -617,6 +745,15 @@ export class OrganizationHierarchyComponent implements OnInit {
 
     this.http.createAdminUser(body).subscribe((res) => {
       console.log(res);
+      this.createAdminResponse = res;
+      this.http
+        .postVerificationEmail(
+          this.createAdminResponse?.idOrganization,
+          this.createAdminResponse?.idCmsUser
+        )
+        .subscribe((res) => {
+          console.log(res);
+        });
     });
   }
   togglePasswordVisibility() {
@@ -624,4 +761,7 @@ export class OrganizationHierarchyComponent implements OnInit {
   }
 
   createAdminUser() {}
+  ngOnDestroy() {
+    localStorage.removeItem('tab');
+  }
 }

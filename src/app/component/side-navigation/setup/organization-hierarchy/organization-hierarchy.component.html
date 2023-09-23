@@ -205,6 +205,7 @@
                   <div class="row">
                     <div class="col-4 left-side">
                       <div
+                        *ngIf="this.apiData?.role?.idRoleType != 3"
                         ngbDropdown
                         class="dropdown mt-4 w-100"
                         style="position: relative; display: inline-flex"
@@ -262,13 +263,13 @@
                         </div>
                       </div>
                       <ng-container
-                        *ngFor="let row of processRows.controls; let i = index"
+                        *ngFor="let row of processList; let i = index"
                       >
                         <div
                           class="row d-flex justify-content-end me-1"
                           (click)="navigateToSubprocess('subprocess', i)"
                         >
-                          <div
+                          <!-- <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                             *ngIf="row.get('processName')?.value !== null"
                           >
@@ -283,7 +284,18 @@
                               />
                             </div>
 
-                            <!-- {{ row | json }} -->
+                          </div> -->
+                          <div
+                            class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                          >
+                            {{ row?.hierarchyName }}
+
+                            <div class="edit_btn d-flex justify-content-end">
+                              <img
+                                class="edit_image"
+                                src="assets/images/Edit.svg"
+                              />
+                            </div>
                           </div>
                         </div>
                       </ng-container>
@@ -295,16 +307,13 @@
                         C] Sub Process
                       </div>
                       <ng-container
-                        *ngFor="
-                          let row of subprocessRows.controls;
-                          let i = index
-                        "
+                        *ngFor="let row of subprocessList; let i = index"
                       >
                         <div
                           class="row d-flex justify-content-end me-1"
                           (click)="navigateToSubprocess('stage', i)"
                         >
-                          <div
+                          <!-- <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                             *ngIf="row.get('subprocessName')?.value !== null"
                           >
@@ -318,7 +327,18 @@
                                 src="assets/images/Edit.svg"
                               />
                             </div>
-                            <!-- {{ row | json }} -->
+                          </div> -->
+                          <div
+                            class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                          >
+                            {{ row?.hierarchyName }}
+
+                            <div class="edit_btn d-flex justify-content-end">
+                              <img
+                                class="edit_image"
+                                src="assets/images/Edit.svg"
+                              />
+                            </div>
                           </div>
                         </div>
                       </ng-container>
@@ -330,10 +350,10 @@
                         D] Stage
                       </div>
                       <ng-container
-                        *ngFor="let row of stage.controls; let i = index"
+                        *ngFor="let row of stageList; let i = index"
                       >
                         <div class="row d-flex justify-content-end me-1">
-                          <div
+                          <!-- <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                             *ngIf="row.get('stageName')?.value !== null"
                           >
@@ -348,7 +368,18 @@
                               }}
                               {{ row.get("stageName")?.value }}
                             </p>
-                            <!-- {{ row | json }} -->
+                          </div> -->
+                          <div
+                            class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
+                          >
+                            {{ row?.hierarchyName }}
+
+                            <div class="edit_btn d-flex justify-content-end">
+                              <img
+                                class="edit_image"
+                                src="assets/images/Edit.svg"
+                              />
+                            </div>
                           </div>
                         </div>
                       </ng-container>
@@ -361,7 +392,8 @@
                         <div
                           class="col-12 font d-flex justify-content-center mt-1 heading-right-side"
                         >
-                          Step 1: Enter all the Process for XXX Vendor<br />
+                          Step 1: Enter all the Process for
+                          {{ vendorList[0]?.hierarchyName }} Vendor<br />
                           Step 2: Click on a Process to add its Sub Process in
                           it
                         </div>
@@ -442,7 +474,8 @@
                         <div
                           class="col-12 font d-flex justify-content-center mt-4 heading-right-side"
                         >
-                          Step 1: Enter all the Sub-Process for Process 1 XXX<br />
+                          Step 1: Enter all the Sub-Process for
+                          {{ processNameRightSide }}<br />
                           Step 2: Click on a Sub Process to add Stage in it
                         </div>
                       </div>
@@ -507,8 +540,10 @@
                         <div
                           class="col-12 font d-flex justify-content-center mt-4 heading-right-side"
                         >
-                          Step 1: Enter all the Sub-Process for Process 1 XXX<br />
-                          Step 2: Click on a Sub Process to add Stage in it
+                          Step 1: Enter all the Stage for
+                          {{ subprocessNameRightSide }}<br />
+                          Step 2: Click on the next Sub Process to add all the
+                          Stage in it.
                         </div>
                       </div>
 

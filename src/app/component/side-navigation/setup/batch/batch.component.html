@@ -61,7 +61,7 @@
                     >
                       <button
                         ngbDropdownToggle
-                        class="btn btn-secondary font large-dropdown"
+                        class="btn btn-secondary font large-dropdown ellipsis"
                         type="button"
                         id="dropdownMenuButtonsetup"
                         aria-expanded="false"
@@ -193,14 +193,16 @@
                               <div class="label_setup-logo font text-dark ms-3">
                                 {{ item.label }}
                               </div>
+
                               <div
-                                class="label_setup-logo font text-dark"
+                                class="label_setup-logo font text-dark d-flex"
                                 style="
                                   text-decoration: underline;
                                   cursor: pointer;
                                 "
                               >
                                 {{ item.date }}
+                                <div><input type="date" id="birthday" /></div>
                               </div>
                             </div>
                           </div>

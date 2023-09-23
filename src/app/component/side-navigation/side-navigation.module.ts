@@ -18,23 +18,23 @@ import { UsersReportComponent } from './users-report/users-report.component';
 @NgModule({
   declarations: [
     SideNavigationComponent,
-  
+
     GameThemeComponent,
-       EditQuestionComponent,
-       RtuScreenComponent,
-       SetupComponent,
-       CmsRoleComponent,
-       CmsUserComponent,
-       BatchComponent,
-       OrganizationHierarchyComponent,
-       UsersReportComponent
+    EditQuestionComponent,
+    RtuScreenComponent,
+    SetupComponent,
+    CmsRoleComponent,
+    CmsUserComponent,
+    BatchComponent,
+    OrganizationHierarchyComponent,
+    UsersReportComponent,
   ],
   imports: [
     CommonModule,
     NgbModule,
     SideNavigationRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class SideNavigationModule { }
+export class SideNavigationModule {}

@@ -53,6 +53,7 @@ export class CmsUserComponent {
   selectedDropdownRoleId: number = 0;
   vendorDetailsResponse: any = [];
   idOrganization1: number = 0;
+  userDetailsListResponse: any = [];
   subtab = [
     {
       label: 'Create Cms User',
@@ -273,8 +274,24 @@ export class CmsUserComponent {
     this.http
       .getCMSUserDetails(this.idOrganization1, this.idCmsUser)
       .subscribe((res) => {
-        this.userDetailsList = res;
-        console.log(this.userDetailsList);
+        if (this.apiData?.role?.idRoleType > 2) {
+          this.userDetailsListResponse = res;
+          console.log(this.userDetailsList);
+          this.userDetailsList = this.userDetailsListResponse.filter(
+            (org: { roleName: string }) =>
+              org.roleName !== 'Admin' && org.roleName !== 'Super Admin'
+          );
+        } else if (this.apiData?.role?.idRoleType == 2) {
+          this.userDetailsListResponse = res;
+          console.log(this.userDetailsList);
+          this.userDetailsList = this.userDetailsListResponse.filter(
+            (org: { roleName: string }) => org.roleName !== 'Super Admin'
+          );
+        } else {
+          this.userDetailsList = res;
+          console.log(this.userDetailsList);
+        }
+
         this.totalUserlist = this.userDetailsList;
         this.count[0].value = this.userDetailsList.length;
         this.activeUserlist = this.userDetailsList.filter(
@@ -518,10 +535,14 @@ export class CmsUserComponent {
       ?.setValue(this.getEditUserDetails?.name);
     this.createCmsUser.get('employeeName')?.value || '';
 
-    this.createCmsUser.get('empId')?.setValue(this.getEditUserDetails?.employeeId);
+    this.createCmsUser
+      .get('empId')
+      ?.setValue(this.getEditUserDetails?.employeeId);
     this.createCmsUser.get('empId')?.value || '';
 
-    this.createCmsUser.get('empPassword')?.setValue(this.getEditUserDetails?.password);
+    this.createCmsUser
+      .get('empPassword')
+      ?.setValue(this.getEditUserDetails?.password);
     this.createCmsUser.get('empPassword')?.value || '';
 
     this.userDetailsList[value].userName;

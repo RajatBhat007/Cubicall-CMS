@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from 'src/app/pages/modal/modal.component';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 
 @Component({
@@ -123,9 +125,13 @@ export class BatchComponent {
   formattedDate: any;
   cubeFaceId: any;
 
-  constructor(public apiservice: ApiServiceService) {
+  constructor(
+    public apiservice: ApiServiceService,
+    private modalService: NgbModal
+  ) {
     console.log(this.activeUpdateButton);
   }
+
   ngOnInit(): void {
     console.log(this.isChecked);
     this.apiservice.getApiData().subscribe((data) => {
@@ -232,14 +238,14 @@ export class BatchComponent {
           IsActive: '',
           IdOrganization: Number(this.idOrgnization),
           IdCmsUser: Number(this.idCMSUser),
-          lstCubefaceBatchMaster: [
-            {
-              CubesFacesId: this.cubeFaceId,
-              IdBatch: 1,
-              ScheduledDateTime: this.formattedDate,
-            },
-          ],
         },
+        lstCubefaceBatchMaster: [
+          {
+            CubesFacesId: this.cubeFaceId,
+            IdBatch: 1,
+            ScheduledDateTime: this.formattedDate,
+          },
+        ],
       },
     };
     const escapedobjHeirarchyBatchesMaster = JSON.stringify(
@@ -261,23 +267,23 @@ export class BatchComponent {
       payload.Data.objHeirarchyBatchesMaster.IdCmsUser
     );
     const escapedlstCubefaceBatchMaster = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.lstCubefaceBatchMaster
+      payload.Data.lstCubefaceBatchMaster
     );
-    const escapeCubesFacesId = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.lstCubefaceBatchMaster[0]
-        .CubesFacesId
-    );
-    const escapedIdBatch = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.lstCubefaceBatchMaster[0].IdBatch
-    );
-    const escapedScheduledDateTime = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.lstCubefaceBatchMaster[0]
-        .ScheduledDateTime
-    );
+    // const escapeCubesFacesId = JSON.stringify(
+    //   payload.Data.objHeirarchyBatchesMaster.lstCubefaceBatchMaster[0]
+    //     .CubesFacesId
+    // );
+    // const escapedIdBatch = JSON.stringify(
+    //   payload.Data.objHeirarchyBatchesMaster.lstCubefaceBatchMaster[0].IdBatch
+    // );
+    // const escapedScheduledDateTime = JSON.stringify(
+    //   payload.Data.objHeirarchyBatchesMaster.lstCubefaceBatchMaster[0]
+    //     .ScheduledDateTime
+    // );
 
     console.log(payload);
 
-    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster}`;
+    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
     const jsonString = JSON.stringify(escapedJsonString);
     console.log(jsonString);
     const jsonStringremovelast = jsonString.slice(0, -1);
@@ -285,6 +291,7 @@ export class BatchComponent {
 
     this.apiservice.createBatch(body).subscribe((res) => {
       console.log(res);
+      this.openModal();
     });
   }
   editBatch(event: any) {
@@ -421,5 +428,16 @@ export class BatchComponent {
     this.apiservice.editBatch(body).subscribe((res) => {
       console.log(res);
     });
+  }
+
+  openModal() {
+    const modalRef = this.modalService.open(ModalComponent, {
+      centered: true,
+    });
+
+    // You can pass data to the modal if needed
+    modalRef.componentInstance.someData =
+      'Done! The Batch has been created successfully.';
+    modalRef.componentInstance.screen = 'Organization';
   }
 }

@@ -11,7 +11,12 @@ import { CreateimgComponent } from './createimg/createimg/createimg.component';
 import { GameEditComponent } from './gameedit/game-edit/game-edit.component';
 
 @NgModule({
-  declarations: [AppComponent, ModalComponent, CreateimgComponent, GameEditComponent],
+  declarations: [
+    AppComponent,
+    ModalComponent,
+    CreateimgComponent,
+    GameEditComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

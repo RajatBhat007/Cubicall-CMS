@@ -565,3 +565,11 @@ width: 37%;
   margin-left:85%;
   margin-top: 1%;
 }
+
+
+input[type=date]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+  color: black !important;
+}

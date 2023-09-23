@@ -70,14 +70,23 @@ export class ApiServiceService {
     return this.responseData;
   }
 
-  importQutionFile(file: File, idOrgHierarchy: any) {
+  importQutionFile(
+    file: File,
+    idOrgHierarchy: any,
+    userId: any,
+    CubesFacesGameId: any,
+    OrgID: any
+  ) {
     const formData = new FormData();
     formData.append('postedFile', file);
     formData.append('IdOrgHierarchy', idOrgHierarchy.toString());
+    formData.append('userId', userId);
+    formData.append('CubesFacesGameId', CubesFacesGameId);
+    formData.append('OrgID', OrgID);
 
     var tempurl =
       `${this.URLstring}` +
-      `${this.Path}/ImportQuestionFromExcel
+      `${this.Path}/ImportQuestionAnsFromExcel
       `;
 
     return this.Http.post(tempurl, formData);
@@ -270,6 +279,13 @@ export class ApiServiceService {
     return this.Http.get(tempurl);
   }
 
+  GetOrgHierarchyTree(data: any, data2: any) {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetOrgHierarchyTree?OrgId=${data}&ParentOrgHierarchyId=${data2}`;
+    return this.Http.get(tempurl);
+  }
+
   getCubeFaceGameTime(data: any, id: any): Observable<any> {
     var tempurl =
       `${this.URLstring}` +
@@ -319,4 +335,18 @@ export class ApiServiceService {
     var tempurl = `${this.URLstring}` + `${this.Path}/InsUpdCubeFaceGameStreak`;
     return this.Http.post(tempurl, data, httpOptions);
   }
+
+  postVerificationEmail(data: any, data2: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/PostVerificationEmail?OrgID=${data}&IdCmsUser=${data2}`;
+    return this.Http.post(tempurl, data, httpOptions);
+  }
+
+  // https://www.playtolearn.in/CubicallGameNewApi_test/api/PostVerificationEmail?OrgID=260&IdCmsUser=176
 }

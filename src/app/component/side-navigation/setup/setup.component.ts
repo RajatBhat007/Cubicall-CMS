@@ -18,8 +18,7 @@ export class SetupComponent implements OnInit {
   activeIndexSubTab: any = 0;
 
   activeTabGameThemes: Boolean = false;
-
-  selectedDropdownValue: string = 'Organization Name';
+  organisationName: string = '';
   selectedDropdownIndustryValue: string = 'Select from the drop-down';
   selectedDropdownBusinessTypeValue: string = 'Select from the drop-down';
   status: any;
@@ -54,7 +53,7 @@ export class SetupComponent implements OnInit {
   contactNameEdit: string = '';
   contactEmailEdit: string = '';
   isInputDisabled: boolean = true;
-
+  organisationLogo: string = '';
   createOrgResponse: any = [];
   count = [
     {
@@ -138,6 +137,9 @@ export class SetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.getApiData();
+    this.organisationName =
+      this.apiData?.user?.idOrganizationNavigation?.organizationName;
+    this.organisationLogo = this.apiData?.user?.idOrganizationNavigation?.logo;
     this.user.key1 = this.userRole;
     console.log(this.user.key1);
 
@@ -398,7 +400,7 @@ export class SetupComponent implements OnInit {
         UpdatedDateTime: '',
         IdCmsUser: this.apiData?.user?.idCmsRole,
         SenderPassword: '',
-        Logo_Imgbytes: this.sliced_base64string,
+        Logo_Imgbytes: `,` + this.sliced_base64string,
         IndustryName: this.selectedDropdownIndustryValue,
         BUSINESSTYPENAME: this.selectedDropdownBusinessTypeValue,
         IdBusinessType: Number(this.selectedDropdownBusinessTypeValueId),
@@ -436,6 +438,8 @@ export class SetupComponent implements OnInit {
     this.http.createOrganisation(body).subscribe(
       (res) => {
         this.createOrgResponse = res;
+        console.log(this.createOrgResponse);
+
         this.createHierarchy();
 
         this.successModal = true;
@@ -456,7 +460,7 @@ export class SetupComponent implements OnInit {
   createHierarchy() {
     const payload = {
       Data: {
-        IdOrganization: Number(this.apiData?.user?.idOrganization),
+        IdOrganization: Number(this.createOrgResponse?.idOrganization),
         IdCmsUser: Number(this.apiData?.user?.idCmsRole),
         ParentIdOrgHierarchy: 0,
         HierarchyName: this.createOrgResponse?.organizationName,

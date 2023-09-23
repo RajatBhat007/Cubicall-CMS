@@ -11,6 +11,7 @@
   color: #FFFFFF;
   padding: 0.3em;
   font-size: 0.9em;
+  min-width: 30%;
 }
 
 .input-group {
@@ -115,10 +116,7 @@
   font-size: .7em
 }
 
-.bottom-conatiner {
-  height: 67vh;
-  width: 99%
-}
+
 
 .tab-active {
   height: 7vh;
@@ -1298,7 +1296,7 @@ margin-top:1% ;
 
 .bottom-conatiner {
   background: #F5F5F7;
-  height: 67vh;
+  height: 69vh;
   width: 99%;
   border: 2px solid #000000;
 

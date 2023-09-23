@@ -10,6 +10,8 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from 'src/app/pages/modal/modal.component';
 @Component({
   selector: 'app-game-theme',
   templateUrl: './game-theme.component.html',
@@ -65,11 +67,14 @@ export class GameThemeComponent implements OnInit {
   questionListResponse: any = [];
   uploadButton: boolean = false;
   stageDropdown: any = [];
+  organisationLogo: string = '';
+  organisationName: string = '';
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
     public authService: AuthService,
-    public http: ApiServiceService
+    public https: ApiServiceService,
+    private modalService: NgbModal
   ) {}
 
   matTab = [
@@ -135,7 +140,7 @@ export class GameThemeComponent implements OnInit {
       label: 'Configure Images',
     },
     {
-      label: 'Contant Approval',
+      label: 'Content Approval',
     },
   ];
   subsubtab = [
@@ -181,14 +186,18 @@ export class GameThemeComponent implements OnInit {
     },
   ];
   ngOnInit(): void {
-    this.http.getApiData().subscribe((data) => {
+    this.https.getApiData().subscribe((data) => {
       this.apiData = data;
       console.log(this.apiData);
+      this.organisationName =
+        this.apiData?.user?.idOrganizationNavigation?.organizationName;
+      this.organisationLogo =
+        this.apiData?.user?.idOrganizationNavigation?.logo;
+
       if (this.apiData?.role?.idRoleType >= 4) {
         this.uploadButton = true;
       }
     });
-
     this._route.queryParams.subscribe((params) => {
       console.log(params);
       this.value = params;
@@ -200,12 +209,12 @@ export class GameThemeComponent implements OnInit {
       }
     });
 
-    this.View('4');
+    this.View('1');
     this.status = 'rejected';
   }
 
   GetQuestionData() {
-    this.http
+    this.https
       .getQuestionList(
         this.apiData?.user?.idOrganization,
         this.activeIndexTab + 1
@@ -216,7 +225,7 @@ export class GameThemeComponent implements OnInit {
   }
 
   GetStageNames() {
-    this.http.getStagesName(this.apiData?.user?.idCmsUser).subscribe((res) => {
+    this.https.getStagesName(this.apiData?.user?.idCmsUser).subscribe((res) => {
       this.stageDropdown = res;
     });
   }
@@ -251,8 +260,13 @@ export class GameThemeComponent implements OnInit {
     console.log(this.selectedFileName);
   }
 
-  uploadQutionfile() {
-    const idOrgHierarchy = this.apiData?.user?.idOrgHierarchy;
+  uploadQuestionfile() {
+    // const idOrgHierarchy = this.apiData?.user?.idOrgHierarchy;
+    const IdOrgHierarchy = this.apiData?.user?.idOrgHierarchy;
+    const userId = this.apiData?.user?.idCmsUser;
+    const CubesFacesGameId = this.activeIndexTab + 1;
+    const OrgID = this.apiData?.user?.idOrganization;
+
     //  console.log(idOrgHierarchy);
     //  console.log(this.selectedFile);
 
@@ -271,26 +285,51 @@ export class GameThemeComponent implements OnInit {
     // const jsonStringremovelast=jsonString.slice(0,-1)
     // const body = '{"Data":'+jsonString +'}"}';
 
-    if (this.selectedFile && idOrgHierarchy !== null) {
-      this.http.importQutionFile(this.selectedFile, idOrgHierarchy).subscribe(
-        (res) => {
-          console.log(res);
-          // this._router.navigateByUrl('home')
-          window.alert('succes');
-        },
-        (error: HttpErrorResponse) => {
-          if (error.status === 404) {
-            window.alert('404 Not Found Error');
-            // Handle the 404 error, such as displaying a message to the user
-          } else {
-            window.alert(error.error);
-            // Handle other errors
+    if (this.selectedFile && IdOrgHierarchy !== null) {
+      this.https
+        .importQutionFile(
+          this.selectedFile,
+          IdOrgHierarchy,
+          userId,
+          CubesFacesGameId,
+          OrgID
+        )
+        .subscribe(
+          (res) => {
+            console.log(res);
+            // this._router.navigateByUrl('home')
+            this.openModal();
+          },
+          (error: HttpErrorResponse) => {
+            if (error.status === 404) {
+              window.alert('404 Not Found Error');
+              // Handle the 404 error, such as displaying a message to the user
+            } else {
+              window.alert(error.error);
+              // Handle other errors
+            }
           }
-        }
-      );
+        );
     }
   }
 
+  openModal() {
+    const modalRef = this.modalService.open(ModalComponent, {
+      centered: true,
+    });
+
+    // You can pass data to the modal if needed
+    modalRef.componentInstance.someData =
+      'Done! The File has been uploaded successfully.';
+    modalRef.componentInstance.screen = 'GameTheme';
+  }
+
+  DownloadTemplate() {
+    const excelUrl =
+      'https://www.playtolearn.in/Cubicall_CMS/Template/template.xlsx';
+
+    window.open(excelUrl);
+  }
   onFileChangeAnswer(event: any) {
     console.log(event);
 
@@ -319,11 +358,12 @@ export class GameThemeComponent implements OnInit {
   }
 
   uploadAnswerfile() {
-    const idOrgHierarchy = this.apiData?.user?.idOrgHierarchy;
+    const IdOrgHierarchy = this.apiData?.user?.idOrgHierarchy;
 
-    if (this.selectedAnswerFile && idOrgHierarchy !== null) {
-      this.http
-        .importAnswerFile(this.selectedAnswerFile, idOrgHierarchy)
+    // IFormFile postedFile, int IdOrgHierarchy, int userId,int CubesFacesGameId,int OrgID Parameters are to be passed
+    if (this.selectedAnswerFile && IdOrgHierarchy !== null) {
+      this.https
+        .importAnswerFile(this.selectedAnswerFile, IdOrgHierarchy)
         .subscribe(
           (res) => {
             console.log(res);
@@ -387,7 +427,7 @@ export class GameThemeComponent implements OnInit {
 
   navigateToGameEdit() {
     this._router.navigateByUrl('home/gameedit');
-    this.http.isAttempted = true;
+    this.https.isAttempted = true;
   }
   navigateToCreateimg() {
     this._router.navigateByUrl('home/createimg');
@@ -411,21 +451,22 @@ export class GameThemeComponent implements OnInit {
           label: 'Configure Images',
         },
         {
-          label: 'Contant Approval',
+          label: 'Content Approval',
         },
       ];
+      this.GetQuestionData();
       //  this.getCubeFaceGameAttempt()
     } else if (value == '2') {
       this.subtab = [
         {
-          label: 'Contant Approval',
+          label: 'Content ',
         },
       ];
       this.hideuploadButton = true;
     } else if (value == '4') {
       this.subtab = [
         {
-          label: 'Contant Approval',
+          label: 'Content ',
         },
       ];
       this.hideuploadButton = true;
@@ -433,7 +474,7 @@ export class GameThemeComponent implements OnInit {
     } else {
       this.subtab = [
         {
-          label: 'Contant Approval',
+          label: 'Content ',
         },
       ];
       this.hideuploadButton = true;
@@ -462,21 +503,21 @@ export class GameThemeComponent implements OnInit {
     }
   }
   openAttempted() {
-    this.http.isAttempted = true;
-    this.http.isopenGameTime = false;
-    this.http.isopenStreakTime = false;
+    this.https.isAttempted = true;
+    this.https.isopenGameTime = false;
+    this.https.isopenStreakTime = false;
     this._router.navigateByUrl('home/gameedit');
   }
   openStreakTime() {
-    this.http.isAttempted = false;
-    this.http.isopenGameTime = false;
-    this.http.isopenStreakTime = true;
+    this.https.isAttempted = false;
+    this.https.isopenGameTime = false;
+    this.https.isopenStreakTime = true;
     this._router.navigateByUrl('home/gameedit');
   }
   openGameTime() {
-    this.http.isAttempted = false;
-    this.http.isopenGameTime = true;
-    this.http.isopenStreakTime = false;
+    this.https.isAttempted = false;
+    this.https.isopenGameTime = true;
+    this.https.isopenStreakTime = false;
     this._router.navigateByUrl('home/gameedit');
   }
 
@@ -535,7 +576,7 @@ export class GameThemeComponent implements OnInit {
     console.log('getCubeFaceGameTime');
     this.idOrganization = this.apiData?.user?.idOrganization;
     let CubesFacesGameId = -1;
-    this.http
+    this.https
       .getCubeFaceGameTime(this.idOrganization, CubesFacesGameId)
       .subscribe((res) => {
         this.gameTime = res;
@@ -566,7 +607,7 @@ export class GameThemeComponent implements OnInit {
   getCubeFaceGameAttempt() {
     this.idOrganization = this.apiData?.user?.idOrganization;
     let AttemptNoId = -1;
-    this.http
+    this.https
       .getCubeFaceGameAttempt(this.idOrganization, AttemptNoId)
       .subscribe((res) => {
         console.log(res);
@@ -597,7 +638,7 @@ export class GameThemeComponent implements OnInit {
   getCubeFaceGameStreak() {
     this.idOrganization = this.apiData?.user?.idOrganization;
     let StreakId = -1;
-    this.http
+    this.https
       .getCubeFaceGameStreak(this.idOrganization, StreakId)
       .subscribe((res) => {
         console.log(res);
