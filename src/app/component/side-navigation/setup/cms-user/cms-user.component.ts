@@ -309,7 +309,7 @@ export class CmsUserComponent {
   }
 
   GetStage() {
-    this.http.getStages(this.apiData?.role?.idOrganization).subscribe((res) => {
+    this.http.getStagesName(this.apiData?.user?.idCmsUser).subscribe((res) => {
       console.log(res);
       this.stageResponse = res;
       console.log(this.stageResponse);

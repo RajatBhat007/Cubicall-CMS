@@ -106,6 +106,7 @@ export class SetupComponent implements OnInit {
   ) {
     this.multiFieldForm = this.fb.group({
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+
       domainEmail: ['', [Validators.required, Validators.email]],
       contactEmail: ['', [Validators.required, Validators.email]],
       orgName: ['', Validators.required],

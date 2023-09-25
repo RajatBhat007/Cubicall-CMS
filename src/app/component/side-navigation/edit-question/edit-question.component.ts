@@ -4,6 +4,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-edit-question',
@@ -18,7 +19,7 @@ export class EditQuestionComponent {
   cubesFacesGameEditDetails: any;
   cubeFaceGameAttemptEditDetails: any;
   cubeFaceGameStreakEditDetails: any;
-  questionEditData:any;
+  questionEditData: any;
   gamePointsActiveTab: number = 0;
   currentValue: number = 10;
   gameTime: number = 0;
@@ -37,11 +38,14 @@ export class EditQuestionComponent {
   // userInputcurrentValue:number=0;
   userInputAttemptNo: number = 0;
   userInputTileTime: number = 15;
-  questionId:number=0;
-  question:string='';
-  questionClue:string='';
-  view:boolean=false;
-  edit:boolean=false;
+  questionId: number = 0;
+  question: string = '';
+  questionClue: string = '';
+  view: boolean = false;
+  edit: boolean = false;
+  organisationName: string = '';
+  viewQuestionData: any = [];
+  viewQuestionResponse: any = [];
   answerOption = [
     {
       option: 'Option 1',
@@ -82,7 +86,8 @@ export class EditQuestionComponent {
     private route: ActivatedRoute,
     public _router: Router,
     private http: ApiServiceService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public authService: AuthService
   ) {
     // this.userInputcurrentValue=this.currentValue
     // this.userInputAttemptNo=this.attemptNo
@@ -94,6 +99,8 @@ export class EditQuestionComponent {
       this.apiData = data;
       console.log(this.apiData);
     });
+    this.organisationName =
+      this.apiData?.user?.idOrganizationNavigation?.organizationName;
     this.route.queryParams.subscribe((params) => {
       console.log(params);
       this.value = params;
@@ -119,24 +126,19 @@ export class EditQuestionComponent {
           this.value.cubeFaceGameStreakEdit
         );
         this.editCubeFaceGameStreak(this.cubeFaceGameStreakEditDetails);
-      }
-      else if(this.value?.view !=undefined){
-        this.questionEditData=JSON.parse(this.value.questionData);
+      } else if (this.value?.view != undefined) {
+        this.questionEditData = JSON.parse(this.value.questionData);
         this.gamePointsActiveTab = 4;
-        this.view=true;
-        console.log('view question',this.view);
-        this.editQuestion(this.questionEditData)
-      }
-      else if(this.value?.questionData !=undefined){
-         this.questionEditData=JSON.parse(this.value.questionData);
-         this.gamePointsActiveTab = 4;
-        this.edit=true;
+        this.view = true;
+        console.log('view question', this.view);
+        this.editQuestion(this.questionEditData);
+      } else if (this.value?.questionData != undefined) {
+        this.questionEditData = JSON.parse(this.value.questionData);
+        this.gamePointsActiveTab = 4;
+        this.edit = true;
 
-         this.editQuestion(this.questionEditData)
-         
+        this.editQuestion(this.questionEditData);
       }
-     
-      
     });
   }
 
@@ -465,43 +467,109 @@ export class EditQuestionComponent {
     this.status = data?.isActive;
     console.log(this.tileTime);
   }
-  
-  editQuestion(data:any){
-    this.questionId=data?.questionId;
-    this.question=data?.question;
-    this.questionClue=data?.questionClue;
+
+  editQuestion(data: any) {
+    this.questionId = data?.questionId;
+    this.question = data?.question;
+    this.questionClue = data?.questionClue;
     this.status = data?.isActive;
-    console.log('editQuestion',data);
+    console.log(this.questionId);
+
+    this.http
+      .getAllQuestionAnswerList(
+        this.apiData?.user?.idOrganization,
+        this.cubeFaceId
+      )
+      .subscribe((res) => {
+        console.log(res);
+        this.viewQuestionResponse = res;
+        this.viewQuestionData = this.viewQuestionResponse.filter(
+          (org: { questionId: number }) => org.questionId === this.questionId
+        );
+        console.log(this.viewQuestionData);
+      });
+
+    console.log('editQuestion', data);
   }
-  viewQuestionEdit(){
-    this.view=false;
+
+  postEditQuestion() {
+    // {    "Data":"{\"AnsList\":[{\"PerTileAnswerId\": 1,\n \"CubesFacesGameId\": 1,\n \"QuestionId\": 1,\n \"Answer\": \"Prashnat\",\n \"IsRightAns\": 1,\n\"IsActive\": \"A\",\n \"IdOrganization\": 1}],\n \"QuestionList\": {\n\"PerTileQuestionId\": 1,\n\"IsActive\": \"A\",\n \"QuestionId\": 1,\n \"CubesFacesGameId\": 1,\n \"PerTileId\": 1,\n \"Question\": \"A _______ is support provided for a specific product or services for specific clients.\",\n \"Complexity\": 0,\n \"RowNo\": 1,\n \"ColumnNo\": 1,\n \"Direction\": \"across\",\n \"QuestionClue\":\"Individual client often have multiple of these.\",\n \"QuestionSet\": 0,\n \"IsApproved\": 0, \n \"IsDraft\": 0,\n \"IsActive\": \"A\",\n \"IdOrganization\":1}\n}"}
+    const payload = {
+      Data: {
+        AnsList: [
+          {
+            PerTileAnswerId: '',
+            CubesFacesGameId: '',
+            QuestionId: '',
+            Answer: '',
+            IsRightAns: '',
+            IsActive: '',
+            IdOrganization: '',
+          },
+        ],
+        QuestionList: [
+          {
+            PerTileQuestionId: '',
+            IsActive: '',
+            QuestionId: '',
+            CubesFacesGameId: '',
+            PerTileId: '',
+            Question: '',
+            Complexity: '',
+            RowNo: '',
+            ColumnNo: '',
+            Direction: '',
+            QuestionClue: '',
+            QuestionSet: '',
+            IsApproved: '',
+            IsDraft: '',
+            IdOrganization: '',
+          },
+        ],
+      },
+    };
+
+    const escapedQuestionAnswer = JSON.stringify(payload.Data);
+    const jsonString = JSON.stringify(escapedQuestionAnswer);
+    console.log(jsonString);
+    const jsonStringremovelast = jsonString.slice(0, -1);
+    const body = '{"Data":' + jsonStringremovelast + '}"}';
+
+    this.http.editQuestionAns(body).subscribe((res) => {
+      console.log(res);
+    });
+  }
+  viewQuestionEdit() {
+    this.view = false;
+    this.edit = true;
   }
 
   close() {
-    if(this.view){
+    if (this.view) {
       let activeIndexSubTab = 0;
-      this.view=false;
+      this.view = false;
       this._router.navigate(['/home/game-theme'], {
         queryParams: { activeIndexSubTab },
       });
-    }
-    else if(this.edit){
+    } else if (this.edit) {
       let activeIndexSubTab = 0;
-      this.edit=false;
+      this.edit = false;
       this._router.navigate(['/home/game-theme'], {
         queryParams: { activeIndexSubTab },
       });
-    }
-   else if (this.cubeFaceId == 1) {
+    } else if (this.cubeFaceId == 1) {
       let activeIndexSubTab = 1;
       console.log(activeIndexSubTab);
       this._router.navigate(['/home/game-theme'], {
         queryParams: { activeIndexSubTab },
       });
+    } else {
+      this._router.navigate(['/home/game-theme']);
     }
-    else{
-     this._router.navigate(['/home/game-theme']);
+  }
 
-    }
+  logout() {
+    this.authService.logout();
+    this._router.navigateByUrl('');
   }
 }

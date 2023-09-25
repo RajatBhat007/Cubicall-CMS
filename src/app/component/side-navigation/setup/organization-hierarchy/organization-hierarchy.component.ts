@@ -443,7 +443,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
 
     console.log(this.processName1);
     if (page == 'process') {
-      this.postOrganisationHierarchy(page, this.processName1);
+      if (this.processName1.length > 0) {
+        this.postOrganisationHierarchy(page, this.processName1);
+      }
     }
     this.GetOrgHierarchyTree();
   }
@@ -469,7 +471,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       .get('subprocessName')?.value;
     console.log(this.subprocessName);
     if (page == 'subprocess') {
-      this.postOrganisationHierarchy(page, this.subprocessName);
+      if (this.subprocessName.length > 0) {
+        this.postOrganisationHierarchy(page, this.subprocessName);
+      }
     }
     this.GetOrgHierarchyTree();
 
@@ -493,7 +497,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     this.stageName = this.stage.at(newIndexstage).get('stageName')?.value;
     console.log(this.stageName);
     if (page == 'stage') {
-      this.postOrganisationHierarchy(page, this.stageName);
+      if (this.stageName.length > 0) {
+        this.postOrganisationHierarchy(page, this.stageName);
+      }
     }
     this.GetOrgHierarchyTree();
     // this.createHierarchy(this.subprocessName);
@@ -538,6 +544,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
 
   navigateToSubprocess(process: any, index: any) {
     console.log(index);
+
     console.log(process);
 
     this.subprocessIndex = index + 1;
@@ -647,14 +654,12 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     console.log(pageInfo);
     if (pageInfo == 'process') {
       this.hierarchylevel = 3;
-      this.ParentIdOrgHierarchy =
-        this.ParentIdOrgHierarchy == 0
-          ? this.apiData?.user?.idOrgHierarchy
-          : this.ParentIdOrgHierarchy;
+      this.ParentIdOrgHierarchy = this.apiData?.user?.idOrgHierarchy;
       this.vendorNameHierarchy = description;
       console.log(this.ParentIdOrgHierarchy);
       this.openModalProcess();
     } else if (pageInfo == 'subprocess') {
+      // this.ParentIdOrgHierarchy =
       this.hierarchylevel = 4;
       this.vendorNameHierarchy = description;
       this.openModalSubProcess();

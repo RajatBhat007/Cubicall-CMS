@@ -206,8 +206,7 @@ export class GameThemeComponent implements OnInit {
 
       if (this.value.activeIndexSubTab == '1') {
         this.NavigateToSubTab(Number(this.value.activeIndexSubTab));
-      }
-      else if (this.value.activeIndexSubTab == '0'){
+      } else if (this.value.activeIndexSubTab == '0') {
         this.NavigateToSubTab(Number(this.value.activeIndexSubTab));
       }
     });
@@ -440,20 +439,28 @@ export class GameThemeComponent implements OnInit {
     if (value == '1') {
       console.log('hello');
       this.hideuploadButton = false;
-      this.subtab = [
-        {
-          label: 'Content',
-        },
-        {
-          label: 'Game Points & Details',
-        },
-        {
-          label: 'Configure Images',
-        },
-        {
-          label: 'Content Approval',
-        },
-      ];
+      if (this.apiData?.role?.idRoleType < 4) {
+        this.subtab = [
+          {
+            label: 'Content',
+          },
+          {
+            label: 'Game Points & Details',
+          },
+          {
+            label: 'Configure Images',
+          },
+          {
+            label: 'Content Approval',
+          },
+        ];
+      } else {
+        this.subtab = [
+          {
+            label: 'Content',
+          },
+        ];
+      }
       this.GetQuestionData();
       //  this.getCubeFaceGameAttempt()
     } else if (value == '2') {
@@ -677,39 +684,39 @@ export class GameThemeComponent implements OnInit {
     });
   }
 
-  navigateToEditQuestion(value:any) {
-    console.log(value);
-    console.log(this.questionListResponse[value] );
-    let gamePointsActiveTab = this.activeSubSubTab;
-    let cubeFaceId = this.activeIndexTab + 1;
-    let categoryName = this.matTab[this.activeIndexTab].content;
-    let questionData=JSON.stringify(this.questionListResponse[value])
-    this._router.navigate(['home/edit-question'], {
-      queryParams: {
-        cubeFaceId,
-        gamePointsActiveTab,
-        questionData,
-        categoryName
-      },
-    });
-    this.isEditButtonVisible = !this.isEditButtonVisible;
-  }
-  
-  navigateToViewQuestion(value:any){
+  navigateToEditQuestion(value: any) {
     console.log(value);
     console.log(this.questionListResponse[value]);
     let gamePointsActiveTab = this.activeSubSubTab;
     let cubeFaceId = this.activeIndexTab + 1;
     let categoryName = this.matTab[this.activeIndexTab].content;
-    let questionData=JSON.stringify(this.questionListResponse[value])
-    let view='view'
+    let questionData = JSON.stringify(this.questionListResponse[value]);
     this._router.navigate(['home/edit-question'], {
       queryParams: {
         cubeFaceId,
         gamePointsActiveTab,
         questionData,
         categoryName,
-        view
+      },
+    });
+    this.isEditButtonVisible = !this.isEditButtonVisible;
+  }
+
+  navigateToViewQuestion(value: any) {
+    console.log(value);
+    console.log(this.questionListResponse[value]);
+    let gamePointsActiveTab = this.activeSubSubTab;
+    let cubeFaceId = this.activeIndexTab + 1;
+    let categoryName = this.matTab[this.activeIndexTab].content;
+    let questionData = JSON.stringify(this.questionListResponse[value]);
+    let view = 'view';
+    this._router.navigate(['home/edit-question'], {
+      queryParams: {
+        cubeFaceId,
+        gamePointsActiveTab,
+        questionData,
+        categoryName,
+        view,
       },
     });
   }

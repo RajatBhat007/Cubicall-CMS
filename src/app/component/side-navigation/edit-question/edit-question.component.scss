@@ -6,7 +6,13 @@
     padding-left: 1vw;
     color: #FFFFFF;
 }
-
+.dropdown_org{
+    background: #000;
+    color: #FFFFFF;
+    padding: 0.3em;
+    font-size: 0.9em;
+    min-width: 30%;
+  }
 .input-group {
     width: 90%;
     padding-left: 0.5vw;
@@ -40,15 +46,38 @@
     align-items: center;
     color: #FFFFFF;
 }
-
-
+.dropDown {
+    flex-direction: column;
+    padding: 5%
+  }
+.logut_dropdown {
+    background: #e7f3f9
+  }
+  .logout {
+    background: #e7f3f9;
+    height: 5vh;
+    width: 95%;
+    padding: 5px;
+    color: #000;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 500;
+    margin: auto
+  }
+  .logout {
+    border-radius: 5px;
+    border: 1px solid #133870;
+    display: flex;
+    justify-content: space-between
+  }
 
 #dropdownMenuButton2 {
     border-radius: 0;
     height: 5vh;
     background: #D7D7E8;
     color: #000;
-}
+  
+  }
 
 /* Add any styles for the circle class here */
 .circle {

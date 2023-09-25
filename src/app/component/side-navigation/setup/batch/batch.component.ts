@@ -1,6 +1,6 @@
 import { Component, numberAttribute } from '@angular/core';
-import { NgbModal,NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent} from 'src/app/pages/modal/modal.component';
+import { NgbModal, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from 'src/app/pages/modal/modal.component';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 @Component({
   selector: 'app-batch',
@@ -16,7 +16,7 @@ export class BatchComponent {
   activeIndexSubTab0: any = 0;
   batch_name: any = '';
   isChecked: any;
-  cubesFaceMaster:any;
+  cubesFaceMaster: any;
   functionName = [
     {
       label: 'Defuse the Bomb',
@@ -123,7 +123,7 @@ export class BatchComponent {
   scheduledTime: any;
   idCMSUser: any;
   formattedDate: any;
-  cubeFaceId: any=[];
+  cubeFaceId: any = [];
 
   constructor(
     public apiservice: ApiServiceService,
@@ -225,17 +225,17 @@ export class BatchComponent {
     this.activeIndexSubTab = index;
   }
   getCheckboxValue(idBatch: any) {
-    this.cubesFaceMaster={
-      CubesFacesId:idBatch,
+    this.cubesFaceMaster = {
+      CubesFacesId: idBatch,
       IdBatch: 1,
       ScheduledDateTime: this.formattedDate,
-    }
+    };
     this.cubeFaceId.push(this.cubesFaceMaster);
     console.log(idBatch);
   }
   createBatch() {
     console.log(this.batch_name);
-     console.log(this.cubeFaceId);
+    console.log(this.cubeFaceId);
     const payload = {
       Data: {
         objHeirarchyBatchesMaster: {
@@ -245,7 +245,7 @@ export class BatchComponent {
           IdOrganization: Number(this.idOrgnization),
           IdCmsUser: Number(this.idCMSUser),
         },
-        lstCubefaceBatchMaster:this.cubeFaceId
+        lstCubefaceBatchMaster: this.cubeFaceId,
       },
     };
     const escapedobjHeirarchyBatchesMaster = JSON.stringify(
@@ -289,13 +289,12 @@ export class BatchComponent {
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
 
-    // this.apiservice.createBatch(body).subscribe((res) => {
-    //   console.log(res);
-    //   this.openModal();
-    // });
-    this.cubeFaceId=[]
+    this.apiservice.createBatch(body).subscribe((res) => {
+      console.log(res);
+      this.openModal();
+    });
+    this.cubeFaceId = [];
   }
-
 
   editBatch(event: any) {
     console.log(event);
