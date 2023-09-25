@@ -207,6 +207,9 @@ export class GameThemeComponent implements OnInit {
       if (this.value.activeIndexSubTab == '1') {
         this.NavigateToSubTab(Number(this.value.activeIndexSubTab));
       }
+      else if (this.value.activeIndexSubTab == '0'){
+        this.NavigateToSubTab(Number(this.value.activeIndexSubTab));
+      }
     });
 
     this.View('1');
@@ -417,10 +420,7 @@ export class GameThemeComponent implements OnInit {
     if (this.activeIndexsubSubTab == '0') {
     }
   }
-  navigateToEditQuestion() {
-    this._router.navigateByUrl('home/edit-question');
-    this.isEditButtonVisible = !this.isEditButtonVisible;
-  }
+
   toggleEditButtonVisibility() {
     this.isEditButtonVisible = !this.isEditButtonVisible;
   }
@@ -674,6 +674,43 @@ export class GameThemeComponent implements OnInit {
     let categoryName = this.matTab[this.activeIndexTab].content;
     this._router.navigate(['home/edit-question'], {
       queryParams: { cubeFaceId, gamePointsActiveTab, categoryName },
+    });
+  }
+
+  navigateToEditQuestion(value:any) {
+    console.log(value);
+    console.log(this.questionListResponse[value] );
+    let gamePointsActiveTab = this.activeSubSubTab;
+    let cubeFaceId = this.activeIndexTab + 1;
+    let categoryName = this.matTab[this.activeIndexTab].content;
+    let questionData=JSON.stringify(this.questionListResponse[value])
+    this._router.navigate(['home/edit-question'], {
+      queryParams: {
+        cubeFaceId,
+        gamePointsActiveTab,
+        questionData,
+        categoryName
+      },
+    });
+    this.isEditButtonVisible = !this.isEditButtonVisible;
+  }
+  
+  navigateToViewQuestion(value:any){
+    console.log(value);
+    console.log(this.questionListResponse[value]);
+    let gamePointsActiveTab = this.activeSubSubTab;
+    let cubeFaceId = this.activeIndexTab + 1;
+    let categoryName = this.matTab[this.activeIndexTab].content;
+    let questionData=JSON.stringify(this.questionListResponse[value])
+    let view='view'
+    this._router.navigate(['home/edit-question'], {
+      queryParams: {
+        cubeFaceId,
+        gamePointsActiveTab,
+        questionData,
+        categoryName,
+        view
+      },
     });
   }
 

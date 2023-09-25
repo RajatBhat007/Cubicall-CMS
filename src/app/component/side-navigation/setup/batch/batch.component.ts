@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from 'src/app/pages/modal/modal.component';
+import { Component, numberAttribute } from '@angular/core';
+import { NgbModal,NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent} from 'src/app/pages/modal/modal.component';
 import { ApiServiceService } from 'src/app/service/api-service.service';
-
 @Component({
   selector: 'app-batch',
   templateUrl: './batch.component.html',
@@ -17,6 +16,7 @@ export class BatchComponent {
   activeIndexSubTab0: any = 0;
   batch_name: any = '';
   isChecked: any;
+  cubesFaceMaster:any;
   functionName = [
     {
       label: 'Defuse the Bomb',
@@ -123,7 +123,7 @@ export class BatchComponent {
   scheduledTime: any;
   idCMSUser: any;
   formattedDate: any;
-  cubeFaceId: any;
+  cubeFaceId: any=[];
 
   constructor(
     public apiservice: ApiServiceService,
@@ -224,12 +224,18 @@ export class BatchComponent {
   NavigateToSubTab0(index: number) {
     this.activeIndexSubTab = index;
   }
-  getCheckboxValue(index: any) {
-    this.cubeFaceId = index;
-    console.log(this.cubeFaceId);
+  getCheckboxValue(idBatch: any) {
+    this.cubesFaceMaster={
+      CubesFacesId:idBatch,
+      IdBatch: 1,
+      ScheduledDateTime: this.formattedDate,
+    }
+    this.cubeFaceId.push(this.cubesFaceMaster);
+    console.log(idBatch);
   }
   createBatch() {
     console.log(this.batch_name);
+     console.log(this.cubeFaceId);
     const payload = {
       Data: {
         objHeirarchyBatchesMaster: {
@@ -239,13 +245,7 @@ export class BatchComponent {
           IdOrganization: Number(this.idOrgnization),
           IdCmsUser: Number(this.idCMSUser),
         },
-        lstCubefaceBatchMaster: [
-          {
-            CubesFacesId: this.cubeFaceId,
-            IdBatch: 1,
-            ScheduledDateTime: this.formattedDate,
-          },
-        ],
+        lstCubefaceBatchMaster:this.cubeFaceId
       },
     };
     const escapedobjHeirarchyBatchesMaster = JSON.stringify(
@@ -289,11 +289,14 @@ export class BatchComponent {
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
 
-    this.apiservice.createBatch(body).subscribe((res) => {
-      console.log(res);
-      this.openModal();
-    });
+    // this.apiservice.createBatch(body).subscribe((res) => {
+    //   console.log(res);
+    //   this.openModal();
+    // });
+    this.cubeFaceId=[]
   }
+
+
   editBatch(event: any) {
     console.log(event);
     // const payload = {
