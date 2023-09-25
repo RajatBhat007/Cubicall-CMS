@@ -67,7 +67,7 @@
                         <div class="row">
                             <div class="col-11 d-flex justify-content-center mt-3 font">
                                 <div class="header_question d-flex justify-content-center align-items-center">
-                                    Defuse the Bomb
+                                    {{categoryName}}
                                 </div>
 
                             </div>
@@ -121,7 +121,7 @@
                                     ID:
                                 </div>
                                 <div class="id_number d-flex justify-content-center align-items-center font">
-                                    1
+                                    {{questionId}}
                                 </div>
                             </div>
                             <div class="col-10"></div>
@@ -135,8 +135,12 @@
                         <div class="row ms-2 mt-2">
                             <div class="col-12 d-flex ">
                                 <div class="d-flex question-container font">
-                                    <textarea class="form-control input-question" placeholder="Question"
-                                        rows="7"></textarea>
+                                    <textarea class="form-control input-question p-0" placeholder="Question"
+                                        rows="7"
+                                        value="{{question}}"
+                                        [disabled]="view"
+                                        >
+                                    </textarea>
                                     <!-- Question -->
                                 </div>
                             </div>
@@ -157,7 +161,8 @@
 
                             <div class="col-5">
                                 <div class="d-flex hint-container font mt-2">
-                                    <textarea class="form-control hint-question" placeholder="Hint" rows="7"></textarea>
+                                    <textarea class="form-control hint-question" placeholder="Hint" rows="7"
+                                    value="{{questionClue}}"  [disabled]="view"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -167,10 +172,18 @@
                                 <div class="status_label font ms-3 d-flex align-items-center">STATUS</div>
                                 <div class="form-check form-switch d-flex ms-2">
                                     <input class="form-check-input" type="checkbox" role="switch"
-                                        id="flexSwitchCheckDefault">
+                                        id="flexSwitchCheckDefault"
+                                        checked="status=={{status}}"
+                                        [disabled]="view"
+                               >
                                 </div>
                             </div>
-                            <div class="col-6 d-flex justify-content-end" style="margin-top:-1%">
+                           
+                            <div  class="col-6 d-flex justify-content-end" style="margin-top:-1%">
+                                <div  *ngIf="view" class="button_div me-3 d-flex justify-content-center align-items-center font"
+                                 (click)="viewQuestionEdit()">
+                                Edit
+                               </div>
                                 <div class="button_div d-flex justify-content-center align-items-center font"
                                     data-bs-toggle="modal" data-bs-target="#WarningModal">
                                     Done

@@ -455,13 +455,13 @@
                     <div class="table-body-height-question">
                       <div
                         class="row mt-2"
-                        *ngFor="let res of questionListResponse"
+                        *ngFor="let res of questionListResponse;let i=index"
                       >
                         <div class="col-12 d-flex justify-content-center">
                           <div class="table-body d-flex align-items-center">
                             <div
                               class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToEditQuestion()"
+                              (click)="navigateToEditQuestion(i)"
                             >
                               <img
                                 class="edit_image"
@@ -492,17 +492,15 @@
                                 [checked]="res?.isActive == 'A'"
                               />
                             </div>
-
-                            <button
-                              class="view-button"
-                              (click)="navigateToEditQuestion()"
-                              style="margin-left: 3%"
-                            >
+                            <div  class="view-button"
+                            style="margin-left: 3%" 
+                            (click)="navigateToViewQuestion(i)">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="eye-image"
                                 viewBox="0 0 28 20"
                                 fill="none"
+                            
                               >
                                 <path
                                   d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
@@ -519,11 +517,13 @@
                                   stroke-linejoin="round"
                                 />
                               </svg>
-                            </button>
+                           
+                            </div>
+                       
 
                             <div
                               class="id-header font d-flex justify-content-center"
-                              style="color: #000; width: 13%"
+                              style="color: #000;"
                             >
                               {{ res?.perTileQuestionId }}
                             </div>
@@ -1472,7 +1472,7 @@
                           <div class="table-body d-flex align-items-center">
                             <div
                               class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToEditQuestion()"
+                              (click)="navigateToEditQuestion('i')"
                             >
                               <img
                                 class="edit_image"
@@ -1809,7 +1809,7 @@
                         <div class="table-body d-flex align-items-center">
                           <div
                             class="edit_btn d-flex justify-content-center align-items-center"
-                            (click)="navigateToEditQuestion()"
+                            (click)="navigateToEditQuestion('i')"
                           ></div>
                           <div class="checkbox">
                             <div class="form-check d-flex align-items-center">
@@ -2052,13 +2052,13 @@
                     <div class="table-body-height-question">
                       <div
                         class="row mt-2"
-                        *ngFor="let res of questionListResponse"
+                        *ngFor="let res of questionListResponse;let i =index"
                       >
                         <div class="col-12 d-flex justify-content-center">
                           <div class="table-body d-flex align-items-center">
                             <div
                               class="edit_btn d-flex justify-content-center align-items-center"
-                              (click)="navigateToEditQuestion()"
+                              (click)="navigateToEditQuestion(i)"
                             >
                               <img
                                 class="edit_image"
@@ -2092,14 +2092,15 @@
 
                             <button
                               class="view-button"
-                              (click)="navigateToEditQuestion()"
-                              style="margin-left: 3%"
-                            >
+                              style="margin-left: 3%" 
+                              (click)="navigateToViewQuestion(i)">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="eye-image"
                                 viewBox="0 0 28 20"
                                 fill="none"
+                               
+
                               >
                                 <path
                                   d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"

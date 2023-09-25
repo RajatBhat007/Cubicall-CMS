@@ -18,6 +18,7 @@ export class EditQuestionComponent {
   cubesFacesGameEditDetails: any;
   cubeFaceGameAttemptEditDetails: any;
   cubeFaceGameStreakEditDetails: any;
+  questionEditData:any;
   gamePointsActiveTab: number = 0;
   currentValue: number = 10;
   gameTime: number = 0;
@@ -36,6 +37,11 @@ export class EditQuestionComponent {
   // userInputcurrentValue:number=0;
   userInputAttemptNo: number = 0;
   userInputTileTime: number = 15;
+  questionId:number=0;
+  question:string='';
+  questionClue:string='';
+  view:boolean=false;
+  edit:boolean=false;
   answerOption = [
     {
       option: 'Option 1',
@@ -114,6 +120,23 @@ export class EditQuestionComponent {
         );
         this.editCubeFaceGameStreak(this.cubeFaceGameStreakEditDetails);
       }
+      else if(this.value?.view !=undefined){
+        this.questionEditData=JSON.parse(this.value.questionData);
+        this.gamePointsActiveTab = 4;
+        this.view=true;
+        console.log('view question',this.view);
+        this.editQuestion(this.questionEditData)
+      }
+      else if(this.value?.questionData !=undefined){
+         this.questionEditData=JSON.parse(this.value.questionData);
+         this.gamePointsActiveTab = 4;
+        this.edit=true;
+
+         this.editQuestion(this.questionEditData)
+         
+      }
+     
+      
     });
   }
 
@@ -442,17 +465,43 @@ export class EditQuestionComponent {
     this.status = data?.isActive;
     console.log(this.tileTime);
   }
+  
+  editQuestion(data:any){
+    this.questionId=data?.questionId;
+    this.question=data?.question;
+    this.questionClue=data?.questionClue;
+    this.status = data?.isActive;
+    console.log('editQuestion',data);
+  }
+  viewQuestionEdit(){
+    this.view=false;
+  }
 
   close() {
-    if (this.cubeFaceId == 1) {
-      let activeIndexSubTab = 1;
-      console.log(activeIndexSubTab);
-
+    if(this.view){
+      let activeIndexSubTab = 0;
+      this.view=false;
       this._router.navigate(['/home/game-theme'], {
         queryParams: { activeIndexSubTab },
       });
-    } else {
-      this._router.navigate(['/home/game-theme']);
+    }
+    else if(this.edit){
+      let activeIndexSubTab = 0;
+      this.edit=false;
+      this._router.navigate(['/home/game-theme'], {
+        queryParams: { activeIndexSubTab },
+      });
+    }
+   else if (this.cubeFaceId == 1) {
+      let activeIndexSubTab = 1;
+      console.log(activeIndexSubTab);
+      this._router.navigate(['/home/game-theme'], {
+        queryParams: { activeIndexSubTab },
+      });
+    }
+    else{
+     this._router.navigate(['/home/game-theme']);
+
     }
   }
 }
