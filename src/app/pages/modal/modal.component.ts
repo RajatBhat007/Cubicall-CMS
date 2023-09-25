@@ -27,6 +27,7 @@ export class ModalComponent implements OnInit {
 
   closeModal() {
     this.activeModal.close(); // Close the modal when the close button is clicked
+    // location.reload();
   }
   navigatetoSetHierarchy() {
     localStorage.setItem('tab', 'setHierarchy');

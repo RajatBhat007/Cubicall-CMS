@@ -21,6 +21,7 @@ export class CmsUserComponent {
   idCmsUser: any = '';
   userDetailsList: any;
   getOrganizationlist: any = [];
+  CreateUserResponse: any = [];
   idOrganization: any = '';
   idCmsRole: any = '';
   CmsRole: any = [];
@@ -382,7 +383,7 @@ export class CmsUserComponent {
           UserName: this.femployeeUserNameControl?.value,
           EmployeeId: this.empIdControl?.value,
           Name: this.employeeNameControl?.value,
-          Email: '',
+          Email: this.femployeeUserNameControl?.value,
           PhoneNo: '',
           Password: this.empPasswordControl?.value,
           Status: this.getEditUserDetails?.status, //pass A static
@@ -444,7 +445,7 @@ export class CmsUserComponent {
           UserName: this.femployeeUserNameControl?.value,
           EmployeeId: this.empIdControl?.value,
           Name: this.employeeNameControl?.value,
-          Email: '',
+          Email: this.femployeeUserNameControl?.value,
           PhoneNo: '',
           Password: this.empPasswordControl?.value,
           Status: '', //pass A static
@@ -477,6 +478,16 @@ export class CmsUserComponent {
       this.http.CreateUser(body).subscribe(
         (res) => {
           console.log(res);
+          this.CreateUserResponse = res;
+          this.http
+            .postVerificationEmail(
+              this.CreateUserResponse?.idOrganization,
+              this.CreateUserResponse?.idCmsUser
+            )
+            .subscribe((res) => {
+              console.log(res);
+            });
+
           this.openModal('Done! The User has been created successfully.');
         },
         (error: HttpErrorResponse) => {
@@ -488,7 +499,7 @@ export class CmsUserComponent {
         }
       );
       this.createCmsUser.reset();
-      this.selectedDropdownIndustryValue = 'Select from the drop-down';
+      // this.selectedDropdownIndustryValue = 'Select from the drop-down';
       this.selectedDropdownRoleValue = 'Select from the drop-down';
       this.selectedDropdownVendorValue = 'Select from the drop-down';
     }

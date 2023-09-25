@@ -186,10 +186,7 @@ export class SetupComponent implements OnInit {
             content: 'Organization Hierarchy',
             color: '#D43539',
           },
-          {
-            content: 'CMS Role',
-            color: '#D43539',
-          },
+
           {
             content: 'CMS User',
             color: '#FAA54A',
@@ -208,10 +205,7 @@ export class SetupComponent implements OnInit {
             content: 'Organization Hierarchy',
             color: '#D43539',
           },
-          {
-            content: 'CMS Role',
-            color: '#D43539',
-          },
+
           {
             content: 'CMS User',
             color: '#FAA54A',

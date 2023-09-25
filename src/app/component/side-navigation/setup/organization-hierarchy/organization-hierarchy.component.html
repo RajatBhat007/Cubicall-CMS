@@ -288,6 +288,11 @@
                           <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                           >
+                            <img
+                              class="selected_arrow pe-1"
+                              src="assets/images/selected-arrow.png"
+                              *ngIf="i === Index"
+                            />
                             {{ row?.hierarchyName }}
 
                             <div class="edit_btn d-flex justify-content-end">
@@ -331,6 +336,11 @@
                           <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                           >
+                            <img
+                              class="selected_arrow pe-1"
+                              src="assets/images/selected-arrow.png"
+                              *ngIf="i === SubIndex"
+                            />
                             {{ row?.hierarchyName }}
 
                             <div class="edit_btn d-flex justify-content-end">

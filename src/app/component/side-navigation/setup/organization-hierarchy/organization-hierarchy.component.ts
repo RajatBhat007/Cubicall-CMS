@@ -24,6 +24,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   vendorNameHierarchy: string = '';
   creteAdminField!: FormGroup;
   createAdminResponse: any = [];
+  Index: number = 0;
   subtab: any = [
     {
       label: 'Create Admin Role',
@@ -135,6 +136,8 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   location: any;
   processNameRightSide: string = '';
   subprocessNameRightSide: string = '';
+  desiredIndex: number = 1;
+  SubIndex: number = 0;
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -296,18 +299,18 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
         );
         console.log(this.processList);
 
-        this.subprocessList = this.getOrgHierarchyResponse.filter(
-          (org: { hirarchyLevelType: string }) =>
-            org?.hirarchyLevelType === 'Sub Process'
-        );
-        console.log(this.subprocessList);
+        // this.subprocessList = this.getOrgHierarchyResponse.filter(
+        //   (org: { hirarchyLevelType: string }) =>
+        //     org?.hirarchyLevelType === 'Sub Process'
+        // );
+        // console.log(this.subprocessList);
 
-        this.stageList = this.getOrgHierarchyResponse.filter(
-          (org: { hirarchyLevelType: string }) =>
-            org?.hirarchyLevelType === 'Stage'
-        );
+        // this.stageList = this.getOrgHierarchyResponse.filter(
+        //   (org: { hirarchyLevelType: string }) =>
+        //     org?.hirarchyLevelType === 'Stage'
+        // );
 
-        console.log(this.stageList);
+        // console.log(this.stageList);
 
         // const processRowsArray = this.processForm1.get(
         //   'processRows'
@@ -532,6 +535,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   get empPasswordControl(): FormArray {
     return this.creteAdminField.get('empPassword') as FormArray;
   }
+
   navigateToSubprocess(process: any, index: any) {
     console.log(index);
     console.log(process);
@@ -540,8 +544,17 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     this.processName = process;
     if (process == 'subprocess') {
       this.subprocess = false;
+      this.Index = index;
       console.log(process);
       console.log(this.processList[index]);
+
+      this.subprocessList = this.getOrgHierarchyResponse.filter(
+        (org: { idParentOrganizationHirarchy: number }) =>
+          org?.idParentOrganizationHirarchy ===
+          this.processList[index]?.idOrganizationHirarchy
+      );
+      console.log(this.subprocessList);
+
       this.processNameRightSide = this.processList[index].hierarchyName;
       console.log(this.processNameRightSide);
       this.ParentIdOrgHierarchy =
@@ -554,6 +567,13 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       this.subprocess = false;
       console.log(process);
       console.log(this.subprocessList[index]);
+      this.SubIndex = index;
+      this.stageList = this.getOrgHierarchyResponse.filter(
+        (org: { idParentOrganizationHirarchy: number }) =>
+          org?.idParentOrganizationHirarchy ===
+          this.subprocessList[index]?.idOrganizationHirarchy
+      );
+
       this.subprocessNameRightSide = this.subprocessList[index].hierarchyName;
       console.log(this.subprocessNameRightSide);
       this.ParentIdOrgHierarchy =
@@ -717,6 +737,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
         UserName: this.employeeName,
         ParentIdOrgHierarchy: 0,
         Name: this.vendorNameHierarchy,
+        Email: this.employeeName,
         PhoneNo: '',
         Password: this.employeePassword,
         IdOrgHierarchy: this.OrgHirerachtresponse?.idOrgHierarchy,
@@ -734,10 +755,11 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     const escapedPhoneNo = JSON.stringify(payload.Data.PhoneNo);
     const escapedPassword = JSON.stringify(payload.Data.Password);
     const escapedIdOrgHierarchy = JSON.stringify(payload.Data.IdOrgHierarchy);
+    const escapedIdEmail = JSON.stringify(payload.Data.Email);
 
     const escapedIdCmsRole = JSON.stringify(payload.Data.IdCmsRole);
 
-    const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"UserName\":${escapedUserName},\"Name\":${escapedName},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"IdOrgHierarchy\":${escapedIdOrgHierarchy},\"IdCmsRole\":${escapedIdCmsRole}`;
+    const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"UserName\":${escapedUserName},\"Name\":${escapedName},\"Email\":${escapedIdEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"IdOrgHierarchy\":${escapedIdOrgHierarchy},\"IdCmsRole\":${escapedIdCmsRole}`;
     const jsonString = JSON.stringify(escapedJsonString);
     console.log(jsonString);
     const jsonStringremovelast = jsonString.slice(0, -1);
