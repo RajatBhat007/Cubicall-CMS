@@ -184,9 +184,17 @@
                                   <input
                                     class="form-check-box"
                                     type="checkbox"
-                                    (click)="getCheckboxValue(item.batch_id)"
                                     role="switch"
-                                    id="flexSwitchCheckDefault"
+                                    [id]="'flexRadioDefault' + i"
+                                    (change)="
+                                      getCheckboxValue(
+                                        $event,
+                                        item?.batch_id,
+                                        i
+                                      )
+                                    "
+                                    [checked]="item?.isSelected === 1"
+                                    #checkboxes
                                   />
                                 </div>
                               </div>
@@ -201,8 +209,46 @@
                                   cursor: pointer;
                                 "
                               >
-                                {{ item.date }}
-                                <!-- <div><input type="date" id="birthday" /></div> -->
+                                <div class="d-flex flex-column">
+                                  <!-- <input type="date" id="birthday"
+                                  value="select date" 
+                                  placeholder="{{ item.date }}"  /> -->
+                                  <!-- <label for="">{{item.date}}</label> -->
+                                  <form [formGroup]="dateForm">
+                                    <div class="form-group">
+                                      <input
+                                        type="date"
+                                        class="custom-date-input"
+                                        formControlName="startDate"
+                                        [min]="formattedDate"
+                                        (change)="
+                                          matchDate($event, item.batch_id)
+                                        "
+                                      />
+                                    </div>
+                                  </form>
+                                  <!-- <input type="text" placeholder="Date" onfocus="(this.type='date')"/> -->
+
+                                  <!-- <mat-form-field style="height: 7vh;">
+                                    <mat-label >{{item.date}}</mat-label>
+                                    <input matInput [matDatepicker]="picker">
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                  </mat-form-field> -->
+                                  <!-- 
+                                  <input
+                                  type="text"
+                                  formControlName="startDate"
+                                  ngbDatepicker
+                                  #d="ngbDatepicker"
+                                  (click)="d.toggle()"
+                                  (focus)="ctrlFocus(d)"
+                                  (blur)="ctrlBlur(d)"
+                                  class="form-control"
+                                  placeholder="Enter start Date"
+                                  id=`datepiker${i}`
+                                /> -->
+                                </div>
                               </div>
                             </div>
                           </div>
