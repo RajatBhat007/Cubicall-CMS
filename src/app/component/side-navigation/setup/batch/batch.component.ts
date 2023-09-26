@@ -1,8 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, QueryList, ViewChildren, numberAttribute } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+  numberAttribute,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal,NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent} from 'src/app/pages/modal/modal.component';
+import { NgbModal, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from 'src/app/pages/modal/modal.component';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 @Component({
   selector: 'app-batch',
@@ -10,7 +16,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
   styleUrls: ['./batch.component.scss'],
 })
 export class BatchComponent {
-[x: string]: any;
+  [x: string]: any;
   @ViewChildren('checkboxes') checkboxes!: QueryList<ElementRef>;
 
   selectedDropdownIndustryValue: string = 'Select from the drop-down';
@@ -21,46 +27,53 @@ export class BatchComponent {
   activeIndexSubTab0: any = 0;
   batch_name: any = '';
   isChecked: any;
-  cubesFaceMaster:any;
-  dateForm:FormGroup;
+  cubesFaceMaster: any;
+  dateForm: FormGroup;
   minEndDate: any;
-  editBatchResponse:any=[0]
+  editBatchResponse: any = [0];
   selectedDate: NgbDate | undefined;
-  date:any;
-  selectedDateFromCalender:any;
-  errordate:boolean=false;
+  date: any;
+  selectedDateFromCalender: any;
+  errordate: boolean = false;
   isChecked1: boolean = false;
-  selectedItems: any[] = [];
+  selectedItems: any = [];
+
   functionName = [
     {
       label: 'Defuse the Bomb',
       date: 'Click to Set a Date',
       batch_id: 1,
+      isSelected: 0,
     },
     {
       label: 'Mystery Team',
       date: 'Click to Set a Date',
       batch_id: 2,
+      isSelected: 0,
     },
     {
       label: 'Triangularis',
       date: 'Click to Set a Date',
       batch_id: 3,
+      isSelected: 0,
     },
     {
       label: ' Word Search',
       date: 'Click to Set a Date',
       batch_id: 4,
+      isSelected: 0,
     },
     {
       label: 'Word Wheel',
       date: 'Click to Set a Date',
       batch_id: 5,
+      isSelected: 0,
     },
     {
       label: 'Crossword',
       date: 'Click to Set a Date',
       batch_id: 6,
+      isSelected: 0,
     },
   ];
   CmsRoleList: any = [
@@ -137,20 +150,24 @@ export class BatchComponent {
   scheduledTime: any;
   idCMSUser: any;
   formattedDate: any;
-  cubeFaceId: any=[];
+  cubeFaceId: any = [];
   today: NgbDateStruct;
   startDate: string = '';
-  CheckedValue: number=0;
-
+  CheckedValue: number = 0;
+  numberIndex: number | undefined;
   constructor(
     public apiservice: ApiServiceService,
     private modalService: NgbModal,
     private fb: FormBuilder
   ) {
     const currentDate = new Date();
-    this.today = { year: currentDate.getFullYear(), month: currentDate.getMonth() + 1, day: currentDate.getDate() };
+    this.today = {
+      year: currentDate.getFullYear(),
+      month: currentDate.getMonth() + 1,
+      day: currentDate.getDate(),
+    };
     console.log(this.today);
-    
+
     this.dateForm = this.fb.group({
       startDate: ['', Validators.required],
     });
@@ -233,7 +250,6 @@ export class BatchComponent {
               org?.lstBatches?.filter(
                 (batch) => batch.objHeirarchyBatchesMaster.isActive === 'A'
               ) || [];
-            console.log(batches);
 
             return [...filtered, ...batches];
           },
@@ -259,51 +275,47 @@ export class BatchComponent {
   NavigateToSubTab0(index: number) {
     this.activeIndexSubTab = index;
   }
-  matchDate(event: Event,ID:any) {
+  matchDate(event: Event, ID: any) {
     const inputElement = event.target as HTMLInputElement;
-      this.selectedDateFromCalender = inputElement.value;
+    this.selectedDateFromCalender = inputElement.value;
     console.log(this.selectedDateFromCalender);
-   if (this.selectedDateFromCalender != undefined) {
-    console.log(ID);
-     this.cubeFaceId[ID-1].ScheduledDateTime= this.selectedDateFromCalender
-     console.log(this.cubeFaceId);
-     this.selectedDateFromCalender=this.formattedDate
-   } else {
-    this.errordate=true
-   }
-  }
-  getCheckboxValue(event: any,idBatch:any,i:any) {
-
-   
-    
-    this.cubesFaceMaster={
-      CubesFacesId:idBatch,
-      IdBatch: 1,
-      ScheduledDateTime:this.selectedDateFromCalender?this.selectedDateFromCalender:this.formattedDate,
+    if (this.selectedDateFromCalender != undefined) {
+      console.log(ID);
+      this.cubeFaceId[ID - 1].ScheduledDateTime = this.selectedDateFromCalender;
+      console.log(this.cubeFaceId);
+      this.selectedDateFromCalender = this.formattedDate;
+    } else {
+      this.errordate = true;
     }
+  }
+  getCheckboxValue(event: any, idBatch: any, i: any) {
+    this.cubesFaceMaster = {
+      CubesFacesId: idBatch,
+      IdBatch: 1,
+      ScheduledDateTime: this.selectedDateFromCalender
+        ? this.selectedDateFromCalender
+        : this.formattedDate,
+    };
     if (event.currentTarget.checked) {
       this.cubeFaceId.push(this.cubesFaceMaster);
-      console.log(idBatch);    
+      console.log(idBatch);
     } else {
       console.log(idBatch);
-      console.log(this.cubeFaceId[idBatch-1].CubesFacesId);
+      console.log(this.cubeFaceId[idBatch - 1].CubesFacesId);
       console.log(idBatch);
       if (idBatch !== -1) {
         console.log('hreleleo');
-        
-        this.cubeFaceId.splice(idBatch-1, 1);
+
+        this.cubeFaceId.splice(idBatch - 1, 1);
       }
     }
   }
-    
-
 
   createBatch() {
     console.log(this.batch_name);
-     console.log(this.cubeFaceId);
-    if(this.cubeFaceId.ScheduledDateTime !=undefined){
-       console.log('date undefined');
-       
+    console.log(this.cubeFaceId);
+    if (this.cubeFaceId.ScheduledDateTime != undefined) {
+      console.log('date undefined');
     }
     const payload = {
       Data: {
@@ -314,7 +326,7 @@ export class BatchComponent {
           IdOrganization: Number(this.idOrgnization),
           IdCmsUser: Number(this.idCMSUser),
         },
-        lstCubefaceBatchMaster:this.cubeFaceId
+        lstCubefaceBatchMaster: this.cubeFaceId,
       },
     };
     const escapedobjHeirarchyBatchesMaster = JSON.stringify(
@@ -351,27 +363,57 @@ export class BatchComponent {
       this.checkboxes.forEach((element: any) => {
         element.nativeElement.checked = false;
       });
-      this.cubeFaceId=[];
-      this.batch_name='';
-      this.selectedDropdownIndustryValue= 'Select from the drop-down';
+      this.cubeFaceId = [];
+      this.batch_name = '';
+      this.selectedDropdownIndustryValue = 'Select from the drop-down';
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
           window.alert('404 Not Found Error');
         } else {
           window.alert(error.error);
         }
-      }
+      };
     });
- 
   }
 
-
   editBatch(event: any) {
-    console.log(event);
-    this.editBatchResponse=event
+    this.selectedItems = [];
+    console.log(this.selectedItems);
 
-    this.selectedDropdownIndustryValue= event.objOrganizationHierarchy.hierarchyName;
-    this.batch_name=event.objHeirarchyBatchesMaster.batchName;
+    console.log(event);
+    this.editBatchResponse = event;
+
+    this.selectedDropdownIndustryValue =
+      event.objOrganizationHierarchy.hierarchyName;
+    this.batch_name = event.objHeirarchyBatchesMaster.batchName;
+
+    for (
+      let i = 0;
+      i < this.editBatchResponse?.lstTblCubesFacesMaster.length;
+      i++
+    ) {
+      this.selectedItems.push(
+        this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.cubesFacesId
+      );
+
+      console.log(this.selectedItems);
+
+      if (Array.isArray(this.selectedItems)) {
+        for (let i = 0; i < this.functionName.length; i++) {
+          const indexToUpdate = this.selectedItems.findIndex(
+            (item) => item === i + 1
+          );
+
+          if (indexToUpdate !== -1) {
+            this.functionName[i].isSelected = 1;
+          } else {
+            this.functionName[i].isSelected = 0;
+          }
+        }
+      } else {
+        console.error('this.selectedItems is not an array');
+      }
+    }
 
     // const payload = {
     //   Data: {
@@ -517,28 +559,24 @@ export class BatchComponent {
       'Done! The Batch has been created successfully.';
     modalRef.componentInstance.screen = 'Organization';
   }
-  ctrlFocus(e:any){
-    console.log(typeof e ,'-----ctrlFocus-------',e.validate());
-    setTimeout(function(){
+  ctrlFocus(e: any) {
+    console.log(typeof e, '-----ctrlFocus-------', e.validate());
+    setTimeout(function () {
       let isOpenDP = e.isOpen();
       let isClosed = e['close'];
-      console.log( isClosed ,'--isClosed---isOpenDP--00000000---', isOpenDP);
-    },500);
-    
+      console.log(isClosed, '--isClosed---isOpenDP--00000000---', isOpenDP);
+    }, 500);
   }
 
-  ctrlBlur(e:any){
+  ctrlBlur(e: any) {
     // console.log('-----ctrlBlur-------', e);
-        let isOpenDP = e.isOpen();
-    console.log( typeof isOpenDP ,'-----isOpenDP-111111111----', isOpenDP);
+    let isOpenDP = e.isOpen();
+    console.log(typeof isOpenDP, '-----isOpenDP-111111111----', isOpenDP);
   }
   minEndDateChecking() {
-    let startDate =this.formattedDate;
+    let startDate = this.formattedDate;
     if (startDate != null || startDate != undefined) {
       this.minEndDate = this.formattedDate;
-  
     }
-    
   }
-
 }
