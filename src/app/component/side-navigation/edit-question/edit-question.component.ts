@@ -44,6 +44,7 @@ export class EditQuestionComponent {
   view: boolean = false;
   edit: boolean = false;
   organisationName: string = '';
+  organisationRoleName: string = '';
   viewQuestionData: any = [];
   viewQuestionResponse: any = [];
   answerOption = [
@@ -99,8 +100,9 @@ export class EditQuestionComponent {
       this.apiData = data;
       console.log(this.apiData);
     });
-    this.organisationName =
-      this.apiData?.user?.idOrganizationNavigation?.organizationName;
+    this.organisationRoleName = this.apiData?.role?.roleName;
+    this.organisationName = this.apiData?.role?.organizationName;
+
     this.route.queryParams.subscribe((params) => {
       console.log(params);
       this.value = params;

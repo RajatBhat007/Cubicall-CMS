@@ -53,7 +53,7 @@ export class SetupComponent implements OnInit {
   contactNameEdit: string = '';
   contactEmailEdit: string = '';
   isInputDisabled: boolean = true;
-  organisationLogo: string = '';
+  organisationRoleName: string = '';
   createOrgResponse: any = [];
   count = [
     {
@@ -138,9 +138,9 @@ export class SetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.getApiData();
-    this.organisationName =
-      this.apiData?.user?.idOrganizationNavigation?.organizationName;
-    this.organisationLogo = this.apiData?.user?.idOrganizationNavigation?.logo;
+    this.organisationRoleName = this.apiData?.role?.roleName;
+    this.organisationName = this.apiData?.role?.organizationName;
+
     this.user.key1 = this.userRole;
     console.log(this.user.key1);
 
@@ -192,10 +192,6 @@ export class SetupComponent implements OnInit {
             content: 'CMS User',
             color: '#FAA54A',
           },
-          {
-            content: 'Batch',
-            color: '#55BC87',
-          },
         ];
 
         break;
@@ -210,10 +206,6 @@ export class SetupComponent implements OnInit {
           {
             content: 'CMS User',
             color: '#FAA54A',
-          },
-          {
-            content: 'Batch',
-            color: '#55BC87',
           },
         ];
         break;
@@ -230,22 +222,6 @@ export class SetupComponent implements OnInit {
       default:
         // Handle the default case if the user role is unknown or not recognized
         this.matTab = [
-          {
-            content: 'Organization',
-            color: '#7B7FCF',
-          },
-          {
-            content: 'Organization Hierarchy',
-            color: '#D43539',
-          },
-          {
-            content: 'CMS Role',
-            color: '#D43539',
-          },
-          {
-            content: 'CMS User',
-            color: '#FAA54A',
-          },
           {
             content: 'Batch',
             color: '#55BC87',

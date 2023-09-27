@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-7">
       <div class="search-bar-container d-flex align-items-center font">
-        Organization LOGO DISPLAYED
+        {{ organisationName }}
       </div>
     </div>
     <div
@@ -14,7 +14,7 @@
         class="dropdown_org d-flex justify-content-center align-items-center"
         style="position: relative"
       >
-        <div id="dropdownMenuButton1 font">{{ organisationName }}</div>
+        <div id="dropdownMenuButton1 font">{{ organisationRoleName }}</div>
       </div>
 
       <div
@@ -290,12 +290,31 @@
                 style="margin-top: -1%"
               >
                 <div
-                  *ngIf="view"
-                  class="button_div me-3 d-flex justify-content-center align-items-center font"
-                  (click)="viewQuestionEdit()"
-                >
-                  Edit
-                </div>
+                  *ngIf="
+                    apiData?.role?.idRoleType > 3;
+                    then editButton;
+                    else dontEditButton
+                  "
+                ></div>
+                <ng-template #editButton>
+                  <div
+                    *ngIf="view"
+                    class="button_div me-3 d-flex justify-content-center align-items-center font"
+                    (click)="viewQuestionEdit()"
+                  >
+                    Edit
+                  </div>
+                </ng-template>
+                <ng-template #dontEditButton>
+                  <div
+                    *ngIf="view"
+                    class="button_div me-3 d-flex justify-content-center align-items-center font"
+                    style="visibility: hidden"
+                  >
+                    Edit
+                  </div>
+                </ng-template>
+
                 <div
                   class="button_div d-flex justify-content-center align-items-center font"
                   (click)="postEditQuestion()"
