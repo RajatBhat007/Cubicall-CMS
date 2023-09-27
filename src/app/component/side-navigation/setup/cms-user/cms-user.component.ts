@@ -19,6 +19,7 @@ export class CmsUserComponent {
   selectedDropdownRoleValue: string = 'Select from the drop-down';
   selectedDropdownVendorValue: string = 'Select from the drop-down';
   idCmsUser: any = '';
+  selectedIdOrganizationHirarchy: any;
   userDetailsList: any;
   getOrganizationlist: any = [];
   CreateUserResponse: any = [];
@@ -55,7 +56,7 @@ export class CmsUserComponent {
   vendorDetailsResponse: any = [];
   idOrganization1: number = 0;
   userDetailsListResponse: any = [];
-  selectedIdOrganizationHirarchy:any;
+
   subtab = [
     {
       label: 'Create Cms User',
@@ -255,14 +256,14 @@ export class CmsUserComponent {
   selectedVendorValue(value: any) {
     this.selectedDropdownVendorValue =
       this.vendorDetailsResponse[value].hierarchyName;
-  
-    
   }
 
   selectedStageValue(value: any) {
     this.selectedDropdownVendorValue = this.stageResponse[value].hierarchyName;
-    this.selectedIdOrganizationHirarchy=this.stageResponse[value].idOrganizationHirarchy;
-    console.log( this.selectedIdOrganizationHirarchy);
+
+    this.selectedIdOrganizationHirarchy =
+      this.stageResponse[value].idOrganizationHirarchy;
+    console.log(this.selectedIdOrganizationHirarchy);
   }
   getCmsUserDetailsList() {
     console.log(this.user?.key1);
@@ -377,7 +378,6 @@ export class CmsUserComponent {
   }
 
   createCmsUserOnSubmit() {
-
     if (this.EditButton) {
       console.log('hello');
       this.payload = {
@@ -393,7 +393,7 @@ export class CmsUserComponent {
           PhoneNo: '',
           Password: this.empPasswordControl?.value,
           Status: this.getEditUserDetails?.status, //pass A static
-          IdOrgHierarchy: Number(this.apiData?.user?.idOrgHierarchy),
+          IdOrgHierarchy: Number(this.selectedIdOrganizationHirarchy),
           IdCmsRole: this.getEditUserDetails?.idCmsRole
             ? this.getEditUserDetails?.idCmsRole
             : Number(this.selectedCmsIdRole), //pass static because get roles api is not working
@@ -455,7 +455,7 @@ export class CmsUserComponent {
           PhoneNo: '',
           Password: this.empPasswordControl?.value,
           Status: '', //pass A static
-          IdOrgHierarchy: Number( this.selectedIdOrganizationHirarchy),
+          IdOrgHierarchy: Number(this.selectedIdOrganizationHirarchy),
           IdCmsRole: Number(this.selectedCmsIdRole), //pass static because get roles api is not working
         },
       };

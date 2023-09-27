@@ -69,6 +69,7 @@ export class GameThemeComponent implements OnInit {
   stageDropdown: any = [];
   organisationLogo: string = '';
   organisationName: string = '';
+  organisationRoleName: string = '';
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -123,10 +124,6 @@ export class GameThemeComponent implements OnInit {
       label: 'Inactive',
       value: 0,
     },
-    {
-      label: 'Rejected',
-      value: 0,
-    },
   ];
 
   subtab = [
@@ -136,12 +133,12 @@ export class GameThemeComponent implements OnInit {
     {
       label: 'Game Points & Details',
     },
-    {
-      label: 'Configure Images',
-    },
-    {
-      label: 'Content Approval',
-    },
+    // {
+    //   label: 'Configure Images',
+    // },
+    // {
+    //   label: 'Content Approval',
+    // },
   ];
   subsubtab = [
     {
@@ -189,10 +186,8 @@ export class GameThemeComponent implements OnInit {
     this.https.getApiData().subscribe((data) => {
       this.apiData = data;
       console.log(this.apiData);
-      this.organisationName =
-        this.apiData?.user?.idOrganizationNavigation?.organizationName;
-      this.organisationLogo =
-        this.apiData?.user?.idOrganizationNavigation?.logo;
+      this.organisationRoleName = this.apiData?.role?.roleName;
+      this.organisationName = this.apiData?.role?.organizationName;
 
       if (this.apiData?.role?.idRoleType >= 4) {
         this.uploadButton = true;
@@ -447,12 +442,12 @@ export class GameThemeComponent implements OnInit {
           {
             label: 'Game Points & Details',
           },
-          {
-            label: 'Configure Images',
-          },
-          {
-            label: 'Content Approval',
-          },
+          // {
+          //   label: 'Configure Images',
+          // },
+          // {
+          //   label: 'Content Approval',
+          // },
         ];
       } else {
         this.subtab = [
