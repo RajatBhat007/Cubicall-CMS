@@ -40,15 +40,19 @@ export class BatchComponent {
   viewBatchId:number=0;
   viewStage:string='';
   edit:boolean=false;
+  EditcubesFaceMaster:any;
+  isDisabledCreateUser: boolean = true;
+  isActive:string=''
   functionName = [
     {
       label: 'Defuse the Bomb',
       date: 'Click to Set a Date',
       batch_id: 1,
       isSelected: 0,
+  
     },
     {
-      label: 'Mystery Team',
+      label: 'Mystery Term',
       date: 'Click to Set a Date',
       batch_id: 2,
       isSelected: 0,
@@ -291,25 +295,36 @@ export class BatchComponent {
     }
   }
   getCheckboxValue(event: any, idBatch: any, i: any) {
-    if (this.edit) {
+    // if (this.edit) {
+    //  console.log( this.EditcubesFaceMaster  ,'edit cube');
+    //  if (event.currentTarget.checked){
+    //   console.log('unchaked');
       
-    } else {
+    //  }
+
+    // } else {
       
-    }
+    // }
+
     this.cubesFaceMaster = {
       CubesFacesId: idBatch,
       IdBatch: 1,
-      ScheduledDateTime: this.selectedDateFromCalender
-        ? this.selectedDateFromCalender
-        : this.formattedDate,
+      ScheduledDateTime: this.selectedDateFromCalender? this.selectedDateFromCalender: this.formattedDate,
     };
     if (event.currentTarget.checked) {
+      this.isActive=='A'
       this.cubeFaceId.push(this.cubesFaceMaster);
       console.log(idBatch);
+
     } else {
+      this.isActive=='D'
       console.log(idBatch);
       console.log(this.cubeFaceId[idBatch - 1].CubesFacesId);
       console.log(idBatch);
+      
+      // new ----------------------------------
+    
+      // ---------------------------------
       if (idBatch !== -1) {
         console.log('hreleleo');
 
@@ -319,8 +334,8 @@ export class BatchComponent {
   }
 
   createBatch() {
-    if (this.edit) {
 
+    if (this.edit) {
       const payload = {
         Data: {
           objHeirarchyBatchesMaster: {
@@ -351,46 +366,16 @@ export class BatchComponent {
       console.log(body);
       this.apiservice.editBatch(body).subscribe((res) => {
         console.log(res);
-      });
-    }
-     else {
 
-
-      console.log(this.batch_name);
-      console.log(this.cubeFaceId);
-      const payload = {
-        Data: {
-          objHeirarchyBatchesMaster: {
-            IdOrgHierarchy: Number(this.IdOrgHierarchy),
-            BatchName: this.batch_name,
-            IsActive: '',
-            IdOrganization: Number(this.idOrgnization),
-            IdCmsUser: Number(this.idCMSUser),
-          },
-          lstCubefaceBatchMaster: this.cubeFaceId,
-        },
-      };
-      const escapedobjHeirarchyBatchesMaster = JSON.stringify(
-        payload.Data.objHeirarchyBatchesMaster
-      );
-      const escapedlstCubefaceBatchMaster = JSON.stringify(
-        payload.Data.lstCubefaceBatchMaster
-      );
-      console.log(payload);
-      const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
-      const jsonString = JSON.stringify(escapedJsonString);
-      console.log(jsonString);
-      const jsonStringremovelast = jsonString.slice(0, -1);
-      const body = '{"Data":' + jsonStringremovelast + '}"}';
-      this.apiservice.createBatch(body).subscribe((res) => {
-        console.log(res);
-        this.openModal();
+        this.openModal('Done! The Batch has been Edit successfully.');
         this.checkboxes.forEach((element: any) => {
           element.nativeElement.checked = false;
         });
+        this.ngOnInit();
         this.cubeFaceId = [];
         this.batch_name = '';
         this.selectedDropdownIndustryValue = 'Select from the drop-down';
+       
         (error: HttpErrorResponse) => {
           if (error.status === 404) {
             window.alert('404 Not Found Error');
@@ -400,9 +385,59 @@ export class BatchComponent {
         };
       });
     }
+     else {
+      if (this.batch_name!='') {
+        console.log(this.batch_name);
+        console.log(this.cubeFaceId);
+        const payload = {
+          Data: {
+            objHeirarchyBatchesMaster: {
+              IdOrgHierarchy: Number(this.IdOrgHierarchy),
+              BatchName: this.batch_name,
+              IsActive: '',
+              IdOrganization: Number(this.idOrgnization),
+              IdCmsUser: Number(this.idCMSUser),
+            },
+            lstCubefaceBatchMaster: this.cubeFaceId,
+          },
+        };
+        const escapedobjHeirarchyBatchesMaster = JSON.stringify(
+          payload.Data.objHeirarchyBatchesMaster
+        );
+        const escapedlstCubefaceBatchMaster = JSON.stringify(
+          payload.Data.lstCubefaceBatchMaster
+        );
+        console.log(payload);
+        const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
+        const jsonString = JSON.stringify(escapedJsonString);
+        console.log(jsonString);
+        const jsonStringremovelast = jsonString.slice(0, -1);
+        const body = '{"Data":' + jsonStringremovelast + '}"}';
+        this.apiservice.createBatch(body).subscribe((res) => {
+          console.log(res);
+          this.openModal('Done! The Batch has been created successfully.');
+          this.checkboxes.forEach((element: any) => {
+            element.nativeElement.checked = false;
+          });
+          this.ngOnInit();
+          this.cubeFaceId = [];
+          this.batch_name = '';
+          this.selectedDropdownIndustryValue = 'Select from the drop-down';
+      
+          (error: HttpErrorResponse) => {
+            if (error.status === 404) {
+              window.alert('404 Not Found Error');
+            } else {
+              window.alert(error.error);
+            }
+          };
+        });
+      }
+    }
   }
 
   editBatch(event: any) { 
+    this.selectedItems=[]
     console.log(this.selectedItems);
     this.edit=true;
     console.log(event);
@@ -410,13 +445,16 @@ export class BatchComponent {
     this.selectedDropdownIndustryValue =
      event.objOrganizationHierarchy.hierarchyName;
     this.batch_name = event.objHeirarchyBatchesMaster.batchName;
+    this.EditcubesFaceMaster=event?.lstCubeFaceAndFaceDetails;
+    console.log( this.EditcubesFaceMaster);
+    
     for (
       let i = 0;
-      i < this.editBatchResponse?.lstTblCubesFacesMaster?.length;
+      i < this.editBatchResponse?.lstCubeFaceAndFaceDetails?.length;
       i++
     ) {
       this.selectedItems.push(
-        this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.cubesFacesId,this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.updatedDateTime
+        this.editBatchResponse?.lstCubeFaceAndFaceDetails?.[i]?.cubesFacesId
       );
 
       console.log(this.selectedItems);
@@ -429,6 +467,7 @@ export class BatchComponent {
 
           if (indexToUpdate !== -1) {
             this.functionName[i].isSelected = 1;
+
           } else {
             this.functionName[i].isSelected = 0;
           }
@@ -437,42 +476,42 @@ export class BatchComponent {
         console.error('this.selectedItems is not an array');
       }
     }
-    // const payload = {
-    //   Data: {
-    //     objHeirarchyBatchesMaster: {
-    //       IdBatch: event?.idBatch,
-    //       IdOrgHierarchy:event?.objHeirarchyBatchesMaster.idOrgHierarchy,
-    //       IdOrganization:event?.objHeirarchyBatchesMaster?.idOrganization,
-    //       BatchName: event?.objHeirarchyBatchesMaster?.batchName,
-    //       IsActive:event?.objHeirarchyBatchesMaster?.isActive,
-    //       IdCmsUser:event?.objHeirarchyBatchesMaster?.idCmsUser,
-    //     },
-    //     lstCubefaceBatchMaster: [
-    //       {
-    //         CubefaceBatchId: 1,
-    //         CubesFacesId: event?.lstTblCubesFacesMaster[0].cubesFacesId,
-    //         IdBatch: event?.idBatch,
-    //         IsActive: 'A',
-    //         ScheduledDateTime:event?.objHeirarchyBatchesMaster.updatedDateTime,
-    //       },
-    //     ],
-    //   },
-    // };
+    const payload = {
+      Data: {
+        objHeirarchyBatchesMaster: {
+          IdBatch: event?.idBatch,
+          IdOrgHierarchy:event?.objHeirarchyBatchesMaster.idOrgHierarchy,
+          IdOrganization:event?.objHeirarchyBatchesMaster?.idOrganization,
+          BatchName: event?.objHeirarchyBatchesMaster?.batchName,
+          IsActive:event?.objHeirarchyBatchesMaster?.isActive,
+          IdCmsUser:event?.objHeirarchyBatchesMaster?.idCmsUser,
+        },
+        lstCubefaceBatchMaster: [
+          {
+            CubefaceBatchId: 1,
+            CubesFacesId: event?.lstCubeFaceAndFaceDetails[0].cubesFacesId,
+            IdBatch: event?.idBatch,
+            IsActive: 'A',
+            ScheduledDateTime:event?.objHeirarchyBatchesMaster.updatedDateTime,
+          },
+        ],
+      },
+    };
    
-    // const escapedobjHeirarchyBatchesMaster = JSON.stringify(
-    //   payload.Data.objHeirarchyBatchesMaster
-    // );
-    // const escapedlstCubefaceBatchMaster = JSON.stringify(
-    //   payload.Data.lstCubefaceBatchMaster
-    // );
-    // console.log(payload);
+    const escapedobjHeirarchyBatchesMaster = JSON.stringify(
+      payload.Data.objHeirarchyBatchesMaster
+    );
+    const escapedlstCubefaceBatchMaster = JSON.stringify(
+      payload.Data.lstCubefaceBatchMaster
+    );
+    console.log(payload);
 
-    // const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
-    // const jsonString = JSON.stringify(escapedJsonString);
-    // console.log(jsonString);
-    // const jsonStringremovelast = jsonString.slice(0, -1);
-    // const body = '{"Data":' + jsonStringremovelast + '}"}';
-    // console.log(body);
+    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
+    const jsonString = JSON.stringify(escapedJsonString);
+    console.log(jsonString);
+    const jsonStringremovelast = jsonString.slice(0, -1);
+    const body = '{"Data":' + jsonStringremovelast + '}"}';
+    console.log(body);
 
     // this.apiservice.editBatch(body).subscribe((res) => {
     //   console.log(res);
@@ -485,9 +524,9 @@ export class BatchComponent {
   this.viewStage=event?.objOrganizationHierarchy?.hierarchyName;
   this.selectedItems = [];
    this.editBatchResponse = event;
-  for ( let i = 0; i < this.editBatchResponse?.lstTblCubesFacesMaster.length; i++ ) {
+  for ( let i = 0; i < this.editBatchResponse?.lstCubeFaceAndFaceDetails.length; i++ ) {
     this.selectedItems.push(
-      this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.cubesFacesId
+      this.editBatchResponse?.lstCubeFaceAndFaceDetails?.[i]?.cubesFacesId
     );
 
     console.log(this.selectedItems);
@@ -510,15 +549,14 @@ export class BatchComponent {
   }
 
   }
-  openModal() {
+  openModal(msg: any) {
     const modalRef = this.modalService.open(ModalComponent, {
       centered: true,
     });
 
     // You can pass data to the modal if needed
-    modalRef.componentInstance.someData =
-      'Done! The Batch has been created successfully.';
-    modalRef.componentInstance.screen = 'Organization';
+    modalRef.componentInstance.someData = msg;
+    modalRef.componentInstance.screen = 'function';
   }
   ctrlFocus(e: any) {
     console.log(typeof e, '-----ctrlFocus-------', e.validate());
@@ -538,6 +576,17 @@ export class BatchComponent {
     let startDate = this.formattedDate;
     if (startDate != null || startDate != undefined) {
       this.minEndDate = this.formattedDate;
+    }
+  }
+
+  updateInputState(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value.trim();
+
+    if (inputValue === null || inputValue === '') {
+      this.isDisabledCreateUser = true; // Disable the input field when it's null or empty
+    } else {
+      this.isDisabledCreateUser = false; // Enable the input field when it has a value
     }
   }
 }

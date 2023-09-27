@@ -120,7 +120,7 @@
                         class="form-control organisation_input font"
                         type="text"
                         [(ngModel)]="batch_name"
-                 
+                        (input)="updateInputState($event)"
                       />
                     </div>
                   </div>
@@ -461,7 +461,7 @@
                                     class="Function-header font d-flex justify-content-center"
                                   >
                                     <!-- {{
-                                      item?.lstTblCubesFacesMaster[0]?.facesName
+                                      item?.lstCubeFaceAndFaceDetails[0]?.facesName
                                     }} -->
                                   </div>
                                     <div
@@ -522,6 +522,8 @@
     <div 
       *ngIf="activeIndexSubTab == 0"
       (click)="createBatch()"
+      [ngClass]="{ disabled: isDisabledCreateUser }"
+   
       class="submit_button font d-flex justify-content-center fontInter me-3"
     >
       Assign
@@ -650,7 +652,7 @@
                                 "
                                 [checked]="item?.isSelected === 1"
                                 #checkboxes
-                                disabled="disabled"
+                         
                               />
                              
                             </div>
