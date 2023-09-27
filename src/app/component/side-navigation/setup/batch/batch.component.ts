@@ -332,21 +332,7 @@ export class BatchComponent {
     const escapedobjHeirarchyBatchesMaster = JSON.stringify(
       payload.Data.objHeirarchyBatchesMaster
     );
-    const escapedIdOrgHierarchy = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdOrgHierarchy
-    );
-    const escapedBatchName = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.BatchName
-    );
-    const escapedIsActive = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IsActive
-    );
-    const escapedIdOrganization = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdOrganization
-    );
-    const escapedIdCmsUser = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdCmsUser
-    );
+
     const escapedlstCubefaceBatchMaster = JSON.stringify(
       payload.Data.lstCubefaceBatchMaster
     );

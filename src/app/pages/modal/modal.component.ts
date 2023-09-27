@@ -24,11 +24,17 @@ export class ModalComponent implements OnInit {
       this.variableName = 'case4';
     }
   }
-
+  closeModalAddvendor() {
+    this.activeModal.close(); // Close the modal when the close button is clicked
+    window.location.reload();
+  }
   closeModal() {
     this.activeModal.close(); // Close the modal when the close button is clicked
+    // window.location.reload();
+
     // location.reload();
   }
+
   navigatetoSetHierarchy() {
     localStorage.setItem('tab', 'setHierarchy');
     this.activeModal.close(); // Close the modal when the close button is clicked

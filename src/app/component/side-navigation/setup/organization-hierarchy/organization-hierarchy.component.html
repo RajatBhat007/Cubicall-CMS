@@ -82,9 +82,7 @@
                             <div class="row mt-2">
                               <div class="col-3"></div>
                               <div class="col-6">
-                                <div class="label_setup font">
-                                  Employee Name:
-                                </div>
+                                <div class="label_setup font">Admin Name:</div>
                                 <div class="mt-1">
                                   <input
                                     class="form-control employee_input font"
@@ -92,6 +90,7 @@
                                     name="empName"
                                     formControlName="empName"
                                     id="empName"
+                                    placeholder="Enter Name"
                                   />
                                   <div
                                     *ngIf="
@@ -104,13 +103,13 @@
                                       *ngIf="empNameControl?.errors?.['required']"
                                       class="font error_message"
                                     >
-                                      Employee name is required.
+                                      Admin name is required.
                                     </div>
                                   </div>
                                 </div>
 
                                 <div class="label_setup font mt-1">
-                                  Employee ID:
+                                  Admin User ID:
                                 </div>
 
                                 <div class="mt-1">
@@ -118,6 +117,7 @@
                                     class="form-control employee_input font"
                                     type="text"
                                     formControlName="empId"
+                                    placeholder="Enter Email-id"
                                   />
                                 </div>
                                 <div
@@ -269,29 +269,13 @@
                           class="row d-flex justify-content-end me-1"
                           (click)="navigateToSubprocess('subprocess', i)"
                         >
-                          <!-- <div
-                            class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
-                            *ngIf="row.get('processName')?.value !== null"
-                          >
-                            <p class="m-0 process-name">
-                              {{ i + 1 + "]" }}
-                              {{ row.get("processName")?.value }}
-                            </p>
-                            <div class="edit_btn d-flex justify-content-end">
-                              <img
-                                class="edit_image"
-                                src="assets/images/Edit.svg"
-                              />
-                            </div>
-
-                          </div> -->
                           <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                           >
                             <img
                               class="selected_arrow pe-1"
                               src="assets/images/selected-arrow.png"
-                              *ngIf="i === Index"
+                              *ngIf="i === ProcessIndex"
                             />
                             {{ row?.hierarchyName }}
 
@@ -318,21 +302,6 @@
                           class="row d-flex justify-content-end me-1"
                           (click)="navigateToSubprocess('stage', i)"
                         >
-                          <!-- <div
-                            class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
-                            *ngIf="row.get('subprocessName')?.value !== null"
-                          >
-                            <p class="m-0 process-name">
-                              {{ subprocessIndex + "." + (i + 1) + "]" }}
-                              {{ row.get("subprocessName")?.value }}
-                            </p>
-                            <div class="edit_btn d-flex justify-content-end">
-                              <img
-                                class="edit_image"
-                                src="assets/images/Edit.svg"
-                              />
-                            </div>
-                          </div> -->
                           <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                           >
@@ -363,22 +332,6 @@
                         *ngFor="let row of stageList; let i = index"
                       >
                         <div class="row d-flex justify-content-end me-1">
-                          <!-- <div
-                            class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
-                            *ngIf="row.get('stageName')?.value !== null"
-                          >
-                            <p class="m-0 process-name">
-                              {{
-                                subprocessIndex +
-                                  "." +
-                                  subprocessIndex +
-                                  "." +
-                                  (i + 1) +
-                                  "]"
-                              }}
-                              {{ row.get("stageName")?.value }}
-                            </p>
-                          </div> -->
                           <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                           >
@@ -796,7 +749,7 @@
     ></div>
     <ng-template #defaultInfobtn>
       <div
-        *ngIf="activeIndexSubTab == 0"
+        *ngIf="activeIndexSubTab == 0 && subTabName != 'set'"
         class="submit_button_organisation mt-3 me-3 font d-flex justify-content-center fontInter"
         [ngClass]="{ disabled: isDisabled }"
         (click)="isDisabled ? null : createAdminInfo()"
@@ -806,7 +759,7 @@
     </ng-template>
     <ng-template #adminInfodetailsbtb>
       <div
-        *ngIf="activeIndexSubTab == 0"
+        *ngIf="activeIndexSubTab == 0 && subTabName != 'set'"
         class="submit_button_organisation mt-3 me-3 font d-flex justify-content-center fontInter"
         (click)="submitOrgHierarchy()"
       >
