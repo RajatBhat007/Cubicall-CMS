@@ -224,7 +224,7 @@ height: 3vh;
 .FunctionDescriptionModal{
 border-radius: 20px;
 border: 4px solid #000;
-background: #FFF;
+background: #D7D7E8;
 height:auto;
 }
 
@@ -609,4 +609,16 @@ input[type=date]:focus::-webkit-datetime-edit {
       border-bottom-color:transparent;
   }
   }
+}
+// input[type="checkbox"]:disabled {
+//   color: red; /* Change the text color */
+//   background-color: blue; /* Change the background color */
+//   /* Add other styles as needed */
+// }
+input[type="checkbox"]:disabled + label::before{
+  background: blue;
+}
+input[type="checkbox"]:disabled + label:hover::before{
+  background: gray;
+  border: 1px solid #d4d4d5;
 }

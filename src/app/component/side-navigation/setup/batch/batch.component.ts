@@ -37,7 +37,9 @@ export class BatchComponent {
   errordate: boolean = false;
   isChecked1: boolean = false;
   selectedItems: any = [];
-
+  viewBatchId:number=0;
+  viewStage:string='';
+  edit:boolean=false;
   functionName = [
     {
       label: 'Defuse the Bomb',
@@ -289,6 +291,11 @@ export class BatchComponent {
     }
   }
   getCheckboxValue(event: any, idBatch: any, i: any) {
+    if (this.edit) {
+      
+    } else {
+      
+    }
     this.cubesFaceMaster = {
       CubesFacesId: idBatch,
       IdBatch: 1,
@@ -312,88 +319,102 @@ export class BatchComponent {
   }
 
   createBatch() {
-    console.log(this.batch_name);
-    console.log(this.cubeFaceId);
-    if (this.cubeFaceId.ScheduledDateTime != undefined) {
-      console.log('date undefined');
-    }
-    const payload = {
-      Data: {
-        objHeirarchyBatchesMaster: {
-          IdOrgHierarchy: Number(this.IdOrgHierarchy),
-          BatchName: this.batch_name,
-          IsActive: '',
-          IdOrganization: Number(this.idOrgnization),
-          IdCmsUser: Number(this.idCMSUser),
+    if (this.edit=true) {
+      const payload = {
+        Data: {
+          objHeirarchyBatchesMaster: {
+            IdBatch: this.editBatchResponse?.idBatch,
+            IdOrgHierarchy:this.editBatchResponse?.objHeirarchyBatchesMaster.idOrgHierarchy,
+            IdOrganization:this.editBatchResponse?.objHeirarchyBatchesMaster?.idOrganization,
+            BatchName:this.batch_name,
+            IsActive:this.editBatchResponse?.objHeirarchyBatchesMaster?.isActive,
+            IdCmsUser:this.editBatchResponse?.objHeirarchyBatchesMaster?.idCmsUser,
+          },
+          lstCubefaceBatchMaster: this.cubeFaceId,
         },
-        lstCubefaceBatchMaster: this.cubeFaceId,
-      },
-    };
-    const escapedobjHeirarchyBatchesMaster = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster
-    );
-    const escapedIdOrgHierarchy = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdOrgHierarchy
-    );
-    const escapedBatchName = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.BatchName
-    );
-    const escapedIsActive = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IsActive
-    );
-    const escapedIdOrganization = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdOrganization
-    );
-    const escapedIdCmsUser = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdCmsUser
-    );
-    const escapedlstCubefaceBatchMaster = JSON.stringify(
-      payload.Data.lstCubefaceBatchMaster
-    );
-    console.log(payload);
-
-    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
-    const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
-    const jsonStringremovelast = jsonString.slice(0, -1);
-    const body = '{"Data":' + jsonStringremovelast + '}"}';
-    this.apiservice.createBatch(body).subscribe((res) => {
-      console.log(res);
-      this.openModal();
-      this.checkboxes.forEach((element: any) => {
-        element.nativeElement.checked = false;
-      });
-      this.cubeFaceId = [];
-      this.batch_name = '';
-      this.selectedDropdownIndustryValue = 'Select from the drop-down';
-      (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          window.alert('404 Not Found Error');
-        } else {
-          window.alert(error.error);
-        }
       };
-    });
+   
+      const escapedobjHeirarchyBatchesMaster = JSON.stringify(
+        payload.Data.objHeirarchyBatchesMaster
+      );
+      const escapedlstCubefaceBatchMaster = JSON.stringify(
+        payload.Data.lstCubefaceBatchMaster
+      );
+      console.log(payload);
+  
+      const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
+      const jsonString = JSON.stringify(escapedJsonString);
+      console.log(jsonString);
+      const jsonStringremovelast = jsonString.slice(0, -1);
+      const body = '{"Data":' + jsonStringremovelast + '}"}';
+      console.log(body);
+      this.apiservice.editBatch(body).subscribe((res) => {
+        console.log(res);
+      });
+    }
+     else {
+      console.log(this.batch_name);
+      console.log(this.cubeFaceId);
+      const payload = {
+        Data: {
+          objHeirarchyBatchesMaster: {
+            IdOrgHierarchy: Number(this.IdOrgHierarchy),
+            BatchName: this.batch_name,
+            IsActive: '',
+            IdOrganization: Number(this.idOrgnization),
+            IdCmsUser: Number(this.idCMSUser),
+          },
+          lstCubefaceBatchMaster: this.cubeFaceId,
+        },
+      };
+      const escapedobjHeirarchyBatchesMaster = JSON.stringify(
+        payload.Data.objHeirarchyBatchesMaster
+      );
+      const escapedlstCubefaceBatchMaster = JSON.stringify(
+        payload.Data.lstCubefaceBatchMaster
+      );
+      console.log(payload);
+      const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
+      const jsonString = JSON.stringify(escapedJsonString);
+      console.log(jsonString);
+      const jsonStringremovelast = jsonString.slice(0, -1);
+      const body = '{"Data":' + jsonStringremovelast + '}"}';
+      this.apiservice.createBatch(body).subscribe((res) => {
+        console.log(res);
+        this.openModal();
+        this.checkboxes.forEach((element: any) => {
+          element.nativeElement.checked = false;
+        });
+        this.cubeFaceId = [];
+        this.batch_name = '';
+        this.selectedDropdownIndustryValue = 'Select from the drop-down';
+        (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            window.alert('404 Not Found Error');
+          } else {
+            window.alert(error.error);
+          }
+        };
+      });
+    }
   }
 
-  editBatch(event: any) {
+  editBatch(event: any) { 
     this.selectedItems = [];
     console.log(this.selectedItems);
-
+    this.edit=true;
     console.log(event);
     this.editBatchResponse = event;
-
     this.selectedDropdownIndustryValue =
-      event.objOrganizationHierarchy.hierarchyName;
+     event.objOrganizationHierarchy.hierarchyName;
     this.batch_name = event.objHeirarchyBatchesMaster.batchName;
-
     for (
       let i = 0;
       i < this.editBatchResponse?.lstTblCubesFacesMaster.length;
       i++
     ) {
       this.selectedItems.push(
-        this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.cubesFacesId
+        this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.cubesFacesId,this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.updatedDateTime
       );
 
       console.log(this.selectedItems);
@@ -414,141 +435,78 @@ export class BatchComponent {
         console.error('this.selectedItems is not an array');
       }
     }
-
-    // const payload = {
-    //   Data: {
-    //     objHeirarchyBatchesMaster:[{
-    //         IdBatch:Number(1),
-    //         IdOrgHierarchy:Number(1) ,
-    //         IdOrganization:Number(1),
-    //         BatchName:"abc",
-    //         IsActive:"",
-    //         IdCmsUser:Number(1)
-    //     }],
-    //     lstCubefaceBatchMaster:[
-    //         {
-    //             CubefaceBatchId:Number(1),
-    //             CubesFacesId:Number(1),
-    //             IdBatch:Number(1),
-    //             IsActive:"",
-    //             ScheduledDateTime: "2023-03-20"
-    //         }
-    //     ]
-    // }
-    // };
     const payload = {
       Data: {
         objHeirarchyBatchesMaster: {
-          IdBatch: 1,
-          IdOrgHierarchy: 1,
-          IdOrganization: 1,
-          BatchName: 'abc',
-          IsActive: 'A',
-          IdCmsUser: 1,
+          IdBatch: event?.idBatch,
+          IdOrgHierarchy:event?.objHeirarchyBatchesMaster.idOrgHierarchy,
+          IdOrganization:event?.objHeirarchyBatchesMaster?.idOrganization,
+          BatchName: event?.objHeirarchyBatchesMaster?.batchName,
+          IsActive:event?.objHeirarchyBatchesMaster?.isActive,
+          IdCmsUser:event?.objHeirarchyBatchesMaster?.idCmsUser,
         },
         lstCubefaceBatchMaster: [
           {
             CubefaceBatchId: 1,
-            CubesFacesId: 1,
-            IdBatch: 1,
+            CubesFacesId: event?.lstTblCubesFacesMaster[0].cubesFacesId,
+            IdBatch: event?.idBatch,
             IsActive: 'A',
-            ScheduledDateTime: '2023-03-20',
+            ScheduledDateTime:event?.objHeirarchyBatchesMaster.updatedDateTime,
           },
         ],
       },
     };
-
+   
     const escapedobjHeirarchyBatchesMaster = JSON.stringify(
       payload.Data.objHeirarchyBatchesMaster
     );
-    const escapedIdBatch = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdBatch
+    const escapedlstCubefaceBatchMaster = JSON.stringify(
+      payload.Data.lstCubefaceBatchMaster
     );
-    const escapedIdOrgHierarchy = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdOrgHierarchy
-    );
-    const escapedIdOrganization = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdOrganization
-    );
-    const escapedBatchName = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.BatchName
-    );
-    const escapedIsActive = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IsActive
-    );
-    const escapedIdCmsUser = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster.IdCmsUser
-    );
-    const escapedCubefaceBatchId = JSON.stringify(
-      payload.Data.lstCubefaceBatchMaster[0].CubefaceBatchId
-    );
-    const escapedCubesFacesId = JSON.stringify(
-      payload.Data.lstCubefaceBatchMaster[0].CubesFacesId
-    );
-    const escapedIdBatchInner = JSON.stringify(
-      payload.Data.lstCubefaceBatchMaster[0].IdBatch
-    );
-    const escapedScheduledDateTime = JSON.stringify(
-      payload.Data.lstCubefaceBatchMaster[0].ScheduledDateTime
-    );
+    console.log(payload);
 
-    // Create a new JSON string with escaped values
-    //   const escapedJsonString = `{
-    //     objHeirarchyBatchesMaster:{
-    //         IdBatch:1,
-    //         IdOrgHierarchy: 1,
-    //         IdOrganization: 1,
-    //         BatchName:"abc",
-    //         IsActive:"A",
-    //         IdCmsUser:1
-    //     },
-    //     "lstCubefaceBatchMaster":[
-    //         {
-    //             CubefaceBatchId:1,
-    //             CubesFacesId:1,
-    //             IdBatch":,
-    //             IsActive:"A",
-    //             ScheduledDateTime: "2023-03-20"
-    //         }
-    //     ]
-    // }`;
-
-    const escapedJsonString = JSON.stringify({
-      objHeirarchyBatchesMaster: {
-        IdBatch: escapedIdBatch,
-        IdOrgHierarchy: escapedIdOrgHierarchy,
-        IdOrganization: escapedIdOrganization,
-        BatchName: escapedBatchName,
-        IsActive: escapedIsActive,
-        IdCmsUser: escapedIdCmsUser,
-      },
-      lstCubefaceBatchMaster: [
-        {
-          CubefaceBatchId: escapedCubefaceBatchId,
-          CubesFacesId: escapedCubesFacesId,
-          IdBatch: escapedIdBatchInner,
-          IsActive: escapedIsActive,
-          ScheduledDateTime: escapedScheduledDateTime,
-        },
-      ],
-    });
-
-    // Now you have a valid JSON string with escaped values that matches the provided payload structure
-    console.log(escapedJsonString);
-
-    // Now you have a valid JSON string with escaped values
-    console.log(escapedJsonString);
-
+    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
     const jsonString = JSON.stringify(escapedJsonString);
     console.log(jsonString);
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
-
+    console.log(body);
     // this.apiservice.editBatch(body).subscribe((res) => {
     //   console.log(res);
     // });
   }
+   
+  viewBatch(event:any){
+   console.log(event);
+  this.viewBatchId=event?.idBatch;
+  this.viewStage=event?.objOrganizationHierarchy?.hierarchyName;
+  this.selectedItems = [];
+   this.editBatchResponse = event;
+  for ( let i = 0; i < this.editBatchResponse?.lstTblCubesFacesMaster.length; i++ ) {
+    this.selectedItems.push(
+      this.editBatchResponse?.lstTblCubesFacesMaster?.[i]?.cubesFacesId
+    );
 
+    console.log(this.selectedItems);
+
+    if (Array.isArray(this.selectedItems)) {
+      for (let i = 0; i < this.functionName.length; i++) {
+        const indexToUpdate = this.selectedItems.findIndex(
+          (item) => item === i + 1
+        );
+
+        if (indexToUpdate !== -1) {
+          this.functionName[i].isSelected = 1;
+        } else {
+          this.functionName[i].isSelected = 0;
+        }
+      }
+    } else {
+      console.error('this.selectedItems is not an array');
+    }
+  }
+
+  }
   openModal() {
     const modalRef = this.modalService.open(ModalComponent, {
       centered: true,
