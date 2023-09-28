@@ -70,3 +70,113 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: #C4C4F6;
   }
   
+
+  .custom-dropdown {
+    position: relative;
+    display: inline-flex;
+  }
+  
+  .custom-dropdown-menu {
+    background-color: #F5F5F7;
+    max-height: 200px; /* Adjust the max height as needed */
+    overflow-y: auto;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+  
+  .custom-dropdown-menu li {
+    background-color: #FFF;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #000;
+    font-family: Work Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Styling for the scrollbar */
+  .custom-dropdown-menu::-webkit-scrollbar {
+    height: 10vh;
+    width: 1vw;
+    background-color: #fff;
+  border:1px solid black}
+  
+  .custom-dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: black; 
+    width: 5vw;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #000;
+    width: 14px;
+  height: 146px;
+  flex-shrink: 0;
+  }
+  
+  /* Styling for the custom up and down buttons */
+  .custom-dropdown-menu::-webkit-scrollbar-button {
+    background-color: #000; /* Black color for the up and down buttons */
+    width: 8px; /* Set the width of the buttons */
+    height: 12px; /* Set the height of the buttons */
+  }
+  
+
+
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    border: 5px solid #000;
+    background-color: #C4C4F6;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    background-clip: padding-box;
+    border: 0.05em solid #000;
+    border-radius: 10px;
+    
+    
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #FFFFFF;
+    border: 1px solid #000;
+    
+  }
+  /* Buttons */
+  ::-webkit-scrollbar-button:single-button {
+    background-color: #EAEFF2;
+    display: block;
+    border-style: solid;
+   
+    
+   
+  }
+  /* Up */
+  ::-webkit-scrollbar-button:single-button:vertical:decrement {
+    border-width: 0 8px 8px 8px;
+    border-color: transparent transparent #000 transparent;
+  }
+
+  ::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    border-color: transparent transparent #0000 transparent;
+  }
+  /* Down */
+  ::-webkit-scrollbar-button:single-button:vertical:increment {
+    border-width: 8px 8px 0 8px;
+    border-color: #000000 transparent transparent transparent;
+  }
+
+  ::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+    border-color: #000000 transparent transparent transparent;
+  }
+  

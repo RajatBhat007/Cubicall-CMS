@@ -33,7 +33,7 @@
                       <div class="label_setup-logo font">Organization:</div>
                       <div
                         ngbDropdown
-                        class="dropdown mt-2 w-100"
+                        class="dropdown mt-2 w-100 custom-dropdown"
                         style="position: relative; display: inline-flex"
                       >
                         <div
@@ -78,7 +78,7 @@
                           <ul
                             ngbDropdownMenu
                             aria-labelledby="dropdownMenuButton1"
-                            class="w-100 dropdownmenu"
+                            class="w-100 custom-dropdown-menu"
                           >
                             <li
                               *ngFor="
@@ -104,7 +104,7 @@
                       <div class="label_setup-logo font">Role:</div>
                       <div
                         ngbDropdown
-                        class="dropdown mt-2 w-100"
+                        class="dropdown mt-2 w-100 custom-dropdown"
                         style="position: relative; display: inline-flex"
                       >
                         <button
@@ -127,7 +127,7 @@
                         <ul
                           ngbDropdownMenu
                           aria-labelledby="dropdownMenuButton1"
-                          class="w-100 dropdownmenu"
+                          class="w-100 custom-dropdown-menu"
                         >
                           <li *ngFor="let res of CmsRole; let index = index">
                             <a
@@ -157,7 +157,7 @@
                         <div class="label_setup-logo font mt-2">Vendor:</div>
                         <div
                           ngbDropdown
-                          class="dropdown mt-2 w-100"
+                          class="dropdown mt-2 w-100 custom-dropdown"
                           style="position: relative; display: inline-flex"
                         >
                           <button
@@ -180,15 +180,16 @@
                           <ul
                             ngbDropdownMenu
                             aria-labelledby="dropdownMenuButton1"
-                            class="w-100"
+                            class="w-100 custom-dropdown-menu"
                           >
-                            <li>
+                            <li
+                              *ngFor="
+                                let res of vendorDetailsResponse;
+                                let index = index
+                              "
+                            >
                               <a
                                 ngbDropdownItem
-                                *ngFor="
-                                  let res of vendorDetailsResponse;
-                                  let index = index
-                                "
                                 (click)="selectedVendorValue(index)"
                                 class="font"
                               >
@@ -208,8 +209,7 @@
                         <div class="label_setup-logo font mt-2">Stage:</div>
                         <div
                           ngbDropdown
-                          class="dropdown mt-2 w-100"
-                          style="position: relative; display: inline-flex"
+                          class="dropdown mt-2 w-100 custom-dropdown"
                         >
                           <button
                             ngbDropdownToggle
@@ -231,15 +231,15 @@
                           <ul
                             ngbDropdownMenu
                             aria-labelledby="dropdownMenuButton1"
-                            class="w-100"
-                            style="height: 35vh; overflow-y: auto"
+                            class="w-100 custom-dropdown-menu"
                           >
-                            <li class="stageDropdown">
+                            <li
+                              *ngFor="
+                                let res of stageResponse;
+                                let index = index
+                              "
+                            >
                               <a
-                                *ngFor="
-                                  let res of stageResponse;
-                                  let index = index
-                                "
                                 ngbDropdownItem
                                 (click)="selectedStageValue(index)"
                                 class="font"

@@ -19,7 +19,7 @@ import { ModalComponent } from 'src/app/pages/modal/modal.component';
 })
 export class GameThemeComponent implements OnInit {
   activeSubSubTab: any = 0;
-  activeRadiobutton = 0;
+  activeRadiobutton: number = 0;
   activeIndexTab: any = 0;
   activeAll: string = '1';
   activeIndexSubTab: any = 0;
@@ -70,6 +70,7 @@ export class GameThemeComponent implements OnInit {
   organisationLogo: string = '';
   organisationName: string = '';
   organisationRoleName: string = '';
+  questionListResponseFilter: any = [];
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -218,6 +219,19 @@ export class GameThemeComponent implements OnInit {
       )
       .subscribe((res) => {
         this.questionListResponse = res;
+        console.log(this.questionListResponse);
+        this.questionListResponseFilter = res;
+        this.count[0].value = this.questionListResponse.length;
+        this.activeList = this.questionListResponse.filter(
+          (org: { isActive: string }) => org.isActive === 'A'
+        );
+        console.log(this.activeList);
+        this.count[1].value = this.activeList.length;
+        this.inactiveList = this.questionListResponse.filter(
+          (org: { isActive: string }) => org.isActive === 'D'
+        );
+        console.log(this.inactiveList);
+        this.count[2].value = this.inactiveList.length;
       });
   }
 
@@ -398,10 +412,12 @@ export class GameThemeComponent implements OnInit {
     }
   }
   NavigateToSubTab(index: any) {
+    this.activeRadiobutton = 0;
     this.activeIndexSubTab = index;
     console.log(this.activeIndexSubTab);
 
     if (this.activeIndexSubTab == '0') {
+      this.GetQuestionData();
       this.isStatusTab == true;
     }
     if (this.activeIndexSubTab == '0') {
@@ -547,6 +563,20 @@ export class GameThemeComponent implements OnInit {
 
   changeFilter(index: any) {
     console.log(index);
+    console.log(this.activeIndexSubTab);
+
+    if (this.activeIndexSubTab == 0) {
+      console.log(index);
+      if (index == 0) {
+        this.questionListResponse = this.questionListResponseFilter;
+      } else if (index == 1) {
+        this.questionListResponse = this.activeList;
+      } else if (index == 2) {
+        this.questionListResponse = this.inactiveList;
+        console.log(this.questionListResponse);
+      }
+    }
+
     if (this.activeSubSubTab == '0') {
       if (index == 0) {
         this.cubeFaceIdViseGameTimeData = this.totalList;

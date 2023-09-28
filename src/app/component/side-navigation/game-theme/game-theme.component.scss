@@ -106,15 +106,13 @@
   border: 3px solid #000000
 }
 
-.bottom-conatiner {
-  background: #F5F5F7;
-  border: 3px solid #000000
-}
+
 
 .content_description,
 .content_requirement,
 .mat-title {
-  font-size: .7em
+  font-size: .9em;
+  text-align: center;
 }
 
 
@@ -224,7 +222,7 @@
 }
 
 .count-container {
-  min-width: 13vw;
+  min-width: 50%;
   height: 14vh;
   border-radius: 10px;
   background: #F5F5F7;
@@ -237,7 +235,7 @@
 }
 
 .count_label {
-  font-size: .8em
+  font-size: .9em
 }
 
 .count-points {
@@ -263,14 +261,14 @@
   background: #D7D7E8;
   font-size: .8em;
   padding: 8px;
-  border: 1px solid #000;
+  border: 2px solid #000;
   border-bottom: none;
 }
 
 .sub-tab-active {
   background: #fff;
   font-size: .8em;
-  border: 1px solid #000;
+  border: 2px solid #000;
   border-bottom: none;
 }
 
@@ -278,7 +276,7 @@
   width: 100%;
   height: 50vh;
   background: #fff;
-  border: 1px solid #000;
+  border: 2px solid #000;
   position: relative
 }
 
@@ -884,7 +882,7 @@ color:#000;
 }
 
 .table-body-height {
-  height: 37vh;
+  height: 35vh;
   overflow-y: auto;
   overflow-x: hidden
 }
@@ -1165,7 +1163,7 @@ input[type=file] {
 .ssub-tab-active {
   background:#000;
   font-size: 0.8em;
-  border: 1px solid #000;
+  border: 2px solid #000;
   border-bottom: 0;
   color:white;
 }
@@ -1231,7 +1229,7 @@ margin-top:1% ;
 }
 .searchIconBacground{
   width: 2vw;
-  height: 3vh;
+ 
   background-color: #000000; 
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
@@ -1248,8 +1246,7 @@ margin-top:1% ;
   padding: 0% 10%;
 }
 .searchContainer{
-  width: 9vw;
-  height: 3vh;
+ width: 100%;
   background-color: #000000; 
   color: #FFFFFF;
   border-top-right-radius: 20px;
@@ -1266,7 +1263,7 @@ margin-top:1% ;
 .tab {
   height: 7vh;
   background: #FFFFFF;
-  border: 2px solid #000000;
+  border: 4px solid #000000;
   border-bottom: none;
   position: relative;
 }
@@ -1281,22 +1278,20 @@ margin-top:1% ;
   background: #7B7FCF;
 }
 
-.mat-title {
-  font-size: 0.9em;
-}
+
 
 .bottom-conatiner {
   background: #F5F5F7;
   height: 69vh;
   width: 99%;
-  border: 2px solid #000000;
+  border: 4px solid #000000;
 
 }
 
 .tab-active {
   height: 7vh;
   background: #D7D7E8;
-  border: 2px solid #000000;
+  border: 4px solid #000000;
   border-bottom: none;
   position: relative;
 }

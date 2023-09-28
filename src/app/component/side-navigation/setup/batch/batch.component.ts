@@ -26,6 +26,7 @@ export class BatchComponent {
   activeUpdateButton: boolean = false;
   activeIndexSubTab0: any = 0;
   batch_name: any = '';
+  activeRadiobutton: number = 0;
   isChecked: any;
   cubesFaceMaster: any;
   dateForm: FormGroup;
@@ -156,6 +157,7 @@ export class BatchComponent {
   idCMSUser: any;
   formattedDate: any;
   cubeFaceId: any = [];
+  batchDataResponse: any = [];
   today: NgbDateStruct;
   startDate: string = '';
   CheckedValue: number = 0;
@@ -208,6 +210,16 @@ export class BatchComponent {
       });
     }
   }
+
+  changeFilter(index: any) {
+    if (index == 0) {
+      this.BatchData = this.batchDataResponse;
+    } else if (index == 1) {
+      this.BatchData = this.inactiveBatches;
+    } else if (index == 2) {
+      this.BatchData = this.filteredBatches;
+    }
+  }
   // get startDateControl() {
   //   return this.dateForm.get('startDate');
   // }
@@ -239,6 +251,7 @@ export class BatchComponent {
       this.apiservice.getBatch(this.idOrgnization).subscribe((res) => {
         console.log(res);
         this.BatchData = res;
+        this.batchDataResponse = res;
         this.CmsBatchList = this.BatchData[0]?.lstBatches;
         console.log(this.CmsBatchList);
         this.totalBatches = this.CmsBatchList?.length;
@@ -261,7 +274,16 @@ export class BatchComponent {
           []
         );
 
-        this.count[1].value = this.activeBatches?.length;
+        console.log(this.CmsBatchList?.objOrganizationHierarchy);
+
+        this.inactiveBatches =
+          this.CmsBatchList?.objOrganizationHierarchy?.filter(
+            (org: { isActive: string }) => org.isActive === 'A'
+          );
+
+        this.count[1].value = this.inactiveBatches?.length;
+
+        this.count[2].value = this.activeBatches?.length;
         this.inactiveBatches =
           this.CmsBatchList?.objHeirarchyBatchesMaster?.filter(
             (org: { status: string }) => org.status === 'D'
@@ -335,6 +357,25 @@ export class BatchComponent {
 
   createBatch() {
     if (this.edit) {
+      //       {"Data":"{\"objHeirarchyBatchesMaster\":{\"IdBatch\":140,\"IdOrgHierarchy\":616,\"IdOrganization\":306,\"BatchName\":\"Table \",\"IsActive\":\"A\",\"IdCmsUser\":313},
+      //       \"lstCubefaceBatchMaster\":[{\"CubefaceBatchId\":168,\"CubesFacesId\":1,\"IdBatch\":140,\"IsActive\":\"A\",\"ScheduledDateTime\":\"2023-09-27T10:54:46\"}]}"
+      // }
+
+      // this.cubesFaceMaster = {
+      //   CubesFacesId:
+      //     this.editBatchResponse?.lstCubefaceBatchMaster?.CubesFacesId,
+      //   IdBatch: this.editBatchResponse?.lstCubefaceBatchMaster?.IdBatch,
+      //   ScheduledDateTime: this.selectedDateFromCalender
+      //     ? this.selectedDateFromCalender
+      //     : this.formattedDate,
+      //   CubefaceBatchId:
+      //     this.editBatchResponse?.lstCubefaceBatchMaster?.CubefaceBatchId,
+      //   IsActive: this.editBatchResponse?.lstCubefaceBatchMaster?.IsActive,
+      // };
+
+      // this.cubeFaceId.push(this.cubesFaceMaster);
+      // console.log(this.cubeFaceId);
+
       const payload = {
         Data: {
           objHeirarchyBatchesMaster: {
@@ -417,6 +458,7 @@ export class BatchComponent {
         const body = '{"Data":' + jsonStringremovelast + '}"}';
         this.apiservice.createBatch(body).subscribe((res) => {
           console.log(res);
+
           this.openModal('Done! The Batch has been created successfully.');
           this.checkboxes.forEach((element: any) => {
             element.nativeElement.checked = false;

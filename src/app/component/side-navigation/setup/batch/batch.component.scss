@@ -1,5 +1,5 @@
 .bottom-conatiner {
-  border: 2px solid #000;
+  border: 4px solid #000;
   background: #F5F5F7;
   height: 67vh;
   width: 99%;
@@ -202,10 +202,7 @@ height: 2vh
 .margin{
 margin-left: 35px;
 }
-#flexSwitchCheckDefault{
-border: 2px solid #000 !important;
 
-}
 input[type=checkbox] {
 height: 1em;
 width: 1em;
@@ -345,14 +342,7 @@ background: #7B7FCF;
 font-size: 0.7em;
 }
 
-.bottom-conatiner {
-border: 2px solid #000;
-background: #F5F5F7;
-height: 67vh;
-width: 99%;
 
-
-}
 
 .tab-active {
 height: 7vh;
@@ -621,4 +611,21 @@ input[type="checkbox"]:disabled + label::before{
 input[type="checkbox"]:disabled + label:hover::before{
   background: gray;
   border: 1px solid #d4d4d5;
+}
+
+.form-check-input[type="checkbox"][role="switch"] {
+  /* Default background color for OFF state */
+  background-color: white;
+}
+
+/* Custom styles for the switch knob (thumb) */
+.form-check-input[type="checkbox"][role="switch"] + .form-check-label::before {
+  /* Change the color of the knob */
+  background-color: black;
+}
+
+/* Custom styles for the Flex Switch when checked (ON state) */
+.form-check-input[type="checkbox"][role="switch"]:checked {
+  /* Background color for ON state */
+  background-color: #C4C4F6;
 }

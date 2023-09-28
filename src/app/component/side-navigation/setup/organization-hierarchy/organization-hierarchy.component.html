@@ -207,7 +207,7 @@
                       <div
                         *ngIf="this.apiData?.role?.idRoleType != 3"
                         ngbDropdown
-                        class="dropdown mt-4 w-100"
+                        class="dropdown mt-4 w-100 custom-dropdown"
                         style="position: relative; display: inline-flex"
                       >
                         <button
@@ -230,15 +230,16 @@
                         <ul
                           ngbDropdownMenu
                           aria-labelledby="dropdownMenuButton1"
-                          class="dropdown_values w-100"
+                          class="w-100 custom-dropdown-menu"
                         >
-                          <li>
+                          <li
+                            *ngFor="
+                              let res of organisationName;
+                              let index = index
+                            "
+                          >
                             <a
                               ngbDropdownItem
-                              *ngFor="
-                                let res of organisationName;
-                                let index = index
-                              "
                               (click)="updateSelectedIndustryValue(index)"
                               class="font"
                               >{{ res.hierarchyName }}</a
@@ -465,7 +466,7 @@
                                   <input
                                     type="text"
                                     class="form-control font process-input"
-                                    placeholder="Enter the process name"
+                                    placeholder="Enter the Sub process name"
                                     aria-label=""
                                     aria-describedby="basic-addon1"
                                     formControlName="subprocessName"
@@ -526,7 +527,7 @@
                                   <input
                                     type="text"
                                     class="form-control font process-input"
-                                    placeholder="Enter the process name"
+                                    placeholder="Enter the Stage name"
                                     aria-label=""
                                     aria-describedby="basic-addon1"
                                     formControlName="stageName"

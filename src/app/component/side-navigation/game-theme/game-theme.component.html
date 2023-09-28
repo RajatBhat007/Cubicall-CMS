@@ -176,7 +176,7 @@
             *ngIf="activeIndexSubTab == 0; then draftDiv; else withoutDraftDiv"
           ></div>
           <ng-template #draftDiv>
-            <div class="col-5">
+            <div class="col-4">
               <div class="row">
                 <div class="col-12 d-flex justify-content-center">
                   <div
@@ -200,15 +200,14 @@
           </ng-template>
 
           <ng-template #withoutDraftDiv>
-            <div class="col-5 d-flex"></div>
+            <div class="col-4 d-flex"></div>
           </ng-template>
 
-          <div class="col-3 mt-2 mb-1 d-flex justify-content-end">
+          <div class="col-4 mt-2 mb-1 d-flex justify-content-end">
             <div class="count-container pt-1">
               <div
                 class="row w-100"
                 *ngFor="let response of count; let i = index"
-                (click)="changeFilter(i)"
               >
                 <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                   {{ response.label }}
@@ -220,14 +219,15 @@
                     {{ response.value }}
                   </div>
                 </div>
+
                 <div class="col-lg-2 col-sm-2">
                   <input
                     class="form-check-input"
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault2"
+                    (click)="changeFilter(i)"
                     [checked]="i === activeRadiobutton"
-                    checked
                   />
                 </div>
               </div>
@@ -386,7 +386,12 @@
                             </div>
                             <div
                               class="view-button"
-                              style="margin-left: 3%"
+                              style="
+                                width: 10%;
+                                display: flex;
+                                justify-content: center;
+                                padding-left: 1.5%;
+                              "
                               (click)="navigateToViewQuestion(i)"
                             >
                               <svg
@@ -414,14 +419,19 @@
 
                             <div
                               class="id-header font d-flex justify-content-center"
-                              style="color: #000"
+                              style="color: #000; width: 3.5%"
                             >
                               {{ res?.perTileQuestionId }}
                             </div>
 
                             <div
                               class="question-header font ellipsis"
-                              style="color: #000; width: 47%; margin-left: 3.5%"
+                              style="
+                                color: #000;
+                                width: 52%;
+                                margin-left: 3.5%;
+                                padding-left: 4.5%;
+                              "
                             >
                               {{ res?.question }}
                             </div>
@@ -564,6 +574,7 @@
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
                                 <div
+                                  style="visibility: hidden"
                                   class="edit_btn d-flex justify-content-center align-items-center"
                                   (click)="editGameTime(i, 'gametime')"
                                 >
@@ -598,19 +609,23 @@
                                     [checked]="res.isActive === 'A'"
                                   />
                                 </div>
-                                <div class="id-header text-dark text-center">
+                                <div
+                                  class="id-header text-dark text-center ps-3"
+                                >
                                   {{ res.cubesFacesId }}
                                 </div>
-                                <div class="game-header text-dark text-justify">
+                                <div
+                                  class="game-header text-dark text-justify ps-3"
+                                >
                                   {{ res.overAllTimer / 60 }}min
                                 </div>
                                 <div
-                                  class="tile-header text-dark text-justify font"
+                                  class="tile-header text-dark text-justify font ps-3"
                                 >
                                   {{ res.perTileTimer }} sec
                                 </div>
                                 <div
-                                  class="created-date-header text-dark font d-flex justify-content-start"
+                                  class="created-date-header text-dark font d-flex justify-content-start ps-3"
                                 >
                                   {{ res.updatedDateTime | slice : 0 : -9 }}
                                 </div>
@@ -710,6 +725,7 @@
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
                                 <div
+                                  style="visibility: hidden"
                                   class="edit_btn d-flex justify-content-center align-items-center"
                                   (click)="editGameTime(i, 'attempt')"
                                 >
@@ -733,7 +749,7 @@
                                 </div>
 
                                 <div
-                                  class="form-check form-switch d-flex align-items-center"
+                                  class="form-check form-switch d-flex align-items-center ps-5"
                                 >
                                   <input
                                     class="form-check-input"
@@ -744,17 +760,21 @@
                                     [checked]="res.isActive === 'A'"
                                   />
                                 </div>
-                                <div class="id-header text-dark text-center">
+                                <div
+                                  class="id-header text-dark text-center ps-3"
+                                >
                                   {{ res.cubesFacesId }}
                                 </div>
                                 <div class="game-header text-dark text-center">
                                   {{ res.attemptNo }}
                                 </div>
-                                <div class="tile-header text-dark ps-3 font">
+                                <div
+                                  class="tile-header text-dark ps-3 font ps-4"
+                                >
                                   {{ res.gamePoints }}
                                 </div>
                                 <div
-                                  class="created-date-header ps-3 text-dark font"
+                                  class="created-date-header ps-3 text-dark font ps-2"
                                 >
                                   {{ res.updatedDateTime | slice : 0 : -9 }}
                                 </div>
@@ -846,6 +866,7 @@
                             <div class="col-12 d-flex justify-content-center">
                               <div class="table-body d-flex align-items-center">
                                 <div
+                                  style="visibility: hidden"
                                   class="edit_btn d-flex justify-content-center align-items-center"
                                   (click)="editGameTime(i, 'streak')"
                                 >
@@ -880,17 +901,15 @@
                                     [checked]="res.isActive === 'A'"
                                   />
                                 </div>
-                                <div class="id-header text-dark text-center">
+                                <div
+                                  class="id-header text-dark text-center ps-3"
+                                >
                                   {{ res.cubesFacesId }}
                                 </div>
-                                <div
-                                  class="streak-header text-dark text-center"
-                                >
+                                <div class="streak-header text-dark ps-3">
                                   {{ res.streak }}x
                                 </div>
-                                <div
-                                  class="point-header text-dark font text-center"
-                                >
+                                <div class="point-header text-dark font ps-3">
                                   +{{ res.streakPoints }}
                                 </div>
                                 <div

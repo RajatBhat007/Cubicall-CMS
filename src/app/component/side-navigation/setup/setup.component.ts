@@ -297,7 +297,7 @@ export class SetupComponent implements OnInit {
 
         this.count[1].value = this.activeOrganizations.length;
         this.inactiveOrganizations = this.getOrganization.filter(
-          (org: { status: string }) => org.status === 'D'
+          (org: { status: string }) => org.status === 'D' || org.status === 'O'
         );
 
         this.count[2].value = this.inactiveOrganizations.length;

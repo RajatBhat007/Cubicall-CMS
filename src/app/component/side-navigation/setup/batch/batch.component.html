@@ -121,6 +121,7 @@
                         type="text"
                         [(ngModel)]="batch_name"
                         (input)="updateInputState($event)"
+                        [disabled]="edit"
                       />
                     </div>
                   </div>
@@ -268,7 +269,6 @@
                   <div
                     class="col-2 d-flex justify-content-start align-items-end"
                   >
-                 
                     <div class="col-5 mt-2 p-0 d-flex">
                       <div class="searchBorderRadious d-flex">
                         <div class="searchIconBacground">
@@ -293,7 +293,10 @@
                     class="col-10 d-flex justify-content-end align-items-center"
                   >
                     <div class="Cms-Role-count-container pt-1">
-                      <div class="row w-100" *ngFor="let response of count">
+                      <div
+                        class="row w-100"
+                        *ngFor="let response of count; let i = index"
+                      >
                         <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                           {{ response.label }}
                         </div>
@@ -310,7 +313,8 @@
                             type="radio"
                             name="flexRadioDefault"
                             id="flexRadioDefault2"
-                            checked
+                            [checked]="i === activeRadiobutton"
+                            (click)="changeFilter(i)"
                           />
                         </div>
                       </div>
@@ -353,7 +357,7 @@
                                 </div>
 
                                 <div
-                                  class="Organization-header font d-flex justify-content-center  text-light"
+                                  class="Organization-header font d-flex justify-content-center text-light"
                                 >
                                   Stage
                                 </div>
@@ -380,7 +384,7 @@
                           <div class="display-Cms-Role-body-height">
                             <div
                               class="table-body-height table-body w-100"
-                              *ngFor="let item of CmsBatchList;let i=index"
+                              *ngFor="let item of CmsBatchList; let i = index"
                             >
                               <div class="row mt-2">
                                 <div
@@ -436,11 +440,14 @@
                                     >
                                       <input
                                         class="form-check-input"
-                                        style="width: 2.5vw; height: 2.5vh"
+                                        style="width: 5vh; height: 2vh"
                                         type="checkbox"
                                         role="switch"
                                         id="flexSwitchCheckDefault"
-                                        [checked]="item?.objOrganizationHierarchy?.isActive"
+                                        [checked]="
+                                          item?.objOrganizationHierarchy
+                                            ?.isActive
+                                        "
                                       />
                                     </div>
 
@@ -458,12 +465,12 @@
                                       {{ item?.idBatch }}
                                     </div>
                                     <div
-                                    class="Function-header font d-flex justify-content-center"
-                                  >
-                                    <!-- {{
+                                      class="Function-header font d-flex justify-content-center"
+                                    >
+                                      <!-- {{
                                       item?.lstCubeFaceAndFaceDetails[0]?.facesName
                                     }} -->
-                                  </div>
+                                    </div>
                                     <div
                                       class="Function-header font d-flex justify-content-center"
                                     >
@@ -519,182 +526,183 @@
     </div>
   </div>
   <div class="col-12 d-flex justify-content-end mt-3">
-    <div 
+    <div
       *ngIf="activeIndexSubTab == 0"
       (click)="createBatch()"
       [ngClass]="{ disabled: isDisabledCreateUser }"
-   
       class="submit_button font d-flex justify-content-center fontInter me-3"
     >
       Assign
     </div>
-
-    
   </div>
 
-
   <div
-  class="modal fade"
-  id="BatchDescriptionModal"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered"
-    style="position: relative; display: flex; justify-content: center"
+    class="modal fade"
+    id="BatchDescriptionModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
   >
-    <div class="modal-content FunctionDescriptionModal">
-      <div class="d-flex justify-content-end">
-        <div
-          type="button"
-          class="custom-close-btn d-flex justify-content-center align-items-center m-2"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        >
-        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" class="cross-icon">
-          <circle cx="18" cy="18" r="17" fill="white" stroke="black" stroke-width="2"/>
-          <path d="M9.5 10L28 27" stroke="black" stroke-width="5"/>
-          <path d="M27.25 9.25L10.25 27.75" stroke="black" stroke-width="5"/>
-          </svg>
+    <div
+      class="modal-dialog modal-dialog-centered"
+      style="position: relative; display: flex; justify-content: center"
+    >
+      <div class="modal-content FunctionDescriptionModal">
+        <div class="d-flex justify-content-end">
+          <div
+            type="button"
+            class="custom-close-btn d-flex justify-content-center align-items-center m-2"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+              class="cross-icon"
+            >
+              <circle
+                cx="18"
+                cy="18"
+                r="17"
+                fill="white"
+                stroke="black"
+                stroke-width="2"
+              />
+              <path d="M9.5 10L28 27" stroke="black" stroke-width="5" />
+              <path
+                d="M27.25 9.25L10.25 27.75"
+                stroke="black"
+                stroke-width="5"
+              />
+            </svg>
+          </div>
         </div>
-      </div>
-      <div class="modal-body pt-0">
-        <div class="row">
-          <div class="col-12">
-            <div class="label_setup-logo font text-dark">Batch Id:</div>
-            <div class="mt-2 w-40">
-              <input
-                class="form-control organisation_input font bg-light"
-                type="text"
-                value="{{viewBatchId}}"
-                disabled
-              />
+        <div class="modal-body pt-0">
+          <div class="row">
+            <div class="col-12">
+              <div class="label_setup-logo font text-dark">Batch Id:</div>
+              <div class="mt-2 w-40">
+                <input
+                  class="form-control organisation_input font bg-light"
+                  type="text"
+                  value="{{ viewBatchId }}"
+                  disabled
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="label_setup-logo font text-dark">Stage:</div>
-            <div class="mt-2">
-              <input
-                class="form-control organisation_input font bg-light"
-                type="text"
-                disabled
-                value="{{viewStage}}"
-              />
+            <div class="col-12">
+              <div class="label_setup-logo font text-dark">Stage:</div>
+              <div class="mt-2">
+                <input
+                  class="form-control organisation_input font bg-light"
+                  type="text"
+                  disabled
+                  value="{{ viewStage }}"
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-12 mt-2">
-            <div class="label_setup-logo font">Assigned Game Themes:</div>
-            <div class="row">
-              <div class="col-12">
-                <div class="">
-                  <div class="row mt-2">
-                    <div class="col-12">
-                      <div class="table-header">
-                        <div class="row height4 align-items-center">
-                          <div
-                            class="col-6 d-flex"
-                            style="margin-left: -2%"
-                          >
-                            <div class="me-3 d-flex margin">
-                              <div
-                                class="form-check-input checkbox-input-checkbox"
-                                style="
-                                  border: 1px solid #fff;
-                                  border-radius: 2px;
-                                "
-                              ></div>
+            <div class="col-12 mt-2">
+              <div class="label_setup-logo font">Assigned Game Themes:</div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="">
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <div class="table-header">
+                          <div class="row height4 align-items-center">
+                            <div class="col-6 d-flex" style="margin-left: -2%">
+                              <div class="me-3 d-flex margin">
+                                <div
+                                  class="form-check-input checkbox-input-checkbox"
+                                  style="
+                                    border: 1px solid #fff;
+                                    border-radius: 2px;
+                                  "
+                                ></div>
+                              </div>
+                              <div class="fs-6 font text-light">Game Theme</div>
                             </div>
-                            <div
-                              class="fs-6 font text-light"
-                            >
-                              Game Theme
-                            </div>
-                          </div>
-                          <div class="col-6">
-                            <div
-                              class="fs-6 font text-light"
-                            >
-                              Date of Assigning
+                            <div class="col-6">
+                              <div class="fs-6 font text-light">
+                                Date of Assigning
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="table-body-height table-body"
-                    *ngFor="let item of functionName; let i = index"
-                  >
-                    <div class="row mt-2">
-                      <div class="col-12 d-flex justify-content-center">
-                        <div class="table-body d-flex align-items-center border border-1 border-dark">
+                    <div
+                      class="table-body-height table-body"
+                      *ngFor="let item of functionName; let i = index"
+                    >
+                      <div class="row mt-2">
+                        <div class="col-12 d-flex justify-content-center">
                           <div
-                            class="view_div d-flex align-items-center justify-content-center"
-                            data-bs-toggle="modal"
-                            data-bs-target="#FunctionDescriptionModal"
-                          ></div>
-                          <div class="checkbox">
-                            <div class="ms-2 d-flex disabled">
-                              <input
-                                class="form-check-box"
-                                type="checkbox"
-                                role="switch"
-                                [id]="'flexRadioDefault' + i"
-                                (change)="
-                                  getCheckboxValue(
-                                    $event,
-                                    item?.batch_id,
-                                    i
-                                  )
-                                "
-                                [checked]="item?.isSelected === 1"
-                                #checkboxes
-                         
-                              />
-                             
-                            </div>
-                          </div>
-                          <div class="label_setup-logo font text-dark ms-3">
-                            {{ item.label }}
-                          </div>
-
-                          <div
-                            class="label_setup-logo font text-dark d-flex"
-                            style="
-                              text-decoration: underline;
-                              cursor: pointer;
-                            "
+                            class="table-body d-flex align-items-center border border-1 border-dark"
                           >
-                            <div class="d-flex flex-column">
-                              <!-- <input type="date" id="birthday"
+                            <div
+                              class="view_div d-flex align-items-center justify-content-center"
+                              data-bs-toggle="modal"
+                              data-bs-target="#FunctionDescriptionModal"
+                            ></div>
+                            <div class="checkbox">
+                              <div class="ms-2 d-flex disabled">
+                                <input
+                                  class="form-check-box"
+                                  type="checkbox"
+                                  role="switch"
+                                  [id]="'flexRadioDefault' + i"
+                                  (change)="
+                                    getCheckboxValue($event, item?.batch_id, i)
+                                  "
+                                  [checked]="item?.isSelected === 1"
+                                  #checkboxes
+                                />
+                              </div>
+                            </div>
+                            <div class="label_setup-logo font text-dark ms-3">
+                              {{ item.label }}
+                            </div>
+
+                            <div
+                              class="label_setup-logo font text-dark d-flex"
+                              style="
+                                text-decoration: underline;
+                                cursor: pointer;
+                              "
+                            >
+                              <div class="d-flex flex-column">
+                                <!-- <input type="date" id="birthday"
                               value="select date" 
                               placeholder="{{ item.date }}"  /> -->
-                              <!-- <label for="">{{item.date}}</label> -->
-                              <form [formGroup]="dateForm">
-                                <div class="form-group">
-                                  <input
-                                    type="date"
-                                    class="custom-date-input"
-                                    formControlName="startDate"
-                                    [min]="formattedDate"
-                                    (change)="
-                                      matchDate($event, item.batch_id)
-                                    "
-                                  />
-                                </div>
-                              </form>
-                              <!-- <input type="text" placeholder="Date" onfocus="(this.type='date')"/> -->
+                                <!-- <label for="">{{item.date}}</label> -->
+                                <form [formGroup]="dateForm">
+                                  <div class="form-group">
+                                    <input
+                                      type="date"
+                                      class="custom-date-input"
+                                      formControlName="startDate"
+                                      [min]="formattedDate"
+                                      (change)="
+                                        matchDate($event, item.batch_id)
+                                      "
+                                    />
+                                  </div>
+                                </form>
+                                <!-- <input type="text" placeholder="Date" onfocus="(this.type='date')"/> -->
 
-                              <!-- <mat-form-field style="height: 7vh;">
+                                <!-- <mat-form-field style="height: 7vh;">
                                 <mat-label >{{item.date}}</mat-label>
                                 <input matInput [matDatepicker]="picker">
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                               </mat-form-field> -->
-                              <!-- 
+                                <!-- 
                               <input
                               type="text"
                               formControlName="startDate"
@@ -707,6 +715,7 @@
                               placeholder="Enter start Date"
                               id=`datepiker${i}`
                             /> -->
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -716,18 +725,17 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-12 d-flex justify-content-end align-items-center">
-            <div
-              class="submit_button mt-3 font d-flex justify-content-center"
-              *ngIf="this.activeUpdateButton"
-            >
-              Update
+            <div class="col-12 d-flex justify-content-end align-items-center">
+              <div
+                class="submit_button mt-3 font d-flex justify-content-center"
+                *ngIf="this.activeUpdateButton"
+              >
+                Update
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
