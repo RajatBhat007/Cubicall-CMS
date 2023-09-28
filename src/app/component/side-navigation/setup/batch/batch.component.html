@@ -121,6 +121,7 @@
                         type="text"
                         [(ngModel)]="batch_name"
                         (input)="updateInputState($event)"
+                        [disabled]="edit"
                       />
                     </div>
                   </div>
@@ -458,11 +459,13 @@
                                       {{ item?.idBatch }}
                                     </div>
                                     <div
-                                    class="Function-header font d-flex justify-content-center"
-                                  >
-                                    <!-- {{
-                                      item?.lstCubeFaceAndFaceDetails[0]?.facesName
-                                    }} -->
+                                    class="Function-header font d-flex justify-content-center">
+                                    <span *ngIf="item?.lstCubeFaceAndFaceDetails!=null"> 
+                                      {{
+                                        item?.lstCubeFaceAndFaceDetails[0]?.facesName
+                                      }}
+                                    </span>
+                                 
                                   </div>
                                     <div
                                       class="Function-header font d-flex justify-content-center"
