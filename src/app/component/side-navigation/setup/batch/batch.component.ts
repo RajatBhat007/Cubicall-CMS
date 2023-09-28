@@ -38,12 +38,15 @@ export class BatchComponent {
   errordate: boolean = false;
   isChecked1: boolean = false;
   selectedItems: any = [];
+  editPayloadata: any;
   viewBatchId: number = 0;
   viewStage: string = '';
   edit: boolean = false;
   EditcubesFaceMaster: any;
   isDisabledCreateUser: boolean = true;
   isActive: string = '';
+  uniqueArrayOfCubeGameTheme: any[] = [];
+
   functionName = [
     {
       label: 'Defuse the Bomb',
@@ -326,6 +329,7 @@ export class BatchComponent {
     // } else {
 
     // }
+    console.log(this.editPayloadata);
 
     this.cubesFaceMaster = {
       CubesFacesId: idBatch,
@@ -334,47 +338,64 @@ export class BatchComponent {
         ? this.selectedDateFromCalender
         : this.formattedDate,
     };
+    console.log(this.cubesFaceMaster);
+
     if (event.currentTarget.checked) {
       this.isActive == 'A';
       this.cubeFaceId.push(this.cubesFaceMaster);
       console.log(idBatch);
     } else {
-      this.isActive == 'D';
-      console.log(idBatch);
-      console.log(this.cubeFaceId[idBatch - 1].CubesFacesId);
-      console.log(idBatch);
+      console.log('legth of edit payload', this.editPayloadata.length);
 
-      // new ----------------------------------
+      for (let i = 1; i < this.editPayloadata.length; i++) {
+        console.log(i);
+        console.log(this.editPayloadata);
+        const indexToUpdate = this.editPayloadata.findIndex(
+          (item: any) => item.cubesFacesId === idBatch
+        );
+        console.log(indexToUpdate);
 
-      // ---------------------------------
-      if (idBatch !== -1) {
-        console.log('hreleleo');
+        if (indexToUpdate !== -1) {
+          console.log('hello');
+          this.cubesFaceMaster = {
+            CubefaceBatchId:
+              this.editPayloadata[indexToUpdate]?.cubefaceBatchId,
+            CubesFacesId: this.editPayloadata[indexToUpdate]?.cubesFacesId,
+            IdBatch: this.editPayloadata[indexToUpdate]?.idBatch,
+            ScheduledDateTime: this.selectedDateFromCalender
+              ? this.selectedDateFromCalender
+              : this.formattedDate,
+            IsActive: 'D',
+          };
+        }
+        this.cubeFaceId.push(this.cubesFaceMaster);
+        console.log(this.cubesFaceMaster);
+        console.log(idBatch);
 
-        this.cubeFaceId.splice(idBatch - 1, 1);
+        const uniqueIds = new Set();
+
+        for (const obj of this.cubeFaceId) {
+          if (!uniqueIds.has(obj.cubesFacesId)) {
+            uniqueIds.add(obj.cubesFacesId);
+            console.log('unique');
+            this.uniqueArrayOfCubeGameTheme.push(obj);
+          }
+        }
+      }
+      if (!this.edit) {
+        if (idBatch != -1) {
+          console.log('hreleleo');
+          this.cubeFaceId.splice(idBatch - 1, 1);
+        }
       }
     }
   }
 
   createBatch() {
     if (this.edit) {
-      //       {"Data":"{\"objHeirarchyBatchesMaster\":{\"IdBatch\":140,\"IdOrgHierarchy\":616,\"IdOrganization\":306,\"BatchName\":\"Table \",\"IsActive\":\"A\",\"IdCmsUser\":313},
-      //       \"lstCubefaceBatchMaster\":[{\"CubefaceBatchId\":168,\"CubesFacesId\":1,\"IdBatch\":140,\"IsActive\":\"A\",\"ScheduledDateTime\":\"2023-09-27T10:54:46\"}]}"
-      // }
+      console.log(this.cubeFaceId);
 
-      // this.cubesFaceMaster = {
-      //   CubesFacesId:
-      //     this.editBatchResponse?.lstCubefaceBatchMaster?.CubesFacesId,
-      //   IdBatch: this.editBatchResponse?.lstCubefaceBatchMaster?.IdBatch,
-      //   ScheduledDateTime: this.selectedDateFromCalender
-      //     ? this.selectedDateFromCalender
-      //     : this.formattedDate,
-      //   CubefaceBatchId:
-      //     this.editBatchResponse?.lstCubefaceBatchMaster?.CubefaceBatchId,
-      //   IsActive: this.editBatchResponse?.lstCubefaceBatchMaster?.IsActive,
-      // };
-
-      // this.cubeFaceId.push(this.cubesFaceMaster);
-      // console.log(this.cubeFaceId);
+      console.log(this.uniqueArrayOfCubeGameTheme);
 
       const payload = {
         Data: {
@@ -401,7 +422,6 @@ export class BatchComponent {
         payload.Data.lstCubefaceBatchMaster
       );
       console.log(payload);
-
       const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
       const jsonString = JSON.stringify(escapedJsonString);
       console.log(jsonString);
@@ -500,6 +520,9 @@ export class BatchComponent {
       this.selectedItems.push(
         this.editBatchResponse?.lstCubeFaceAndFaceDetails?.[i]?.cubesFacesId
       );
+      console.log(this.editBatchResponse?.lstCubeFaceAndFaceDetails);
+      this.editPayloadata = this.editBatchResponse?.lstCubeFaceAndFaceDetails;
+      console.log(this.editPayloadata);
 
       console.log(this.selectedItems);
 
@@ -519,42 +542,42 @@ export class BatchComponent {
         console.error('this.selectedItems is not an array');
       }
     }
-    const payload = {
-      Data: {
-        objHeirarchyBatchesMaster: {
-          IdBatch: event?.idBatch,
-          IdOrgHierarchy: event?.objHeirarchyBatchesMaster.idOrgHierarchy,
-          IdOrganization: event?.objHeirarchyBatchesMaster?.idOrganization,
-          BatchName: event?.objHeirarchyBatchesMaster?.batchName,
-          IsActive: event?.objHeirarchyBatchesMaster?.isActive,
-          IdCmsUser: event?.objHeirarchyBatchesMaster?.idCmsUser,
-        },
-        lstCubefaceBatchMaster: [
-          {
-            CubefaceBatchId: 1,
-            CubesFacesId: event?.lstCubeFaceAndFaceDetails[0].cubesFacesId,
-            IdBatch: event?.idBatch,
-            IsActive: 'A',
-            ScheduledDateTime: event?.objHeirarchyBatchesMaster.updatedDateTime,
-          },
-        ],
-      },
-    };
+    // const payload = {
+    //   Data: {
+    //     objHeirarchyBatchesMaster: {
+    //       IdBatch: event?.idBatch,
+    //       IdOrgHierarchy: event?.objHeirarchyBatchesMaster.idOrgHierarchy,
+    //       IdOrganization: event?.objHeirarchyBatchesMaster?.idOrganization,
+    //       BatchName: event?.objHeirarchyBatchesMaster?.batchName,
+    //       IsActive: event?.objHeirarchyBatchesMaster?.isActive,
+    //       IdCmsUser: event?.objHeirarchyBatchesMaster?.idCmsUser,
+    //     },
+    //     lstCubefaceBatchMaster: [
+    //       {
+    //         CubefaceBatchId: 1,
+    //         CubesFacesId: event?.lstCubeFaceAndFaceDetails[0].cubesFacesId,
+    //         IdBatch: event?.idBatch,
+    //         IsActive: 'A',
+    //         ScheduledDateTime: event?.objHeirarchyBatchesMaster.updatedDateTime,
+    //       },
+    //     ],
+    //   },
+    // };
 
-    const escapedobjHeirarchyBatchesMaster = JSON.stringify(
-      payload.Data.objHeirarchyBatchesMaster
-    );
-    const escapedlstCubefaceBatchMaster = JSON.stringify(
-      payload.Data.lstCubefaceBatchMaster
-    );
-    console.log(payload);
+    // const escapedobjHeirarchyBatchesMaster = JSON.stringify(
+    //   payload.Data.objHeirarchyBatchesMaster
+    // );
+    // const escapedlstCubefaceBatchMaster = JSON.stringify(
+    //   payload.Data.lstCubefaceBatchMaster
+    // );
+    // console.log(payload);
 
-    const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
-    const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
-    const jsonStringremovelast = jsonString.slice(0, -1);
-    const body = '{"Data":' + jsonStringremovelast + '}"}';
-    console.log(body);
+    // const escapedJsonString = `{\"objHeirarchyBatchesMaster\":${escapedobjHeirarchyBatchesMaster},\"lstCubefaceBatchMaster\":${escapedlstCubefaceBatchMaster}`;
+    // const jsonString = JSON.stringify(escapedJsonString);
+    // console.log(jsonString);
+    // const jsonStringremovelast = jsonString.slice(0, -1);
+    // const body = '{"Data":' + jsonStringremovelast + '}"}';
+    // console.log(body);
 
     // this.apiservice.editBatch(body).subscribe((res) => {
     //   console.log(res);

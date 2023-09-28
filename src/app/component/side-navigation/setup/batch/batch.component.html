@@ -467,9 +467,17 @@
                                     <div
                                       class="Function-header font d-flex justify-content-center"
                                     >
-                                      <!-- {{
-                                      item?.lstCubeFaceAndFaceDetails[0]?.facesName
-                                    }} -->
+                                      <span
+                                        *ngIf="
+                                          item?.lstCubeFaceAndFaceDetails !=
+                                          null
+                                        "
+                                      >
+                                        {{
+                                          item?.lstCubeFaceAndFaceDetails[0]
+                                            ?.facesName
+                                        }}
+                                      </span>
                                     </div>
                                     <div
                                       class="Function-header font d-flex justify-content-center"
