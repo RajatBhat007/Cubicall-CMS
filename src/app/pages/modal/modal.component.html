@@ -71,7 +71,7 @@
                 Add Vendor
               </div>
 
-              <div
+              <!-- <div
                 type="button"
                 class="custom-close-btn d-flex justify-content-center align-items-center submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
                 data-bs-dismiss="modal"
@@ -79,7 +79,7 @@
                 (click)="navigatetoSetHierarchy()"
               >
                 Set Hierarchy
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="row" *ngSwitchCase="'case3'">
@@ -105,6 +105,20 @@
                 (click)="closeModal()"
               >
                 Close
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngSwitchCase="'case5'">
+            <div class="col-12 d-flex justify-content-center">
+              <div
+                type="button"
+                class="custom-close-btn d-flex justify-content-center align-items-center submit_button mt-3 me-3 font d-flex justify-content-center fontInter"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModalRefresh()"
+              >
+                Submit
               </div>
             </div>
           </div>

@@ -116,7 +116,10 @@
 }
 
 
-
+.content_description,
+.content_requirement{
+  font-size: .8em;
+}
 .tab-active {
   height: 7vh;
   border-bottom: 0;

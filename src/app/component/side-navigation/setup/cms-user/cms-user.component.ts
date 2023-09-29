@@ -106,15 +106,7 @@ export class CmsUserComponent {
     private modalService: NgbModal
   ) {
     this.createCmsUser = this.fb.group({
-      employeeUserName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(50),
-          Validators.pattern(/^[A-Za-z\s'-]+$/),
-        ],
-      ],
+      employeeUserName: ['', [Validators.required, Validators.email]],
       employeeName: [
         '',
         [

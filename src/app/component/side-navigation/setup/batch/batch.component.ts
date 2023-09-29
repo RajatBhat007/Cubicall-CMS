@@ -294,6 +294,8 @@ export class BatchComponent {
 
         this.count[2].value = this.inactiveBatches?.length;
       });
+    } else {
+      this.dateForm.reset();
     }
   }
   selectOption(index: any) {
@@ -439,6 +441,7 @@ export class BatchComponent {
         this.cubeFaceId = [];
         this.batch_name = '';
         this.selectedDropdownIndustryValue = 'Select from the drop-down';
+        this.dateForm.reset();
 
         (error: HttpErrorResponse) => {
           if (error.status === 404) {
@@ -487,6 +490,7 @@ export class BatchComponent {
           this.cubeFaceId = [];
           this.batch_name = '';
           this.selectedDropdownIndustryValue = 'Select from the drop-down';
+          this.dateForm.reset();
 
           (error: HttpErrorResponse) => {
             if (error.status === 404) {

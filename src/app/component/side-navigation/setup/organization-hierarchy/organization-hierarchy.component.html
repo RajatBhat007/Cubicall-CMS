@@ -131,8 +131,14 @@
                                     *ngIf="empIdControl?.errors?.['required']"
                                     class="font error_message"
                                   >
-                                    Employee Id is required.
+                                    Admin User Id is required.
                                   </div>
+                                </div>
+                                <div
+                                  class="font error_message"
+                                  *ngIf="empIdControl?.errors?.['email']"
+                                >
+                                  Invalid email format.
                                 </div>
 
                                 <div class="label_setup font mt-1">
@@ -183,7 +189,7 @@
                                     *ngIf="empPasswordControl?.errors?.['required']"
                                     class="font error_message"
                                   >
-                                    Employee password is required.
+                                    Admin password is required.
                                   </div>
                                 </div>
                               </div>

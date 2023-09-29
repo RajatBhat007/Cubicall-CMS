@@ -174,13 +174,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
           Validators.pattern(/^[A-Za-z\s'-]+$/),
         ],
       ],
-      empId: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[a-z]{2}-\d{4}(,[a-z]{2}-\d{4})*$/i),
-        ],
-      ],
+      empId: ['', [Validators.required, Validators.email]],
       empPassword: [
         '',
         [
@@ -242,9 +236,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
         this.subtab = [
           {
             label: 'Create Admin Role',
-          },
-          {
-            label: 'Set Hierarchy',
           },
         ];
 

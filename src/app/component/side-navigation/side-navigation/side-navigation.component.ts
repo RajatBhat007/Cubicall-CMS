@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ApiServiceService } from 'src/app/service/api-service.service';
 
 @Component({
   selector: 'app-side-navigation',
@@ -32,17 +33,33 @@ export class SideNavigationComponent implements OnInit {
   ];
 
   activeIndex: any = 0;
+  apiData: any = [];
   activeTab: Boolean = false;
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    public http: ApiServiceService
   ) {}
 
   ngOnInit(): void {
+    this.getApiData();
+
     if (this.activeIndex == 0) {
       this._router.navigateByUrl('/home/setup');
+    } else {
+      this._router.navigateByUrl('home/game-theme');
     }
+  }
+
+  getApiData() {
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      if (this.apiData?.role?.idRoleType > 3) {
+        this.activeIndex = 1;
+      }
+      console.log(this.apiData);
+    });
   }
 
   NavigateTo(index: any) {

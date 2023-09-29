@@ -256,7 +256,7 @@
                 <div class="row">
                   <div class="col-4">
                     <div class="col-12 mt-3">
-                      <div class="label_setup-logo font">User Name:</div>
+                      <div class="label_setup-logo font">User ID:</div>
                       <div class="mt-2">
                         <input
                           class="form-control organisation_input font"
@@ -264,7 +264,28 @@
                           id="employeeUserName"
                           name="employeeUserName"
                           formControlName="employeeUserName"
+                          placeholder="Enter Email-id"
                         />
+                      </div>
+                      <div
+                        *ngIf="
+                          femployeeUserNameControl?.invalid &&
+                          (femployeeUserNameControl?.dirty ||
+                            femployeeUserNameControl?.touched)
+                        "
+                      >
+                        <div
+                          *ngIf="femployeeUserNameControl?.errors?.['required']"
+                          class="font error_message"
+                        >
+                          User Id is required.
+                        </div>
+                      </div>
+                      <div
+                        class="font error_message"
+                        *ngIf="femployeeUserNameControl?.errors?.['email']"
+                      >
+                        Invalid email format.
                       </div>
                     </div>
                     <div class="col-12 mt-2">

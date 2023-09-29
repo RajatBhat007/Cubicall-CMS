@@ -22,6 +22,8 @@ export class ModalComponent implements OnInit {
       this.variableName = 'case4';
     } else if (this.screen == 'user') {
       this.variableName = 'case4';
+    } else if (this.screen == 'GameTheme') {
+      this.variableName = 'case5';
     }
   }
   closeModalAddvendor() {
@@ -42,5 +44,10 @@ export class ModalComponent implements OnInit {
     // this.router.navigate(['home/setup'], { queryParams: { subtab: 1 } });
 
     // this.router.navigateByUrl('home/setup')
+  }
+
+  closeModalRefresh() {
+    this.activeModal.close(); // Close the modal when the close button is clicked
+    window.location.reload();
   }
 }
