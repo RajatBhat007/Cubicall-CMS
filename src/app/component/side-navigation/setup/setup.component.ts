@@ -142,7 +142,6 @@ export class SetupComponent implements OnInit {
     this.organisationName = this.apiData?.role?.organizationName;
 
     this.user.key1 = this.userRole;
-    console.log(this.user.key1);
 
     this.multiFieldForm.get('orgCode')?.disable();
   }
@@ -151,7 +150,6 @@ export class SetupComponent implements OnInit {
     this.http.getApiData().subscribe((data) => {
       this.apiData = data;
       this.userRole = this.apiData?.role?.roleName;
-      console.log(this.apiData);
     });
 
     switch (this.userRole) {
@@ -186,11 +184,6 @@ export class SetupComponent implements OnInit {
           {
             content: 'Organization Hierarchy',
             color: '#D43539',
-          },
-
-          {
-            content: 'CMS User',
-            color: '#FAA54A',
           },
         ];
 
@@ -354,7 +347,6 @@ export class SetupComponent implements OnInit {
     this.contactEmailControl;
     this.contactNameControl;
     this.orgCodeControl;
-    console.log(this.IdOrganization);
 
     const payload = {
       Data: {
@@ -378,7 +370,6 @@ export class SetupComponent implements OnInit {
         IdIndustry: Number(this.selectedDropdownIndustryValueId),
       },
     };
-    console.log(payload.Data);
 
     const escapedIdOrganization = JSON.stringify(payload.Data.IdOrganization);
     const escapedIdCmsUser = JSON.stringify(payload.Data.IdCmsUser);
@@ -409,7 +400,6 @@ export class SetupComponent implements OnInit {
     this.http.createOrganisation(body).subscribe(
       (res) => {
         this.createOrgResponse = res;
-        console.log(this.createOrgResponse);
 
         this.createHierarchy();
 
@@ -446,18 +436,14 @@ export class SetupComponent implements OnInit {
     const escapedHierarchyName = JSON.stringify(payload.Data.HierarchyName);
     const escapedHirLevel = JSON.stringify(payload.Data.HirLevel);
 
-    console.log(payload);
     const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"IdCmsUser\":${escapedIdCMSUser},\"ParentIdOrgHierarchy\":${escapedParentIdOrgHierarchy},\"HierarchyName\":${escapedHierarchyName},\"HirLevel\":${escapedHirLevel}`;
     const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
+
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
-    console.log(body);
 
     this.http.createOrganisationHierarchy(body).subscribe(
-      (res) => {
-        console.log(res);
-      },
+      (res) => {},
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
           window.alert('404 Not Found Error');
@@ -503,7 +489,7 @@ export class SetupComponent implements OnInit {
 
   editOrganization(index: any) {
     this.getEditDetails = this.getOrganization[index];
-    console.log(this.getEditDetails);
+
     this.IdOrganization = this.getEditDetails?.idOrganization;
     this.editableData = true;
     this.activeIndexSubTab = 0;

@@ -58,14 +58,10 @@ export class SideNavigationComponent implements OnInit {
       if (this.apiData?.role?.idRoleType > 3) {
         this.activeIndex = 1;
       }
-      console.log(this.apiData);
     });
   }
 
   NavigateTo(index: any) {
-    console.log(index);
-
-    console.log(this.activeTab);
     this.activeIndex = index;
     this.activeTab = true;
 

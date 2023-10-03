@@ -132,8 +132,6 @@ export class RtuScreenComponent implements OnInit {
       // Here, you can access the data from the Excel sheet
       // For example, to get cell A1's value:
       const cellA1Value = worksheet['A1']?.v;
-
-      console.log('Cell A1 Value:', cellA1Value);
     };
 
     reader.readAsBinaryString(file);
@@ -150,14 +148,12 @@ export class RtuScreenComponent implements OnInit {
     this.activeIndexSubTab = index;
   }
   navigateToEditQuestion(value: any) {
-    console.log(value);
     this._router.navigate(['home/edit-question'], { queryParams: { value } });
   }
   navigateToViewQuestion(value: any) {
     this._router.navigate(['home/edit-question'], { queryParams: { value } });
   }
   View(value: any) {
-    console.log(value);
     this.activeAll = value;
   }
 
@@ -167,15 +163,12 @@ export class RtuScreenComponent implements OnInit {
   }
   getOrganization() {
     this.http.getOrganisation().subscribe((res) => {
-      console.log(res);
       this.getOrganizationlist = res;
-      console.log(this.getOrganization);
     });
   }
 
   organizationDropdown() {
     this.showOraganizationMenu = !this.showOraganizationMenu;
-    console.log('qqqqqq', this.showOraganizationMenu);
   }
   close() {
     this.showOraganizationMenu = !this.showOraganizationMenu;

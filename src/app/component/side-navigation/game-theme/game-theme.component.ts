@@ -186,7 +186,7 @@ export class GameThemeComponent implements OnInit {
   ngOnInit(): void {
     this.https.getApiData().subscribe((data) => {
       this.apiData = data;
-      console.log(this.apiData);
+
       this.organisationRoleName = this.apiData?.role?.roleName;
       this.organisationName = this.apiData?.role?.organizationName;
 
@@ -195,10 +195,7 @@ export class GameThemeComponent implements OnInit {
       }
     });
     this._route.queryParams.subscribe((params) => {
-      console.log(params);
       this.value = params;
-      console.log(this.value.activeIndexSubTab);
-      console.log(this.value.activeIndexSubTab);
 
       if (this.value.activeIndexSubTab == '1') {
         this.NavigateToSubTab(Number(this.value.activeIndexSubTab));
@@ -219,18 +216,18 @@ export class GameThemeComponent implements OnInit {
       )
       .subscribe((res) => {
         this.questionListResponse = res;
-        console.log(this.questionListResponse);
+
         this.questionListResponseFilter = res;
         this.count[0].value = this.questionListResponse.length;
         this.activeList = this.questionListResponse.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
-        console.log(this.activeList);
+
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.questionListResponse.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
-        console.log(this.inactiveList);
+
         this.count[2].value = this.inactiveList.length;
       });
   }
@@ -242,8 +239,6 @@ export class GameThemeComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    console.log(event);
-
     const file = event.target.files[0];
     this.selectedFile = event.target.files[0];
     if (file) {
@@ -262,13 +257,10 @@ export class GameThemeComponent implements OnInit {
       // Here, you can access the data from the Excel sheet
       // For example, to get cell A1's value:
       const cellA1Value = worksheet['A1']?.v;
-
-      console.log('Cell A1 Value:', cellA1Value);
     };
 
     reader.readAsBinaryString(file);
     this.selectedFileName = file.name;
-    console.log(this.selectedFileName);
   }
 
   uploadQuestionfile() {
@@ -278,8 +270,8 @@ export class GameThemeComponent implements OnInit {
     const CubesFacesGameId = this.activeIndexTab + 1;
     const OrgID = this.apiData?.user?.idOrganization;
 
-    //  console.log(idOrgHierarchy);
-    //  console.log(this.selectedFile);
+    //
+    //
 
     //  const payload = {
     //   Data: {
@@ -307,7 +299,6 @@ export class GameThemeComponent implements OnInit {
         )
         .subscribe(
           (res) => {
-            console.log(res);
             // this._router.navigateByUrl('home')
             this.openModal();
           },
@@ -342,8 +333,6 @@ export class GameThemeComponent implements OnInit {
     window.open(excelUrl);
   }
   onFileChangeAnswer(event: any) {
-    console.log(event);
-
     const file = event.target.files[0];
     this.selectedAnswerFile = event.target.files[0];
     if (file) {
@@ -360,8 +349,6 @@ export class GameThemeComponent implements OnInit {
       // Here, you can access the data from the Excel sheet
       // For example, to get cell A1's value:
       const cellA1Value = worksheet['A1']?.v;
-
-      console.log('Cell A1 Value:', cellA1Value);
     };
 
     reader.readAsBinaryString(file);
@@ -377,7 +364,6 @@ export class GameThemeComponent implements OnInit {
         .importAnswerFile(this.selectedAnswerFile, IdOrgHierarchy)
         .subscribe(
           (res) => {
-            console.log(res);
             // this._router.navigateByUrl('home')
             window.alert('succes');
           },
@@ -414,7 +400,6 @@ export class GameThemeComponent implements OnInit {
   NavigateToSubTab(index: any) {
     this.activeRadiobutton = 0;
     this.activeIndexSubTab = index;
-    console.log(this.activeIndexSubTab);
 
     if (this.activeIndexSubTab == '0') {
       this.GetQuestionData();
@@ -443,12 +428,10 @@ export class GameThemeComponent implements OnInit {
     this._router.navigateByUrl('home/createimg');
   }
   View(value: any) {
-    console.log(value);
     this.activeAll = value;
     this.activeIndexDraftSubmit = value;
     this.activeIndexRejectedSubmit = value;
     if (value == '1') {
-      console.log('hello');
       this.hideuploadButton = false;
       if (this.apiData?.role?.idRoleType < 4) {
         this.subtab = [
@@ -511,7 +494,7 @@ export class GameThemeComponent implements OnInit {
   }
   activateSubSubTab(index: number) {
     this.activeSubSubTab = index;
-    console.log(this.activeSubSubTab);
+
     if (this.activeSubSubTab == '0') {
       this.getCubeFaceGameTime();
     } else if (this.activeSubSubTab == '1') {
@@ -562,18 +545,13 @@ export class GameThemeComponent implements OnInit {
   setActiveAll() {}
 
   changeFilter(index: any) {
-    console.log(index);
-    console.log(this.activeIndexSubTab);
-
     if (this.activeIndexSubTab == 0) {
-      console.log(index);
       if (index == 0) {
         this.questionListResponse = this.questionListResponseFilter;
       } else if (index == 1) {
         this.questionListResponse = this.activeList;
       } else if (index == 2) {
         this.questionListResponse = this.inactiveList;
-        console.log(this.questionListResponse);
       }
     }
 
@@ -605,33 +583,30 @@ export class GameThemeComponent implements OnInit {
   }
 
   getCubeFaceGameTime() {
-    console.log('getCubeFaceGameTime');
     this.idOrganization = this.apiData?.user?.idOrganization;
     let CubesFacesGameId = -1;
     this.https
       .getCubeFaceGameTime(this.idOrganization, CubesFacesGameId)
       .subscribe((res) => {
         this.gameTime = res;
-        console.log(this.gameTime);
 
         this.cubeFaceIdViseGameTimeData = this.gameTime.filter(
           (org: { cubesFacesId: string }) =>
             org.cubesFacesId === this.activeIndexTab + 1
         );
-        console.log(this.cubeFaceIdViseGameTimeData);
 
         this.totalList = this.cubeFaceIdViseGameTimeData;
-        console.log(this.totalList);
+
         this.count[0].value = this.cubeFaceIdViseGameTimeData.length;
         this.activeList = this.cubeFaceIdViseGameTimeData.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
-        console.log(this.activeList);
+
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.cubeFaceIdViseGameTimeData.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
-        console.log(this.inactiveList);
+
         this.count[2].value = this.inactiveList.length;
       });
   }
@@ -642,27 +617,25 @@ export class GameThemeComponent implements OnInit {
     this.https
       .getCubeFaceGameAttempt(this.idOrganization, AttemptNoId)
       .subscribe((res) => {
-        console.log(res);
         this.cubeFaceGameAttempt = res;
 
         this.cubeFaceIdViseGameAttemtData = this.cubeFaceGameAttempt.filter(
           (org: { cubesFacesId: string }) =>
             org.cubesFacesId === this.activeIndexTab + 1
         );
-        console.log(this.cubeFaceIdViseGameTimeData);
 
         this.totalList = this.cubeFaceIdViseGameAttemtData;
-        console.log(this.totalList);
+
         this.count[0].value = this.cubeFaceIdViseGameAttemtData.length;
         this.activeList = this.cubeFaceIdViseGameAttemtData.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
-        console.log(this.activeList);
+
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.cubeFaceIdViseGameAttemtData.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
-        console.log(this.inactiveList);
+
         this.count[2].value = this.inactiveList.length;
       });
   }
@@ -673,34 +646,30 @@ export class GameThemeComponent implements OnInit {
     this.https
       .getCubeFaceGameStreak(this.idOrganization, StreakId)
       .subscribe((res) => {
-        console.log(res);
         this.cubeFaceGameStreak = res;
 
         this.cubeFaceIdViseGameStreakData = this.cubeFaceGameStreak.filter(
           (org: { cubesFacesId: string }) =>
             org.cubesFacesId === this.activeIndexTab + 1
         );
-        console.log(this.cubeFaceIdViseGameStreakData);
 
         this.totalList = this.cubeFaceIdViseGameStreakData;
-        console.log(this.totalList);
+
         this.count[0].value = this.cubeFaceIdViseGameStreakData.length;
         this.activeList = this.cubeFaceIdViseGameStreakData.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
-        console.log(this.activeList);
+
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.cubeFaceIdViseGameStreakData.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
-        console.log(this.inactiveList);
+
         this.count[2].value = this.inactiveList.length;
       });
   }
 
   Create() {
-    console.log(this.activeIndexSubTab);
-    console.log(this.activeIndexTab + 1);
     let gamePointsActiveTab = this.activeSubSubTab;
     let cubeFaceId = this.activeIndexTab + 1;
     let categoryName = this.matTab[this.activeIndexTab].content;
@@ -710,8 +679,6 @@ export class GameThemeComponent implements OnInit {
   }
 
   navigateToEditQuestion(value: any) {
-    console.log(value);
-    console.log(this.questionListResponse[value]);
     let gamePointsActiveTab = this.activeSubSubTab;
     let cubeFaceId = this.activeIndexTab + 1;
     let categoryName = this.matTab[this.activeIndexTab].content;
@@ -728,8 +695,6 @@ export class GameThemeComponent implements OnInit {
   }
 
   navigateToViewQuestion(value: any) {
-    console.log(value);
-    console.log(this.questionListResponse[value]);
     let gamePointsActiveTab = this.activeSubSubTab;
     let cubeFaceId = this.activeIndexTab + 1;
     let categoryName = this.matTab[this.activeIndexTab].content;
@@ -748,7 +713,6 @@ export class GameThemeComponent implements OnInit {
 
   editGameTime(value: any, label: any) {
     if (label == 'gametime') {
-      console.log(this.cubeFaceIdViseGameTimeData[value]);
       let gamePointsActiveTab = this.activeSubSubTab;
       let cubesFacesGameId = JSON.stringify(
         this.cubeFaceIdViseGameTimeData[value]
@@ -764,7 +728,6 @@ export class GameThemeComponent implements OnInit {
         },
       });
     } else if (label == 'attempt') {
-      console.log(this.cubeFaceIdViseGameAttemtData[value]);
       let gamePointsActiveTab = this.activeSubSubTab;
       let cubeFaceGameAttemptEdit = JSON.stringify(
         this.cubeFaceIdViseGameAttemtData[value]
@@ -780,7 +743,6 @@ export class GameThemeComponent implements OnInit {
         },
       });
     } else if (label == 'streak') {
-      console.log(this.cubeFaceIdViseGameStreakData[value]);
       let gamePointsActiveTab = this.activeSubSubTab;
       let cubeFaceGameStreakEdit = JSON.stringify(
         this.cubeFaceIdViseGameStreakData[value]

@@ -193,8 +193,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
 
     this.idhierarchy = this.apiData?.user?.idOrgHierarchy;
     this.idOrg = this.apiData?.user?.idOrganization;
-    console.log(this.idhierarchy);
-    console.log(this.idOrg);
 
     this.addProcessRow('page'); // Add one row by default
     this.addSubProcessRow('');
@@ -209,12 +207,12 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   getApiData() {
     this.http.getApiData().subscribe((data) => {
       this.apiData = data;
-      console.log(this.apiData);
     });
+    console.log(this.apiData);
+
     this.redirectedFrom = this.user?.key1
       ? this.user?.key1
       : this.apiData?.role?.roleName;
-    console.log(this.redirectedFrom);
 
     switch (this.redirectedFrom) {
       case 'CubiCall Admin':
@@ -268,8 +266,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   }
 
   GetOrgHierarchyTree() {
-    console.log(this.apiData?.user?.idOrganization);
-
     this.http
       .GetOrgHierarchyTree(
         this.apiData?.user?.idOrganization,
@@ -277,25 +273,21 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.getOrgHierarchyResponse = res;
-        console.log(this.getOrgHierarchyResponse);
 
         this.vendorList = this.getOrgHierarchyResponse.filter(
           (org: { hirarchyLevelType: string }) =>
             org?.hirarchyLevelType === 'Vendor - Client'
         );
-        console.log(this.vendorList);
 
         this.processList = this.getOrgHierarchyResponse.filter(
           (org: { hirarchyLevelType: string }) =>
             org?.hirarchyLevelType === 'Proecss'
         );
-        console.log(this.processList);
 
         this.subprocessList = this.getOrgHierarchyResponse.filter(
           (org: { hirarchyLevelType: string }) =>
             org?.hirarchyLevelType === 'Sub Process'
         );
-        console.log(this.subprocessList);
 
         this.navigateToSubprocess('subprocess', 0);
 
@@ -304,13 +296,13 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
         //     org?.hirarchyLevelType === 'Stage'
         // );
 
-        // console.log(this.stageList);
+        //
         // this.navigateToSubprocess('stage', 0);
 
         // const processRowsArray = this.processForm1.get(
         //   'processRows'
         // ) as FormArray;
-        // console.log(processRowsArray);
+        //
         // const rowIndex = 0; // Change this to the desired row index.
         // if (rowIndex >= 0 && rowIndex < processRowsArray.length) {
         //   // Get the FormGroup representing the row at the specified index.
@@ -334,7 +326,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   updateInputState(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const inputValue = inputElement.value.trim();
-    console.log(inputValue);
 
     if (inputValue === null || inputValue === '') {
       this.isDisabled = true; // Disable the input field when it's null or empty
@@ -344,7 +335,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   }
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
-    console.log(this.activeIndexSubTab);
+
     if (this.activeIndexSubTab == 0) {
       this.subTabName = 'create';
     } else if (this.activeIndexSubTab == 1) {
@@ -359,7 +350,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     this.http
       .getAdminUserDetails(this.apiData?.user?.idOrganization)
       .subscribe((res) => {
-        console.log(res);
         this.getAdmindetails = res;
 
         this.totalCmsAdmin = this.getAdmindetails;
@@ -379,9 +369,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   }
 
   getVendorDetails(page: any) {
-    console.log(this.idhierarchy);
-    console.log(this.idOrg);
-
     this.http
       .getVendorDetails(
         this.apiData?.role?.idOrganization,
@@ -389,9 +376,8 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.organisationName = res;
-        console.log(this.organisationName);
+
         this.organisationProcess = this.organisationName[1].idOrgHierarchy;
-        console.log(this.organisationProcess);
 
         this.processForm1
           .get('processName')
@@ -413,9 +399,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   updateSelectedIndustryValue(value: any) {
     this.selectedDropdownIndustryValue =
       this.organisationName[value].hierarchyName;
-    console.log(this.selectedDropdownIndustryValue);
+
     this.ParentIdOrgHierarchy = this.organisationName[value]?.idOrgHierarchy;
-    console.log(this.ParentIdOrgHierarchy);
+
     this.vendorNameHierarchy = this.selectedDropdownIndustryValue;
     this.postOrganisationHierarchy(this.selectedDropdownIndustryValue, '');
   }
@@ -429,14 +415,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     );
 
     const newIndex = processRows.value.length - 2; // Index of the newly added FormGroup
-    console.log(newIndex);
-    console.log(this.processRows);
-
-    console.log(this.processRows?.value.at(newIndex));
 
     this.processName1 = this.processRows.at(newIndex).get('processName')?.value;
 
-    console.log(this.processName1);
     if (page == 'process') {
       if (this.processName1.length > 0) {
         this.postOrganisationHierarchy(page, this.processName1);
@@ -446,8 +427,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   }
 
   addSubProcessRow(page: any) {
-    console.log(page);
-
     const subprocessRows = this.processForm2.get('subprocessRows') as FormArray;
     subprocessRows.push(
       this.formBuilder.group({
@@ -456,15 +435,11 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     );
 
     const newIndexsubprocess = subprocessRows.value.length - 2; // Index of the newly added FormGroup
-    console.log(newIndexsubprocess);
-    console.log(this.subprocessRows);
-
-    console.log(this.subprocessRows?.value.at(newIndexsubprocess));
 
     this.subprocessName = this.subprocessRows
       .at(newIndexsubprocess)
       .get('subprocessName')?.value;
-    console.log(this.subprocessName);
+
     if (page == 'subprocess') {
       if (this.subprocessName.length > 0) {
         this.postOrganisationHierarchy(page, this.subprocessName);
@@ -484,13 +459,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     );
 
     const newIndexstage = stage.length - 2; // Index of the newly added FormGroup
-    console.log(newIndexstage);
-    console.log(this.stage);
-
-    console.log(this.stage?.value.at(newIndexstage));
 
     this.stageName = this.stage.at(newIndexstage).get('stageName')?.value;
-    console.log(this.stageName);
+
     if (page == 'stage') {
       if (this.stageName.length > 0) {
         this.postOrganisationHierarchy(page, this.stageName);
@@ -538,40 +509,29 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   }
 
   navigateToSubprocess(process: any, index: any) {
-    console.log(index);
-
-    console.log(process);
-
     this.subprocessIndex = index + 1;
     this.processName = process;
     if (process == 'subprocess') {
       this.subprocess = false;
-      console.log(this.ProcessIndex);
 
       this.ProcessIndex = index;
-      console.log(process);
-      console.log(this.processList[index]);
 
       this.subprocessList = this.getOrgHierarchyResponse.filter(
         (org: { idParentOrganizationHirarchy: number }) =>
           org?.idParentOrganizationHirarchy ===
           this.processList[index]?.idOrganizationHirarchy
       );
-      console.log(this.subprocessList);
 
       this.processNameRightSide = this.processList[index].hierarchyName;
-      console.log(this.processNameRightSide);
+
       this.ParentIdOrgHierarchy =
         this.processList[index]?.idOrganizationHirarchy;
     } else if (process == 'process') {
       //  this.ProcessIndex = index;
-      console.log(this.processList[index]);
+
       this.subprocess = true;
-      console.log(process);
     } else {
       this.subprocess = false;
-      console.log(process);
-      console.log(this.subprocessList[index]);
 
       this.SubIndex = index;
       this.stageList = this.getOrgHierarchyResponse.filter(
@@ -581,12 +541,10 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       );
 
       this.subprocessNameRightSide = this.subprocessList[index]?.hierarchyName;
-      console.log(this.subprocessNameRightSide);
+
       this.ParentIdOrgHierarchy =
         this.subprocessList[index]?.idOrganizationHirarchy;
     }
-
-    console.log(this.subprocess);
   }
 
   createAdminInfo() {
@@ -595,7 +553,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     this.hierarchylevel = 2;
     this.createHierarchy();
     this.adminInfo = true;
-    console.log(this.adminInfo);
   }
 
   createHierarchy() {
@@ -616,17 +573,14 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     const escapedHierarchyName = JSON.stringify(payload.Data.HierarchyName);
     const escapedHirLevel = JSON.stringify(payload.Data.HirLevel);
 
-    console.log(payload);
     const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"IdCmsUser\":${escapedIdCMSUser},\"ParentIdOrgHierarchy\":${escapedParentIdOrgHierarchy},\"HierarchyName\":${escapedHierarchyName},\"HirLevel\":${escapedHirLevel}`;
     const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
+
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
-    console.log(body);
 
     this.http.createOrganisationHierarchy(body).subscribe(
       (res) => {
-        console.log(res);
         this.OrgHirerachtresponse = res;
         this.ParentIdOrgHierarchy = this.OrgHirerachtresponse.idOrgHierarchy;
         if (this.hierarchylevel == 5) {
@@ -646,16 +600,14 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   }
 
   postOrganisationHierarchy(pageInfo: any, description: any) {
-    console.log(description);
-
     this.getVendorDetails(pageInfo);
     this.descriptioninfo = description;
-    console.log(pageInfo);
+
     if (pageInfo == 'process') {
       this.hierarchylevel = 3;
       this.ParentIdOrgHierarchy = this.apiData?.user?.idOrgHierarchy;
       this.vendorNameHierarchy = description;
-      console.log(this.ParentIdOrgHierarchy);
+
       this.openModalProcess();
     } else if (pageInfo == 'subprocess') {
       // this.ParentIdOrgHierarchy =
@@ -683,7 +635,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
 
     // You can pass data to the modal if needed
     modalRef.componentInstance.someData =
-      'Done! Admin Role has been assigned for this Client/ Vendor. Do you want to add another vendor or Set up the hierarchy for this vendor.';
+      'Done! Admin Role has been assigned for this Client/ Vendor. Do you want to add another vendor';
     modalRef.componentInstance.screen = 'Setup';
   }
 
@@ -724,7 +676,6 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       // Form is valid, submit the data
       this.vendorNameHierarchy = this.vendorForm.value.vendorName;
       // Handle the submission, e.g., send the vendorName to an API or perform an action
-      console.log('Submitted vendor name: ', this.vendorNameHierarchy);
     } else {
       // Form is invalid, display error messages or take appropriate action
       console.error('Form is invalid. Please check the fields.');
@@ -765,21 +716,18 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
 
     const escapedJsonString = `{\"IdOrganization\":${escapedIdOrg},\"UserName\":${escapedUserName},\"Name\":${escapedName},\"Email\":${escapedIdEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"IdOrgHierarchy\":${escapedIdOrgHierarchy},\"IdCmsRole\":${escapedIdCmsRole}`;
     const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
+
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
 
     this.http.createAdminUser(body).subscribe((res) => {
-      console.log(res);
       this.createAdminResponse = res;
       this.http
         .postVerificationEmail(
           this.createAdminResponse?.idOrganization,
           this.createAdminResponse?.idCmsUser
         )
-        .subscribe((res) => {
-          console.log(res);
-        });
+        .subscribe((res) => {});
     });
   }
   togglePasswordVisibility() {

@@ -98,21 +98,17 @@ export class EditQuestionComponent {
     this.cubeFaceId = 0;
     this.http.getApiData().subscribe((data) => {
       this.apiData = data;
-      console.log(this.apiData);
     });
     this.organisationRoleName = this.apiData?.role?.roleName;
     this.organisationName = this.apiData?.role?.organizationName;
 
     this.route.queryParams.subscribe((params) => {
-      console.log(params);
       this.value = params;
-      console.log(this.value.cubeFaceId);
+
       this.cubeFaceId = this.value?.cubeFaceId;
       this.gamePointsActiveTab = this.value?.gamePointsActiveTab;
       this.categoryName = this.value?.categoryName;
 
-      console.log(this.categoryName);
-      console.log(typeof this.cubeFaceId);
       if (this.value?.cubesFacesGameId != undefined) {
         this.cubesFacesGameEditDetails = JSON.parse(
           this.value?.cubesFacesGameId
@@ -132,7 +128,7 @@ export class EditQuestionComponent {
         this.questionEditData = JSON.parse(this.value.questionData);
         this.gamePointsActiveTab = 4;
         this.view = true;
-        console.log('view question', this.view);
+
         this.editQuestion(this.questionEditData);
       } else if (this.value?.questionData != undefined) {
         this.questionEditData = JSON.parse(this.value.questionData);
@@ -229,10 +225,8 @@ export class EditQuestionComponent {
   }
 
   checkBoxvalue(event: any) {
-    console.log(event.currentTarget.checked);
     if (event.currentTarget.checked) {
       this.activeStatus = 'A';
-      console.log(this.activeStatus);
     } else {
       this.activeStatus = 'D';
     }
@@ -254,12 +248,6 @@ export class EditQuestionComponent {
     modalRef.componentInstance.screen = 'user';
   }
   setCubeFaceGameTime() {
-    console.log(this.currentValue * 60);
-    console.log(this.tileTime);
-    console.log(this.cubeFaceId);
-    console.log(this.categoryName);
-    console.log(this.apiData?.user?.idOrganization);
-    console.log(this.currentValue * 60 > this.tileTime * 16);
     const payload = {
       Data: {
         CubesFacesGameId: this.cubesFacesGameEditDetails?.cubesFacesGameId
@@ -288,7 +276,6 @@ export class EditQuestionComponent {
       },
     };
 
-    console.log(this.payload);
     const escapedCubesFacesGameId = JSON.stringify(
       payload.Data.CubesFacesGameId
     );
@@ -303,14 +290,12 @@ export class EditQuestionComponent {
 
     const escapedJsonString = `{\"CubesFacesGameId\":${escapedCubesFacesGameId},\"CubesFacesMapId\":${escaoedCubesFacesMapId},\"CubesFacesId\":${escaoedCubesFacesId},\"CategoryName\":${escaoedCategoryName},\"GameAttemptNo\":${escapedGameAttemptNo},\"PerTileTimer\":${escaoedPerTileTimer},\"OverAllTimer\":${escaoedOverAllTimer},\"IdOrganization\":${escapedIdOrg},\"IsActive\":${escapedStatus}`;
     const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
+
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
-    console.log(body);
 
     this.http.setCubeFaceGameTime(body).subscribe(
       (res) => {
-        console.log(res);
         this.openModal(
           'Done! The Game Time and Tile Time has been Set successfully.'
         );
@@ -328,22 +313,13 @@ export class EditQuestionComponent {
   }
 
   editCubeFaceGameTime(data: any) {
-    console.log(111222222222);
-
     this.currentValue = data.overAllTimer / 60;
-    console.log(this.currentValue);
 
     this.tileTime = data.perTileTimer;
     this.status = data.isActive;
-    console.log(this.tileTime);
   }
 
   setCubeFaceGameAttempt() {
-    console.log(this.attemptNo);
-    console.log(this.gamePoints);
-    console.log(this.cubeFaceId);
-    console.log(this.categoryName);
-    console.log(this.apiData?.user?.idOrganization);
     const payload = {
       Data: {
         AttemptNoId: this.cubeFaceGameAttemptEditDetails?.attemptNoId
@@ -365,7 +341,7 @@ export class EditQuestionComponent {
           : 'A',
       },
     };
-    console.log(payload);
+
     const escapedAttemptNoId = JSON.stringify(payload.Data.AttemptNoId);
     const escaoedAttemptNoMapId = JSON.stringify(payload.Data.AttemptNoMapId);
     const escaoedCubesFacesId = JSON.stringify(payload.Data.CubesFacesId);
@@ -376,13 +352,12 @@ export class EditQuestionComponent {
 
     const escapedJsonString = `{\"AttemptNoId\":${escapedAttemptNoId},\"AttemptNoMapId\":${escaoedAttemptNoMapId},\"CubesFacesId\":${escaoedCubesFacesId},\"AttemptNo\":${escapedAttemptNo},\"GamePoints\":${escaoedGamePoints},\"IdOrganization\":${escapedIdOrg},\"IsActive\":${escapedStatus}`;
     const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
+
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
-    console.log(body);
+
     this.http.setCubeFaceGameAttempt(body).subscribe(
       (res) => {
-        console.log(res);
         this.openModal(
           'Done! The Attemt No. and Points has been inserted successfully.'
         );
@@ -400,18 +375,12 @@ export class EditQuestionComponent {
   }
 
   editCubeFaceGameAttempt(data: any) {
-    console.log('editgameAtempt');
     this.attemptNo = data.attemptNo;
     this.gamePoints = data.gamePoints;
     this.status = data.isActive;
-    console.log(this.tileTime);
   }
 
   setCubeFaceGameStreak() {
-    console.log(this.streakNew);
-    console.log(this.streakNewPoint);
-    console.log(this.cubeFaceId);
-    console.log(this.apiData?.user?.idOrganization);
     const payload = {
       Data: {
         StreakId: this.cubeFaceGameStreakEditDetails?.streakId
@@ -430,7 +399,7 @@ export class EditQuestionComponent {
           : 'A',
       },
     };
-    console.log(payload);
+
     const escapedStreakId = JSON.stringify(payload.Data.StreakId);
     const escaoedCubesFacesId = JSON.stringify(payload.Data.CubesFacesId);
     const escapedStreak = JSON.stringify(payload.Data.Streak);
@@ -440,13 +409,12 @@ export class EditQuestionComponent {
 
     const escapedJsonString = `{\"StreakId\":${escapedStreakId},\"CubesFacesId\":${escaoedCubesFacesId},\"Streak\":${escapedStreak},\"StreakPoints\":${escaoedStreakPoints},\"IdOrganization\":${escapedIdOrg},\"IsActive\":${escapedStatus}`;
     const jsonString = JSON.stringify(escapedJsonString);
-    console.log(jsonString);
+
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
-    console.log(body);
+
     this.http.setCubeFaceGameStreakDetails(body).subscribe(
       (res) => {
-        console.log(res);
         this.openModal(
           'Done! The Streak and Points has been inserted successfully.'
         );
@@ -463,11 +431,9 @@ export class EditQuestionComponent {
     );
   }
   editCubeFaceGameStreak(data: any) {
-    console.log('editgameAtempt');
     this.streakNew = data?.streak;
     this.streakNewPoint = data?.streakPoints;
     this.status = data?.isActive;
-    console.log(this.tileTime);
   }
 
   editQuestion(data: any) {
@@ -475,7 +441,6 @@ export class EditQuestionComponent {
     this.question = data?.question;
     this.questionClue = data?.questionClue;
     this.status = data?.isActive;
-    console.log(this.questionId);
 
     this.http
       .getAllQuestionAnswerList(
@@ -483,15 +448,11 @@ export class EditQuestionComponent {
         this.cubeFaceId
       )
       .subscribe((res) => {
-        console.log(res);
         this.viewQuestionResponse = res;
         this.viewQuestionData = this.viewQuestionResponse.filter(
           (org: { questionId: number }) => org.questionId === this.questionId
         );
-        console.log(this.viewQuestionData);
       });
-
-    console.log('editQuestion', data);
   }
 
   postEditQuestion() {
@@ -533,13 +494,11 @@ export class EditQuestionComponent {
 
     const escapedQuestionAnswer = JSON.stringify(payload.Data);
     const jsonString = JSON.stringify(escapedQuestionAnswer);
-    console.log(jsonString);
+
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
 
-    this.http.editQuestionAns(body).subscribe((res) => {
-      console.log(res);
-    });
+    this.http.editQuestionAns(body).subscribe((res) => {});
   }
   viewQuestionEdit() {
     this.view = false;
@@ -561,7 +520,7 @@ export class EditQuestionComponent {
       });
     } else if (this.cubeFaceId == 1) {
       let activeIndexSubTab = 1;
-      console.log(activeIndexSubTab);
+
       this._router.navigate(['/home/game-theme'], {
         queryParams: { activeIndexSubTab },
       });

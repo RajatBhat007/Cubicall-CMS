@@ -213,10 +213,6 @@
                                 "
                               >
                                 <div class="d-flex flex-column">
-                                  <!-- <input type="date" id="birthday"
-                                  value="select date" 
-                                  placeholder="{{ item.date }}"  /> -->
-                                  <!-- <label for="">{{item.date}}</label> -->
                                   <form [formGroup]="dateForm">
                                     <div class="form-group">
                                       <input
@@ -230,6 +226,32 @@
                                       />
                                     </div>
                                   </form>
+
+                                  <!-- <input type="date" id="birthday"
+                                  value="select date" 
+                                  placeholder="{{ item.date }}"  /> -->
+                                  <!-- <label for="">{{item.date}}</label> -->
+                                  <!-- <div
+                                    *ngIf="
+                                      !edit;
+                                      then calendar;
+                                      else displaydate
+                                    "
+                                  ></div>
+                                  <ng-template #calendar>
+                                   
+                                  </ng-template>
+                                  <ng-template #displaydate>
+                                    <div class="form-group">
+                                      <div
+                                        type="date"
+                                        class="custom-date-input"
+                                      >
+                                        {{ item?.date }}
+                                      </div>
+                                    </div>
+                                  </ng-template> -->
+
                                   <!-- <input type="text" placeholder="Date" onfocus="(this.type='date')"/> -->
 
                                   <!-- <mat-form-field style="height: 7vh;">

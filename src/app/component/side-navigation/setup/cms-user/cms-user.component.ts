@@ -141,13 +141,11 @@ export class CmsUserComponent {
   getApiData() {
     this.http.getApiData().subscribe((data) => {
       this.apiData = data;
-      console.log(this.apiData);
     });
 
     this.redirectedFrom = this.user?.key1
       ? this.user?.key1
       : this.apiData?.role?.roleName;
-    console.log(this.redirectedFrom);
 
     if (this.apiData?.role.roleName == this.user?.key1) {
       this.selectedDropdownIndustryValue = this.apiData?.role?.organizationName;
@@ -163,11 +161,10 @@ export class CmsUserComponent {
       )
       .subscribe((res) => {
         this.vendorDetailsResponse = res;
-        console.log(this.vendorDetailsResponse);
 
-        // console.log(this.organisationName);
+        //
         // this.organisationProcess = this.organisationName[1].idOrgHierarchy;
-        // console.log(this.organisationProcess);
+        //
 
         // this.processForm1
         //   .get('processName')
@@ -187,14 +184,14 @@ export class CmsUserComponent {
   GetRoleTypesList() {
     // this.http.getRoleType().subscribe((res) => {
     //   this.CmsRoleresponse = res;
-    //   console.log(this.CmsRoleresponse);
+    //
     //   const filteredRoles = this.CmsRoleresponse.filter(
     //     (role: { idRoleType: number }) =>
     //       role.idRoleType > this.apiData?.role?.idRoleType
     //   );
 
     //   this.CmsRole = filteredRoles;
-    //   console.log(this.CmsRole);
+    //
     // });
     if (this.apiData?.user?.idOrganization === 1) {
       this.idOrganization = -this.apiData?.user?.idOrganization;
@@ -207,20 +204,19 @@ export class CmsUserComponent {
       .getRolesList(this.selectedOrganizationID, this.idCmsRole)
       .subscribe((res) => {
         this.CmsRoleresponse = res;
-        console.log(this.CmsRoleresponse);
+
         const filteredRoles = this.CmsRoleresponse.filter(
           (role: { idRoleType: number }) =>
             role.idRoleType > this.apiData?.role?.idRoleType
         );
 
         this.CmsRole = filteredRoles;
-        console.log(this.CmsRole);
       });
   }
 
   NavigateToSubTab(index: any) {
     this.activeIndexSubTab = index;
-    console.log(this.activeIndexSubTab);
+
     if (this.activeIndexSubTab == 1) {
       this.getCmsUserDetailsList();
       this.EditButton = false;
@@ -232,16 +228,13 @@ export class CmsUserComponent {
 
     this.selectedOrganizationID =
       this.getOrganizationlist[value].idOrganization;
-    console.log(this.selectedOrganizationID);
   }
   selectedRoleValue(value: any) {
     this.selectedDropdownRoleValue = this.CmsRole[value].roleName;
-    console.log(this.selectedDropdownRoleValue);
+
     this.selectedDropdownRoleId = Number(this.CmsRole[value]?.idRoleType);
-    console.log(this.selectedDropdownRoleId);
 
     this.selectedCmsIdRole = this.CmsRole[value]?.idCmsRole;
-    console.log(this.selectedCmsIdRole);
 
     this.divVisible = true;
   }
@@ -255,11 +248,8 @@ export class CmsUserComponent {
 
     this.selectedIdOrganizationHirarchy =
       this.stageResponse[value].idOrganizationHirarchy;
-    console.log(this.selectedIdOrganizationHirarchy);
   }
   getCmsUserDetailsList() {
-    console.log(this.user?.key1);
-
     if (this.apiData?.role?.idOrganization == 1) {
       this.idOrganization1 = -1;
       this.idCmsUser = -1;
@@ -267,28 +257,25 @@ export class CmsUserComponent {
       this.idOrganization1 = this.apiData?.user?.idOrganization;
       this.idCmsUser = -1;
     }
-    console.log(this.idOrganization1);
-    console.log(this.idCmsUser);
 
     this.http
       .getCMSUserDetails(this.idOrganization1, this.idCmsUser)
       .subscribe((res) => {
         if (this.apiData?.role?.idRoleType > 2) {
           this.userDetailsListResponse = res;
-          console.log(this.userDetailsList);
+
           this.userDetailsList = this.userDetailsListResponse.filter(
             (org: { roleName: string }) =>
               org.roleName !== 'Admin' && org.roleName !== 'Super Admin'
           );
         } else if (this.apiData?.role?.idRoleType == 2) {
           this.userDetailsListResponse = res;
-          console.log(this.userDetailsList);
+
           this.userDetailsList = this.userDetailsListResponse.filter(
             (org: { roleName: string }) => org.roleName !== 'Super Admin'
           );
         } else {
           this.userDetailsList = res;
-          console.log(this.userDetailsList);
         }
 
         this.totalUserlist = this.userDetailsList;
@@ -296,27 +283,24 @@ export class CmsUserComponent {
         this.activeUserlist = this.userDetailsList.filter(
           (org: { status: string }) => org.status === 'A'
         );
-        console.log(this.activeUserlist);
+
         this.count[1].value = this.activeUserlist.length;
         this.inactivUserList = this.userDetailsList.filter(
           (org: { status: string }) => org.status === 'D'
         );
-        console.log(this.inactivUserList);
+
         this.count[2].value = this.inactivUserList.length;
       });
   }
 
   GetStage() {
     this.http.getStagesName(this.apiData?.user?.idCmsUser).subscribe((res) => {
-      console.log(res);
       this.stageResponse = res;
-      console.log(this.stageResponse);
 
       // this.hierachicalStageName = this.stagesName?.hierarchyName;
     });
   }
   viewUserinfo(value: any) {
-    console.log(value);
     this.username = this.userDetailsList[value]?.userName;
     this.function = this.userDetailsList[value]?.functions;
     this.organizationNameView = this.userDetailsList[value]?.organizationName;
@@ -324,7 +308,6 @@ export class CmsUserComponent {
   }
 
   changeFilter(index: any) {
-    console.log(index);
     if (index == 0) {
       this.userDetailsList = this.totalUserlist;
     } else if (index == 1) {
@@ -371,7 +354,6 @@ export class CmsUserComponent {
 
   createCmsUserOnSubmit() {
     if (this.EditButton) {
-      console.log('hello');
       this.payload = {
         Data: {
           IdCmsUser: this.EditIdCmsUser,
@@ -392,7 +374,6 @@ export class CmsUserComponent {
         },
       };
       console.table(this.createCmsUser.value);
-      console.log(this.payload);
 
       const escapedIdCmsUser = JSON.stringify(this.payload.Data.IdOrganization);
       const escapedIdOrganization = JSON.stringify(
@@ -412,15 +393,14 @@ export class CmsUserComponent {
 
       const escapedJsonString = `{\"IdCmsUser\":${escapedIdCmsUser},\"IdOrganization\":${escapedIdOrganization},\"UserName\":${escapedUserName},\"EmployeeId\":${escapedEmployeeId},\"Name\":${escapedName},\"Email\":${escapedEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"Status\":${escapedStatus},\"IdOrgHierarchy\":${escapedIdOrgHierarchy}, \"IdCmsRole\":${escapedIdCmsRole}`;
       const jsonString = JSON.stringify(escapedJsonString);
-      console.log(jsonString);
+
       const jsonStringremovelast = jsonString.slice(0, -1);
       const body = '{"Data":' + jsonStringremovelast + '}"}';
-      console.log(body);
+
       console.table(this.createCmsUser.value);
 
       this.http.CreateUser(body).subscribe(
         (res) => {
-          console.log(res);
           this.openModal('Done! The User has been Updeted successfully.');
         },
         (error: HttpErrorResponse) => {
@@ -453,7 +433,7 @@ export class CmsUserComponent {
       };
 
       console.table(this.createCmsUser.value);
-      console.log(this.payload);
+
       const escapedIdOrganization = JSON.stringify(payload.Data.IdOrganization);
       const escapedUserName = JSON.stringify(payload.Data.UserName);
       const escapedEmployeeId = JSON.stringify(payload.Data.EmployeeId);
@@ -467,24 +447,21 @@ export class CmsUserComponent {
 
       const escapedJsonString = `{\"IdOrganization\":${escapedIdOrganization},\"UserName\":${escapedUserName},\"EmployeeId\":${escapedEmployeeId},\"Name\":${escapedName},\"Email\":${escapedEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"Status\":${escapedStatus},\"IdOrgHierarchy\":${escapedIdOrgHierarchy}, \"IdCmsRole\":${escapedIdCmsRole}`;
       const jsonString = JSON.stringify(escapedJsonString);
-      console.log(jsonString);
+
       const jsonStringremovelast = jsonString.slice(0, -1);
       const body = '{"Data":' + jsonStringremovelast + '}"}';
-      console.log(body);
+
       console.table(this.createCmsUser.value);
 
       this.http.CreateUser(body).subscribe(
         (res) => {
-          console.log(res);
           this.CreateUserResponse = res;
           this.http
             .postVerificationEmail(
               this.CreateUserResponse?.idOrganization,
               this.CreateUserResponse?.idCmsUser
             )
-            .subscribe((res) => {
-              console.log(res);
-            });
+            .subscribe((res) => {});
 
           this.openModal('Done! The User has been created successfully.');
         },
@@ -505,9 +482,8 @@ export class CmsUserComponent {
 
   // ------------edit Cms user ----------------
   editCmsUSer(value: any) {
-    console.log(value);
     this.getEditUserDetails = this.userDetailsList[value];
-    console.log(this.getEditUserDetails);
+
     this.EditButton = true;
     // this.editOrzation = this.getOrganizationlist.map((elem:any) =>{
     //   if( elem.idOrganization==this.getEditUserDetails?.idOrganization)
@@ -525,14 +501,13 @@ export class CmsUserComponent {
     // );
     // });
     this.selectedDropdownRoleValue = this.getEditUserDetails?.roleName;
-    // console.log(this.getEditUserDetails);
+    //
 
-    // console.log(this.getEditUserDetails.idCmsUser);
+    //
 
     this.EditIdCmsUser = this.getEditUserDetails?.idCmsUser;
-    console.log(this.EditIdCmsUser);
 
-    //  console.log(this.getOrganizationlist[value].organizationName);
+    //
 
     this.createCmsUser
       .get('employeeUserName')

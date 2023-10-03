@@ -14,8 +14,6 @@ export class ModalComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal, public router: Router) {}
   ngOnInit(): void {
-    console.log(this.screen);
-
     if (this.screen == 'Setup') {
       this.variableName = 'case2';
     } else if (this.screen == 'function') {
