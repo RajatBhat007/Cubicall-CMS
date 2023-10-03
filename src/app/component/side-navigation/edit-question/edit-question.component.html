@@ -103,6 +103,7 @@
       <div *ngSwitchDefault>
         <div class="col-12 d-flex justify-content-center">
           <div class="box-edit-question">
+            <form [formGroup]="questionFormData">
             <div class="row">
               <div class="col-11 d-flex justify-content-center mt-3 font">
                 <div
@@ -147,7 +148,7 @@
                 </svg>
               </div>
             </div>
-
+         
             <div class="row mt-3 ms-2">
               <div class="col-3">
                 <div class="content-requirement-edit-que">
@@ -216,9 +217,11 @@
                 <div class="d-flex question-container font">
                   <textarea
                     class="form-control input-question p-0"
+                    id="questionDescription"
+                    name="questionDescription"
+                    formControlName="questionDescription"
                     placeholder="Question"
                     rows="7"
-                    value="{{ question }}"
                     [disabled]="view"
                   >
                   </textarea>
@@ -227,14 +230,12 @@
               </div>
             </div>
 
-            <div
-              class="row mt-1 ansewer_hint_section d-flex justify-content-center"
-            >
+            <div class="row mt-1 ansewer_hint_section d-flex justify-content-center">
               <div class="col-7">
                 <div
                   class="radio-button-custom d-flex mt-2"
                   *ngFor="let res of viewQuestionData; let i = index"
-                  (click)="selectOption(i)"
+                  (click)="selectOption($event,i,res)"
                 >
                   <div
                     class="radio-button ms-3"
@@ -245,7 +246,7 @@
                   <div
                     class="radio-button ms-3"
                     *ngIf="!view"
-                    [ngClass]="{ 'radio-button-active': i === activeIndexTab }"
+                    [ngClass]="{ 'radio-button-active': i == activeIndexTab}"
                   ></div>
                   <div
                     class="option_1 font d-flex align-items-center ps-2 ms-2"
@@ -259,11 +260,14 @@
                 <div class="d-flex hint-container font mt-2">
                   <textarea
                     class="form-control hint-question"
+                    id="questionClueDescription"
+                    name="questionClueDescription"
+                    formControlName="questionClueDescription"
                     placeholder="Hint"
                     rows="7"
-                    value="{{ questionClue }}"
                     [disabled]="view"
-                  ></textarea>
+                  >
+                {{questionClue}}</textarea>
                 </div>
               </div>
             </div>
@@ -318,13 +322,13 @@
                 <div
                   class="button_div d-flex justify-content-center align-items-center font"
                   (click)="postEditQuestion()"
-                  data-bs-toggle="modal"
-                  data-bs-target="#WarningModal"
+                 
                 >
                   Done
                 </div>
               </div>
             </div>
+          </form>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
 import { AuthService } from 'src/app/auth/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-question',
@@ -18,6 +19,7 @@ export class EditQuestionComponent {
   cubeFaceId: number = 0;
   cubesFacesGameEditDetails: any;
   cubeFaceGameAttemptEditDetails: any;
+  selectedAnswer: any = [];
   cubeFaceGameStreakEditDetails: any;
   questionEditData: any;
   gamePointsActiveTab: number = 0;
@@ -46,7 +48,10 @@ export class EditQuestionComponent {
   organisationName: string = '';
   organisationRoleName: string = '';
   viewQuestionData: any = [];
+  isRightAnsData: any = [];
   viewQuestionResponse: any = [];
+  questionFormData: FormGroup;
+  answarlistData: any;
   answerOption = [
     {
       option: 'Option 1',
@@ -83,15 +88,22 @@ export class EditQuestionComponent {
       value: '+15 points ',
     },
   ];
+  indexOfRightAnswer: any;
+  payloadData: any = [];
   constructor(
     private route: ActivatedRoute,
     public _router: Router,
     private http: ApiServiceService,
     private modalService: NgbModal,
-    public authService: AuthService
+    public authService: AuthService,
+    private fb: FormBuilder
   ) {
     // this.userInputcurrentValue=this.currentValue
     // this.userInputAttemptNo=this.attemptNo
+    this.questionFormData = this.fb.group({
+      questionDescription: ['', Validators.required],
+      questionClueDescription: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -134,7 +146,6 @@ export class EditQuestionComponent {
         this.questionEditData = JSON.parse(this.value.questionData);
         this.gamePointsActiveTab = 4;
         this.edit = true;
-
         this.editQuestion(this.questionEditData);
       }
     });
@@ -142,10 +153,6 @@ export class EditQuestionComponent {
 
   updateSelectedValue(value: any) {
     this.selectedDropdownValue = value;
-  }
-
-  selectOption(index: any) {
-    this.activeIndexTab = index;
   }
 
   increaseGameTimeValue(value: any) {
@@ -436,59 +443,134 @@ export class EditQuestionComponent {
     this.status = data?.isActive;
   }
 
+  // -----------------Question Details------------------------
+  get questionDescriptionControl() {
+    return this.questionFormData.get('questionDescription');
+  }
+  get questionClueControl() {
+    return this.questionFormData.get('questionClueDescription');
+  }
+
   editQuestion(data: any) {
     this.questionId = data?.questionId;
     this.question = data?.question;
     this.questionClue = data?.questionClue;
     this.status = data?.isActive;
-
+    console.log(this.questionId);
+    // this.activeIndexTab=isRightAnsData
     this.http
       .getAllQuestionAnswerList(
         this.apiData?.user?.idOrganization,
         this.cubeFaceId
       )
       .subscribe((res) => {
+        console.log(res);
         this.viewQuestionResponse = res;
         this.viewQuestionData = this.viewQuestionResponse.filter(
           (org: { questionId: number }) => org.questionId === this.questionId
         );
+
+        const indexToUpdate = this.viewQuestionData.findIndex(
+          (item: any) => item.isRightAns === 1
+        );
+        this.isRightAnsData = this.viewQuestionData[indexToUpdate];
+        console.log(indexToUpdate);
+        console.log(this.isRightAnsData);
+        this.activeIndexTab = indexToUpdate;
+        this.indexOfRightAnswer = indexToUpdate;
+        console.log(this.activeIndexTab);
+        this.selectedAnswer = this.viewQuestionData[indexToUpdate];
+        console.log(this.selectedAnswer);
+        console.log(this.viewQuestionData);
       });
+    this.questionFormData.get('questionDescription')?.setValue(data?.question);
+    this.questionFormData.get('questionDescription')?.value || '';
+    this.questionFormData
+      .get('questionClueDescription')
+      ?.setValue(data?.questionClue);
+    this.questionFormData.get('questionClueDescription')?.value || '';
+  }
+
+  selectOption(event: any, i: any, data: any) {
+    this.activeIndexTab = i;
+    if (data.isRightAns != 1) {
+      this.payloadData = [];
+      for (let index = 0; index < this.viewQuestionData.length; index++) {
+        this.answarlistData = {
+          PerTileAnswerId: this.viewQuestionData[index]?.perTileAnswerId,
+          CubesFacesGameId: this.viewQuestionData[index]?.cubesFacesGameId,
+          QuestionId: this.viewQuestionData[index]?.questionId,
+          Answer: this.viewQuestionData[index]?.answer,
+          IsRightAns: i === index ? 1 : 0,
+          IsActive: 'A',
+          PerTileId: this.viewQuestionData[index]?.perTileId,
+          IdCmsUser: this.questionEditData?.idCmsUser,
+          IdOrganization: this.viewQuestionData[index]?.idOrganization,
+        };
+        this.payloadData.push(this.answarlistData);
+      }
+      // this.payloadData[i].IsRightAns=1;
+    } else {
+      this.payloadData = [];
+      this.answarlistData = {
+        PerTileAnswerId: data?.perTileAnswerId,
+        CubesFacesGameId: data?.cubesFacesGameId,
+        QuestionId: data?.questionId,
+        Answer: data?.answer,
+        IsRightAns: data?.isRightAns,
+        IsActive: 'A',
+        PerTileId: data?.perTileId,
+        IdCmsUser: this.questionEditData?.idCmsUser,
+        IdOrganization: data?.idOrganization,
+      };
+      this.payloadData.push(this.answarlistData);
+    }
   }
 
   postEditQuestion() {
-    // {    "Data":"{\"AnsList\":[{\"PerTileAnswerId\": 1,\n \"CubesFacesGameId\": 1,\n \"QuestionId\": 1,\n \"Answer\": \"Prashnat\",\n \"IsRightAns\": 1,\n\"IsActive\": \"A\",\n \"IdOrganization\": 1}],\n \"QuestionList\": {\n\"PerTileQuestionId\": 1,\n\"IsActive\": \"A\",\n \"QuestionId\": 1,\n \"CubesFacesGameId\": 1,\n \"PerTileId\": 1,\n \"Question\": \"A _______ is support provided for a specific product or services for specific clients.\",\n \"Complexity\": 0,\n \"RowNo\": 1,\n \"ColumnNo\": 1,\n \"Direction\": \"across\",\n \"QuestionClue\":\"Individual client often have multiple of these.\",\n \"QuestionSet\": 0,\n \"IsApproved\": 0, \n \"IsDraft\": 0,\n \"IsActive\": \"A\",\n \"IdOrganization\":1}\n}"}
+    console.log(this.questionEditData);
+    console.log(this.viewQuestionData);
+    this.selectedAnswer = this.viewQuestionData[this.activeIndexTab];
+    console.log(this.selectedAnswer);
     const payload = {
       Data: {
-        AnsList: [
-          {
-            PerTileAnswerId: '',
-            CubesFacesGameId: '',
-            QuestionId: '',
-            Answer: '',
-            IsRightAns: '',
-            IsActive: '',
-            IdOrganization: '',
-          },
-        ],
-        QuestionList: [
-          {
-            PerTileQuestionId: '',
-            IsActive: '',
-            QuestionId: '',
-            CubesFacesGameId: '',
-            PerTileId: '',
-            Question: '',
-            Complexity: '',
-            RowNo: '',
-            ColumnNo: '',
-            Direction: '',
-            QuestionClue: '',
-            QuestionSet: '',
-            IsApproved: '',
-            IsDraft: '',
-            IdOrganization: '',
-          },
-        ],
+        AnsList: this.payloadData
+          ? this.payloadData
+          : [
+              {
+                PerTileAnswerId: this.selectedAnswer?.perTileAnswerId,
+                CubesFacesGameId: this.selectedAnswer?.cubesFacesGameId,
+                QuestionId: this.selectedAnswer?.questionId,
+                Answer: this.selectedAnswer?.answer,
+                IsRightAns: 1,
+                IsActive: 'A',
+                PerTileId: this.selectedAnswer?.perTileId,
+                IdCmsUser: this.questionEditData?.idCmsUser,
+                IdOrganization: this.questionEditData?.idOrganization,
+              },
+            ],
+        QuestionList: {
+          PerTileQuestionId: this.questionEditData?.perTileQuestionId,
+          IsActive: this.questionEditData?.isActive,
+          QuestionId: this.questionEditData?.questionId,
+          CubesFacesGameId: this.questionEditData?.cubesFacesGameId,
+          PerTileId: this.questionEditData?.perTileId,
+          Question: this.questionDescriptionControl?.value,
+          Complexity: this.questionEditData?.complexity,
+          RowNo: this.questionEditData?.complexity,
+          ColumnNo: this.questionEditData?.rowNo
+            ? this.questionEditData?.rowNo
+            : 0,
+          Direction: this.questionEditData?.direction
+            ? this.questionEditData?.direction
+            : 'across',
+          QuestionClue: this.questionClueControl?.value,
+          QuestionSet: this.questionEditData?.questionSet,
+          IsApproved: this.questionEditData?.isApproved,
+          IsDraft: this.questionEditData?.isDraft,
+          IdCmsUser: this.questionEditData?.idCmsUser,
+          IdOrganization: this.questionEditData?.idOrganization,
+        },
       },
     };
 
@@ -496,9 +578,13 @@ export class EditQuestionComponent {
     const jsonString = JSON.stringify(escapedQuestionAnswer);
 
     const jsonStringremovelast = jsonString.slice(0, -1);
-    const body = '{"Data":' + jsonStringremovelast + '}"}';
+    const body = '{"Data":' + jsonStringremovelast + '"}';
+    console.log(body);
 
-    this.http.editQuestionAns(body).subscribe((res) => {});
+    this.http.editQuestionAns(body).subscribe((res) => {
+      console.log(res);
+      this.openModal('Done! The Question has been edited successfully.');
+    });
   }
   viewQuestionEdit() {
     this.view = false;
