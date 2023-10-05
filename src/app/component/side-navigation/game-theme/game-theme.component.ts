@@ -72,6 +72,7 @@ export class GameThemeComponent implements OnInit {
   organisationRoleName: string = '';
   questionListResponseFilter: any = [];
   adminName: string = '';
+  activeStatus: string = '';
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -301,7 +302,10 @@ export class GameThemeComponent implements OnInit {
         .subscribe(
           (res) => {
             // this._router.navigateByUrl('home')
-            this.openModal();
+            this.openModal(
+              'Done! The File has been uploaded successfully.',
+              'GameTheme'
+            );
           },
           (error: HttpErrorResponse) => {
             if (error.status === 404) {
@@ -316,15 +320,21 @@ export class GameThemeComponent implements OnInit {
     }
   }
 
-  openModal() {
+  // openModal() {
+  //   const modalRef = this.modalService.open(ModalComponent, {
+  //     centered: true,
+  //   });
+
+  //   // You can pass data to the modal if needed
+  //   modalRef.componentInstance.someData ='Done! The File has been uploaded successfully.';
+  //   modalRef.componentInstance.screen = 'GameTheme';
+  // }
+  openModal(msg: any, screen: any) {
     const modalRef = this.modalService.open(ModalComponent, {
       centered: true,
     });
-
-    // You can pass data to the modal if needed
-    modalRef.componentInstance.someData =
-      'Done! The File has been uploaded successfully.';
-    modalRef.componentInstance.screen = 'GameTheme';
+    modalRef.componentInstance.someData = msg;
+    modalRef.componentInstance.screen = screen;
   }
 
   DownloadTemplate() {
@@ -608,6 +618,108 @@ export class GameThemeComponent implements OnInit {
     }
   }
 
+  getStatusValue(event: any, i: any) {
+    console.log(i);
+    console.log(this.questionListResponse[i]);
+
+    console.log(event.currentTarget.checked);
+
+    if (event.currentTarget.checked) {
+      this.activeStatus = 'A';
+      console.log(this.activeStatus);
+
+      const payload = {
+        Data: {
+          AnsList: [],
+          QuestionList: {
+            PerTileQuestionId: this.questionListResponse[i]?.perTileQuestionId,
+            IsActive: this.activeStatus,
+            QuestionId: this.questionListResponse[i]?.questionId,
+            CubesFacesGameId: this.questionListResponse[i]?.cubesFacesGameId,
+            PerTileId: this.questionListResponse[i]?.perTileId,
+            Question: this.questionListResponse[i]?.question,
+            Complexity: this.questionListResponse[i]?.complexity,
+            RowNo: this.questionListResponse[i]?.complexity,
+            ColumnNo: this.questionListResponse[i]?.rowNo
+              ? this.questionListResponse[i]?.rowNo
+              : 0,
+            Direction: this.questionListResponse[i]?.direction
+              ? this.questionListResponse[i]?.direction
+              : 'across',
+            QuestionClue: this.questionListResponse[i]?.questionClue,
+            QuestionSet: this.questionListResponse[i]?.questionSet,
+            IsApproved: this.questionListResponse[i]?.isApproved,
+            IsDraft: this.questionListResponse[i]?.isDraft,
+            IdCmsUser: this.questionListResponse[i]?.idCmsUser,
+            IdOrganization: this.questionListResponse[i]?.idOrganization,
+          },
+        },
+      };
+
+      const escapedQuestionAnswer = JSON.stringify(payload.Data);
+      const jsonString = JSON.stringify(escapedQuestionAnswer);
+      console.log(jsonString);
+      const jsonStringremovelast = jsonString.slice(0, -1);
+      const body = '{"Data":' + jsonStringremovelast + '"}';
+      console.log(body);
+
+      this.https.editQuestionAns(body).subscribe((res) => {
+        console.log(res);
+        // this.openModal(
+        //   'Done! The Question has been edited successfully.'
+        // );
+        this.openModal(
+          'Done! The Question has been Activated successfully.',
+          'user'
+        );
+      });
+    } else {
+      this.activeStatus = 'D';
+      console.log(this.activeStatus);
+      const payload = {
+        Data: {
+          AnsList: [],
+          QuestionList: {
+            PerTileQuestionId: this.questionListResponse[i]?.perTileQuestionId,
+            IsActive: this.activeStatus,
+            QuestionId: this.questionListResponse[i]?.questionId,
+            CubesFacesGameId: this.questionListResponse[i]?.cubesFacesGameId,
+            PerTileId: this.questionListResponse[i]?.perTileId,
+            Question: this.questionListResponse[i]?.question,
+            Complexity: this.questionListResponse[i]?.complexity,
+            RowNo: this.questionListResponse[i]?.complexity,
+            ColumnNo: this.questionListResponse[i]?.rowNo
+              ? this.questionListResponse[i]?.rowNo
+              : 0,
+            Direction: this.questionListResponse[i]?.direction
+              ? this.questionListResponse[i]?.direction
+              : 'across',
+            QuestionClue: this.questionListResponse[i]?.questionClue,
+            QuestionSet: this.questionListResponse[i]?.questionSet,
+            IsApproved: this.questionListResponse[i]?.isApproved,
+            IsDraft: this.questionListResponse[i]?.isDraft,
+            IdCmsUser: this.questionListResponse[i]?.idCmsUser,
+            IdOrganization: this.questionListResponse[i]?.idOrganization,
+          },
+        },
+      };
+
+      const escapedQuestionAnswer = JSON.stringify(payload.Data);
+      const jsonString = JSON.stringify(escapedQuestionAnswer);
+      console.log(jsonString);
+      const jsonStringremovelast = jsonString.slice(0, -1);
+      const body = '{"Data":' + jsonStringremovelast + '"}';
+      console.log(body);
+
+      this.https.editQuestionAns(body).subscribe((res) => {
+        console.log(res);
+        this.openModal(
+          'Done! The Question has been Dactivated successfully.',
+          'user'
+        );
+      });
+    }
+  }
   getCubeFaceGameTime() {
     this.idOrganization = this.apiData?.user?.idOrganization;
     let CubesFacesGameId = -1;

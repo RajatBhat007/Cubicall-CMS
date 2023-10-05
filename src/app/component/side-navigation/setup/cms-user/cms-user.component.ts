@@ -100,6 +100,7 @@ export class CmsUserComponent {
   ];
   stageResponse: any = [];
   divVisible: boolean = false;
+  activeStatus: string = '';
   constructor(
     private http: ApiServiceService,
     private fb: FormBuilder,
@@ -351,7 +352,73 @@ export class CmsUserComponent {
     modalRef.componentInstance.someData = value;
     modalRef.componentInstance.screen = 'user';
   }
+  getStatusValue(event: any, i: any) {
+    console.log(i);
+    console.log(this.userDetailsList[i]);
 
+    console.log(event.currentTarget.checked);
+
+    this.activeStatus = 'A';
+    console.log(this.activeStatus);
+    this.payload = {
+      Data: {
+        IdCmsUser: this.userDetailsList[i]?.idCmsUser,
+        IdOrganization: this.userDetailsList[i]?.idOrganization,
+        UserName: this.userDetailsList[i]?.userName,
+        EmployeeId: this.userDetailsList[i]?.employeeId,
+        Name: this.userDetailsList[i]?.name,
+        Email: this.userDetailsList[i]?.email,
+        PhoneNo: this.userDetailsList[i]?.phoneNo,
+        Password: this.userDetailsList[i]?.password,
+        Status: event.currentTarget.checked ? 'A' : 'D', //pass A static
+        IdOrgHierarchy: this.userDetailsList[i]?.idOrgHierarchy,
+        IdCmsRole: this.userDetailsList[i]?.idCmsRole, //pass static because get roles api is not working
+      },
+    };
+    console.log(this.payload);
+
+    const escapedIdCmsUser = JSON.stringify(this.payload.Data.IdCmsUser);
+    const escapedIdOrganization = JSON.stringify(
+      this.payload.Data.IdOrganization
+    );
+    const escapedUserName = JSON.stringify(this.payload.Data.UserName);
+    const escapedEmployeeId = JSON.stringify(this.payload.Data.EmployeeId);
+    const escapedName = JSON.stringify(this.payload.Data.Name);
+    const escapedEmail = JSON.stringify(this.payload.Data.Email);
+    const escapedPhoneNo = JSON.stringify(this.payload.Data.PhoneNo);
+    const escapedPassword = JSON.stringify(this.payload.Data.Password);
+    const escapedStatus = JSON.stringify(this.payload.Data.Status);
+    const escapedIdOrgHierarchy = JSON.stringify(
+      this.payload.Data.IdOrgHierarchy
+    );
+    const escapedIdCmsRole = JSON.stringify(this.payload.Data.IdCmsRole);
+
+    const escapedJsonString = `{\"IdCmsUser\":${escapedIdCmsUser},\"IdOrganization\":${escapedIdOrganization},\"UserName\":${escapedUserName},\"EmployeeId\":${escapedEmployeeId},\"Name\":${escapedName},\"Email\":${escapedEmail},\"PhoneNo\":${escapedPhoneNo},\"Password\":${escapedPassword},\"Status\":${escapedStatus},\"IdOrgHierarchy\":${escapedIdOrgHierarchy}, \"IdCmsRole\":${escapedIdCmsRole}`;
+    const jsonString = JSON.stringify(escapedJsonString);
+    console.log(jsonString);
+    const jsonStringremovelast = jsonString.slice(0, -1);
+    const body = '{"Data":' + jsonStringremovelast + '}"}';
+    console.log(body);
+    console.table(this.createCmsUser.value);
+
+    this.http.CreateUser(body).subscribe(
+      (res) => {
+        console.log(res);
+        if (this.payload.Data.Status === 'A') {
+          this.openModal('Done! The User has been Activated successfully.');
+        } else {
+          this.openModal('Done! The User has been Dactivated successfully.');
+        }
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          window.alert('404 Not Found Error');
+        } else {
+          window.alert(error.error);
+        }
+      }
+    );
+  }
   createCmsUserOnSubmit() {
     if (this.EditButton) {
       this.payload = {
