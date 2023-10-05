@@ -5,7 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
 import { AuthService } from 'src/app/auth/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-question',
@@ -90,6 +90,7 @@ export class EditQuestionComponent {
   ];
   indexOfRightAnswer: any;
   payloadData: any=[];
+  optionsArray: any;
   constructor(
     private route: ActivatedRoute,
     public _router: Router,
@@ -103,6 +104,7 @@ export class EditQuestionComponent {
     this.questionFormData = this.fb.group({
       questionDescription: ['', Validators.required],
       questionClueDescription: ['', Validators.required],
+      options: this.fb.array([])
     });
   }
 
@@ -344,6 +346,7 @@ export class EditQuestionComponent {
 
     this.tileTime = data.perTileTimer;
     this.status = data.isActive;
+    
     console.log(this.tileTime);
   }
 
@@ -486,14 +489,34 @@ get questionDescriptionControl() {
 get questionClueControl() {
   return this.questionFormData.get('questionClueDescription');
 }
+get optionControl() {
+  return this.questionFormData.get('options') as FormArray;
+    this.optionsArray.push(this.fb.control(''));
 
-
+}
+addOption() {
+  const optionsArray = this.questionFormData.get('options') as FormArray;
+  optionsArray.push(this.fb.control(''));
+  console.log(optionsArray);
+  
+}
   editQuestion(data: any) {
     this.questionId = data?.questionId;
     this.question = data?.question;
     this.questionClue = data?.questionClue;
     this.status = data?.isActive;
+    console.log(this.status);
+    
     console.log(this.questionId);
+    if(this.view){
+      this.questionFormData.get('questionDescription')?.disable();
+      this.questionFormData.get('questionClueDescription')?.disable();
+    }
+    else{
+      this.questionFormData.get('questionDescription')?.enable();
+      this.questionFormData.get('questionClueDescription')?.enable();
+
+    }
     // this.activeIndexTab=isRightAnsData
     this.http.getAllQuestionAnswerList(this.apiData?.user?.idOrganization,this.cubeFaceId).subscribe((res) => {
         console.log(res);
@@ -522,6 +545,7 @@ get questionClueControl() {
   }
 
   selectOption(event:any,i: any,data:any) {
+    this.addOption();
     this.activeIndexTab=i;
     if (data.isRightAns!=1) {
       this.payloadData=[];
@@ -616,8 +640,11 @@ get questionClueControl() {
     });
   }
   viewQuestionEdit() {
+    this.questionFormData.get('questionDescription')?.enable();
+      this.questionFormData.get('questionClueDescription')?.enable();
     this.view = false;
     this.edit = true;
+
   }
 
   close() {

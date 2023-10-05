@@ -296,7 +296,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
 
         this.processList = this.getOrgHierarchyResponse.filter(
           (org: { hirarchyLevelType: string }) =>
-            org?.hirarchyLevelType === 'Proecss'
+            org?.hirarchyLevelType === 'Process'
         );
         console.log(this.processList);
 

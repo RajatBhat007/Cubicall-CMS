@@ -382,6 +382,7 @@
                                 role="switch"
                                 id="flexSwitchCheckDefault"
                                 [checked]="res?.isActive == 'A'"
+                                (change)="getStatusValue( $event, i  ) "
                               />
                             </div>
                             <div

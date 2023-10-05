@@ -248,11 +248,17 @@
                     *ngIf="!view"
                     [ngClass]="{ 'radio-button-active': i == activeIndexTab}"
                   ></div>
-                  <div
-                    class="option_1 font d-flex align-items-center ps-2 ms-2"
-                  >
-                    {{ res.answer }}
-                  </div>
+                    <div 
+                      class="option_1 font d-flex align-items-center ps-2 ms-2"
+                    >
+                      {{ res.answer }}
+                    </div>
+                  <!-- <div formArrayName="options"
+                  class="option_1 font d-flex align-items-center ps-2 ms-2"
+                >
+                <input type="text" [formControlName]="i" placeholder="Option {{ i + 1 }}" />
+            
+                </div> -->
                 </div>
               </div>
 
@@ -283,7 +289,8 @@
                     type="checkbox"
                     role="switch"
                     id="flexSwitchCheckDefault"
-                    checked="status=={{ status }}"
+                    [checked]="status == 'A'"
+
                     [disabled]="view"
                   />
                 </div>
