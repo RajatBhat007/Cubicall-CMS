@@ -14,7 +14,9 @@
         class="dropdown_org d-flex justify-content-center align-items-center"
         style="position: relative"
       >
-        <div class="dropdownMenuButton1 font">{{ organisationRoleName }}</div>
+        <div class="dropdownMenuButton1 font">
+          {{ organisationRoleName }}{{ "(" + adminName + ")" }}
+        </div>
       </div>
 
       <div
@@ -64,6 +66,12 @@
           aria-labelledby="dropdownMenuButton1"
           class="logut_dropdown"
         >
+          <li class="mt-2" *ngIf="apiData?.role?.idRoleType != 1">
+            <a ngbDropdownItem class="font logout" (click)="DownloadMap()"
+              >Help
+            </a>
+          </li>
+
           <li class="mt-2">
             <a ngbDropdownItem class="font logout" (click)="logout()"
               >Logout
@@ -1267,7 +1275,7 @@
                       <div class="row">
                         <div class="col-7 mb-5">
                           <div class="font mt-4 view_message">
-                            View Template before uploading:
+                            Download Template before uploading:
                           </div>
                           <div class="buttons_div d-flex">
                             <!-- <div

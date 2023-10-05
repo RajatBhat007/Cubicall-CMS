@@ -132,7 +132,7 @@ export class SetupComponent implements OnInit {
 
     // Add more data as needed
   };
-
+  adminName: string = '';
   IdOrganization: string = '';
   @ViewChild('organizationSuccessModal') organizationSuccessModal: any;
 
@@ -140,6 +140,7 @@ export class SetupComponent implements OnInit {
     this.getApiData();
     this.organisationRoleName = this.apiData?.role?.roleName;
     this.organisationName = this.apiData?.role?.organizationName;
+    this.adminName = this.apiData?.user?.name;
 
     this.user.key1 = this.userRole;
 
@@ -540,5 +541,29 @@ export class SetupComponent implements OnInit {
     this.authService.logout();
     localStorage.clear();
     this._router.navigateByUrl('');
+  }
+
+  DownloadMap() {
+    if (this.apiData?.role?.idRoleType == 2) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforSuperAdmin.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 3) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforAdmin.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 4) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforTrainer.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 5) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforContentCreator.pdf';
+
+      window.open(excelUrl);
+    }
   }
 }

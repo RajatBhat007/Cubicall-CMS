@@ -71,6 +71,7 @@ export class GameThemeComponent implements OnInit {
   organisationName: string = '';
   organisationRoleName: string = '';
   questionListResponseFilter: any = [];
+  adminName: string = '';
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -189,7 +190,7 @@ export class GameThemeComponent implements OnInit {
 
       this.organisationRoleName = this.apiData?.role?.roleName;
       this.organisationName = this.apiData?.role?.organizationName;
-
+      this.adminName = this.apiData?.user?.name;
       if (this.apiData?.role?.idRoleType >= 4) {
         this.uploadButton = true;
       }
@@ -332,6 +333,31 @@ export class GameThemeComponent implements OnInit {
 
     window.open(excelUrl);
   }
+
+  DownloadMap() {
+    if (this.apiData?.role?.idRoleType == 2) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforSuperAdmin.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 3) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforAdmin.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 4) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforTrainer.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 5) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforContentCreator.pdf';
+
+      window.open(excelUrl);
+    }
+  }
+
   onFileChangeAnswer(event: any) {
     const file = event.target.files[0];
     this.selectedAnswerFile = event.target.files[0];

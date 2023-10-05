@@ -356,7 +356,7 @@ export class CmsUserComponent {
     if (this.EditButton) {
       this.payload = {
         Data: {
-          IdCmsUser: this.EditIdCmsUser,
+          IdCmsUser: this.getEditUserDetails?.idCmsUser,
           IdOrganization: this.getEditUserDetails?.idOrganization
             ? this.getEditUserDetails?.idOrganization
             : Number(this.selectedOrganizationID),
@@ -367,7 +367,9 @@ export class CmsUserComponent {
           PhoneNo: '',
           Password: this.empPasswordControl?.value,
           Status: this.getEditUserDetails?.status, //pass A static
-          IdOrgHierarchy: Number(this.selectedIdOrganizationHirarchy),
+          IdOrgHierarchy: this.getEditUserDetails?.idOrgHierarchy
+            ? this.getEditUserDetails?.idOrgHierarchy
+            : Number(this.selectedIdOrganizationHirarchy),
           IdCmsRole: this.getEditUserDetails?.idCmsRole
             ? this.getEditUserDetails?.idCmsRole
             : Number(this.selectedCmsIdRole), //pass static because get roles api is not working
@@ -375,7 +377,7 @@ export class CmsUserComponent {
       };
       console.table(this.createCmsUser.value);
 
-      const escapedIdCmsUser = JSON.stringify(this.payload.Data.IdOrganization);
+      const escapedIdCmsUser = JSON.stringify(this.payload.Data.IdCmsUser);
       const escapedIdOrganization = JSON.stringify(
         this.payload.Data.IdOrganization
       );

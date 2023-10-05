@@ -14,7 +14,9 @@
         class="dropdown_org d-flex justify-content-center align-items-center"
         style="position: relative"
       >
-        <div id="dropdownMenuButton1 font">{{ organisationRoleName }}</div>
+        <div id="dropdownMenuButton1 font">
+          {{ organisationRoleName }} {{ "(" + adminName + ")" }}
+        </div>
       </div>
 
       <div
@@ -64,6 +66,12 @@
           aria-labelledby="dropdownMenuButton1"
           class="logut_dropdown"
         >
+          <li class="mt-2" *ngIf="apiData?.role?.idRoleType != 1">
+            <a ngbDropdownItem class="font logout" (click)="DownloadMap()"
+              >Help
+            </a>
+          </li>
+
           <li class="mt-2">
             <a ngbDropdownItem class="font logout" (click)="logout()"
               >Logout
@@ -104,231 +112,235 @@
         <div class="col-12 d-flex justify-content-center">
           <div class="box-edit-question">
             <form [formGroup]="questionFormData">
-            <div class="row">
-              <div class="col-11 d-flex justify-content-center mt-3 font">
+              <div class="row">
+                <div class="col-11 d-flex justify-content-center mt-3 font">
+                  <div
+                    class="header_question d-flex justify-content-center align-items-center"
+                  >
+                    {{ categoryName }}
+                  </div>
+                </div>
                 <div
-                  class="header_question d-flex justify-content-center align-items-center"
+                  class="col-1 d-flex justify-content-center align-items-center"
                 >
-                  {{ categoryName }}
+                  <svg
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="cross-icon"
+                    (click)="close()"
+                  >
+                    <g id="Group 8373">
+                      <circle
+                        id="Ellipse 21"
+                        cx="18"
+                        cy="18"
+                        r="17"
+                        fill="#D7D7E8"
+                        stroke="black"
+                        stroke-width="2"
+                      />
+                      <path
+                        id="Vector 3983"
+                        d="M9.5 10L28 27"
+                        stroke="black"
+                        stroke-width="5"
+                      />
+                      <path
+                        id="Vector 3984"
+                        d="M27.25 9.25L10.25 27.75"
+                        stroke="black"
+                        stroke-width="5"
+                      />
+                    </g>
+                  </svg>
                 </div>
               </div>
-              <div
-                class="col-1 d-flex justify-content-center align-items-center"
-              >
-                <svg
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="cross-icon"
-                  (click)="close()"
-                >
-                  <g id="Group 8373">
-                    <circle
-                      id="Ellipse 21"
-                      cx="18"
-                      cy="18"
-                      r="17"
-                      fill="#D7D7E8"
-                      stroke="black"
-                      stroke-width="2"
-                    />
-                    <path
-                      id="Vector 3983"
-                      d="M9.5 10L28 27"
-                      stroke="black"
-                      stroke-width="5"
-                    />
-                    <path
-                      id="Vector 3984"
-                      d="M27.25 9.25L10.25 27.75"
-                      stroke="black"
-                      stroke-width="5"
-                    />
-                  </g>
-                </svg>
-              </div>
-            </div>
-         
-            <div class="row mt-3 ms-2">
-              <div class="col-3">
-                <div class="content-requirement-edit-que">
-                  <div class="row d-flex">
-                    <div class="col-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="info-image"
-                        viewBox="0 0 27 27"
-                        fill="none"
+
+              <div class="row mt-3 ms-2">
+                <div class="col-3">
+                  <div class="content-requirement-edit-que">
+                    <div class="row d-flex">
+                      <div class="col-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="info-image"
+                          viewBox="0 0 27 27"
+                          fill="none"
+                        >
+                          <path
+                            d="M13.3475 25.8595C20.0315 25.8595 25.4499 20.4411 25.4499 13.7571C25.4499 7.07315 20.0315 1.65472 13.3475 1.65472C6.66354 1.65472 1.24512 7.07315 1.24512 13.7571C1.24512 20.4411 6.66354 25.8595 13.3475 25.8595Z"
+                            stroke="#133870"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M13.3472 18.5981V13.7571"
+                            stroke="#133870"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M13.3472 8.91608H13.3573"
+                            stroke="#133870"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="col-10 font content-req d-flex align-items-center"
                       >
-                        <path
-                          d="M13.3475 25.8595C20.0315 25.8595 25.4499 20.4411 25.4499 13.7571C25.4499 7.07315 20.0315 1.65472 13.3475 1.65472C6.66354 1.65472 1.24512 7.07315 1.24512 13.7571C1.24512 20.4411 6.66354 25.8595 13.3475 25.8595Z"
-                          stroke="#133870"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M13.3472 18.5981V13.7571"
-                          stroke="#133870"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M13.3472 8.91608H13.3573"
-                          stroke="#133870"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
+                        Content Requirements: Questions: 140 letters max
+                        Options: 25 letters max
+                      </div>
                     </div>
-                    <div
-                      class="col-10 font content-req d-flex align-items-center"
+                  </div>
+                </div>
+                <div class="col-9"></div>
+              </div>
+
+              <div class="row ms-3 mt-2">
+                <div class="col-2 d-flex align-items-center id_div">
+                  <div class="id-label font d-flex align-items-center">ID:</div>
+                  <div
+                    class="id_number d-flex justify-content-center align-items-center font"
+                  >
+                    {{ questionId }}
+                  </div>
+                </div>
+                <div class="col-10"></div>
+              </div>
+              <div class="col-10 feedback-box">
+                <div class="feedback-content">
+                  <!-- Your feedback content goes here -->
+                </div>
+              </div>
+
+              <div class="row ms-2 mt-2">
+                <div class="col-12 d-flex">
+                  <div class="d-flex question-container font">
+                    <textarea
+                      class="form-control input-question p-0"
+                      id="questionDescription"
+                      name="questionDescription"
+                      formControlName="questionDescription"
+                      placeholder="Question"
+                      rows="7"
+                      [disabled]="view"
                     >
-                      Content Requirements: Questions: 140 letters max Options:
-                      25 letters max
-                    </div>
+                    </textarea>
+                    <!-- Question -->
                   </div>
-                </div>
-              </div>
-              <div class="col-9"></div>
-            </div>
-
-            <div class="row ms-3 mt-2">
-              <div class="col-2 d-flex align-items-center id_div">
-                <div class="id-label font d-flex align-items-center">ID:</div>
-                <div
-                  class="id_number d-flex justify-content-center align-items-center font"
-                >
-                  {{ questionId }}
-                </div>
-              </div>
-              <div class="col-10"></div>
-            </div>
-            <div class="col-10 feedback-box">
-              <div class="feedback-content">
-                <!-- Your feedback content goes here -->
-              </div>
-            </div>
-
-            <div class="row ms-2 mt-2">
-              <div class="col-12 d-flex">
-                <div class="d-flex question-container font">
-                  <textarea
-                    class="form-control input-question p-0"
-                    id="questionDescription"
-                    name="questionDescription"
-                    formControlName="questionDescription"
-                    placeholder="Question"
-                    rows="7"
-                    [disabled]="view"
-                  >
-                  </textarea>
-                  <!-- Question -->
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-1 ansewer_hint_section d-flex justify-content-center">
-              <div class="col-7">
-                <div
-                  class="radio-button-custom d-flex mt-2"
-                  *ngFor="let res of viewQuestionData; let i = index"
-                  (click)="selectOption($event,i,res)"
-                >
-                  <div
-                    class="radio-button ms-3"
-                    *ngIf="view"
-                    [ngClass]="{ 'radio-button-active': res?.isRightAns == 1 }"
-                  ></div>
-
-                  <div
-                    class="radio-button ms-3"
-                    *ngIf="!view"
-                    [ngClass]="{ 'radio-button-active': i == activeIndexTab}"
-                  ></div>
-                  <div
-                    class="option_1 font d-flex align-items-center ps-2 ms-2"
-                  >
-                    {{ res.answer }}
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-5">
-                <div class="d-flex hint-container font mt-2">
-                  <textarea
-                    class="form-control hint-question"
-                    id="questionClueDescription"
-                    name="questionClueDescription"
-                    formControlName="questionClueDescription"
-                    placeholder="Hint"
-                    rows="7"
-                    [disabled]="view"
-                  >
-                {{questionClue}}</textarea>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-5 last_row">
-              <div class="col-6 d-flex" style="margin-top: -1%">
-                <div class="status_label font ms-3 d-flex align-items-center">
-                  STATUS
-                </div>
-                <div class="form-check form-switch d-flex ms-2">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckDefault"
-                    checked="status=={{ status }}"
-                    [disabled]="view"
-                  />
                 </div>
               </div>
 
               <div
-                class="col-6 d-flex justify-content-end"
-                style="margin-top: -1%"
+                class="row mt-1 ansewer_hint_section d-flex justify-content-center"
               >
-                <div
-                  *ngIf="
-                    apiData?.role?.idRoleType > 3;
-                    then editButton;
-                    else dontEditButton
-                  "
-                ></div>
-                <ng-template #editButton>
+                <div class="col-7">
                   <div
-                    *ngIf="view"
-                    class="button_div me-3 d-flex justify-content-center align-items-center font"
-                    (click)="viewQuestionEdit()"
+                    class="radio-button-custom d-flex mt-2"
+                    *ngFor="let res of viewQuestionData; let i = index"
+                    (click)="selectOption($event, i, res)"
                   >
-                    Edit
-                  </div>
-                </ng-template>
-                <ng-template #dontEditButton>
-                  <div
-                    *ngIf="view"
-                    class="button_div me-3 d-flex justify-content-center align-items-center font"
-                    style="visibility: hidden"
-                  >
-                    Edit
-                  </div>
-                </ng-template>
+                    <div
+                      class="radio-button ms-3"
+                      *ngIf="view"
+                      [ngClass]="{
+                        'radio-button-active': res?.isRightAns == 1
+                      }"
+                    ></div>
 
-                <div
-                  class="button_div d-flex justify-content-center align-items-center font"
-                  (click)="postEditQuestion()"
-                 
-                >
-                  Done
+                    <div
+                      class="radio-button ms-3"
+                      *ngIf="!view"
+                      [ngClass]="{ 'radio-button-active': i == activeIndexTab }"
+                    ></div>
+                    <div
+                      class="option_1 font d-flex align-items-center ps-2 ms-2"
+                    >
+                      {{ res.answer }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-5">
+                  <div class="d-flex hint-container font mt-2">
+                    <textarea
+                      class="form-control hint-question"
+                      id="questionClueDescription"
+                      name="questionClueDescription"
+                      formControlName="questionClueDescription"
+                      placeholder="Hint"
+                      rows="7"
+                      [disabled]="view"
+                    >
+                {{ questionClue }}</textarea
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+
+              <div class="row mt-5 last_row">
+                <div class="col-6 d-flex" style="margin-top: -1%">
+                  <div class="status_label font ms-3 d-flex align-items-center">
+                    STATUS
+                  </div>
+                  <div class="form-check form-switch d-flex ms-2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="flexSwitchCheckDefault"
+                      checked="status=={{ status }}"
+                      [disabled]="view"
+                    />
+                  </div>
+                </div>
+
+                <div
+                  class="col-6 d-flex justify-content-end"
+                  style="margin-top: -1%"
+                >
+                  <div
+                    *ngIf="
+                      apiData?.role?.idRoleType > 3;
+                      then editButton;
+                      else dontEditButton
+                    "
+                  ></div>
+                  <ng-template #editButton>
+                    <div
+                      *ngIf="view"
+                      class="button_div me-3 d-flex justify-content-center align-items-center font"
+                      (click)="viewQuestionEdit()"
+                    >
+                      Edit
+                    </div>
+                  </ng-template>
+                  <ng-template #dontEditButton>
+                    <div
+                      *ngIf="view"
+                      class="button_div me-3 d-flex justify-content-center align-items-center font"
+                      style="visibility: hidden"
+                    >
+                      Edit
+                    </div>
+                  </ng-template>
+
+                  <div
+                    class="button_div d-flex justify-content-center align-items-center font"
+                    (click)="postEditQuestion()"
+                  >
+                    Done
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

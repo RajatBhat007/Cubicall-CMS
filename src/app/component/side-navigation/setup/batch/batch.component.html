@@ -301,11 +301,19 @@
                           />
                         </div>
                         <div class="ms-1">
-                          <input
+                          <!-- <input
                             type="search"
                             class="searchContainer"
                             name=""
                             id=""
+                          /> -->
+                          <input
+                            class="form-control searchContainer"
+                            type="text"
+                            name="search"
+                            [(ngModel)]="searchText"
+                            autocomplete="off"
+                            placeholder="&#61442;  Start searching for a hero by id or name or country"
                           />
                         </div>
                       </div>

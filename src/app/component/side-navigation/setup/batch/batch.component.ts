@@ -16,6 +16,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
   styleUrls: ['./batch.component.scss'],
 })
 export class BatchComponent {
+  searchText: any;
   [x: string]: any;
   @ViewChildren('checkboxes') checkboxes!: QueryList<ElementRef>;
 

@@ -63,7 +63,7 @@
                         >
                           * By assigning an admin role to the Vendor, the vendor
                           can set up their own hierarchy, as well as create CMS
-                          Role, CMS User and Batch.
+                          User.
                         </div>
                       </ng-template>
                       <ng-template #adminInfodetails>
@@ -378,7 +378,8 @@
                         <div
                           class="col-12 font d-flex justify-content-center mt-1 heading-right-side"
                         >
-                          Step 1: Enter all the Process for XXX Vendor<br />
+                          Step 1: Enter all the Process for
+                          {{ vendorList[0]?.hierarchyName }} Vendor<br />
                           Step 2: Click on a Process to add its Sub Process in
                           it
                         </div>
@@ -400,7 +401,7 @@
                             >
                               <div class="col-7">
                                 <label class="font fw-bold mt-1"
-                                  >Process {{ i + 1 }}:</label
+                                  >Process :</label
                                 >
                                 <div class="mt-1">
                                   <input
@@ -423,12 +424,12 @@
                                   Add
                                 </div>
                                 <label class="font fw-bold"></label>
-                                <div
+                                <!-- <div
                                   class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
                                   (click)="removeProcessRow(i)"
                                 >
                                   Remove
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                           </div>
@@ -466,7 +467,7 @@
                             >
                               <div class="col-7">
                                 <label class="font fw-bold mt-1"
-                                  >Sub - Process {{ i + 1 }}:</label
+                                  >Sub - Process:</label
                                 >
                                 <div class="mt-1">
                                   <input
@@ -489,12 +490,12 @@
                                   Add
                                 </div>
                                 <label class="font fw-bold"></label>
-                                <div
+                                <!-- <div
                                   class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
                                   (click)="removeProcessRow(i)"
                                 >
                                   Remove
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                           </div>
@@ -526,9 +527,7 @@
                               [formGroupName]="i"
                             >
                               <div class="col-7">
-                                <label class="font fw-bold mt-1"
-                                  >Stage {{ i + 1 }}:</label
-                                >
+                                <label class="font fw-bold mt-1">Stage:</label>
                                 <div class="mt-1">
                                   <input
                                     type="text"
@@ -550,12 +549,12 @@
                                   Add
                                 </div>
                                 <label class="font fw-bold"></label>
-                                <div
+                                <!-- <div
                                   class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
                                   (click)="removeProcessRow(i)"
                                 >
                                   Remove
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                           </div>

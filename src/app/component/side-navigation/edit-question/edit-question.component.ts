@@ -36,6 +36,7 @@ export class EditQuestionComponent {
   apiData: any;
   status: string = '';
   payload: any;
+  adminName: string = '';
   activeStatus: String = '';
   // userInputcurrentValue:number=0;
   userInputAttemptNo: number = 0;
@@ -113,6 +114,7 @@ export class EditQuestionComponent {
     });
     this.organisationRoleName = this.apiData?.role?.roleName;
     this.organisationName = this.apiData?.role?.organizationName;
+    this.adminName = this.apiData?.user?.name;
 
     this.route.queryParams.subscribe((params) => {
       this.value = params;
@@ -591,6 +593,29 @@ export class EditQuestionComponent {
     this.edit = true;
   }
 
+  DownloadMap() {
+    if (this.apiData?.role?.idRoleType == 2) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforSuperAdmin.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 3) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforAdmin.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 4) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforTrainer.pdf';
+
+      window.open(excelUrl);
+    } else if (this.apiData?.role?.idRoleType == 5) {
+      const excelUrl =
+        'https://www.playtolearn.in/Cubicall_CMS/Template/MapforContentCreator.pdf';
+
+      window.open(excelUrl);
+    }
+  }
   close() {
     if (this.view) {
       let activeIndexSubTab = 0;

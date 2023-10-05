@@ -281,7 +281,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
 
         this.processList = this.getOrgHierarchyResponse.filter(
           (org: { hirarchyLevelType: string }) =>
-            org?.hirarchyLevelType === 'Proecss'
+            org?.hirarchyLevelType === 'Process'
         );
 
         this.subprocessList = this.getOrgHierarchyResponse.filter(
@@ -289,7 +289,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
             org?.hirarchyLevelType === 'Sub Process'
         );
 
-        this.navigateToSubprocess('subprocess', 0);
+        this.navigateToSubprocess('process', 0);
 
         // this.stageList = this.getOrgHierarchyResponse.filter(
         //   (org: { hirarchyLevelType: string }) =>
@@ -415,6 +415,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     );
 
     const newIndex = processRows.value.length - 2; // Index of the newly added FormGroup
+    console.log(newIndex);
 
     this.processName1 = this.processRows.at(newIndex).get('processName')?.value;
 
@@ -522,7 +523,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
           this.processList[index]?.idOrganizationHirarchy
       );
 
-      this.processNameRightSide = this.processList[index].hierarchyName;
+      this.processNameRightSide = this.processList[index]?.hierarchyName;
 
       this.ParentIdOrgHierarchy =
         this.processList[index]?.idOrganizationHirarchy;
