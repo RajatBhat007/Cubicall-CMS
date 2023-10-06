@@ -23,12 +23,16 @@ export class UsersReportComponent {
   currentLevel: any;
   currentStage=0;
   level: any=1;
-  constructor(public _router: Router, private _route: ActivatedRoute, public authService: AuthService, public http: ApiServiceService) { }
+  apiData: any;
+  constructor(public _router: Router, private _route: ActivatedRoute, 
+    public authService: AuthService, public http: ApiServiceService) { }
   activeIndexTab: any = 0;
   selectedDropdownValue:any;
   isOpenPerformance:boolean=true;
   isOpenEngagement:boolean=false;
   showPassword:boolean=true;
+  organisationName: string = '';
+  organisationRoleName: string = '';
   selectedValue:string='All Vendorwise Report'
   matTab = [{
     "content": 'Performance',
@@ -41,7 +45,12 @@ export class UsersReportComponent {
   }
   ]
 
-  matSubTab = [{
+  matSubTab = [
+  {
+      "content": 'Overall',
+      "color": "#7B7FCF"
+  },
+  {
     "content": 'Defuse the Bomb',
     "color": "#7B7FCF"
   }, {
@@ -581,7 +590,13 @@ tableContentForEngagement=[{
     this.selectedValue = 'All Vendorwise Report';
     this.currentLevel = this.tableContent
     
-    
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+      this.organisationRoleName = this.apiData?.role?.roleName;
+      this.organisationName = this.apiData?.role?.organizationName;
+
+    });
   }
   selectedTableValue(value: string) {
     this.selectedValue = value; // Set the selected value
@@ -637,7 +652,8 @@ tableContentForEngagement=[{
   }
   NavigateToSubTab(index:any){
     this.activeSubIndexTab = index;
-
+    console.log(this.activeSubIndexTab);
+    
   }
   logout() {
     this.authService.logout()

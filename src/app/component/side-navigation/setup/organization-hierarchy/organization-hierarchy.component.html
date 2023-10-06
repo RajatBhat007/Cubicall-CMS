@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div class="bottom-conatiner">
-      <div class="row">
+      <div class="row w-100">
         <div class="col-5 ps-4">
           <div class="row mt-4 ps-2">
             <div
@@ -18,6 +18,23 @@
             </div>
           </div>
         </div>
+        <div class="col-7 infoCol">
+          <div class="d-flex justify-content-end mt-4">
+            <img class="infoIcon"
+            placement="left"
+            [ngbPopover]="popoverContent1"
+            triggers="mouseenter:mouseleave"
+            src="assets/images/infoicon.png" alt="">
+            <ng-template #popoverContent1>
+              <div class="font">
+                <div >Step 1 :Add + sign On B]Process to create Process.</div>
+                <div class="mt-2">Step 2 : Add + Sign on created Process to Add Sub-Process.</div>
+                <div class="mt-2">Step 3 : Add + Sign on created Sub-Process to Add Stage.</div>
+              </div>
+            </ng-template>                        
+          </div>
+        </div>
+     
       </div>
       <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
         <div [ngSwitch]="subTabName">
@@ -27,8 +44,11 @@
                 <div class="table-container">
                   <div class="row">
                     <div class="col-4 pt-3">
-                      <div class="client-vendor-name font">
-                        Client/ Vendor Name:
+                      <div class="client-vendor-name font d-flex justify-content-between mt-3">
+                        <div>
+                          Client/ Vendor Name:
+                        </div>
+                
                       </div>
                       <div class="mt-2">
                         <input
@@ -82,7 +102,12 @@
                             <div class="row mt-2">
                               <div class="col-3"></div>
                               <div class="col-6">
-                                <div class="label_setup font">Admin Name:</div>
+                                <div class="label_setup font d-flex justify-content-between">
+                                  <div>
+                                    Admin Name:
+                                  </div>
+                              
+                                </div>
                                 <div class="mt-1">
                                   <input
                                     class="form-control employee_input font"
@@ -249,6 +274,7 @@
                       </div>
 
                       <!-- Process -->
+                    <div class="d-flex ">
                       <div
                         class="process-input-left mt-2 ps-4 font d-flex align-items-center"
                       >
@@ -260,19 +286,23 @@
                           <img
                             class="edit_image"
                             src="assets/images/Edit.svg"
+                            alt=""
                           />
                         </div>
                       </div>
+                   
+                    </div>
                       <ng-container
                         *ngFor="let row of processList; let i = index"
                       >
                         <div
-                          class="row d-flex justify-content-end me-1"
+                          class="d-flex justify-content-end"
                           (click)="navigateToSubprocess('subprocess', i)"
                         >
                           <div
                             class="process-input-left-add mt-2 ps-2 d-flex align-items-center font"
                           >
+                        
                             <img
                               class="selected_arrow pe-1"
                               src="assets/images/selected-arrow.png"
@@ -286,21 +316,26 @@
                                 src="assets/images/Edit.svg"
                               />
                             </div>
+                            
                           </div>
+                       
                         </div>
                       </ng-container>
 
                       <!-- Sub Process -->
+                      <div class="d-flex">
                       <div
                         class="process-input-left mt-2 ps-4 font d-flex align-items-center"
                       >
                         C] Sub Process
                       </div>
+                      
+                    </div>
                       <ng-container
                         *ngFor="let row of subprocessList; let i = index"
                       >
                         <div
-                          class="row d-flex justify-content-end me-1"
+                          class="d-flex justify-content-end"
                           (click)="navigateToSubprocess('stage', i)"
                         >
                           <div
@@ -310,6 +345,7 @@
                               class="selected_arrow pe-1"
                               src="assets/images/selected-arrow.png"
                               *ngIf="i === SubIndex"
+                              alt=""
                             />
                             {{ row?.hierarchyName }}
 
@@ -317,9 +353,12 @@
                               <img
                                 class="edit_image"
                                 src="assets/images/Edit.svg"
+                                alt=""
                               />
                             </div>
                           </div>
+
+                         
                         </div>
                       </ng-container>
 
@@ -416,6 +455,7 @@
                                 >
                                   Add
                                 </div>
+                               
                                 <label class="font fw-bold"></label>
                                 <div
                                   class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
@@ -423,6 +463,7 @@
                                 >
                                   Remove
                                 </div>
+                           
                               </div>
                             </div>
                           </div>
@@ -482,6 +523,7 @@
                                 >
                                   Add
                                 </div>
+                               
                                 <label class="font fw-bold"></label>
                                 <div
                                   class="remove-button-process mt-1 ms-4 d-flex justify-content-center align-items-center"
@@ -489,6 +531,7 @@
                                 >
                                   Remove
                                 </div>
+                                
                               </div>
                             </div>
                           </div>
@@ -613,7 +656,8 @@
                                   <div class="checkbox">
                                     <div
                                       class="form-check d-flex align-items-center"
-                                    ></div>
+                                    >
+                                  </div>
                                   </div>
                                   <div
                                     class="font d-flex align-items-center justify-content-center text-light"

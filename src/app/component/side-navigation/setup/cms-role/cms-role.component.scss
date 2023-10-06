@@ -443,4 +443,27 @@ height: 45vh;
     box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
     opacity: 0.5;
   }
-  
+  .infoIcon{
+    height: 2.3vh;
+    cursor: pointer;
+  }
+  .infodiv{
+    height: 4.5vh;
+  }
+  .popup{
+    z-index: 9999;
+  }
+  /* Your component's CSS file */
+  .custom-popover-content {
+    background-color: #333; /* Customize background color */
+    color: white; /* Customize text color */
+    border: 2px solid #007bff; /* Customize border style */
+    padding: 10px; /* Add padding as needed */
+    /* Add other styles as needed */
+  }
+  ::ng-deep .popover-body{
+    padding:0.3rem;
+  }
+  ::ng-deep .popover{
+    width: 13%;
+  }

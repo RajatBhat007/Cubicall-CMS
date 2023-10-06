@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div class="bottom-conatiner">
-      <div class="row">
+      <div class="row w-100">
         <div class="col-5 ps-4">
           <div class="row mt-4 ps-2">
             <div
@@ -18,6 +18,23 @@
             </div>
           </div>
         </div>
+        <div class="col-7 infoCol">
+          <div class="d-flex justify-content-end mt-4" *ngIf="activeIndexSubTab == 0">
+            <img class="infoIcon"
+            placement="left"
+            [ngbPopover]="popoverContent1"
+            triggers="mouseenter:mouseleave"
+            src="assets/images/infoicon.png" alt="">
+            <ng-template #popoverContent1>
+              <div class="font">
+                <div >Step 1 : Select Role from Role Dropdown</div>
+                <div class="mt-2">Step 2 : Select Stage for which you want to assign the Trainer/Content Creator</div>
+                <div class="mt-2">Step 3 : Fill the required Details</div>
+                <div class="mt-2">Step 4 : Click On Create Button</div>
+              </div>
+            </ng-template>                        
+          </div>
+        </div>
       </div>
       <div class="row w-100">
         <div class="col-12 ms-2 d-flex justify-content-center">
@@ -31,6 +48,7 @@
                   <div class="col-4">
                     <div class="col-12">
                       <div class="label_setup-logo font">Organization:</div>
+                      
                       <div
                         ngbDropdown
                         class="dropdown mt-2 w-100 custom-dropdown"
@@ -101,7 +119,12 @@
                   </div>
                   <div class="col-4">
                     <div class="col-12">
-                      <div class="label_setup-logo font">Role:</div>
+                 
+                      <div class="d-flex justify-content-between">
+                        <div class="label_setup-logo font">Role:</div>
+                      </div>
+                      
+                  
                       <div
                         ngbDropdown
                         class="dropdown mt-2 w-100 custom-dropdown"
@@ -124,6 +147,7 @@
                         >
                           {{ selectedDropdownRoleValue }}
                         </button>
+
                         <ul
                           ngbDropdownMenu
                           aria-labelledby="dropdownMenuButton1"
@@ -139,6 +163,8 @@
                             </a>
                           </li>
                         </ul>
+
+                     
                       </div>
                     </div>
                   </div>
@@ -334,12 +360,14 @@
                   <div
                     class="col-10 d-flex justify-content-end align-items-center"
                   >
-                    <div class="Cms-User-count-container pt-1">
+                    <div class="Cms-User-count-container">
+                  
                       <div
                         class="row w-100"
                         *ngFor="let response of count; let i = index"
                         (click)="changeFilter(i)"
                       >
+                      
                         <div class="col-lg-5 col-sm-4 ps-4 font count_label">
                           {{ response.label }}
                         </div>
@@ -377,11 +405,15 @@
                               >
                                 <div
                                   class="edit_btn d-flex justify-content-center align-items-center"
-                                ></div>
+                                >
+                                  
+                              </div>
                                 <div class="checkbox">
                                   <div
                                     class="form-check d-flex align-items-center"
-                                  ></div>
+                                  >
+                                  
+                                </div>
                                 </div>
                                 <div
                                   class="font d-flex align-items-center justify-content-center text-light"
