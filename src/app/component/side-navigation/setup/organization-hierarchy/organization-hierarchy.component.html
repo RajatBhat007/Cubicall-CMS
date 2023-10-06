@@ -29,7 +29,16 @@
               alt=""
             />
             <ng-template #popoverContent1>
-              <div class="font">
+              <div class="font" *ngIf="activeIndexSubTab==0">
+                <div>Step 1 :Enter Client/Vendor Name and Click on Next Button.</div>
+                <div class="mt-2">
+                  Step 2 : Fill the required Details.
+                </div>
+                <div class="mt-2">
+                  Step 3 :Click on Create Button.
+                </div>
+              </div>
+              <div class="font" *ngIf="activeIndexSubTab==1">
                 <div>Step 1 :Add + sign On B]Process to create Process.</div>
                 <div class="mt-2">
                   Step 2 : Add + Sign on created Process to Add Sub-Process.
@@ -38,6 +47,8 @@
                   Step 3 : Add + Sign on created Sub-Process to Add Stage.
                 </div>
               </div>
+
+              
             </ng-template>
           </div>
         </div>
