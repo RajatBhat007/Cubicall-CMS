@@ -73,6 +73,7 @@ export class GameThemeComponent implements OnInit {
   questionListResponseFilter: any = [];
   adminName: string = '';
   activeStatus: string = '';
+  imageContent: string = '';
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -208,6 +209,7 @@ export class GameThemeComponent implements OnInit {
 
     this.View('1');
     this.status = 'rejected';
+    this.NavigateToTab(0);
   }
 
   GetQuestionData() {
@@ -424,6 +426,22 @@ export class GameThemeComponent implements OnInit {
   }
   NavigateToTab(index: any) {
     this.activeIndexTab = index;
+    console.log(this.activeIndexTab);
+
+    if (this.activeIndexTab == 0) {
+      this.imageContent = 'assets/images/games/defusethebomb.png';
+    } else if (this.activeIndexTab == 1) {
+      this.imageContent = 'assets/images/games/mysteryterm.png';
+    } else if (this.activeIndexTab == 2) {
+      this.imageContent = 'assets/images/games/triangularis.png';
+    } else if (this.activeIndexTab == 3) {
+      this.imageContent = 'assets/images/games/wordsearch.png';
+    } else if (this.activeIndexTab == 4) {
+      this.imageContent = 'assets/images/games/wordwheel.png';
+    } else if (this.activeIndexTab == 5) {
+      this.imageContent = 'assets/images/games/crossword.png';
+    }
+
     this.GetQuestionData();
     if (this.activeSubSubTab == '0') {
       this.getCubeFaceGameTime();
