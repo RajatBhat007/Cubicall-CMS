@@ -482,7 +482,8 @@ export class EditQuestionComponent {
     this.http
       .getAllQuestionAnswerList(
         this.apiData?.user?.idOrganization,
-        this.cubeFaceId
+        this.cubeFaceId,
+        this.apiData?.user?.idCmsUser,
       )
       .subscribe((res) => {
         console.log(res);

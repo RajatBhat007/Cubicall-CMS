@@ -349,10 +349,10 @@ export class ApiServiceService {
     return this.Http.post(tempurl, data, httpOptions);
   }
 
-  getAllQuestionAnswerList(data: any, id: any): Observable<any> {
+  getAllQuestionAnswerList(data: any, id: any,IdCmsUser:any): Observable<any> {
     var tempurl =
       `${this.URLstring}` +
-      `${this.Path1}/GetAllQuestionAnswerList?OrgId=${data}&CubesFacesGameId=${id}`;
+      `${this.Path1}/GetAllQuestionAnswerList?OrgId=${data}&CubesFacesGameId=${id}&IdCmsUser=${IdCmsUser}`;
     return this.Http.get(tempurl);
   }
 
