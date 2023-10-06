@@ -14,7 +14,10 @@
   font-size: 0.9em;
   min-width: 30%;
 }
+.dropdown-col {
+  margin-top: 2vh;
 
+}
 .input-group {
   width: 90%;
   padding-left: 0.5vw;
@@ -56,7 +59,7 @@
   height: 5vh;
   background: #D7D7E8;
   color: #000;
-
+  border: 0;
 }
 
 .circle {
@@ -1161,11 +1164,6 @@ input[type=file] {
   width: 100%;
 }
 
-.dropdownMenuButton1{
-  font-size: 0.9em;
-  
-}
-
 .ssub-tab-active {
   background:#000;
   font-size: 0.8em;
@@ -1359,4 +1357,15 @@ margin-top:1% ;
 
 .game-theme-image{
   width: 80%;
+}
+.infoIcon{
+  height: 2vh;
+  border-radius: 100%;
+  cursor: pointer;
+}
+::ng-deep .popover-body{
+  padding:0.3rem;
+}
+::ng-deep .popover{
+  width: 30% !important;
 }

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div class="bottom-conatiner">
-      <div class="row">
+      <div class="row w-100">
         <div class="col-5 ps-4">
           <div class="row mt-4 ps-2">
             <div
@@ -16,6 +16,23 @@
                 {{ res_sub.label }}
               </div>
             </div>
+          </div>
+        </div>
+        <div class="col-7 infoCol">
+          <div class="d-flex justify-content-end mt-4" *ngIf="activeIndexSubTab == 0">
+            <img class="infoIcon"
+            placement="left"
+            [ngbPopover]="popoverContent1"
+            triggers="mouseenter:mouseleave"
+            src="assets/images/infoicon.png" alt="">
+            <ng-template #popoverContent1>
+              <div class="font">
+                <div >Step 1 : Select Stage from stage dropdown</div>
+                <div class="mt-2">Step 2 : Enter Batch name</div>
+                <div class="mt-2">Step 3 : Select Game Themes which you want to assign for the batch and select date on which you want to enable the theme to user </div>
+                <div class="mt-2">Step 4 : Click On Assign Button</div>
+              </div>
+            </ng-template>                        
           </div>
         </div>
       </div>
@@ -54,7 +71,10 @@
                                                         class="font">NHT - Sub Process - Process - Client/ Vendor</a></li>
                                     </ul>
                                 </div> -->
+                      <div class="d-flex justify-content-between">
                     <div class="label_setup-logo font">Stage:</div>
+                    
+                     </div>
                     <div
                       ngbDropdown
                       class="dropdown mt-2 w-100 custom-dropdown"
@@ -130,8 +150,13 @@
               <div class="col-8 py-4 select-function-block">
                 <div class="row">
                   <div class="col-12">
-                    <div class="label_setup-logo font" style="width: 61%">
+                    <div class="d-flex">
+                 
+                    <div class="label_setup-logo font" style="width: 45%">
                       Assign Game Themes for this specific Batch:
+                    </div>
+                  
+                          
                     </div>
                   </div>
                   <div class="col-12">
@@ -372,6 +397,8 @@
                                     src="assets/images/Edit.svg"
                                     alt="Edit Image"
                                   />
+                               
+                                      
                                 </div>
 
                                 <div class="checkbox">
@@ -564,6 +591,18 @@
     </div>
   </div>
   <div class="col-12 d-flex justify-content-end mt-3">
+    <!-- <div class="d-flex align-items-center infodiv pe-1">
+      <img class="infoIcon"
+      placement="top"
+      [ngbPopover]="popoverContent6"
+      triggers="mouseenter:mouseleave"
+      src="assets/images/infoicon.png" alt="">
+      <ng-template #popoverContent6>
+        <span class="">Click on the Assign button to
+          assign the game themes to this
+          Batch.</span>
+      </ng-template>                        
+    </div> -->
     <div
       *ngIf="activeIndexSubTab == 0"
       (click)="createBatch()"

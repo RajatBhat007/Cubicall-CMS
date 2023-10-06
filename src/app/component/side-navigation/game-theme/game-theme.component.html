@@ -5,10 +5,7 @@
         {{ organisationName }}
       </div>
     </div>
-    <div
-      class="col-5 pe-4 dropdown-col d-flex justify-content-end"
-      style="margin: auto"
-    >
+    <div class="col-5 pe-4 dropdown-col d-flex justify-content-end">
       <div
         ngbDropdown
         class="dropdown_org d-flex justify-content-center align-items-center"
@@ -108,6 +105,22 @@
         />
       </div>
       <div class="font ms-2 title_name">Game Themes</div>
+      <div class="d-flex align-items-center infodiv p-1">
+        <img
+          class="infoIcon"
+          placement="bottom"
+          [ngbPopover]="popoverContent"
+          triggers="mouseenter:mouseleave"
+          src="assets/images/infoicon.png"
+          alt=""
+        />
+        <ng-template #popoverContent>
+          <span class="font"
+            >First you need to select the Game Theme of which you want to Upload
+            the contet.</span
+          >
+        </ng-template>
+      </div>
     </div>
   </div>
 
@@ -143,18 +156,39 @@
           <div class="col-4">
             <div class="upload_button_cover">
               <div *ngIf="!hideuploadButton">
-                <div
-                  class="upload-button font d-flex justify-content-center align-items-center ms-2"
-                  style="cursor: pointer"
-                  data-bs-toggle="modal"
-                  data-bs-target="#Excelupload"
-                  *ngIf="!isupload && uploadButton"
-                >
-                  Upload
-                  <span
-                    class="add_btn ms-1 d-flex align-items-center justify-content-center"
-                    >+</span
+                <div class="d-flex">
+                  <div
+                    class="upload-button font d-flex justify-content-center align-items-center ms-2"
+                    style="cursor: pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#Excelupload"
+                    *ngIf="!isupload && uploadButton"
                   >
+                    Upload
+                    <span
+                      class="add_btn ms-1 d-flex align-items-center justify-content-center"
+                      >+</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center infodiv p-1"
+                    *ngIf="!isupload && uploadButton"
+                  >
+                    <img
+                      class="infoIcon"
+                      placement="bottom"
+                      [ngbPopover]="popoverContent"
+                      triggers="mouseenter:mouseleave"
+                      src="assets/images/infoicon.png"
+                      alt=""
+                    />
+                    <ng-template #popoverContent>
+                      <span class="font"
+                        >Then Upload the content by clicking on the Upload
+                        button.</span
+                      >
+                    </ng-template>
+                  </div>
                 </div>
               </div>
 
@@ -212,6 +246,10 @@
           </ng-template>
 
           <div class="col-4 mt-2 mb-1 d-flex justify-content-end">
+            <div
+              class="d-flex justify-content-end p-1"
+              style="height: 10vh"
+            ></div>
             <div class="count-container pt-1">
               <div
                 class="row w-100"
@@ -1317,10 +1355,32 @@
                             </div>
                           </div>
                           <div class="font file_label mt-4">
-                            Content File:
+                            <div class="d-flex">
+                              <div>Content File:</div>
+                              <div class="pt-1 ps-1">
+                                <img
+                                  class="infoIcon"
+                                  placement="right"
+                                  [ngbPopover]="popoverContent2"
+                                  triggers="mouseenter:mouseleave"
+                                  src="assets/images/infoicon.png"
+                                  alt=""
+                                />
+                                <ng-template #popoverContent2>
+                                  <span class="font"
+                                    >Clink on the Browse button to select a file
+                                    that you want to Upload.After that, click on
+                                    the Upload button to Upload the content.
+                                    This Content the will be
+                                    auto-assigned.</span
+                                  >
+                                </ng-template>
+                              </div>
+                            </div>
                             <p class="selected_file mt-1">
                               {{ selectedFileName }}
                             </p>
+
                             <div class="d-flex">
                               <div>
                                 <input
@@ -1330,6 +1390,7 @@
                                   id="fileInput"
                                   #fileInput
                                 />
+
                                 <label
                                   for="fileInput"
                                   class="browse-btn d-flex justify-content-center align-items-center"

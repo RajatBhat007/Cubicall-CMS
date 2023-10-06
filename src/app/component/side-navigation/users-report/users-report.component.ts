@@ -27,6 +27,7 @@ export class UsersReportComponent {
   currentLevel: any;
   currentStage = 0;
   level: any = 1;
+  apiData: any;
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -38,6 +39,8 @@ export class UsersReportComponent {
   isOpenPerformance: boolean = true;
   isOpenEngagement: boolean = false;
   showPassword: boolean = true;
+  organisationName: string = '';
+  organisationRoleName: string = '';
   selectedValue: string = 'All Vendorwise Report';
   matTab = [
     {
@@ -53,6 +56,10 @@ export class UsersReportComponent {
   ];
 
   matSubTab = [
+    {
+      content: 'Overall',
+      color: '#7B7FCF',
+    },
     {
       content: 'Defuse the Bomb',
       color: '#7B7FCF',
@@ -610,6 +617,13 @@ export class UsersReportComponent {
   ngOnInit(): void {
     this.selectedValue = 'All Vendorwise Report';
     this.currentLevel = this.tableContent;
+
+    this.http.getApiData().subscribe((data) => {
+      this.apiData = data;
+      console.log(this.apiData);
+      this.organisationRoleName = this.apiData?.role?.roleName;
+      this.organisationName = this.apiData?.role?.organizationName;
+    });
   }
   selectedTableValue(value: string) {
     this.selectedValue = value; // Set the selected value
@@ -641,6 +655,8 @@ export class UsersReportComponent {
         this.level = 0;
         break;
     }
+
+    console.log(this.tableTitleValue);
   }
 
   updateSelectedValue(value: any) {
@@ -659,6 +675,7 @@ export class UsersReportComponent {
   }
   NavigateToSubTab(index: any) {
     this.activeSubIndexTab = index;
+    console.log(this.activeSubIndexTab);
   }
   logout() {
     this.authService.logout();
@@ -683,14 +700,16 @@ export class UsersReportComponent {
           this.subprocess = this.process[index]?.subprocess;
           this.tableTitleValue = 'sub-Process';
           this.currentLevel = this.subprocess;
-
+          console.log(this.currentLevel);
           this.level++;
+          console.log(this.level);
         } else if (this.level == '3') {
           this.stagewise = this.subprocess[index]?.stagewise;
           this.tableTitleValue = 'Stagewise';
           this.currentLevel = this.stagewise;
 
           this.level++;
+          console.log(this.level);
         } else if (this.level == '4') {
           this.Batchwise = this.stagewise[index]?.Batchwise;
           this.tableTitleValue = 'Batchwise';
@@ -707,7 +726,7 @@ export class UsersReportComponent {
           this.level = 0;
         }
 
-        //
+        // console.log(this.process[0]?.find('subprocess'))
       }
     }
   }

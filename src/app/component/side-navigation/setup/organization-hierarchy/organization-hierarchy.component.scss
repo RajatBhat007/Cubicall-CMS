@@ -38,7 +38,7 @@
   border: 2px solid #000;
   position: relative;
   padding: 0em 0.8em 0em 1em;
-  overflow: hidden;
+  // overflow: hidden;
   border-radius: 0px 5px 5px;
 }
 
@@ -98,11 +98,12 @@ font-size: 1em;
 }
 
 .right-side{
-height: 57vh;
+height: 56.5vh;
 background: #D7D7E8;
 overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0.5em;
+overflow-x: hidden;
+padding: 0.5em;
+border-bottom-right-radius: 4px;
 
 }
 
@@ -132,6 +133,7 @@ background: #D7D7E8;
 border-radius: 5px;
 font-size: 1em;
 position: relative;
+width: 100%;
 }
 
 .process-input-left-add{
@@ -325,3 +327,22 @@ color: #fff;
 .input-group-append{
   position: relative;
 }
+.infoCol{
+  padding: 0% 0.5%;
+}
+.infoIcon{
+  height: 2.3vh;
+  cursor: pointer;
+}
+.infodiv{
+  height: 4.5vh;
+}
+.popup{
+  z-index: 9999;
+}
+// ::ng-deep .popover-body{
+//   padding:0.3rem;
+// }
+// ::ng-deep .popover{
+//   width: 15%;
+// }
