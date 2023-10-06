@@ -273,6 +273,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.getOrgHierarchyResponse = res;
+        console.log(this.getOrgHierarchyResponse);
 
         this.vendorList = this.getOrgHierarchyResponse.filter(
           (org: { hirarchyLevelType: string }) =>
@@ -424,6 +425,8 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
         this.postOrganisationHierarchy(page, this.processName1);
       }
     }
+    console.log('process get');
+
     this.GetOrgHierarchyTree();
   }
 
@@ -446,6 +449,8 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
         this.postOrganisationHierarchy(page, this.subprocessName);
       }
     }
+    console.log('subprocess get');
+
     this.GetOrgHierarchyTree();
 
     // this.createHierarchy(this.subprocessName);
@@ -468,6 +473,8 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
         this.postOrganisationHierarchy(page, this.stageName);
       }
     }
+    console.log('stage get');
+
     this.GetOrgHierarchyTree();
     // this.createHierarchy(this.subprocessName);
   }
@@ -583,6 +590,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     this.http.createOrganisationHierarchy(body).subscribe(
       (res) => {
         this.OrgHirerachtresponse = res;
+        this.GetOrgHierarchyTree();
         this.ParentIdOrgHierarchy = this.OrgHirerachtresponse.idOrgHierarchy;
         if (this.hierarchylevel == 5) {
           // this.openModal();

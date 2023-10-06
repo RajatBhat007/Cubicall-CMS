@@ -37,7 +37,6 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/@popperjs/core/dist/umd/popper.min.js"
-
             ]
           },
           "configurations": {
@@ -104,11 +103,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "3006cb57-888a-4f85-8994-c352d1860148"
+    "analytics": "3006cb57-888a-4f85-8994-c352d1860148",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

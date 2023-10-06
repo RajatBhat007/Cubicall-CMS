@@ -332,128 +332,153 @@
 
                     <div class="table-body-height-question">
                       <div
-                        class="row mt-2"
-                        *ngFor="let res of questionListResponse; let i = index"
-                      >
-                        <div class="col-12 d-flex justify-content-center">
-                          <div class="table-body d-flex align-items-center">
-                            <div
-                              *ngIf="
-                                apiData?.role?.idRoleType > 3;
-                                then editQue;
-                                else dontEditQue
-                              "
-                            ></div>
-                            <ng-template #editQue>
+                        *ngIf="
+                          questionListResponse.length == 0;
+                          then Noquestion;
+                          else table
+                        "
+                      ></div>
+                      <ng-template #Noquestion>
+                        <div
+                          class="d-flex justify-content-center align-items-center"
+                          style="height: 35vh"
+                        >
+                          <img
+                            src="assets/images/sidenavigation/NoQuestion.png"
+                            style="height: 25vh"
+                          />
+                        </div>
+                      </ng-template>
+                      <ng-template #table>
+                        <div
+                          class="row mt-2"
+                          *ngFor="
+                            let res of questionListResponse;
+                            let i = index
+                          "
+                        >
+                          <div class="col-12 d-flex justify-content-center">
+                            <div class="table-body d-flex align-items-center">
                               <div
-                                class="edit_btn d-flex justify-content-center align-items-center"
-                                (click)="navigateToEditQuestion(i)"
-                              >
-                                <img
-                                  class="edit_image"
-                                  src="assets/images/Edit.svg"
-                                  alt="Edit Image"
-                                />
-                              </div>
-                            </ng-template>
-                            <ng-template #dontEditQue>
-                              <div
-                                class="edit_btn d-flex justify-content-center align-items-center"
-                                style="visibility: hidden"
-                              >
-                                <img
-                                  class="edit_image"
-                                  src="assets/images/Edit.svg"
-                                  alt="Edit Image"
-                                />
-                              </div>
-                            </ng-template>
+                                *ngIf="
+                                  apiData?.role?.idRoleType > 3;
+                                  then editQue;
+                                  else dontEditQue
+                                "
+                              ></div>
+                              <ng-template #editQue>
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                  (click)="navigateToEditQuestion(i)"
+                                >
+                                  <img
+                                    class="edit_image"
+                                    src="assets/images/Edit.svg"
+                                    alt="Edit Image"
+                                  />
+                                </div>
+                              </ng-template>
+                              <ng-template #dontEditQue>
+                                <div
+                                  class="edit_btn d-flex justify-content-center align-items-center"
+                                  style="visibility: hidden"
+                                >
+                                  <img
+                                    class="edit_image"
+                                    src="assets/images/Edit.svg"
+                                    alt="Edit Image"
+                                  />
+                                </div>
+                              </ng-template>
 
-                            <div class="checkbox">
-                              <div class="form-check d-flex align-items-center">
+                              <div class="checkbox">
+                                <div
+                                  class="form-check d-flex align-items-center"
+                                >
+                                  <input
+                                    class="form-check-input checkbox-input"
+                                    type="checkbox"
+                                    value=""
+                                    id="flexCheckDefault"
+                                  />
+                                </div>
+                              </div>
+
+                              <div
+                                class="form-check form-switch d-flex align-items-center"
+                              >
                                 <input
-                                  class="form-check-input checkbox-input"
+                                  class="form-check-input"
+                                  style="width: 5vh; height: 2vh"
                                   type="checkbox"
-                                  value=""
-                                  id="flexCheckDefault"
+                                  role="switch"
+                                  id="flexSwitchCheckDefault"
+                                  [checked]="res?.isActive == 'A'"
+                                  (change)="getStatusValue($event, i)"
                                 />
                               </div>
-                            </div>
-
-                            <div
-                              class="form-check form-switch d-flex align-items-center"
-                            >
-                              <input
-                                class="form-check-input"
-                                style="width: 5vh; height: 2vh"
-                                type="checkbox"
-                                role="switch"
-                                id="flexSwitchCheckDefault"
-                                [checked]="res?.isActive == 'A'"
-                                (change)="getStatusValue( $event, i  ) "
-                              />
-                            </div>
-                            <div
-                              class="view-button"
-                              style="
-                                width: 10%;
-                                display: flex;
-                                justify-content: center;
-                                padding-left: 1.5%;
-                              "
-                              (click)="navigateToViewQuestion(i)"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="eye-image"
-                                viewBox="0 0 28 20"
-                                fill="none"
+                              <div
+                                class="view-button"
+                                style="
+                                  width: 10%;
+                                  display: flex;
+                                  justify-content: center;
+                                  padding-left: 1.5%;
+                                "
+                                (click)="navigateToViewQuestion(i)"
                               >
-                                <path
-                                  d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
-                                  stroke="#133870"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                                <path
-                                  d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
-                                  stroke="#000"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                />
-                              </svg>
-                            </div>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="eye-image"
+                                  viewBox="0 0 28 20"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M1.82837 10C1.82837 10 6.32471 1 14.1933 1C22.0619 1 26.5582 10 26.5582 10C26.5582 10 22.0619 19 14.1933 19C6.32471 19 1.82837 10 1.82837 10Z"
+                                    stroke="#133870"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                  <path
+                                    d="M14.1933 13.375C16.0557 13.375 17.5656 11.864 17.5656 10C17.5656 8.13604 16.0557 6.625 14.1933 6.625C12.3309 6.625 10.821 8.13604 10.821 10C10.821 11.864 12.3309 13.375 14.1933 13.375Z"
+                                    stroke="#000"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </div>
 
-                            <div
-                              class="id-header font d-flex justify-content-center"
-                              style="color: #000; width: 3.5%"
-                            >
-                              {{ res?.perTileQuestionId }}
-                            </div>
+                              <div
+                                class="id-header font d-flex justify-content-center"
+                                style="color: #000; width: 3.5%"
+                              >
+                                {{ res?.perTileQuestionId }}
+                              </div>
 
-                            <div
-                              class="question-header font ellipsis"
-                              style="
-                                color: #000;
-                                width: 52%;
-                                margin-left: 3.5%;
-                                padding-left: 4.5%;
-                              "
-                            >
-                              {{ res?.question }}
-                            </div>
+                              <div
+                                class="question-header font ellipsis"
+                                style="
+                                  color: #000;
+                                  width: 52%;
+                                  margin-left: 3.5%;
+                                  padding-left: 4.5%;
+                                "
+                              >
+                                {{ res?.question }}
+                              </div>
 
-                            <div
-                              class="submitted-date-header font d-flex justify-content-end"
-                              style="color: #000"
-                            >
-                              {{ res?.updatedDateTime | date : "dd/MM/yyyy" }}
+                              <div
+                                class="submitted-date-header font d-flex justify-content-end"
+                                style="color: #000"
+                              >
+                                {{ res?.updatedDateTime | date : "dd/MM/yyyy" }}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </ng-template>
                     </div>
 
                     <div
