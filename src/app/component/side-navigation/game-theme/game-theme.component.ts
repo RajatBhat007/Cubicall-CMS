@@ -224,7 +224,7 @@ export class GameThemeComponent implements OnInit {
         this.activeList = this.questionListResponse.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
-
+          
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.questionListResponse.filter(
           (org: { isActive: string }) => org.isActive === 'D'

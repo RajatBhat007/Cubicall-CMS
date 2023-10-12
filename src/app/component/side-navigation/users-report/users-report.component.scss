@@ -125,7 +125,7 @@
   
     height: 7vh;
     background: #FFFFFF;
-    border: 2px solid #000;
+    border: 4px solid #000;
     border-bottom: none;
     position: relative;
   
@@ -147,7 +147,7 @@
   }
   
   .bottom-conatiner {
-    border: 2px solid #000;
+    border: 4px solid #000;
     background: #F5F5F7;
     height: 67vh;
     width: 99%;
@@ -157,7 +157,7 @@
   .tab-active {
     height: 7vh;
     background: #D7D7E8;
-    border: 2px solid #000;
+    border: 4px solid #000;
     border-bottom: none;
     position: relative;
   }
@@ -170,34 +170,55 @@ border: 2px solid #000;
 background: #D7D7E8;
 
   }
-.sub-tab-active,
 .sub_tab {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  border: 1px solid #000;
+  border: 2px solid #000;
   border-bottom: none;
   font-size: 0.7em;
   text-align: center;
   cursor: pointer;
-  
   height: 4vh;
   line-height: 1;
 }
 .sub-tab-active {
-  background: #fff;
+  background:#FFFFFF !important;
   font-size: .7em;
-  border: 1px solid #000;
+  height: 4vh;
+  width: 7vw;
+  border: 2px solid #000;
   border-bottom: 0
 }
 .sub_tab {
+  height: 4vh;
+  width: 7vw;
   background: #D7D7E8;
   font-size: .7em;
   padding: 8px;
-  border: 1px solid #000;
+  border: 2px solid #000;
   border-bottom: none;
 }
-
-
+.view-button
+.id-header,
+.id-header_submitted,
+.question-header,
+.view-header,
+.id-header,
+.created-date-header
+ {
+  width: 16%;
+  color: #fff;
+  font-size: .9em
+}
+.view-user-name{
+  width: 16%;
+}
+.ellipsewidth{
+  width: 11vw;
+}
+.Status_label{
+  width: 16%;
+}
 .table-body,
 .table-header {
   width: 98%;
@@ -207,17 +228,36 @@ background: #D7D7E8;
 }
 .table-container {
   width: 100%;
-  height: 48vh;
+  height: 45vh;
   background: #fff;
-  border: 1px solid #000;
- 
+  border: 2px solid #000;
+  
+}
+.table-footer {
+  width: 100%;
+  height:3.6vh;
+  background: #D7D7E8;
+
+}
+.viewDropdown{
+  height:10vh;
+}
+.table-body-height-performance{
+  height: 36vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .table-header {
   background-color: #000;
   color: #fff;
 }
 .checkbox-header {
-  height: 4vh
+  height: 4vh;
+  width: 98%;
+}
+.checkbox-header-body{
+  height: 4vh;
+  width: 100%;
 }
 .table-body {
   background: #F5F5F7;
@@ -257,8 +297,8 @@ line-height: 1.25rem; /* 125% */
 
 /* Moderate Performance button */
 .performance_btn_Moderate {
-  background: #F4B982;
-  color: #6B3708;
+background: #F4B982;
+color: #6B3708;
 font-family: Work Sans;
 font-size: 1rem;
 font-style: normal;
@@ -278,10 +318,12 @@ line-height: 1.25rem; /* 125% */
 }
 
 // Engagement
-
+.matSubTab{
+  width: 100%;
+}
 .sub_tab_engagement{
-width: 9.61444rem;
-height: 4.3125rem;
+width: 85%;
+height:4rem;
 flex-shrink: 0;
 border-radius: 0.625rem;
 border: 2px solid #525299;
@@ -310,11 +352,11 @@ border: 2px solid #000;
 background: #D7D7E8;
 color: #000;
 font-family: 'Work Sans';
-font-size: 1.2rem;
+font-size: 1.1em;
 font-style: normal;
 display: flex;
 align-items: center;
-font-weight: 500;
+font-weight: 400;
 line-height: normal;
 }
 .assign_btn{
@@ -329,4 +371,11 @@ color: #fff;
 
 .user-image{
   width: 80%;
+}
+.tableTitleValue{
+  padding-left: 1rem;
+}
+.game-theme-image{
+  width: 100%;
+  padding: 5px;
 }

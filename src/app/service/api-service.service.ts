@@ -17,7 +17,7 @@ export class ApiServiceService {
   URLstring = environment.apiURL;
   open: any;
   Path = 'CubicallGameNewApi_test/api';
-  Path1 = 'CubicallGameNewApi/api';
+  Path1 ='CubicallGameNewApi/api';
 
   private getisAuthenticated = false;
   isAttempted = false;
@@ -366,5 +366,23 @@ export class ApiServiceService {
     return this.Http.post(tempurl, data, httpOptions);
   }
 
-  //https://www.playtolearn.in/CubiCallGameNewAPi/api/GetAllQuestionAnswerList?OrgId=1&CubesFacesGameId=1
+  getAllGetUserReportBy_OrgHierarchy(data: any, id: any): Observable<any> {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetUserReport_OrgHierarchy?IdOrgHierarchy=${data}&CubesFacesGameId=${id}`;
+    return this.Http.get(tempurl);
+  }
+
+  getAllGetUserReportBy_Batches(data: any, id: any,batchId:any): Observable<any> {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetUserReport_CubesFacesGame?Id_CmsUser=${data}&CubesFacesGameId=${id}&BatchId=${batchId}`;
+    return this.Http.get(tempurl);
+  }
+  getAllGetUserReportBy_Users(data: any): Observable<any> {
+    var tempurl =
+      `${this.URLstring}` +
+      `${this.Path}/GetUserReport_User?UID=${data}`;
+    return this.Http.get(tempurl);
+  }
 }

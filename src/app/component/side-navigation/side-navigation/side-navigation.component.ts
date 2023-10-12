@@ -53,7 +53,32 @@ export class SideNavigationComponent implements OnInit {
       ];
       this._router.navigateByUrl('home/game-theme');
       this.activeIndex = 0;
-    } else {
+    } else if(this.apiData?.role?.idRoleType == 4) {
+      this.sidebar = [
+        {
+          content: 'Setup',
+          image: 'assets/images/sidenavigation/Setup.png',
+        },
+        {
+          content: 'Game Themes',
+          image: 'assets/images/sidenavigation/Game-themes.png',
+        },
+        {
+        content: 'Users',
+        image: 'assets/images/sidenavigation/Users.png',
+      },
+      ];
+      if (this.activeIndex == 0) {
+        this._router.navigateByUrl('/home/setup');
+      } else if(this.activeIndex == 1){
+        this._router.navigateByUrl('home/game-theme');
+      }
+      else{
+        this._router.navigateByUrl('home/users');
+      }
+    }
+    else{
+
       this.sidebar = [
         {
           content: 'Setup',
@@ -69,6 +94,7 @@ export class SideNavigationComponent implements OnInit {
       } else {
         this._router.navigateByUrl('home/game-theme');
       }
+
     }
   }
 
@@ -89,9 +115,9 @@ export class SideNavigationComponent implements OnInit {
         this._router.navigateByUrl('/home/setup');
       } else if (this.activeIndex == 1) {
         this._router.navigateByUrl('/home/game-theme');
+      } else if (this.activeIndex == 2) {
+         this._router.navigateByUrl('/home/users-report');
       } else if (this.activeIndex == 3) {
-        //  this._router.navigateByUrl('/home/users-report');
-      } else if (this.activeIndex == 4) {
         //  this._router.navigateByUrl('/home/rtu');
       }
     }
