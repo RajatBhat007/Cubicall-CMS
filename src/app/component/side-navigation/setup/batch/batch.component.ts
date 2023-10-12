@@ -236,6 +236,7 @@ export class BatchComponent {
       this.idCMSUser = this.apiData?.user?.idCmsUser;
       this.idOrgnization = this.apiData?.user?.idOrganization;
     });
+    console.log(this.apiData);
 
     // this.idOrgnization=this.apiData?.user?.idOrganization
     if (this.activeIndexSubTab == 0) {

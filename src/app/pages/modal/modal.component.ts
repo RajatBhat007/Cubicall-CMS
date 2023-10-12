@@ -46,6 +46,6 @@ export class ModalComponent implements OnInit {
 
   closeModalRefresh() {
     this.activeModal.close(); // Close the modal when the close button is clicked
-    window.location.reload();
+    // window.location.reload();
   }
 }

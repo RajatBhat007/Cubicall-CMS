@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -12,14 +12,18 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/pages/modal/modal.component';
+import { ErrorMsgComponent } from 'src/app/pages/error-msg/error-msg.component';
 @Component({
   selector: 'app-game-theme',
   templateUrl: './game-theme.component.html',
   styleUrls: ['./game-theme.component.scss'],
 })
 export class GameThemeComponent implements OnInit {
+  @ViewChild('WarningModal') warningModal: any;
+
   activeSubSubTab: any = 0;
   activeRadiobutton: number = 0;
+  errorMsg: boolean = false;
   activeIndexTab: any = 0;
   activeAll: string = '1';
   activeIndexSubTab: any = 0;
@@ -74,6 +78,7 @@ export class GameThemeComponent implements OnInit {
   adminName: string = '';
   activeStatus: string = '';
   imageContent: string = '';
+  ContentResponse: any = [];
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -216,7 +221,8 @@ export class GameThemeComponent implements OnInit {
     this.https
       .getQuestionList(
         this.apiData?.user?.idOrganization,
-        this.activeIndexTab + 1
+        this.activeIndexTab + 1,
+        this.apiData?.user?.idCmsUser
       )
       .subscribe((res) => {
         this.questionListResponse = res;
@@ -303,11 +309,26 @@ export class GameThemeComponent implements OnInit {
         )
         .subscribe(
           (res) => {
-            // this._router.navigateByUrl('home')
-            this.openModal(
-              'Done! The File has been uploaded successfully.',
-              'GameTheme'
-            );
+            console.log(res);
+            this.ContentResponse = res;
+            console.log(this.ContentResponse[0]?.errorMsg);
+
+            if (this.ContentResponse && this.ContentResponse[0]?.errorMsg) {
+              console.log(this.ContentResponse?.errorMsg);
+              this.errorMsg = true;
+              const dataArray = this.ContentResponse;
+
+              this.openerrorModal(dataArray);
+            } else {
+              // 'errorMsg' does not exist in the response or is null
+              this.GetQuestionData();
+              // this._router.navigateByUrl('home')
+              this.openModal(
+                'Done! The File has been uploaded successfully.',
+                'GameTheme'
+              );
+              console.log('No errorMsg in the response.');
+            }
           },
           (error: HttpErrorResponse) => {
             if (error.status === 404) {
@@ -319,6 +340,8 @@ export class GameThemeComponent implements OnInit {
             }
           }
         );
+
+      this.selectedFileName = '';
     }
   }
 
@@ -334,9 +357,18 @@ export class GameThemeComponent implements OnInit {
   openModal(msg: any, screen: any) {
     const modalRef = this.modalService.open(ModalComponent, {
       centered: true,
+      backdrop: 'static',
     });
     modalRef.componentInstance.someData = msg;
     modalRef.componentInstance.screen = screen;
+  }
+
+  openerrorModal(dataArray?: any[]) {
+    const modalRef = this.modalService.open(ErrorMsgComponent, {
+      centered: true,
+      backdrop: 'static',
+    });
+    modalRef.componentInstance.someData = dataArray;
   }
 
   DownloadTemplate() {

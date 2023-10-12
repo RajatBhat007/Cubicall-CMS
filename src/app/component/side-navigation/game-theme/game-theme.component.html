@@ -1448,6 +1448,8 @@
                               </div>
                               <div
                                 class="upload_btn_modal d-flex justify-content-center align-items-center ms-4"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
                                 (click)="uploadQuestionfile()"
                               >
                                 Upload
@@ -1505,6 +1507,8 @@
             tabindex="-1"
             aria-labelledby="staticBackdropLabel"
             aria-hidden="true"
+            [ngClass]="{ show: errorMsg }"
+            #WarningModal
           >
             <div
               class="modal-dialog modal-dialog-centered"
@@ -1542,19 +1546,6 @@
                       <div class="row">
                         <div class="col-12 d-flex justify-content-center">
                           <div class="upload_button font">Upload Again</div>
-                        </div>
-                      </div>
-                      <div
-                        class="feedback-popup"
-                        [ngClass]="{ 'show-popup': isPopupVisible }"
-                      >
-                        <div class="feedback-content">
-                          <h1>Give Feedback</h1>
-                          <p>Please provide your feedback here:</p>
-                          <textarea rows="4" cols="50"></textarea>
-                          <br />
-                          <button (click)="closeFeedbackPopup()">Cancel</button>
-                          <button (click)="closeFeedbackPopup()">Submit</button>
                         </div>
                       </div>
                     </div>

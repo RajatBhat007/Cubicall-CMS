@@ -1,0 +1,59 @@
+<!-- Add your modal content here -->
+
+<div
+  class="modal-content organizationSuccessModal"
+  style="background: transparent"
+>
+  <div class="warning_image_upload">
+    <!-- <img
+      style="height: 7vh"
+      src="assets/images/Warning.png"
+      alt="Warning Image"
+    /> -->
+  </div>
+  <div
+    class="modal-body"
+    style="
+      border: 4px solid;
+      background: #d7d7e8;
+      max-height: 70vh;
+      overflow-y: auto;
+    "
+  >
+    <div>
+      <div style="position: relative">
+        <div class="row d-flex justify-content-center mt-3">
+          <div class="table-head d-flex align-items-center">
+            <div class="sr_header font">Sr.No</div>
+            <div class="error_Header font">Error Message</div>
+          </div>
+          <div
+            class="table-body d-flex align-items-center"
+            *ngFor="let res of someData; let i = index"
+          >
+            <div class="sr_body font">{{ i + 1 }}</div>
+
+            <div class="error_body font">{{ res?.errorMsg }}</div>
+          </div>
+
+          <div
+            class="d-flex justify-content-center align-items-center download_button_modal font"
+            (click)="exportAsExcelFile()"
+          >
+            Download
+          </div>
+          <!-- <div *ngFor="let res of someData; let i = index">
+            {{ i + 1 }} {{ res?.errorMsg }}
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="close-button d-flex justify-content-center align-items-center"
+    (click)="closeModal()"
+  >
+    X
+  </div>
+</div>

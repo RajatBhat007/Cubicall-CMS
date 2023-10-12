@@ -1,0 +1,102 @@
+.organizationSuccessModal{
+    border-radius: 10px;
+  
+    background: transparent;
+  }
+
+  .warning_image_upload{
+    position: absolute;
+    z-index: 1;
+    left: -6%;
+    top: -13%;
+}
+
+  /* Center the modal */
+.modal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .submit_button {
+    border-radius: 10px;
+    background: #000000;
+    color: #FFFFFF;
+    padding: 0.6em;
+    font-size: 0.8em;
+    cursor: pointer;
+    width: 20%;
+    box-shadow: 3px 8px 6px rgba(0, 0, 0, 0.25);
+
+  }
+
+.warning_message_upload{
+    position: relative;
+    height: 21vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+ 
+
+.close-button{
+   position: absolute;
+  z-index: 1;
+  right: -2%;
+  top: -3%;
+  background: #FFFFFF;
+  color: #000000;
+  height: 3vh;
+  width: 3vh;
+  border-radius: 100%;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.table-head{
+    width: 100%;
+    height: 4vh;
+    background: #000000;
+}
+
+.sr_header,.question_header{
+    width: 20%;
+    color: #FFFFFF;
+}
+.sr_header{
+    width: 20%;
+}
+
+.error_Header{
+    width: 80%;
+    color: #FFFFFF;
+}
+.table-body{
+    border: 2px solid;
+}
+
+.sr_body,.question_body{
+    width: 20%;
+    
+}
+
+
+.error_body{
+    width: 80%;
+    padding: 1em 0 1em 0;
+}
+
+
+
+.download_button_modal
+ {
+    width: 20%;
+    height: 5vh;
+    margin-top: 2vh;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 4px 7px 4px 0px rgba(0, 0, 0, 0.25);
+  background: #000000;
+  color: #fff;
+  border: 1px solid #000;
+}

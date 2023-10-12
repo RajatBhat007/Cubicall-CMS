@@ -35,10 +35,15 @@ export class ApiServiceService {
     }
   }
 
-  getQuestionList(param1: number, param2: number): Observable<any> {
+  getQuestionList(
+    param1: number,
+    param2: number,
+    param3: number
+  ): Observable<any> {
     const params = {
       OrgId: param1,
       CubesFacesGameId: param2,
+      IdCmsUser: param3,
     };
     var tempurl = `${this.URLstring}` + `${this.Path}/GetAllQuestionList`;
     return this.Http.get(tempurl, { params: params });
@@ -349,7 +354,11 @@ export class ApiServiceService {
     return this.Http.post(tempurl, data, httpOptions);
   }
 
-  getAllQuestionAnswerList(data: any, id: any,IdCmsUser:any): Observable<any> {
+  getAllQuestionAnswerList(
+    data: any,
+    id: any,
+    IdCmsUser: any
+  ): Observable<any> {
     var tempurl =
       `${this.URLstring}` +
       `${this.Path1}/GetAllQuestionAnswerList?OrgId=${data}&CubesFacesGameId=${id}&IdCmsUser=${IdCmsUser}`;

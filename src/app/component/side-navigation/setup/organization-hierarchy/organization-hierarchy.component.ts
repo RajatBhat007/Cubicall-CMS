@@ -427,10 +427,12 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     }
     console.log('process get');
 
-    this.GetOrgHierarchyTree();
+    // this.GetOrgHierarchyTree();
   }
 
   addSubProcessRow(page: any) {
+    console.log(page);
+
     const subprocessRows = this.processForm2.get('subprocessRows') as FormArray;
     subprocessRows.push(
       this.formBuilder.group({
@@ -451,7 +453,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     }
     console.log('subprocess get');
 
-    this.GetOrgHierarchyTree();
+    // this.GetOrgHierarchyTree();
 
     // this.createHierarchy(this.subprocessName);
   }
@@ -475,7 +477,7 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     }
     console.log('stage get');
 
-    this.GetOrgHierarchyTree();
+    // this.GetOrgHierarchyTree();
     // this.createHierarchy(this.subprocessName);
   }
 

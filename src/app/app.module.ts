@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './pages/modal/modal.component';
 import { CreateimgComponent } from './createimg/createimg/createimg.component';
 import { GameEditComponent } from './gameedit/game-edit/game-edit.component';
+import { ErrorMsgComponent } from './pages/error-msg/error-msg.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { GameEditComponent } from './gameedit/game-edit/game-edit.component';
     ModalComponent,
     CreateimgComponent,
     GameEditComponent,
+    ErrorMsgComponent,
   ],
   imports: [
     BrowserModule,

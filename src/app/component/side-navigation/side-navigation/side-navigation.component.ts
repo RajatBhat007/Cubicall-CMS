@@ -63,6 +63,10 @@ export class SideNavigationComponent implements OnInit {
           content: 'Game Themes',
           image: 'assets/images/sidenavigation/Game-themes.png',
         },
+        // {
+        //   content: 'Users',
+        //   image: 'assets/images/sidenavigation/Users.png',
+        // },
       ];
       if (this.activeIndex == 0) {
         this._router.navigateByUrl('/home/setup');
@@ -89,8 +93,8 @@ export class SideNavigationComponent implements OnInit {
         this._router.navigateByUrl('/home/setup');
       } else if (this.activeIndex == 1) {
         this._router.navigateByUrl('/home/game-theme');
-      } else if (this.activeIndex == 3) {
-        //  this._router.navigateByUrl('/home/users-report');
+      } else if (this.activeIndex == 2) {
+        // this._router.navigateByUrl('/home/users-report');
       } else if (this.activeIndex == 4) {
         //  this._router.navigateByUrl('/home/rtu');
       }
