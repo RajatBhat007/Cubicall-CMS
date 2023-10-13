@@ -333,9 +333,23 @@
                               </div>
                             </div>
                             <div
-                              class="form-check-input checkbox-input-checkbox"
-                              style="border: 1px solid #fff; border-radius: 2px"
-                            ></div>
+                            *ngIf="
+                              apiData?.role?.idRoleType > 3;
+                              then editcheckBox;
+                              else dontcheckBox
+                            "
+                          ></div>
+                          <ng-template #editcheckBox>
+                            <div class="form-check-input checkbox-input-checkbox"
+                            style="border: 1px solid #fff; border-radius: 2px" >
+                          </div>
+                          </ng-template>
+                          <ng-template #dontcheckBox>
+                            <div class="form-check-input checkbox-input-checkbox"
+                            style="border: 1px solid #fff; border-radius: 2px;visibility: hidden;" >
+                          </div>
+                          </ng-template>
+                           
                             <div
                               class="Status_label font d-flex align-items-center justify-content-center"
                               style="margin-left: 1%"
@@ -415,6 +429,20 @@
                                     alt="Edit Image"
                                   />
                                 </div>
+
+                                <div class="checkbox">
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input"
+                                      type="checkbox"
+                                      value=""
+                                      id="flexCheckDefault"
+                                    />
+                               
+                                  </div>
+                                </div>
                               </ng-template>
                               <ng-template #dontEditQue>
                                 <div
@@ -427,20 +455,25 @@
                                     alt="Edit Image"
                                   />
                                 </div>
-                              </ng-template>
 
-                              <div class="checkbox">
-                                <div
-                                  class="form-check d-flex align-items-center"
-                                >
-                                  <input
-                                    class="form-check-input checkbox-input"
-                                    type="checkbox"
-                                    value=""
-                                    id="flexCheckDefault"
-                                  />
+                                <div class="checkbox"
+                                style="visibility: hidden">
+                                  <div
+                                    class="form-check d-flex align-items-center"
+                                  >
+                                    <input
+                                      class="form-check-input checkbox-input"
+                                      type="checkbox"
+                                      value=""
+                                      id="flexCheckDefault"
+                                    />
+                         
+                                  </div>
                                 </div>
-                              </div>
+                              </ng-template>
+                                
+                               
+                           
 
                               <div
                                 class="form-check form-switch d-flex align-items-center"
@@ -604,12 +637,33 @@
                                   </div>
                                 </div>
                                 <div
-                                  class="form-check-input checkbox-input-checkbox"
-                                  style="
-                                    border: 1px solid #fff;
-                                    border-radius: 2px;
-                                  "
-                                ></div>
+                                *ngIf="
+                                  apiData?.role?.idRoleType > 3;
+                                  then editgameCheckBox;
+                                  else dontEditGameCheckBox
+                                "
+                              ></div>
+                              <ng-template #editgameCheckBox>
+                                <div
+                                class="form-check-input checkbox-input-checkbox"
+                                style="
+                                  border: 1px solid #fff;
+                                  border-radius: 2px;
+                                "
+                              ></div>
+                              </ng-template>
+                              <ng-template #dontEditGameCheckBox>
+                                <div
+                                class="form-check-input checkbox-input-checkbox"
+                                style="
+                                  border: 1px solid #fff;
+                                  border-radius: 2px;
+                                  visibility: hidden;
+                                "
+                              ></div>
+                              </ng-template>
+
+                             
                                 <div
                                   class="Status_label font d-flex align-items-center justify-content-center"
                                   style="margin-left: 1%"
@@ -656,7 +710,7 @@
                                     alt="Edit Image"
                                   />
                                 </div>
-                                <div class="checkbox">
+                                <div class="checkbox"   style="visibility: hidden">
                                   <div
                                     class="form-check d-flex align-items-center"
                                   >
@@ -747,7 +801,8 @@
                                   style="
                                     border: 1px solid #fff;
                                     border-radius: 2px;
-                                    margin-right: 1%;
+                                 
+                                    visibility: hidden;
                                   "
                                 ></div>
                                 <div
@@ -756,6 +811,7 @@
                                 >
                                   Status
                                 </div>
+                                
                                 <!-- <div class="Status_label font d-flex align-items-center justify-content-center">
                                                         Status
                                                     </div> -->
@@ -807,7 +863,8 @@
                                     alt="Edit Image"
                                   />
                                 </div>
-                                <div class="checkbox">
+                                <div class="checkbox"
+                                style="visibility: hidden">
                                   <div
                                     class="form-check d-flex align-items-center"
                                   >
@@ -821,7 +878,7 @@
                                 </div>
 
                                 <div
-                                  class="form-check form-switch d-flex align-items-center ps-5"
+                                  class="form-check form-switch d-flex align-items-center"
                                 >
                                   <input
                                     class="form-check-input"
@@ -837,11 +894,11 @@
                                 >
                                   {{ res.cubesFacesId }}
                                 </div>
-                                <div class="game-header text-dark text-center">
+                                <div class="game-header text-dark text-justify ps-3">
                                   {{ res.attemptNo }}
                                 </div>
                                 <div
-                                  class="tile-header text-dark ps-3 font ps-4"
+                                  class="tile-header text-dark ps-3 text-justify font ps-3"
                                 >
                                   {{ res.gamePoints }}
                                 </div>
@@ -897,6 +954,7 @@
                                     border: 1px solid #fff;
                                     border-radius: 2px;
                                     margin-right: 1%;
+                                    visibility: hidden;
                                   "
                                 ></div>
                                 <div
@@ -948,7 +1006,8 @@
                                     alt="Edit Image"
                                   />
                                 </div>
-                                <div class="checkbox">
+                                <div class="checkbox"
+                                style="visibility: hidden">
                                   <div
                                     class="form-check d-flex align-items-center"
                                   >
