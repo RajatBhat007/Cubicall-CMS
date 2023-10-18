@@ -18,18 +18,6 @@ export class SideNavigationComponent implements OnInit {
       content: 'Game Themes',
       image: 'assets/images/sidenavigation/Game-themes.png',
     },
-    // {
-    //   content: 'Main-Screen',
-    //   image: 'assets/images/sidenavigation/Main-screen.png',
-    // },
-    // {
-    //   content: 'Users',
-    //   image: 'assets/images/sidenavigation/Users.png',
-    // },
-    // {
-    //   content: 'RTU',
-    //   image: 'assets/images/sidenavigation/RTU.png',
-    // },
   ];
 
   activeIndex: any = 0;

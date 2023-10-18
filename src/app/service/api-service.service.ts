@@ -16,7 +16,8 @@ export class ApiServiceService {
 
   URLstring = environment.apiURL;
   open: any;
-  Path = 'CubicallGameNewApi_test/api';
+  // Path = 'CubicallGameNewApi_test/api';
+  Path = 'Cubicall_CMS_Api_Beta/api';
   Path1 = 'CubicallGameNewApi/api';
 
   private getisAuthenticated = false;
