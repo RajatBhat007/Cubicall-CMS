@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
-
   login(): void {
     const payload = {
       Data: {
@@ -47,20 +46,16 @@ export class LoginComponent implements OnInit {
         Password: this.password,
       },
     };
-
     const escapedUserName = JSON.stringify(payload.Data.UserName);
     const escapedPassword = JSON.stringify(payload.Data.Password);
-
     const escapedJsonString = `{\"UserName\":${escapedUserName},\"Password\":${escapedPassword}`;
     const jsonString = JSON.stringify(escapedJsonString);
     const jsonStringremovelast = jsonString.slice(0, -1);
     const body = '{"Data":' + jsonStringremovelast + '}"}';
-
     this.http.login(body).subscribe(
       (res) => {
         this.isLoading = true;
         this.logindata = res;
-
         this._router.navigateByUrl('home');
       },
       (error: HttpErrorResponse) => {
@@ -73,7 +68,6 @@ export class LoginComponent implements OnInit {
         }
       }
     );
-
     if (this.authService.login(this.uname, this.password)) {
       this.lowercaseUsername = this.uname.toLowerCase(); // Convert to lowercase
     }

@@ -271,7 +271,6 @@ export class ApiServiceService {
       }),
     };
     var tempurl = `${this.URLstring}` + `${this.Path}/CreateUser`;
-
     return this.Http.post(tempurl, data, httpOptions);
   }
 

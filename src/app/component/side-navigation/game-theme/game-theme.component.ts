@@ -64,6 +64,7 @@ export class GameThemeComponent implements OnInit {
   cubeFaceIdViseGameTimeData: any = [];
   cubeFaceIdViseGameAttemtData: any = [];
   cubeFaceIdViseGameStreakData: any = [];
+  questionAnsListFilter:any=[]
   questionListResponse: any = [];
   uploadButton: boolean = false;
   stageDropdown: any = [];
@@ -73,6 +74,7 @@ export class GameThemeComponent implements OnInit {
   questionListResponseFilter: any = [];
   adminName: string = '';
   activeStatus: string = '';
+  ansListData: any=[];
   constructor(
     public _router: Router,
     private _route: ActivatedRoute,
@@ -208,31 +210,57 @@ export class GameThemeComponent implements OnInit {
 
     this.View('1');
     this.status = 'rejected';
+    this.GetAnsListData()
+  }
+
+  GetAnsListData(){
+    this.https.getAllQuestionAnswerList(
+      this.apiData?.user?.idOrganization,
+      this.activeIndexTab + 1,
+      this.apiData?.user?.idCmsUser,
+    )
+    .subscribe((res) => {
+      console.log(res);
+      this.ansListData = res;
+      this.GetQuestionData()
+
+    });
   }
 
   GetQuestionData() {
-    this.https
-      .getQuestionList(
+console.log(this.ansListData);
+console.log(this.activeIndexTab);
+
+    this.https.getQuestionList(
         this.apiData?.user?.idOrganization,
         this.activeIndexTab + 1
       )
       .subscribe((res) => {
         this.questionListResponse = res;
+        console.log(this.questionListResponse);
+        
+        const answerQuestionIds = new Set(this.ansListData.map((answer: { questionId: any; }) => answer.questionId));
+        console.log(answerQuestionIds);
 
-        this.questionListResponseFilter = res;
-        this.count[0].value = this.questionListResponse.length;
-        this.activeList = this.questionListResponse.filter(
+        // Filter the questions list to include only questions with matching questionId
+        this.questionAnsListFilter = this.questionListResponse.filter((question: { questionId: unknown; }) => answerQuestionIds.has(question.questionId));
+        console.log(this.questionAnsListFilter);
+
+        this.questionListResponseFilter = this.questionAnsListFilter;
+        this.count[0].value = this.questionAnsListFilter.length;
+        this.activeList = this.questionAnsListFilter.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
           
         this.count[1].value = this.activeList.length;
-        this.inactiveList = this.questionListResponse.filter(
+        this.inactiveList = this.questionAnsListFilter.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
 
         this.count[2].value = this.inactiveList.length;
       });
   }
+ 
 
   GetStageNames() {
     this.https.getStagesName(this.apiData?.user?.idCmsUser).subscribe((res) => {
@@ -320,15 +348,6 @@ export class GameThemeComponent implements OnInit {
     }
   }
 
-  // openModal() {
-  //   const modalRef = this.modalService.open(ModalComponent, {
-  //     centered: true,
-  //   });
-
-  //   // You can pass data to the modal if needed
-  //   modalRef.componentInstance.someData ='Done! The File has been uploaded successfully.';
-  //   modalRef.componentInstance.screen = 'GameTheme';
-  // }
   openModal(msg: any, screen: any) {
     const modalRef = this.modalService.open(ModalComponent, {
       centered: true,
@@ -424,7 +443,9 @@ export class GameThemeComponent implements OnInit {
   }
   NavigateToTab(index: any) {
     this.activeIndexTab = index;
-    this.GetQuestionData();
+    console.log('tab',this.activeIndexTab);
+    this.GetAnsListData();
+    // this.GetQuestionData();
     if (this.activeSubSubTab == '0') {
       this.getCubeFaceGameTime();
     } else if (this.activeSubSubTab == '1') {
@@ -436,9 +457,11 @@ export class GameThemeComponent implements OnInit {
   NavigateToSubTab(index: any) {
     this.activeRadiobutton = 0;
     this.activeIndexSubTab = index;
-
+  console.log(this.activeIndexSubTab);
+  
     if (this.activeIndexSubTab == '0') {
-      this.GetQuestionData();
+      this.GetAnsListData();
+      // this.GetQuestionData();
       this.isStatusTab == true;
     }
     if (this.activeIndexSubTab == '0') {
@@ -491,6 +514,8 @@ export class GameThemeComponent implements OnInit {
           },
         ];
       }
+      this.GetAnsListData();
+
       this.GetQuestionData();
       //  this.getCubeFaceGameAttempt()
     } else if (value == '2') {
@@ -507,6 +532,7 @@ export class GameThemeComponent implements OnInit {
         },
       ];
       this.hideuploadButton = true;
+      this.GetAnsListData();
       this.GetQuestionData();
     } else {
       this.subtab = [
@@ -583,11 +609,11 @@ export class GameThemeComponent implements OnInit {
   changeFilter(index: any) {
     if (this.activeIndexSubTab == 0) {
       if (index == 0) {
-        this.questionListResponse = this.questionListResponseFilter;
+        this.questionAnsListFilter = this.questionListResponseFilter;
       } else if (index == 1) {
-        this.questionListResponse = this.activeList;
+        this.questionAnsListFilter = this.activeList;
       } else if (index == 2) {
-        this.questionListResponse = this.inactiveList;
+        this.questionAnsListFilter = this.inactiveList;
       }
     }
 
@@ -620,38 +646,37 @@ export class GameThemeComponent implements OnInit {
 
   getStatusValue(event: any, i: any) {
     console.log(i);
-    console.log(this.questionListResponse[i]);
+    console.log(this.questionAnsListFilter[i]);
 
     console.log(event.currentTarget.checked);
 
     if (event.currentTarget.checked) {
       this.activeStatus = 'A';
       console.log(this.activeStatus);
-
       const payload = {
         Data: {
           AnsList: [],
           QuestionList: {
-            PerTileQuestionId: this.questionListResponse[i]?.perTileQuestionId,
+            PerTileQuestionId: this.questionAnsListFilter[i]?.perTileQuestionId,
             IsActive: this.activeStatus,
-            QuestionId: this.questionListResponse[i]?.questionId,
-            CubesFacesGameId: this.questionListResponse[i]?.cubesFacesGameId,
-            PerTileId: this.questionListResponse[i]?.perTileId,
-            Question: this.questionListResponse[i]?.question,
-            Complexity: this.questionListResponse[i]?.complexity,
-            RowNo: this.questionListResponse[i]?.complexity,
-            ColumnNo: this.questionListResponse[i]?.rowNo
-              ? this.questionListResponse[i]?.rowNo
+            QuestionId: this.questionAnsListFilter[i]?.questionId,
+            CubesFacesGameId: this.questionAnsListFilter[i]?.cubesFacesGameId,
+            PerTileId: this.questionAnsListFilter[i]?.perTileId,
+            Question: this.questionAnsListFilter[i]?.question,
+            Complexity: this.questionAnsListFilter[i]?.complexity,
+            RowNo: this.questionAnsListFilter[i]?.complexity,
+            ColumnNo: this.questionAnsListFilter[i]?.rowNo
+              ? this.questionAnsListFilter[i]?.rowNo
               : 0,
-            Direction: this.questionListResponse[i]?.direction
-              ? this.questionListResponse[i]?.direction
+            Direction: this.questionAnsListFilter[i]?.direction
+              ? this.questionAnsListFilter[i]?.direction
               : 'across',
-            QuestionClue: this.questionListResponse[i]?.questionClue,
-            QuestionSet: this.questionListResponse[i]?.questionSet,
-            IsApproved: this.questionListResponse[i]?.isApproved,
-            IsDraft: this.questionListResponse[i]?.isDraft,
-            IdCmsUser: this.questionListResponse[i]?.idCmsUser,
-            IdOrganization: this.questionListResponse[i]?.idOrganization,
+            QuestionClue: this.questionAnsListFilter[i]?.questionClue,
+            QuestionSet: this.questionAnsListFilter[i]?.questionSet,
+            IsApproved: this.questionAnsListFilter[i]?.isApproved,
+            IsDraft: this.questionAnsListFilter[i]?.isDraft,
+            IdCmsUser: this.questionAnsListFilter[i]?.idCmsUser,
+            IdOrganization: this.questionAnsListFilter[i]?.idOrganization,
           },
         },
       };
@@ -680,26 +705,26 @@ export class GameThemeComponent implements OnInit {
         Data: {
           AnsList: [],
           QuestionList: {
-            PerTileQuestionId: this.questionListResponse[i]?.perTileQuestionId,
+            PerTileQuestionId: this.questionAnsListFilter[i]?.perTileQuestionId,
             IsActive: this.activeStatus,
-            QuestionId: this.questionListResponse[i]?.questionId,
-            CubesFacesGameId: this.questionListResponse[i]?.cubesFacesGameId,
-            PerTileId: this.questionListResponse[i]?.perTileId,
-            Question: this.questionListResponse[i]?.question,
-            Complexity: this.questionListResponse[i]?.complexity,
-            RowNo: this.questionListResponse[i]?.complexity,
-            ColumnNo: this.questionListResponse[i]?.rowNo
-              ? this.questionListResponse[i]?.rowNo
+            QuestionId: this.questionAnsListFilter[i]?.questionId,
+            CubesFacesGameId: this.questionAnsListFilter[i]?.cubesFacesGameId,
+            PerTileId: this.questionAnsListFilter[i]?.perTileId,
+            Question: this.questionAnsListFilter[i]?.question,
+            Complexity: this.questionAnsListFilter[i]?.complexity,
+            RowNo: this.questionAnsListFilter[i]?.complexity,
+            ColumnNo: this.questionAnsListFilter[i]?.rowNo
+              ? this.questionAnsListFilter[i]?.rowNo
               : 0,
-            Direction: this.questionListResponse[i]?.direction
-              ? this.questionListResponse[i]?.direction
+            Direction: this.questionAnsListFilter[i]?.direction
+              ? this.questionAnsListFilter[i]?.direction
               : 'across',
-            QuestionClue: this.questionListResponse[i]?.questionClue,
-            QuestionSet: this.questionListResponse[i]?.questionSet,
-            IsApproved: this.questionListResponse[i]?.isApproved,
-            IsDraft: this.questionListResponse[i]?.isDraft,
-            IdCmsUser: this.questionListResponse[i]?.idCmsUser,
-            IdOrganization: this.questionListResponse[i]?.idOrganization,
+            QuestionClue: this.questionAnsListFilter[i]?.questionClue,
+            QuestionSet: this.questionAnsListFilter[i]?.questionSet,
+            IsApproved: this.questionAnsListFilter[i]?.isApproved,
+            IsDraft: this.questionAnsListFilter[i]?.isDraft,
+            IdCmsUser: this.questionAnsListFilter[i]?.idCmsUser,
+            IdOrganization: this.questionAnsListFilter[i]?.idOrganization,
           },
         },
       };
@@ -714,7 +739,7 @@ export class GameThemeComponent implements OnInit {
       this.https.editQuestionAns(body).subscribe((res) => {
         console.log(res);
         this.openModal(
-          'Done! The Question has been Dactivated successfully.',
+          'Done! The Question has been Deactivated successfully.',
           'user'
         );
       });
@@ -820,7 +845,7 @@ export class GameThemeComponent implements OnInit {
     let gamePointsActiveTab = this.activeSubSubTab;
     let cubeFaceId = this.activeIndexTab + 1;
     let categoryName = this.matTab[this.activeIndexTab].content;
-    let questionData = JSON.stringify(this.questionListResponse[value]);
+    let questionData = JSON.stringify(this.questionAnsListFilter[value]);
     this._router.navigate(['home/edit-question'], {
       queryParams: {
         cubeFaceId,
@@ -836,7 +861,7 @@ export class GameThemeComponent implements OnInit {
     let gamePointsActiveTab = this.activeSubSubTab;
     let cubeFaceId = this.activeIndexTab + 1;
     let categoryName = this.matTab[this.activeIndexTab].content;
-    let questionData = JSON.stringify(this.questionListResponse[value]);
+    let questionData = JSON.stringify(this.questionAnsListFilter[value]);
     let view = 'view';
     this._router.navigate(['home/edit-question'], {
       queryParams: {

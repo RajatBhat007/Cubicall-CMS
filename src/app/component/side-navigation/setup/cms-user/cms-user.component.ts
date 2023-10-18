@@ -407,7 +407,7 @@ export class CmsUserComponent {
         if (this.payload.Data.Status === 'A') {
           this.openModal('Done! The User has been Activated successfully.');
         } else {
-          this.openModal('Done! The User has been Dactivated successfully.');
+          this.openModal('Done! The User has been Deactivated successfully.');
         }
       },
       (error: HttpErrorResponse) => {

@@ -190,10 +190,8 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getApiData();
     this.GetOrgHierarchyTree();
-
     this.idhierarchy = this.apiData?.user?.idOrgHierarchy;
     this.idOrg = this.apiData?.user?.idOrganization;
-
     this.addProcessRow('page'); // Add one row by default
     this.addSubProcessRow('');
     this.addStageRow('');
@@ -209,11 +207,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
       this.apiData = data;
     });
     console.log(this.apiData);
-
     this.redirectedFrom = this.user?.key1
       ? this.user?.key1
       : this.apiData?.role?.roleName;
-
     switch (this.redirectedFrom) {
       case 'CubiCall Admin':
         this.subtab = [
@@ -235,6 +231,9 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
           {
             label: 'Create Admin Role',
           },
+          {
+            label: 'Display Admin Roles',
+          },
         ];
 
         break;
@@ -244,8 +243,10 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
           {
             label: 'Set Hierarchy',
           },
+          
         ];
         this.subTabName = 'set';
+        // this.activeIndexSubTab=1;
         break;
 
       default:
@@ -338,9 +339,20 @@ export class OrganizationHierarchyComponent implements OnInit, OnDestroy {
     this.activeIndexSubTab = index;
 
     if (this.activeIndexSubTab == 0) {
-      this.subTabName = 'create';
+      if(this.redirectedFrom =='Admin'){
+        this.subTabName = 'set';
+      }else{
+        this.subTabName = 'create';
+      }
+      
     } else if (this.activeIndexSubTab == 1) {
-      this.subTabName = 'set';
+      if(this.redirectedFrom =='Super Admin'){
+        this.subTabName = 'display';
+        this.getCMSAdmindetails();
+      }else{
+        this.subTabName = 'set';
+      }
+     
       this.getVendorDetails('');
     } else if (this.activeIndexSubTab == 2) {
       this.subTabName = 'display';

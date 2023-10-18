@@ -479,8 +479,7 @@ export class EditQuestionComponent {
       this.questionFormData.get('questionClueDescription')?.enable();
     }
     // this.activeIndexTab=isRightAnsData
-    this.http
-      .getAllQuestionAnswerList(
+    this.http .getAllQuestionAnswerList(
         this.apiData?.user?.idOrganization,
         this.cubeFaceId,
         this.apiData?.user?.idCmsUser,

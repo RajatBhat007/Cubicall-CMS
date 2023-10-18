@@ -154,50 +154,50 @@
       <div class="bottom-conatiner">
         <div class="row">
           <div class="col-4">
-            <div class="upload_button_cover">
-              <div *ngIf="!hideuploadButton">
-                <div class="d-flex">
-                  <div
-                    class="upload-button font d-flex justify-content-center align-items-center ms-2"
-                    style="cursor: pointer"
-                    data-bs-toggle="modal"
-                    data-bs-target="#Excelupload"
-                    *ngIf="!isupload && uploadButton"
-                  >
-                    Upload
-                    <span
-                      class="add_btn ms-1 d-flex align-items-center justify-content-center"
-                      >+</span
+              <div class="upload_button_cover">
+                <div *ngIf="!hideuploadButton">
+                  <div class="d-flex">
+                    <div
+                      class="upload-button font d-flex justify-content-center align-items-center ms-2"
+                      style="cursor: pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#Excelupload"
+                      *ngIf="!isupload && uploadButton"
                     >
-                  </div>
-                  <div
-                    class="d-flex align-items-center infodiv p-1"
-                    *ngIf="!isupload && uploadButton"
-                  >
-                    <img
-                      class="infoIcon"
-                      placement="bottom"
-                      [ngbPopover]="popoverContent"
-                      triggers="mouseenter:mouseleave"
-                      src="assets/images/infoicon.png"
-                      alt=""
-                    />
-                    <ng-template #popoverContent>
-                      <span class="font"
-                        >Then Upload the content by clicking on the Upload
-                        button.</span
+                      Upload
+                      <span
+                        class="add_btn ms-1 d-flex align-items-center justify-content-center"
+                        >+</span
                       >
-                    </ng-template>
+                    </div>
+                    <div
+                      class="d-flex align-items-center infodiv p-1"
+                      *ngIf="!isupload && uploadButton"
+                    >
+                      <img
+                        class="infoIcon"
+                        placement="bottom"
+                        [ngbPopover]="popoverContent"
+                        triggers="mouseenter:mouseleave"
+                        src="assets/images/infoicon.png"
+                        alt=""
+                      />
+                      <ng-template #popoverContent>
+                        <span class="font"
+                          >Then Upload the content by clicking on the Upload
+                          button.</span
+                        >
+                      </ng-template>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div
-                class="upload-button1 font d-flex justify-content-center align-items-center"
-                style="cursor: pointer"
-                *ngIf="hideuploadButton"
-              ></div>
-            </div>
+                <div
+                  class="upload-button1 font d-flex justify-content-center align-items-center"
+                  style="cursor: pointer"
+                  *ngIf="hideuploadButton"
+                ></div>
+              </div>
             <div class="row ms-1 w-100">
               <div
                 class="col-4 ps-1"
@@ -371,7 +371,7 @@
                     <div class="table-body-height-question">
                       <div
                         *ngIf="
-                          questionListResponse.length == 0;
+                          questionAnsListFilter.length == 0;
                           then Noquestion;
                           else table
                         "
@@ -391,7 +391,7 @@
                         <div
                           class="row mt-2"
                           *ngFor="
-                            let res of questionListResponse;
+                            let res of questionAnsListFilter;
                             let i = index
                           "
                         >
@@ -453,6 +453,7 @@
                                   id="flexSwitchCheckDefault"
                                   [checked]="res?.isActive == 'A'"
                                   (change)="getStatusValue($event, i)"
+                                  [disabled]="this.apiData.role.idRoleType!=4"
                                 />
                               </div>
                               <div
@@ -501,14 +502,14 @@
                                   color: #000;
                                   width: 52%;
                                   margin-left: 3.5%;
-                                  padding-left: 4.5%;
+                                  padding-left: 4%;
                                 "
                               >
                                 {{ res?.question }}
                               </div>
 
                               <div
-                                class="submitted-date-header font d-flex justify-content-end"
+                                class="submitted-date-header font d-flex justify-content-end me-4"
                                 style="color: #000"
                               >
                                 {{ res?.updatedDateTime | date : "dd/MM/yyyy" }}
@@ -1198,7 +1199,7 @@
                               Reject
                             </div>
                             <div
-                              class="feedback font d-flex justify-content-end"
+                              class="feedback font d-flex justify-content-end me-4"
                             >
                               Feedback
                             </div>
@@ -1300,8 +1301,7 @@
             data-bs-keyboard="false"
             tabindex="-1"
             aria-labelledby="staticBackdropLabel"
-            aria-hidden="true"
-          >
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content ExcelContentModal">
                 <div class="modal-body">
@@ -1312,8 +1312,7 @@
                           type="button"
                           class="custom-close-btn d-flex justify-content-center align-items-center"
                           data-bs-dismiss="modal"
-                          aria-label="Close"
-                        >
+                          aria-label="Close">
                           X
                         </div>
                       </div>
