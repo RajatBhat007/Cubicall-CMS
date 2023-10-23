@@ -496,10 +496,11 @@ height: 3vh;
 cursor: pointer
 }
 .edit_image {
-height: 1.5vh
+height: 1.5vh;
 }
 .view_div {
-width: 2%
+width: 2%;
+cursor: pointer;
 }
 .Organization-header {
 width: 33%;
@@ -616,14 +617,19 @@ input[type="checkbox"]:disabled + label:hover::before{
 .form-check-input[type="checkbox"][role="switch"] {
   /* Default background color for OFF state */
   background-color: white;
+  cursor: pointer;
 }
-
+.form-check-box{
+  cursor: pointer;
+}
 /* Custom styles for the switch knob (thumb) */
 .form-check-input[type="checkbox"][role="switch"] + .form-check-label::before {
   /* Change the color of the knob */
   background-color: black;
 }
-
+#flexRadioDefault2{
+  cursor: pointer;
+}
 /* Custom styles for the Flex Switch when checked (ON state) */
 .form-check-input[type="checkbox"][role="switch"]:checked {
   /* Background color for ON state */

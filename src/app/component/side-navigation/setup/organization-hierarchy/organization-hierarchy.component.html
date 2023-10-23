@@ -4,22 +4,19 @@
       <div class="row w-100">
         <div class="col-5 ps-4">
           <div class="row mt-4 ps-2">
-            <div
-              class="col-3 ps-0"
+            <div class="col-3 ps-0"
               *ngFor="let res_sub of subtab; let j = index"
-              (click)="NavigateToSubTab(j)"
-            >
+              (click)="NavigateToSubTab(j)">
               <div
                 class="sub_tab font d-flex justify-content-center align-items-center"
-                [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }"
-              >
+                [ngClass]="{ 'sub-tab-active': j === activeIndexSubTab }">
                 {{ res_sub.label }}
               </div>
             </div>
           </div>
         </div>
         <div class="col-7 infoCol">
-          <div class="d-flex justify-content-end mt-4">
+          <div class="d-flex justify-content-end mt-4" *ngIf=" subTabName != 'display'">
             <img
               class="infoIcon"
               placement="left"
@@ -38,7 +35,7 @@
                   Step 3 :Click on Create Button.
                 </div>
               </div>
-              <div class="font" *ngIf="this.apiData.role.idRoleType==3">
+              <div class="font" *ngIf="this.apiData.role.idRoleType==3 && activeIndexSubTab == 0">
                 <div>Step 1 :Add + sign On B]Process to create Process.</div>
                 <div class="mt-2">
                   Step 2 : Add + Sign on created Process to Add Sub-Process.
@@ -47,8 +44,6 @@
                   Step 3 : Add + Sign on created Sub-Process to Add Stage.
                 </div>
               </div>
-
-              
             </ng-template>
           </div>
         </div>
@@ -643,7 +638,7 @@
                           </div>
                           <div class="col-lg-2 col-sm-2">
                             <input
-                              class="form-check-input"
+                              class="form-check-input pointer"
                               type="radio"
                               name="flexRadioDefault"
                               [id]="'flexRadioDefault' + i"
@@ -713,7 +708,7 @@
                                       class="table-body d-flex align-items-center"
                                     >
                                       <div
-                                        class="view_div d-flex align-items-center justify-content-center"
+                                        class="view_div d-flex align-items-center justify-content-center pointer"
                                         data-bs-toggle="modal"
                                         data-bs-target="#OrganizationDescriptionModal"
                                       >
@@ -753,7 +748,7 @@
                                         class="Status_label form-check form-switch d-flex align-items-center"
                                       >
                                         <input
-                                          class="form-check-input"
+                                          class="form-check-input pointer"
                                           style="width: 2.5vw; height: 2.5vh"
                                           type="checkbox"
                                           role="switch"
@@ -811,8 +806,7 @@
         *ngIf="activeIndexSubTab == 0 && subTabName != 'set'"
         class="submit_button_organisation mt-3 me-3 font d-flex justify-content-center fontInter"
         [ngClass]="{ disabled: isDisabled }"
-        (click)="isDisabled ? null : createAdminInfo()"
-      >
+        (click)="isDisabled ? null : createAdminInfo()">
         Next
       </div>
     </ng-template>

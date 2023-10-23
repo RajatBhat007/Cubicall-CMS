@@ -29,7 +29,17 @@ export class ModalComponent implements OnInit {
     window.location.reload();
   }
   closeModal() {
-    this.activeModal.close(); // Close the modal when the close button is clicked
+    if (this.screen=='editQuestion') {
+      this.activeModal.close();
+      let activeIndexSubTab = 0;
+      this.router.navigate(['/home/game-theme'], {
+        queryParams: { activeIndexSubTab },
+      });
+    }
+    else{
+      this.activeModal.close();
+    }
+    // Close the modal when the close button is clicked
     // window.location.reload();
 
     // location.reload();

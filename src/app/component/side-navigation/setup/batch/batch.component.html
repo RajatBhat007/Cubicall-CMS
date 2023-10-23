@@ -342,7 +342,7 @@
                       <div class="col-12">
                         <div class="row mt-2">
                           <div class="col-12">
-                            <div class="table-header">
+                            <div class="table-header" style="width: 99%;">
                               <div
                                 class="checkbox-header d-flex align-items-center"
                               >
@@ -372,24 +372,24 @@
                                 </div>
 
                                 <div
-                                  class="Organization-header font d-flex justify-content-center text-light"
+                                  class="Organization-header font d-flex justify-content-start text-light ps-5 ms-1"
                                 >
                                   Stage
                                 </div>
 
                                 <div
-                                  class="Role-header font d-flex justify-content-center text-light"
+                                  class="Role-header font d-flex justify-content-start text-light"
                                 >
                                   Batch ID
                                 </div>
 
                                 <div
-                                  class="Function-header font text-light d-flex justify-content-center"
+                                  class="Function-header font text-light d-flex justify-content-start"
                                 >
                                   Assign Game Themes
                                 </div>
                                 <div
-                                  class="Function-header font text-light d-flex justify-content-center"
+                                  class="Function-header font text-light d-flex justify-content-start"
                                 >
                                   Creation Date
                                 </div>
@@ -451,7 +451,7 @@
                                     </div>
 
                                     <div
-                                      class="form-check form-switch d-flex align-items-center"
+                                      class="form-check form-switch d-flex align-items-center justify-content-center" style="width:5%;cursor: pointer;"
                                     >
                                       <input
                                         class="form-check-input"
@@ -467,7 +467,7 @@
                                     </div>
 
                                     <div
-                                      class="Organization-header font text-dark d-flex justify-content-center"
+                                      class="Organization-header font text-dark d-flex justify-content-start ps-5"
                                     >
                                       {{
                                         item?.objOrganizationHierarchy
@@ -475,12 +475,12 @@
                                       }}
                                     </div>
                                     <div
-                                      class="Role-header d-flex justify-content-center font text-dark"
+                                      class="Role-header d-flex justify-content-start font text-dark"
                                     >
                                       {{ item?.idBatch }}
                                     </div>
                                     <div
-                                      class="Function-header font d-flex justify-content-center"
+                                      class="Function-header font d-flex justify-content-start"
                                     >
                                       <span
                                         *ngIf="
@@ -495,7 +495,7 @@
                                       </span>
                                     </div>
                                     <div
-                                      class="Function-header font d-flex justify-content-center"
+                                      class="Function-header font d-flex justify-content-start"
                                     >
                                       {{
                                         item?.objHeirarchyBatchesMaster

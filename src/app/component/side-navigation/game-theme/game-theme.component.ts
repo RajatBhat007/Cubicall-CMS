@@ -251,12 +251,10 @@ console.log(this.activeIndexTab);
         this.activeList = this.questionAnsListFilter.filter(
           (org: { isActive: string }) => org.isActive === 'A'
         );
-          
         this.count[1].value = this.activeList.length;
         this.inactiveList = this.questionAnsListFilter.filter(
           (org: { isActive: string }) => org.isActive === 'D'
         );
-
         this.count[2].value = this.inactiveList.length;
       });
   }

@@ -251,12 +251,12 @@ export class EditQuestionComponent {
       this.tileTime -= 1;
     }
   }
-  openModal(msg: any) {
+  openModal(msg: any,screen:any) {
     const modalRef = this.modalService.open(ModalComponent, {
       centered: true,
     });
     modalRef.componentInstance.someData = msg;
-    modalRef.componentInstance.screen = 'user';
+    modalRef.componentInstance.screen = screen=='edit'?'editQuestion':'user';
   }
   setCubeFaceGameTime() {
     const payload = {
@@ -308,7 +308,7 @@ export class EditQuestionComponent {
     this.http.setCubeFaceGameTime(body).subscribe(
       (res) => {
         this.openModal(
-          'Done! The Game Time and Tile Time has been Set successfully.'
+          'Done! The Game Time and Tile Time has been Set successfully.',''
         );
       },
       (error: HttpErrorResponse) => {
@@ -370,7 +370,7 @@ export class EditQuestionComponent {
     this.http.setCubeFaceGameAttempt(body).subscribe(
       (res) => {
         this.openModal(
-          'Done! The Attemt No. and Points has been inserted successfully.'
+          'Done! The Attemt No. and Points has been inserted successfully.',''
         );
       },
       (error: HttpErrorResponse) => {
@@ -427,7 +427,7 @@ export class EditQuestionComponent {
     this.http.setCubeFaceGameStreakDetails(body).subscribe(
       (res) => {
         this.openModal(
-          'Done! The Streak and Points has been inserted successfully.'
+          'Done! The Streak and Points has been inserted successfully.',''
         );
       },
       (error: HttpErrorResponse) => {
@@ -605,8 +605,10 @@ export class EditQuestionComponent {
 
     this.http.editQuestionAns(body).subscribe((res) => {
       console.log(res);
-      this.openModal('Done! The Question has been edited successfully.');
+      this.openModal('Done! The Question has been edited successfully.','edit');
+     
     });
+
   }
   viewQuestionEdit() {
     this.questionFormData.get('questionDescription')?.enable();
@@ -653,12 +655,11 @@ export class EditQuestionComponent {
       });
     } else if (this.cubeFaceId == 1) {
       let activeIndexSubTab = 1;
-
       this._router.navigate(['/home/game-theme'], {
         queryParams: { activeIndexSubTab },
       });
     } else {
-      this._router.navigate(['/home/game-theme']);
+       this._router.navigate(['/home/game-theme']);
     }
   }
 
